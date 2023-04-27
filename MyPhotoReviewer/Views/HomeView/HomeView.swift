@@ -17,6 +17,10 @@ struct ContentView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(Color.teal)
             }
+            Spacer()
+            Text("Environment: \(EnvironmentManager.shared.currentEnvironment.name.uppercased())")
+                .font(.system(size: 12, weight: .regular))
+                .foregroundColor(Color.gray)
         }
         .padding()
     }

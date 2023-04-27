@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
+		C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
+		C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
+		C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
+		C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9E129FA80B8000192CD /* EnvironmentManager.swift */; };
+		C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9E129FA80B8000192CD /* EnvironmentManager.swift */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -34,7 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhotoReviewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
+		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C1A983B429F3D80E00D83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +55,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C101B9D829FA7D6F000192CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1A983AA29F3D80D00D83BBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C101B9E029FA808D000192CD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C101B9E129FA80B8000192CD /* EnvironmentManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		C1A983A429F3D80D00D83BBF = {
 			isa = PBXGroup;
 			children = (
@@ -84,9 +107,10 @@
 		C1A983AE29F3D80D00D83BBF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer.app */,
+				C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */,
 				C1A983BD29F3D80E00D83BBF /* MyPhotoReviewerTests.xctest */,
 				C1A983C729F3D80E00D83BBF /* MyPhotoReviewerUITests.xctest */,
+				C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,6 +124,7 @@
 				C1A983DE29F3D8CD00D83BBF /* ViewModels */,
 				C1A983DD29F3D8C200D83BBF /* Models */,
 				C1A983DF29F3D8D400D83BBF /* Services */,
+				C101B9E029FA808D000192CD /* Managers */,
 				C1A983E029F3D8E700D83BBF /* Utilities */,
 				C1A983B629F3D80E00D83BBF /* Preview Content */,
 			);
@@ -218,9 +243,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer */ = {
+		C101B9D429FA7D6F000192CD /* MyPhotoReviewer-Development */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1A983D129F3D80E00D83BBF /* Build configuration list for PBXNativeTarget "MyPhotoReviewer" */;
+			buildConfigurationList = C101B9DC29FA7D6F000192CD /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Development" */;
+			buildPhases = (
+				C101B9D529FA7D6F000192CD /* Sources */,
+				C101B9D829FA7D6F000192CD /* Frameworks */,
+				C101B9D929FA7D6F000192CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MyPhotoReviewer-Development";
+			productName = MyPhotoReviewer;
+			productReference = C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer-Distribution */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1A983D129F3D80E00D83BBF /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Distribution" */;
 			buildPhases = (
 				C1A983A929F3D80D00D83BBF /* Sources */,
 				C1A983AA29F3D80D00D83BBF /* Frameworks */,
@@ -230,9 +272,9 @@
 			);
 			dependencies = (
 			);
-			name = MyPhotoReviewer;
+			name = "MyPhotoReviewer-Distribution";
 			productName = MyPhotoReviewer;
-			productReference = C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer.app */;
+			productReference = C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C1A983BC29F3D80E00D83BBF /* MyPhotoReviewerTests */ = {
@@ -307,7 +349,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer */,
+				C101B9D429FA7D6F000192CD /* MyPhotoReviewer-Development */,
+				C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer-Distribution */,
 				C1A983BC29F3D80E00D83BBF /* MyPhotoReviewerTests */,
 				C1A983C629F3D80E00D83BBF /* MyPhotoReviewerUITests */,
 			);
@@ -315,6 +358,15 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C101B9D929FA7D6F000192CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */,
+				C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1A983AB29F3D80D00D83BBF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -341,11 +393,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C101B9D529FA7D6F000192CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
+				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
+				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1A983A929F3D80D00D83BBF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */,
+				C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */,
 				C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,17 +435,81 @@
 /* Begin PBXTargetDependency section */
 		C1A983BF29F3D80E00D83BBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer */;
+			target = C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer-Distribution */;
 			targetProxy = C1A983BE29F3D80E00D83BBF /* PBXContainerItemProxy */;
 		};
 		C1A983C929F3D80E00D83BBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer */;
+			target = C1A983AC29F3D80D00D83BBF /* MyPhotoReviewer-Distribution */;
 			targetProxy = C1A983C829F3D80E00D83BBF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C101B9DD29FA7D6F000192CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
+				DEVELOPMENT_TEAM = E7LF2VLC52;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReview.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C101B9DE29FA7D6F000192CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
+				DEVELOPMENT_TEAM = E7LF2VLC52;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.MyPhotoReviewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C1A983CF29F3D80E00D83BBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -521,7 +648,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.MyPhotoReviewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -640,6 +767,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C101B9DC29FA7D6F000192CD /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Development" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C101B9DD29FA7D6F000192CD /* Debug */,
+				C101B9DE29FA7D6F000192CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C1A983A829F3D80D00D83BBF /* Build configuration list for PBXProject "MyPhotoReviewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -649,7 +785,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1A983D129F3D80E00D83BBF /* Build configuration list for PBXNativeTarget "MyPhotoReviewer" */ = {
+		C1A983D129F3D80E00D83BBF /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Distribution" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1A983D229F3D80E00D83BBF /* Debug */,

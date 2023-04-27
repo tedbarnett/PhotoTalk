@@ -28,3 +28,6 @@ Podfile.lock
 
 ### Other Configurations ###
 .DS_Store
+
+## Firebase configuration files
+MyPhotoReviewer/Firebase/GoogleService-Info.plist

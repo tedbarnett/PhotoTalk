@@ -13,7 +13,7 @@ struct MyPhotoReviewerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UserLoginView()
         }
     }
 }

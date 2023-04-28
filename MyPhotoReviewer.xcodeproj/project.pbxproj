@@ -29,6 +29,10 @@
 		C101BA1729FC3E93000192CD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1629FC3E93000192CD /* FirebaseFirestore */; };
 		C101BA1929FC3E93000192CD /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1829FC3E93000192CD /* FirebasePerformance */; };
 		C101BA1B29FC3E93000192CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1A29FC3E93000192CD /* FirebaseStorage */; };
+		C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
+		C101BA2029FC4196000192CD /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
+		C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
+		C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -61,6 +65,8 @@
 		C101B9F429FA8721000192CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C101BA0B29FC3C8B000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C101BA1E29FC4196000192CD /* UserRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationView.swift; sourceTree = "<group>"; };
+		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -150,6 +156,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C101BA1D29FC4166000192CD /* UserAuthenticationViews */ = {
+			isa = PBXGroup;
+			children = (
+				C101BA1E29FC4196000192CD /* UserRegistrationView.swift */,
+				C101BA2129FC4294000192CD /* UserLoginView.swift */,
+			);
+			path = UserAuthenticationViews;
+			sourceTree = "<group>";
+		};
 		C1A983A429F3D80D00D83BBF = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				C1A983DC29F3D8B800D83BBF /* Assets */,
+				C101BA1D29FC4166000192CD /* UserAuthenticationViews */,
 				C1A983E229F3DB1F00D83BBF /* HomeView */,
 				C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */,
 				C1A983E429F3DB3F00D83BBF /* PhotoSlideShowView */,
@@ -522,7 +538,9 @@
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
 				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
+				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
+				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,7 +551,9 @@
 				C101B9F629FA8721000192CD /* AppDelegate.swift in Sources */,
 				C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */,
 				C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */,
+				C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */,
 				C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */,
+				C101BA2029FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

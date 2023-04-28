@@ -30,4 +30,4 @@ Podfile.lock
 .DS_Store
 
 ## Firebase configuration files
-MyPhotoReviewer/Firebase/GoogleService-Info.plist
+MyPhotoReviewer/Firebase/

@@ -22,6 +22,13 @@
 		C101BA0129FA886A000192CD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0029FA886A000192CD /* FirebaseFirestore */; };
 		C101BA0329FA886A000192CD /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0229FA886A000192CD /* FirebasePerformance */; };
 		C101BA0529FA886A000192CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0429FA886A000192CD /* FirebaseStorage */; };
+		C101BA0F29FC3E75000192CD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0E29FC3E75000192CD /* FirebaseAnalytics */; };
+		C101BA1129FC3E75000192CD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1029FC3E75000192CD /* FirebaseAuth */; };
+		C101BA1329FC3E75000192CD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1229FC3E75000192CD /* FirebaseCrashlytics */; };
+		C101BA1529FC3E75000192CD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1429FC3E75000192CD /* FirebaseDatabase */; };
+		C101BA1729FC3E93000192CD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1629FC3E93000192CD /* FirebaseFirestore */; };
+		C101BA1929FC3E93000192CD /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1829FC3E93000192CD /* FirebasePerformance */; };
+		C101BA1B29FC3E93000192CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA1A29FC3E93000192CD /* FirebaseStorage */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -52,6 +59,8 @@
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		C101B9F429FA8721000192CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C101BA0B29FC3C8B000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -83,6 +92,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C101BA1329FC3E75000192CD /* FirebaseCrashlytics in Frameworks */,
+				C101BA0F29FC3E75000192CD /* FirebaseAnalytics in Frameworks */,
+				C101BA1929FC3E93000192CD /* FirebasePerformance in Frameworks */,
+				C101BA1529FC3E75000192CD /* FirebaseDatabase in Frameworks */,
+				C101BA1B29FC3E93000192CD /* FirebaseStorage in Frameworks */,
+				C101BA1729FC3E93000192CD /* FirebaseFirestore in Frameworks */,
+				C101BA1129FC3E75000192CD /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +127,29 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		C101BA0929FC3B4B000192CD /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
+		C101BA0A29FC3B5A000192CD /* Prod */ = {
+			isa = PBXGroup;
+			children = (
+				C101BA0B29FC3C8B000192CD /* GoogleService-Info.plist */,
+			);
+			path = Prod;
+			sourceTree = "<group>";
+		};
+		C101BA0D29FC3E75000192CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C1A983A429F3D80D00D83BBF = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +157,7 @@
 				C1A983C029F3D80E00D83BBF /* MyPhotoReviewerTests */,
 				C1A983CA29F3D80E00D83BBF /* MyPhotoReviewerUITests */,
 				C1A983AE29F3D80D00D83BBF /* Products */,
+				C101BA0D29FC3E75000192CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -232,6 +272,8 @@
 		C1A983E129F3D8FC00D83BBF /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				C101BA0929FC3B4B000192CD /* Dev */,
+				C101BA0A29FC3B5A000192CD /* Prod */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -267,6 +309,7 @@
 			buildPhases = (
 				C101B9D529FA7D6F000192CD /* Sources */,
 				C101B9D829FA7D6F000192CD /* Frameworks */,
+				C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */,
 				C101B9D929FA7D6F000192CD /* Resources */,
 			);
 			buildRules = (
@@ -293,6 +336,7 @@
 			buildPhases = (
 				C1A983A929F3D80D00D83BBF /* Sources */,
 				C1A983AA29F3D80D00D83BBF /* Frameworks */,
+				C101BA1C29FC3F3A000192CD /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1A983AB29F3D80D00D83BBF /* Resources */,
 			);
 			buildRules = (
@@ -300,6 +344,15 @@
 			dependencies = (
 			);
 			name = "MyPhotoReviewer-Distribution";
+			packageProductDependencies = (
+				C101BA0E29FC3E75000192CD /* FirebaseAnalytics */,
+				C101BA1029FC3E75000192CD /* FirebaseAuth */,
+				C101BA1229FC3E75000192CD /* FirebaseCrashlytics */,
+				C101BA1429FC3E75000192CD /* FirebaseDatabase */,
+				C101BA1629FC3E93000192CD /* FirebaseFirestore */,
+				C101BA1829FC3E93000192CD /* FirebasePerformance */,
+				C101BA1A29FC3E93000192CD /* FirebaseStorage */,
+			);
 			productName = MyPhotoReviewer;
 			productReference = C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */;
 			productType = "com.apple.product-type.application";
@@ -422,6 +475,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Setup Firebase Environment GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\nTARGET=\"MyPhotoReviewer\"\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET}/Firebase/Dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_RELEASE=${PROJECT_DIR}/${TARGET}/Firebase/Prod/${GOOGLESERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Make sure the prod version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_RELEASE}\"\nif [ ! -f $GOOGLESERVICE_INFO_RELEASE ]\nthen\necho \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Debug\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_DEV}\"\ncp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_RELEASE}\"\ncp \"${GOOGLESERVICE_INFO_RELEASE}\" \"${PLIST_DESTINATION}\"\nfi  \n";
+		};
+		C101BA1C29FC3F3A000192CD /* Setup Firebase Environment GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Setup Firebase Environment GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\nTARGET=\"MyPhotoReviewer\"\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET}/Firebase/Dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_RELEASE=${PROJECT_DIR}/${TARGET}/Firebase/Prod/${GOOGLESERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Make sure the prod version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_RELEASE}\"\nif [ ! -f $GOOGLESERVICE_INFO_RELEASE ]\nthen\necho \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Debug\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_DEV}\"\ncp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_RELEASE}\"\ncp \"${GOOGLESERVICE_INFO_RELEASE}\" \"${PLIST_DESTINATION}\"\nfi  \n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C101B9D529FA7D6F000192CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -486,7 +578,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
-				DEVELOPMENT_TEAM = E7LF2VLC52;
+				DEVELOPMENT_TEAM = S45HDC2UZ3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
@@ -502,7 +594,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReview.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReviewDEV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -889,6 +981,41 @@
 			productName = FirebasePerformance;
 		};
 		C101BA0429FA886A000192CD /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		C101BA0E29FC3E75000192CD /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C101BA1029FC3E75000192CD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C101BA1229FC3E75000192CD /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		C101BA1429FC3E75000192CD /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		C101BA1629FC3E93000192CD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		C101BA1829FC3E93000192CD /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
+		C101BA1A29FC3E93000192CD /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;

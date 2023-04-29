@@ -33,6 +33,14 @@
 		C101BA2029FC4196000192CD /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
 		C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
 		C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
+		C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */; };
+		C189C8E029FCF7C3007C5FB3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */; };
+		C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */; };
+		C189C8E429FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */; };
+		C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E629FD0F20007C5FB3 /* FormTextField.swift */; };
+		C189C8E829FD0F20007C5FB3 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E629FD0F20007C5FB3 /* FormTextField.swift */; };
+		C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */; };
+		C189C8EB29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -67,6 +75,10 @@
 		C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C101BA1E29FC4196000192CD /* UserRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationView.swift; sourceTree = "<group>"; };
 		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
+		C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
+		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
+		C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationBackgroundArt.swift; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -159,10 +171,27 @@
 		C101BA1D29FC4166000192CD /* UserAuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
-				C101BA1E29FC4196000192CD /* UserRegistrationView.swift */,
 				C101BA2129FC4294000192CD /* UserLoginView.swift */,
+				C101BA1E29FC4196000192CD /* UserRegistrationView.swift */,
+				C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */,
 			);
 			path = UserAuthenticationViews;
+			sourceTree = "<group>";
+		};
+		C189C8E129FCF9A3007C5FB3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C189C8E529FD0EF3007C5FB3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C189C8E629FD0F20007C5FB3 /* FormTextField.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		C1A983A429F3D80D00D83BBF = {
@@ -240,6 +269,8 @@
 		C1A983DB29F3D8B100D83BBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C189C8E529FD0EF3007C5FB3 /* Components */,
+				C189C8E129FCF9A3007C5FB3 /* Extensions */,
 				C1A983DC29F3D8B800D83BBF /* Assets */,
 				C101BA1D29FC4166000192CD /* UserAuthenticationViews */,
 				C1A983E229F3DB1F00D83BBF /* HomeView */,
@@ -253,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				C1A983B429F3D80E00D83BBF /* Assets.xcassets */,
+				C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -461,6 +493,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */,
 				C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */,
 				C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */,
 			);
@@ -470,6 +503,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C189C8E029FCF7C3007C5FB3 /* Colors.xcassets in Resources */,
 				C1A983B829F3D80E00D83BBF /* Preview Assets.xcassets in Resources */,
 				C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */,
 			);
@@ -538,7 +572,10 @@
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
 				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
+				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
+				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
@@ -551,7 +588,10 @@
 				C101B9F629FA8721000192CD /* AppDelegate.swift in Sources */,
 				C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */,
 				C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */,
+				C189C8E429FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */,
+				C189C8E829FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C189C8EB29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA2029FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);

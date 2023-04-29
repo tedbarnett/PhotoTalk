@@ -8,28 +8,99 @@
 import SwiftUI
 
 struct UserRegistrationView: View {
+    
     @State private var name = ""
     @State private var email = ""
     @State private var password = ""
     
+    @SwiftUI.Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("User Information")) {
-                    TextField("Name", text: $name)
-                    TextField("Email", text: $email)
-                    TextField("Password", text: $password)
+        ZStack {
+            
+            // Background color and art
+            Color.black600
+                .ignoresSafeArea()
+            UserAuthenticationBackgroundArt()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 40)
+            
+            // Back button and its container
+            VStack {
+                HStack {
+                    Button(
+                        action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: 40, height: 40)
+                                Image("leftArrowIcon")
+                                    .renderingMode(.template)
+                                    
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 9, height: 16)
+                                    .tint(.white)
+                            }
+                        }
+                    )
+                    Spacer()
                 }
-                Section {
-                    Button(action: {
-                        // Integrate Firebase registration API
-                    }) {
+                .padding(.top, 60)
+                .padding(.leading, 24)
+                
+                Spacer()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            
+            // User registration form
+            VStack(alignment: .center, spacing: 24) {
+                Text("Fill in these details to register")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color.orange200)
+                    .padding(.bottom, 20)
+                
+                FormTextField(
+                    text: self.$name,
+                    title: "Name",
+                    backgroundColor: Color.offwhite100,
+                    height: 45
+                )
+                
+                FormTextField(
+                    text: self.$email,
+                    title: "Email",
+                    backgroundColor: Color.offwhite100,
+                    height: 45
+                )
+                
+                FormTextField(
+                    text: self.$password,
+                    title: "Password",
+                    isSecuredField: true,
+                    backgroundColor: Color.offwhite100,
+                    height: 45
+                )
+                .padding(.bottom, 20)
+                
+                Button(action: {
+                    // Integrate Firebase user login API
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.orange200)
+                            .frame(height: 45)
+
                         Text("Register")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(Color.black)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
-            .navigationTitle("User Registration")
+            .padding(.all, 24)
         }
     }
 }

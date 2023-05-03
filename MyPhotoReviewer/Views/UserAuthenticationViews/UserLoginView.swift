@@ -10,8 +10,13 @@ import SwiftUI
 struct UserLoginView: View {
     
     @State private var email: String = ""
-    @State private var password: String = ""
+    @State private var isEmailInputValid: Bool = false
     
+    @State private var password: String = ""
+    @State private var isPasswordInputValid: Bool = false
+    @State private var isPasswordIncorrect: Bool = false
+    
+    @State private var isLoginEnabled: Bool = false
     @State private var shouldShowUserRegistrationView = false
     
     var body: some View {
@@ -24,7 +29,7 @@ struct UserLoginView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 40)
                 
-                VStack(alignment: .center, spacing: 24) {
+                VStack(alignment: .center, spacing: 16) {
                     Text("Log in to Photo Reviewer")
                         .font(.system(size: 28, weight: .semibold))
                         .foregroundColor(Color.offwhite100)
@@ -33,7 +38,7 @@ struct UserLoginView: View {
                     FormTextField(
                         type: .email,
                         text: self.$email,
-                        backgroundColor: Color.offwhite100,
+                        isInputValid: self.$isEmailInputValid,
                         height: 45
                     )
                     
@@ -41,8 +46,8 @@ struct UserLoginView: View {
                         FormTextField(
                             type: .password,
                             text: self.$password,
+                            isInputValid: self.$isPasswordInputValid,
                             isSecuredField: true,
-                            backgroundColor: Color.offwhite100,
                             height: 45
                         )
                         
@@ -59,6 +64,7 @@ struct UserLoginView: View {
                                 }
                             Spacer()
                         }
+                        .opacity(self.isPasswordIncorrect ? 1 : 0)
                     }
                     .padding(.bottom, 20)
                     
@@ -69,12 +75,14 @@ struct UserLoginView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.blue500)
                                 .frame(height: 45)
-                            
+                        
                             Text("Login")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color.white)
                         }
                     }
+                    .disabled(!self.isLoginEnabled)
+                    .opacity(self.isLoginEnabled ? 1 : 0.5)
                     
                     HStack(alignment: .center) {
                         Text("New to Photo Reviewer?")
@@ -99,6 +107,15 @@ struct UserLoginView: View {
                     ,
                     isActive: self.$shouldShowUserRegistrationView
                 ) { EmptyView() }
+            }
+            .onAppear {
+                self.isLoginEnabled = false
+            }
+            .onChange(of: self.isEmailInputValid) { isValid in
+                self.isLoginEnabled = isValid && self.isPasswordInputValid && !self.password.isEmpty
+            }
+            .onChange(of: self.isPasswordInputValid) { isValid in
+                self.isLoginEnabled = isValid && self.isEmailInputValid && !self.email.isEmpty
             }
         }
         .navigationBarHidden(true)

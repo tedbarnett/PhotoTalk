@@ -11,40 +11,47 @@ struct FormTextField: View {
     
     var type: FormTextFieldType
     @Binding var text: String
+    @Binding var isInputValid: Bool
     var isSecuredField: Bool = false
     var backgroundColor: Color = .white
-    var height: CGFloat = 40
+    var height: CGFloat = 70
+    
+    @State private var didValidateInput = false
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(self.type.title)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(Color.offwhite100)
+            
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.offwhite100)
+                    .stroke(Color.gray800, lineWidth: 1)
                     .frame(height: self.height)
                 
                 if self.isSecuredField {
                     SecureField(
-                        self.type.placeholderText,
+                        "",
                         text: self.$text,
                         onCommit: {
-                            print("entered secured text...")
+                            self.validateInput()
                         }
                     )
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.gray800)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding(.all, 10)
                 } else {
                     TextField(
-                        self.type.placeholderText,
+                        "",
                         text: self.$text,
                         onCommit: {
-                            print("entered text...")
+                            self.validateInput()
                         }
                     )
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.gray800)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding(.all, 10)
@@ -54,6 +61,18 @@ struct FormTextField: View {
             Text(self.type.validationMessage)
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.red400)
+                .opacity(self.didValidateInput ? self.isInputValid ? 0 : 1 : 0)
+                //.animation(.easeIn(duration: 0.2), value: self.didValidateInput)
+        }
+    }
+    
+    private func validateInput() {
+        self.didValidateInput = true
+        
+        switch self.type {
+        case .name: self.isInputValid = !self.text.isEmpty
+        case .email: return self.isInputValid = !self.text.isEmpty && self.text.contains("@") && self.text.contains(".")
+        case .password: self.isInputValid = !self.text.isEmpty && self.text.count >= 8
         }
     }
 }
@@ -65,7 +84,7 @@ struct FormTextField: View {
 enum FormTextFieldType {
     case name, email, password
     
-    var placeholderText: String {
+    var title: String {
         switch self {
         case .name: return "Name"
         case .email: return "Email"

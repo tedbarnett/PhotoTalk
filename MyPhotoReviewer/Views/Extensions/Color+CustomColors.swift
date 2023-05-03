@@ -38,14 +38,14 @@ extension Color {
         return Color("gray200")
     }
     
-    // Returns gray 400 color
-    static var gray400: Color {
-        return Color("gray400")
-    }
-    
     // Returns gray 600 color
     static var gray600: Color {
         return Color("gray600")
+    }
+    
+    // Returns gray 800 color
+    static var gray800: Color {
+        return Color("gray800")
     }
     
     // Returns blue 500 color

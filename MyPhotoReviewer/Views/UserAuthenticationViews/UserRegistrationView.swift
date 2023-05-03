@@ -10,8 +10,13 @@ import SwiftUI
 struct UserRegistrationView: View {
     
     @State private var name = ""
+    @State private var isNameInputValid: Bool = false
     @State private var email = ""
+    @State private var isEmailInputValid: Bool = false
     @State private var password = ""
+    @State private var isPasswordInputValid: Bool = false
+    
+    @State private var isLoginEnabled: Bool = false
     
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
     
@@ -56,7 +61,7 @@ struct UserRegistrationView: View {
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             
             // User registration form
-            VStack(alignment: .center, spacing: 24) {
+            VStack(alignment: .center, spacing: 16) {
                 Text("Get your free account")
                     .font(.system(size: 28, weight: .semibold))
                     .foregroundColor(Color.offwhite100)
@@ -65,22 +70,22 @@ struct UserRegistrationView: View {
                 FormTextField(
                     type: .name,
                     text: self.$name,
-                    backgroundColor: Color.offwhite100,
+                    isInputValid: self.$isNameInputValid,
                     height: 45
                 )
                 
                 FormTextField(
                     type: .email,
                     text: self.$email,
-                    backgroundColor: Color.offwhite100,
+                    isInputValid: self.$isEmailInputValid,
                     height: 45
                 )
                 
                 FormTextField(
                     type: .password,
                     text: self.$password,
+                    isInputValid: self.$isPasswordInputValid,
                     isSecuredField: true,
-                    backgroundColor: Color.offwhite100,
                     height: 45
                 )
                 .padding(.bottom, 20)
@@ -98,8 +103,22 @@ struct UserRegistrationView: View {
                             .foregroundColor(Color.white)
                     }
                 }
+                .disabled(!self.isLoginEnabled)
+                .opacity(self.isLoginEnabled ? 1 : 0.5)
             }
             .padding(.all, 24)
+        }
+        .onAppear {
+            self.isLoginEnabled = false
+        }
+        .onChange(of: self.isNameInputValid) { isValid in
+            self.isLoginEnabled = isValid && self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+        }
+        .onChange(of: self.isEmailInputValid) { isValid in
+            self.isLoginEnabled = isValid && self.isNameInputValid && !self.name.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+        }
+        .onChange(of: self.isPasswordInputValid) { isValid in
+            self.isLoginEnabled = isValid && self.isNameInputValid && !self.name.isEmpty && self.isEmailInputValid && !self.email.isEmpty
         }
     }
 }

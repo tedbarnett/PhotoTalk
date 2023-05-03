@@ -17,7 +17,7 @@ struct UserLoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.black600
+                Color.black900
                     .ignoresSafeArea()
                 
                 UserAuthenticationBackgroundArt()
@@ -25,25 +25,41 @@ struct UserLoginView: View {
                     .padding(.vertical, 40)
                 
                 VStack(alignment: .center, spacing: 24) {
-                    Text("Login with your email and password")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(Color.orange200)
+                    Text("Log in to Photo Reviewer")
+                        .font(.system(size: 28, weight: .semibold))
+                        .foregroundColor(Color.offwhite100)
                         .padding(.bottom, 20)
                     
                     FormTextField(
+                        type: .email,
                         text: self.$email,
-                        title: "Email",
                         backgroundColor: Color.offwhite100,
                         height: 45
                     )
                     
-                    FormTextField(
-                        text: self.$password,
-                        title: "Password",
-                        isSecuredField: true,
-                        backgroundColor: Color.offwhite100,
-                        height: 45
-                    )
+                    VStack(alignment: .leading) {
+                        FormTextField(
+                            type: .password,
+                            text: self.$password,
+                            isSecuredField: true,
+                            backgroundColor: Color.offwhite100,
+                            height: 45
+                        )
+                        
+                        HStack(alignment: .center) {
+                            Text("Forgot password?")
+                                .font(.system(size: 14, weight: .regular))
+                                .foregroundColor(Color.offwhite100)
+                            
+                            Text("Reset here")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(Color.blue500)
+                                .onTapGesture {
+                                    self.shouldShowUserRegistrationView = true
+                                }
+                            Spacer()
+                        }
+                    }
                     .padding(.bottom, 20)
                     
                     Button(action: {
@@ -51,23 +67,23 @@ struct UserLoginView: View {
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.orange200)
+                                .fill(Color.blue500)
                                 .frame(height: 45)
                             
                             Text("Login")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color.white)
                         }
                     }
                     
                     HStack(alignment: .center) {
                         Text("New to Photo Reviewer?")
                             .font(.system(size: 14, weight: .regular))
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color.offwhite100)
                         
                         Text("Register here")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(Color.orange200)
+                            .foregroundColor(Color.blue500)
                             .onTapGesture {
                                 self.shouldShowUserRegistrationView = true
                             }

@@ -13,6 +13,7 @@ struct UserAuthenticationBackgroundArt: View {
             Image(systemName: "photo.on.rectangle.angled")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .foregroundColor(Color.black300)
                 .rotationEffect(.degrees(-25))
                 .frame(width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.7)
                 .opacity(0.3)
@@ -22,16 +23,11 @@ struct UserAuthenticationBackgroundArt: View {
             Image(systemName: "photo.on.rectangle.angled")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .rotationEffect(.degrees(10))
-                .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.4)
+                .foregroundColor(Color.black300)
+                .rotationEffect(.degrees(20))
+                .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.5)
                 .opacity(0.3)
                 .padding(.bottom, 100)
         }
-    }
-}
-
-struct UserAuthenticationBackgroundArt_Previews: PreviewProvider {
-    static var previews: some View {
-        UserAuthenticationBackgroundArt()
     }
 }

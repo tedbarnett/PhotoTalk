@@ -13,28 +13,53 @@ import SwiftUI
  */
 extension Color {
     
-    // Returns black 600 color
-    static var black600: Color {
-        return Color("black600")
-    }
-    
     // Returns offwhite 100 color
     static var offwhite100: Color {
         return Color("offwhite100")
     }
     
-    // Returns blue 400 color
-    static var blue400: Color {
-        return Color("blue400")
+    // Returns black 300 color
+    static var black300: Color {
+        return Color("black300")
     }
     
-    // Returns gray 800 color
-    static var gray800: Color {
-        return Color("gray800")
+    // Returns black 600 color
+    static var black600: Color {
+        return Color("black600")
     }
     
-    // Returns orange 200 color
-    static var orange200: Color {
-        return Color("orange200")
+    // Returns black 900 color
+    static var black900: Color {
+        return Color("black900")
+    }
+    
+    // Returns gray 200 color
+    static var gray200: Color {
+        return Color("gray200")
+    }
+    
+    // Returns gray 400 color
+    static var gray400: Color {
+        return Color("gray400")
+    }
+    
+    // Returns gray 600 color
+    static var gray600: Color {
+        return Color("gray600")
+    }
+    
+    // Returns blue 500 color
+    static var blue500: Color {
+        return Color("blue500")
+    }
+    
+    // Returns blue 600 color
+    static var blue600: Color {
+        return Color("blue600")
+    }
+    
+    // Returns red 400 color
+    static var red400: Color {
+        return Color("red400")
     }
 }

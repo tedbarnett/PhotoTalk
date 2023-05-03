@@ -49,8 +49,7 @@ struct UserRegistrationView: View {
                     )
                     Spacer()
                 }
-                .padding(.top, 60)
-                .padding(.leading, 24)
+                .padding(.top, 50)
                 
                 Spacer()
             }
@@ -58,28 +57,28 @@ struct UserRegistrationView: View {
             
             // User registration form
             VStack(alignment: .center, spacing: 24) {
-                Text("Fill in these details to register")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color.orange200)
+                Text("Get your free account")
+                    .font(.system(size: 28, weight: .semibold))
+                    .foregroundColor(Color.offwhite100)
                     .padding(.bottom, 20)
                 
                 FormTextField(
+                    type: .name,
                     text: self.$name,
-                    title: "Name",
                     backgroundColor: Color.offwhite100,
                     height: 45
                 )
                 
                 FormTextField(
+                    type: .email,
                     text: self.$email,
-                    title: "Email",
                     backgroundColor: Color.offwhite100,
                     height: 45
                 )
                 
                 FormTextField(
+                    type: .password,
                     text: self.$password,
-                    title: "Password",
                     isSecuredField: true,
                     backgroundColor: Color.offwhite100,
                     height: 45
@@ -91,12 +90,12 @@ struct UserRegistrationView: View {
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.orange200)
+                            .fill(Color.blue500)
                             .frame(height: 45)
 
                         Text("Register")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.white)
                     }
                 }
             }

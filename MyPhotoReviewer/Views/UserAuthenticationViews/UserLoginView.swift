@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct UserLoginView: View {
+    
+    @EnvironmentObject private var appContext: AppContext
+    @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
+    @EnvironmentObject private var userProfile: UserProfileModel
     
     @State private var email: String = ""
     @State private var isEmailInputValid: Bool = false
@@ -69,7 +74,27 @@ struct UserLoginView: View {
                     .padding(.bottom, 20)
                     
                     Button(action: {
-                        // Integrate Firebase user login API
+                        guard self.isEmailInputValid, !self.email.isEmpty,
+                              self.isPasswordInputValid, !self.password.isEmpty else { return }
+                        
+                        self.overlayContainerContext.shouldShowProgressIndicator = true
+                        Auth.auth().signIn(withEmail: self.email, password: self.password) { authResult, error in
+                            self.overlayContainerContext.shouldShowProgressIndicator = false
+                            guard let result = authResult,
+                                  let userEmail = result.user.email,
+                                  let userName = result.user.displayName,
+                                  error == nil else {
+                                print("Error loging user!")
+                                self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
+                                return
+                            }
+                            
+                            print("Successfully logged in user!")
+                            self.userProfile.id = result.user.uid
+                            self.userProfile.email = userEmail
+                            self.userProfile.name = userName
+                            self.userProfile.isAuthenticated = true
+                        }
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
@@ -111,13 +136,19 @@ struct UserLoginView: View {
             .onAppear {
                 self.isLoginEnabled = false
             }
-            .onChange(of: self.isEmailInputValid) { isValid in
-                self.isLoginEnabled = isValid && self.isPasswordInputValid && !self.password.isEmpty
+            .onChange(of: self.isEmailInputValid) { _ in
+                self.validateUserInputs()
             }
-            .onChange(of: self.isPasswordInputValid) { isValid in
-                self.isLoginEnabled = isValid && self.isEmailInputValid && !self.email.isEmpty
+            .onChange(of: self.isPasswordInputValid) { _ in
+                self.validateUserInputs()
             }
         }
         .navigationBarHidden(true)
+    }
+    
+    // MARK: Private methods
+    
+    private func validateUserInputs() {
+        self.isLoginEnabled = self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
     }
 }

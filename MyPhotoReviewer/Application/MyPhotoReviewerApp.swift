@@ -11,9 +11,14 @@ import SwiftUI
 struct MyPhotoReviewerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject private var appContext = AppContext()
+    @StateObject private var userProfile = UserProfileModel.defaultUserProfile
+    
     var body: some Scene {
         WindowGroup {
-            UserLoginView()
+            RootView()
+                .environmentObject(self.appContext)
+                .environmentObject(self.userProfile)
         }
     }
 }

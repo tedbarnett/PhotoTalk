@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
+		C101B9D629FA7D6F000192CD /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
 		C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
 		C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -43,8 +43,24 @@
 		C189C8EB29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */; };
 		C19948A82A024689004CD4A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */; };
 		C19948A92A024689004CD4A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */; };
+		C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */; };
+		C19948AC2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */; };
+		C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AD2A036A9A004CD4A1 /* AlertView.swift */; };
+		C19948AF2A036A9A004CD4A1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AD2A036A9A004CD4A1 /* AlertView.swift */; };
+		C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B02A036AC7004CD4A1 /* TypeAliases.swift */; };
+		C19948B22A036AC7004CD4A1 /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B02A036AC7004CD4A1 /* TypeAliases.swift */; };
+		C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B32A036C24004CD4A1 /* UIDevice+ScreenSize.swift */; };
+		C19948B52A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B32A036C24004CD4A1 /* UIDevice+ScreenSize.swift */; };
+		C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B62A0371CD004CD4A1 /* OverlayContainerView.swift */; };
+		C19948B82A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B62A0371CD004CD4A1 /* OverlayContainerView.swift */; };
+		C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B92A037223004CD4A1 /* AppContext.swift */; };
+		C19948BB2A037223004CD4A1 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948B92A037223004CD4A1 /* AppContext.swift */; };
+		C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */; };
+		C19948BE2A038F73004CD4A1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */; };
+		C19948C02A03923F004CD4A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
+		C19948C12A03923F004CD4A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
-		C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
+		C1A983B329F3D80D00D83BBF /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
 		C1A983B829F3D80E00D83BBF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
 		C1A983C229F3D80E00D83BBF /* MyPhotoReviewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983C129F3D80E00D83BBF /* MyPhotoReviewerTests.swift */; };
@@ -82,9 +98,17 @@
 		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationBackgroundArt.swift; sourceTree = "<group>"; };
 		C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		C19948AD2A036A9A004CD4A1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		C19948B02A036AC7004CD4A1 /* TypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAliases.swift; sourceTree = "<group>"; };
+		C19948B32A036C24004CD4A1 /* UIDevice+ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+ScreenSize.swift"; sourceTree = "<group>"; };
+		C19948B62A0371CD004CD4A1 /* OverlayContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerView.swift; sourceTree = "<group>"; };
+		C19948B92A037223004CD4A1 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
+		C19948BF2A03923F004CD4A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
-		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewerView.swift; sourceTree = "<group>"; };
 		C1A983B429F3D80E00D83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C1A983BD29F3D80E00D83BBF /* MyPhotoReviewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotoReviewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */,
+				C19948B32A036C24004CD4A1 /* UIDevice+ScreenSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -193,6 +218,9 @@
 			isa = PBXGroup;
 			children = (
 				C189C8E629FD0F20007C5FB3 /* FormTextField.swift */,
+				C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */,
+				C19948AD2A036A9A004CD4A1 /* AlertView.swift */,
+				C19948B62A0371CD004CD4A1 /* OverlayContainerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -264,7 +292,10 @@
 			isa = PBXGroup;
 			children = (
 				C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */,
+				C19948BF2A03923F004CD4A1 /* RootView.swift */,
 				C101B9F429FA8721000192CD /* AppDelegate.swift */,
+				C19948B02A036AC7004CD4A1 /* TypeAliases.swift */,
+				C19948B92A037223004CD4A1 /* AppContext.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -276,7 +307,7 @@
 				C189C8E129FCF9A3007C5FB3 /* Extensions */,
 				C1A983DC29F3D8B800D83BBF /* Assets */,
 				C101BA1D29FC4166000192CD /* UserAuthenticationViews */,
-				C1A983E229F3DB1F00D83BBF /* HomeView */,
+				C1A983E229F3DB1F00D83BBF /* PhotoReviewerView */,
 				C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */,
 				C1A983E429F3DB3F00D83BBF /* PhotoSlideShowView */,
 			);
@@ -296,6 +327,7 @@
 		C1A983DD29F3D8C200D83BBF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -330,12 +362,12 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
-		C1A983E229F3DB1F00D83BBF /* HomeView */ = {
+		C1A983E229F3DB1F00D83BBF /* PhotoReviewerView */ = {
 			isa = PBXGroup;
 			children = (
-				C1A983B229F3D80D00D83BBF /* HomeView.swift */,
+				C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */,
 			);
-			path = HomeView;
+			path = PhotoReviewerView;
 			sourceTree = "<group>";
 		};
 		C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */ = {
@@ -575,13 +607,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */,
+				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
+				C19948C02A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
-				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
+				C101B9D629FA7D6F000192CD /* PhotoReviewerView.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
+				C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
+				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
@@ -591,13 +631,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19948B22A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C19948BB2A037223004CD4A1 /* AppContext.swift in Sources */,
+				C19948BE2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
+				C19948C12A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F629FA8721000192CD /* AppDelegate.swift in Sources */,
-				C1A983B329F3D80D00D83BBF /* HomeView.swift in Sources */,
+				C1A983B329F3D80D00D83BBF /* PhotoReviewerView.swift in Sources */,
 				C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */,
+				C19948AF2A036A9A004CD4A1 /* AlertView.swift in Sources */,
 				C189C8E429FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */,
+				C19948B52A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E829FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C19948AC2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EB29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C19948B82A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA2029FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
@@ -641,13 +689,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
-				DEVELOPMENT_TEAM = S45HDC2UZ3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 63K8J7P389;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Reviewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -663,6 +713,8 @@
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReviewDEV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "My Photo Reviewer DEV Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -680,7 +732,7 @@
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Reviewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -821,13 +873,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
-				DEVELOPMENT_TEAM = E7LF2VLC52;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 63K8J7P389;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Reviewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -843,6 +897,8 @@
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "My Photo Reviewer APP STORE Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -860,7 +916,7 @@
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MyPhotoReviewer;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Reviewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

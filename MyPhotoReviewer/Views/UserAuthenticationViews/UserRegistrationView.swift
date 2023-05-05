@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct UserRegistrationView: View {
+    
+    @EnvironmentObject private var appContext: AppContext
+    @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
+    @EnvironmentObject private var userProfile: UserProfileModel
     
     @State private var name = ""
     @State private var isNameInputValid: Bool = false
@@ -91,7 +96,30 @@ struct UserRegistrationView: View {
                 .padding(.bottom, 20)
                 
                 Button(action: {
-                    // Integrate Firebase user login API
+                    guard self.isNameInputValid, !self.name.isEmpty,
+                          self.isEmailInputValid, !self.email.isEmpty,
+                          self.isPasswordInputValid, !self.password.isEmpty else { return }
+                    
+                    self.overlayContainerContext.shouldShowProgressIndicator = true
+                    Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+                        self.overlayContainerContext.shouldShowProgressIndicator = false
+                        guard let result = authResult,
+                              let userEmail = result.user.email,
+                              error == nil else {
+                            print("Error, couldn't register user")
+                            self.overlayContainerContext.presentAlert(ofType: .userRegistrationFailed)
+                            return
+                        }
+                        print("Successfully created a new user account with email: \(userEmail)")
+                        
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = self.name
+                        changeRequest?.commitChanges { error in
+                            self.overlayContainerContext.presentAlert(ofType: .userRegistrationSuccessfull)
+                            guard error == nil else { return }
+                            print("Successfully updated useer name to \(self.name)")
+                        }
+                    }
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
@@ -111,14 +139,20 @@ struct UserRegistrationView: View {
         .onAppear {
             self.isLoginEnabled = false
         }
-        .onChange(of: self.isNameInputValid) { isValid in
-            self.isLoginEnabled = isValid && self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+        .onChange(of: self.isNameInputValid) { _ in
+            self.validateUserInputs()
         }
-        .onChange(of: self.isEmailInputValid) { isValid in
-            self.isLoginEnabled = isValid && self.isNameInputValid && !self.name.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+        .onChange(of: self.isEmailInputValid) { _ in
+            self.validateUserInputs()
         }
-        .onChange(of: self.isPasswordInputValid) { isValid in
-            self.isLoginEnabled = isValid && self.isNameInputValid && !self.name.isEmpty && self.isEmailInputValid && !self.email.isEmpty
+        .onChange(of: self.isPasswordInputValid) { _ in
+            self.validateUserInputs()
         }
+    }
+    
+    // MARK: Private methods
+    
+    private func validateUserInputs() {
+        self.isLoginEnabled = self.isNameInputValid && !self.name.isEmpty && self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
     }
 }

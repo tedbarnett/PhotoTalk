@@ -59,6 +59,8 @@
 		C19948BE2A038F73004CD4A1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */; };
 		C19948C02A03923F004CD4A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
 		C19948C12A03923F004CD4A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
+		C19949072A067AC4004CD4A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C19949062A067AC4004CD4A1 /* Localizable.strings */; };
+		C19949082A067AC4004CD4A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C19949062A067AC4004CD4A1 /* Localizable.strings */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -106,6 +108,7 @@
 		C19948B92A037223004CD4A1 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		C19948BF2A03923F004CD4A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		C19949062A067AC4004CD4A1 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewerView.swift; sourceTree = "<group>"; };
@@ -225,6 +228,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		C19949052A067AA7004CD4A1 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C19949062A067AC4004CD4A1 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		C1A983A429F3D80D00D83BBF = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +269,7 @@
 				C1A983DF29F3D8D400D83BBF /* Services */,
 				C101B9E029FA808D000192CD /* Managers */,
 				C1A983E029F3D8E700D83BBF /* Utilities */,
+				C19949052A067AA7004CD4A1 /* Localization */,
 				C1A983B629F3D80E00D83BBF /* Preview Content */,
 			);
 			path = MyPhotoReviewer;
@@ -529,6 +541,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19949072A067AC4004CD4A1 /* Localizable.strings in Resources */,
 				C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */,
 				C19948A82A024689004CD4A1 /* LaunchScreen.storyboard in Resources */,
 				C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */,
@@ -540,6 +553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19949082A067AC4004CD4A1 /* Localizable.strings in Resources */,
 				C189C8E029FCF7C3007C5FB3 /* Colors.xcassets in Resources */,
 				C19948A92A024689004CD4A1 /* LaunchScreen.storyboard in Resources */,
 				C1A983B829F3D80E00D83BBF /* Preview Assets.xcassets in Resources */,

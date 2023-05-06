@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  MyPhotoReviewer
+
+  Created by Prem Pratap Singh on 06/05/23.
+  
+*/
+
+//---------- Common text ---------------------------------------
+"Ok" = "Ok";
+
+//---------- User login and registration module text -----------
+
+"Log in to Photo Reviewer" = "Log in to Photo Reviewer";
+"Forgot password?" = "Forgot password?";
+"Reset here" = "Reset here";
+"Login" = "Login";
+"New to Photo Reviewer?" = "New to Photo Reviewer?";
+"Register here" = "Register here";
+"Get your free account" = "Get your free account";
+"Register" = "Register";
+"Name" = "Name";
+"Email" = "Email";
+"Password" = "Password";
+"Please enter valid name" = "Please enter valid name";
+"Please enter a valid email" = "Please enter a valid email";
+"Please enter minimum of 8 characters for password" = "Please enter minimum of 8 characters for password";
+
+"Login failed" = "Login failed";
+"Oops! login failed. Please check your email, password and try again." = "Oops! login failed. Please check your email, password and try again.";
+"Registration successful" = "Registration successful";
+"Wooho! your new account is created. Please login with your email and password." = "Wooho! your new account is created. Please login with your email and password.";
+"Registration failed" = "Registration failed";
+"Oops! there was an error creating your account. Please try again." = "Oops! there was an error creating your account. Please try again.";
+"Email sent for password reset" = "Email sent for password reset";
+"We sent you an email with details about resetting your password. Please follow the email instructions." = "We sent you an email with details about resetting your password. Please follow the email instructions.";
+
+//---------- Photo reviewer module text -----------------------
+
+"Welcome back" = "Welcome back";

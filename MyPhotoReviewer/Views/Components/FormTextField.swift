@@ -86,17 +86,26 @@ enum FormTextFieldType {
     
     var title: String {
         switch self {
-        case .name: return "Name"
-        case .email: return "Email"
-        case .password: return "Password"
+        case .name: return NSLocalizedString("Name", comment: "User registration - name field title")
+        case .email: return NSLocalizedString("Email", comment: "User registration - email field title")
+        case .password: return NSLocalizedString("Password", comment: "User registration - password field title")
         }
     }
     
     var validationMessage: String {
         switch self {
-        case .name: return "Please enter valid name"
-        case .email: return "Please enter a valid email"
-        case .password: return "Please enter minimum of 8 characters for password"
+        case .name: return NSLocalizedString(
+            "Please enter valid name",
+            comment: "User registration - name field validation text"
+        )
+        case .email: return NSLocalizedString(
+            "Please enter a valid email",
+            comment: "User registration - email field validation text"
+        )
+        case .password: return NSLocalizedString(
+            "Please enter minimum of 8 characters for password",
+            comment: "User registration - password field validation text"
+        )
         }
     }
 }

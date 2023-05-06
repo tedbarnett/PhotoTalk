@@ -8,7 +8,15 @@
 import SwiftUI
 import FirebaseAuth
 
+/**
+ User registration view preents input form for user registration with name, email and password.
+ It uses UserAuthenticationViewModel for managing its data, state and api calls.
+ */
 struct UserRegistrationView: View {
+    
+    // MARK: Private properties
+    
+    @SwiftUI.Environment(\.presentationMode) private var presentationMode
     
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
@@ -21,7 +29,7 @@ struct UserRegistrationView: View {
     @State private var password = ""
     @State private var isPasswordInputValid: Bool = true
     
-    @SwiftUI.Environment(\.presentationMode) private var presentationMode
+    // MARK: - User interface
     
     var body: some View {
         ZStack {
@@ -65,7 +73,7 @@ struct UserRegistrationView: View {
             
             // User registration form
             VStack(alignment: .center, spacing: 16) {
-                Text("Get your free account")
+                Text(NSLocalizedString("Get your free account", comment: "User registration view - title"))
                     .font(.system(size: 28, weight: .semibold))
                     .foregroundColor(Color.offwhite100)
                     .padding(.bottom, 20)
@@ -98,21 +106,15 @@ struct UserRegistrationView: View {
                     self.overlayContainerContext.shouldShowProgressIndicator = true
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
                         self.overlayContainerContext.shouldShowProgressIndicator = false
-                        guard let result = authResult,
-                              let userEmail = result.user.email,
-                              error == nil else {
-                            print("Error, couldn't register user")
+                        guard error == nil else {
                             self.overlayContainerContext.presentAlert(ofType: .userRegistrationFailed)
                             return
                         }
-                        print("Successfully created a new user account with email: \(userEmail)")
 
                         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                         changeRequest?.displayName = self.name
-                        changeRequest?.commitChanges { error in
+                        changeRequest?.commitChanges { _ in
                             self.overlayContainerContext.presentAlert(ofType: .userRegistrationSuccessfull)
-                            guard error == nil else { return }
-                            print("Successfully updated useer name to \(self.name)")
                         }
                     }
                 }) {

@@ -8,7 +8,13 @@
 import SwiftUI
 import FirebaseAuth
 
+/**
+ User login view preents input form for user login with email and password.
+ It uses UserAuthenticationViewModel for managing its data, state and api calls.
+ */
 struct UserLoginView: View {
+    
+    // MARK: Private properties
     
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
@@ -23,6 +29,8 @@ struct UserLoginView: View {
     
     @State private var shouldShowUserRegistrationView = false
     
+    // MARK: user inteface
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -34,7 +42,7 @@ struct UserLoginView: View {
                     .padding(.vertical, 40)
                 
                 VStack(alignment: .center, spacing: 16) {
-                    Text("Log in to Photo Reviewer")
+                    Text(NSLocalizedString("Log in to Photo Reviewer", comment: "User login view - title"))
                         .font(.system(size: 28, weight: .semibold))
                         .foregroundColor(Color.offwhite100)
                         .padding(.bottom, 20)
@@ -56,11 +64,11 @@ struct UserLoginView: View {
                         )
                         
                         HStack(alignment: .center) {
-                            Text("Forgot password?")
+                            Text(NSLocalizedString("Forgot password?", comment: "User login view - forgot password title"))
                                 .font(.system(size: 14, weight: .regular))
                                 .foregroundColor(Color.offwhite100)
                             
-                            Text("Reset here")
+                            Text(NSLocalizedString("Reset here", comment: "User login view - forgot password button title"))
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(Color.blue500)
                                 .onTapGesture {
@@ -84,12 +92,10 @@ struct UserLoginView: View {
                                   let userEmail = result.user.email,
                                   let userName = result.user.displayName,
                                   error == nil else {
-                                print("Error loging user!")
                                 self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
                                 return
                             }
 
-                            print("Successfully logged in user!")
                             self.userProfile.id = result.user.uid
                             self.userProfile.email = userEmail
                             self.userProfile.name = userName
@@ -101,7 +107,7 @@ struct UserLoginView: View {
                                 .fill(Color.blue500)
                                 .frame(height: 45)
                         
-                            Text("Login")
+                            Text(NSLocalizedString("Login", comment: "User login view - login button title"))
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color.white)
                         }
@@ -110,11 +116,11 @@ struct UserLoginView: View {
                     .opacity(self.email.isEmpty || self.password.isEmpty ? 0.5 : 1)
                     
                     HStack(alignment: .center) {
-                        Text("New to Photo Reviewer?")
+                        Text(NSLocalizedString("New to Photo Reviewer?", comment: "User login view - registration title"))
                             .font(.system(size: 14, weight: .regular))
                             .foregroundColor(Color.offwhite100)
                         
-                        Text("Register here")
+                        Text(NSLocalizedString("Register here", comment: "User login view - registration button title"))
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(Color.blue500)
                             .onTapGesture {

@@ -24,7 +24,7 @@ struct PhotoReviewerView: View {
                     
                     // Welcome text
                     HStack(alignment: .center, spacing: 3) {
-                        Text("Welcome back")
+                        Text(NSLocalizedString("Welcome back", comment: "Photo reviewer view - welcome title"))
                             .font(.system(size: 16, weight: .regular))
                             .foregroundColor(Color.offwhite100)
                         Text("\(self.userProfile.name)")
@@ -48,9 +48,6 @@ struct PhotoReviewerView: View {
                 .padding(.horizontal, 16)
                 
                 Spacer()
-                Text("Environment: \(self.appContext.currentEnvironment.name.uppercased())")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color.gray600)
             }
             .padding(.top, 20)
         }

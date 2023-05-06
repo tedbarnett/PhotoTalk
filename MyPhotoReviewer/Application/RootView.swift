@@ -28,5 +28,8 @@ struct RootView: View {
             OverlayContainerView()
         }
         .environmentObject(self.overlayContainerContext)
+        .onAppear {
+            print("App is running with \(self.appContext.currentEnvironment.name.uppercased()) environment")
+        }
     }
 }

@@ -136,6 +136,7 @@ enum AlertType: Equatable {
     case userRegistrationSuccessfull
     case userRegistrationFailed
     case emailSentForPasswordReset
+    case emailFailedForPasswordReset
 
     // MARK: Public properties
 
@@ -145,7 +146,8 @@ enum AlertType: Equatable {
         case .userLoginFailed,
             .userRegistrationSuccessfull,
             .userRegistrationFailed,
-            .emailSentForPasswordReset: return false
+            .emailSentForPasswordReset,
+            .emailFailedForPasswordReset: return false
         }
     }
 
@@ -156,7 +158,8 @@ enum AlertType: Equatable {
         case .userLoginFailed,
             .userRegistrationSuccessfull,
             .userRegistrationFailed,
-            .emailSentForPasswordReset: return nil
+            .emailSentForPasswordReset,
+            .emailFailedForPasswordReset: return nil
         }
     }
 
@@ -171,6 +174,8 @@ enum AlertType: Equatable {
             return NSLocalizedString("Registration failed", comment: "User registration - failure title")
         case .emailSentForPasswordReset:
             return NSLocalizedString("Email sent for password reset", comment: "User registration - password reset title")
+        case .emailFailedForPasswordReset:
+            return NSLocalizedString("Failed to send email", comment: "User registration - password reset title")
         }
     }
 
@@ -197,6 +202,11 @@ enum AlertType: Equatable {
                 "We sent you an email with details about resetting your password. Please follow the email instructions.",
                 comment: "User registration - password reset description"
             )
+        case .emailFailedForPasswordReset:
+            return NSLocalizedString(
+                "Oops! there was an error sending email for password reset. Please try again.",
+                comment: "User registration - password reset title"
+            )
         }
     }
 
@@ -205,7 +215,8 @@ enum AlertType: Equatable {
         case .userLoginFailed,
             .userRegistrationSuccessfull,
             .userRegistrationFailed,
-            .emailSentForPasswordReset: return .leading
+            .emailSentForPasswordReset,
+            .emailFailedForPasswordReset: return .leading
         }
     }
 
@@ -215,7 +226,8 @@ enum AlertType: Equatable {
         case .userLoginFailed,
             .userRegistrationSuccessfull,
             .userRegistrationFailed,
-            .emailSentForPasswordReset:
+            .emailSentForPasswordReset,
+            .emailFailedForPasswordReset:
             return NSLocalizedString("Ok", comment: "Common view - Ok button label")
         }
     }
@@ -227,7 +239,8 @@ enum AlertType: Equatable {
         case .userLoginFailed,
             .userRegistrationSuccessfull,
             .userRegistrationFailed,
-            .emailSentForPasswordReset: return nil
+            .emailSentForPasswordReset,
+            .emailFailedForPasswordReset: return nil
         }
         
         // Other options - return NSLocalizedString("Cancel", comment: "Common view - Cancel button label")

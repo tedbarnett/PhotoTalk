@@ -29,6 +29,8 @@ struct UserRegistrationView: View {
     @State private var password = ""
     @State private var isPasswordInputValid: Bool = true
     
+    @StateObject private var authenticationViewModel = UserAuthenticationViewModel()
+    
     // MARK: - User interface
     
     var body: some View {
@@ -104,26 +106,24 @@ struct UserRegistrationView: View {
                 Button(action: {
                     guard self.areInputsValid() else { return }
                     self.overlayContainerContext.shouldShowProgressIndicator = true
-                    Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-                        self.overlayContainerContext.shouldShowProgressIndicator = false
-                        guard error == nil else {
-                            self.overlayContainerContext.presentAlert(ofType: .userRegistrationFailed)
-                            return
-                        }
-
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = self.name
-                        changeRequest?.commitChanges { _ in
+                    self.authenticationViewModel.registerUser(
+                        with: self.name,
+                        email: self.email,
+                        password: self.password) { didRegisterUserSuccessfully in
+                            self.overlayContainerContext.shouldShowProgressIndicator = false
+                            guard didRegisterUserSuccessfully else {
+                                self.overlayContainerContext.presentAlert(ofType: .userRegistrationFailed)
+                                return
+                            }
                             self.overlayContainerContext.presentAlert(ofType: .userRegistrationSuccessfull)
                         }
-                    }
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color.blue500)
                             .frame(height: 45)
 
-                        Text("Register")
+                        Text(NSLocalizedString("Register", comment: "User registration view - register button title"))
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(Color.white)
                     }

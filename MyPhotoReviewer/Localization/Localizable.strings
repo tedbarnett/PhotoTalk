@@ -25,6 +25,7 @@
 "Please enter valid name" = "Please enter valid name";
 "Please enter a valid email" = "Please enter a valid email";
 "Please enter minimum of 8 characters for password" = "Please enter minimum of 8 characters for password";
+"Guest" = "Guest";
 
 "Login failed" = "Login failed";
 "Oops! login failed. Please check your email, password and try again." = "Oops! login failed. Please check your email, password and try again.";
@@ -34,6 +35,8 @@
 "Oops! there was an error creating your account. Please try again." = "Oops! there was an error creating your account. Please try again.";
 "Email sent for password reset" = "Email sent for password reset";
 "We sent you an email with details about resetting your password. Please follow the email instructions." = "We sent you an email with details about resetting your password. Please follow the email instructions.";
+"Failed to send email" = "Failed to send email";
+"Oops! there was an error sending email for password reset. Please try again." = "Oops! there was an error sending email for password reset. Please try again.";
 
 //---------- Photo reviewer module text -----------------------
 

@@ -29,6 +29,8 @@ struct UserLoginView: View {
     
     @State private var shouldShowUserRegistrationView = false
     
+    @StateObject private var authenticationViewModel = UserAuthenticationViewModel()
+    
     // MARK: user inteface
     
     var body: some View {
@@ -72,7 +74,15 @@ struct UserLoginView: View {
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(Color.blue500)
                                 .onTapGesture {
-                                    self.shouldShowUserRegistrationView = true
+                                    self.overlayContainerContext.shouldShowProgressIndicator = true
+                                    self.authenticationViewModel.sendEmailForPasswordReset { didSendEmail in
+                                        self.overlayContainerContext.shouldShowProgressIndicator = false
+                                        guard didSendEmail else {
+                                            self.overlayContainerContext.presentAlert(ofType: .emailFailedForPasswordReset)
+                                            return
+                                        }
+                                        self.overlayContainerContext.presentAlert(ofType: .emailSentForPasswordReset)
+                                    }
                                 }
                             Spacer()
                         }
@@ -86,21 +96,19 @@ struct UserLoginView: View {
                         }
                         
                         self.overlayContainerContext.shouldShowProgressIndicator = true
-                        Auth.auth().signIn(withEmail: self.email, password: self.password) { authResult, error in
-                            self.overlayContainerContext.shouldShowProgressIndicator = false
-                            guard let result = authResult,
-                                  let userEmail = result.user.email,
-                                  let userName = result.user.displayName,
-                                  error == nil else {
-                                self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
-                                return
+                        self.authenticationViewModel.authenticateUser(
+                            with: self.email,
+                            password: self.password) { isAuthenticationSuccessful in
+                                self.overlayContainerContext.shouldShowProgressIndicator = false
+                                guard isAuthenticationSuccessful else {
+                                    self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
+                                    self.isPasswordIncorrect = true
+                                    return
+                                }
+                                
+                                self.isPasswordIncorrect = false
+                                self.userProfile.isAuthenticated = true
                             }
-
-                            self.userProfile.id = result.user.uid
-                            self.userProfile.email = userEmail
-                            self.userProfile.name = userName
-                            self.userProfile.isAuthenticated = true
-                        }
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
@@ -141,6 +149,9 @@ struct UserLoginView: View {
             }
         }
         .navigationBarHidden(true)
+        .onAppear {
+            self.authenticationViewModel.userProfile = self.userProfile
+        }
     }
     
     // MARK: Private methods

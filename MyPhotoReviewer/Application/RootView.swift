@@ -7,11 +7,20 @@
 
 import SwiftUI
 
+/**
+ RootView works as the primary view for the application.
+ It sets application environment variables, checks user authentication state and navigates to the respective view.
+ */
 struct RootView: View {
+    
+    // MARK: Private properties
+    
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var userProfile: UserProfileModel
 
     @StateObject private var overlayContainerContext = OverlayContainerContext()
+    
+    // MARK: - User interface
     
     var body: some View {
         ZStack {
@@ -29,7 +38,20 @@ struct RootView: View {
         }
         .environmentObject(self.overlayContainerContext)
         .onAppear {
-            print("App is running with \(self.appContext.currentEnvironment.name.uppercased()) environment")
+            self.initializeApp()
         }
+    }
+    
+    // MARK: Private methods
+    
+    /**
+     This method sets initial settings and configuration for the app
+     */
+    private func initializeApp() {
+        print("App is running with \(self.appContext.currentEnvironment.name.uppercased()) environment")
+        
+        let localStorageService = LocalStorageService()
+        self.userProfile.isAuthenticated = localStorageService.isUserAuthenticated
+        self.userProfile.name = localStorageService.userName
     }
 }

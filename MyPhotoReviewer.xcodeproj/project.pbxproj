@@ -61,6 +61,12 @@
 		C19948C12A03923F004CD4A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
 		C19949072A067AC4004CD4A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C19949062A067AC4004CD4A1 /* Localizable.strings */; };
 		C19949082A067AC4004CD4A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C19949062A067AC4004CD4A1 /* Localizable.strings */; };
+		C199490A2A068209004CD4A1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19949092A068209004CD4A1 /* BaseViewModel.swift */; };
+		C199490B2A068209004CD4A1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19949092A068209004CD4A1 /* BaseViewModel.swift */; };
+		C199490D2A06824D004CD4A1 /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C199490C2A06824D004CD4A1 /* LocalStorageService.swift */; };
+		C199490E2A06824D004CD4A1 /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C199490C2A06824D004CD4A1 /* LocalStorageService.swift */; };
+		C19949102A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */; };
+		C19949112A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */; };
 		C1A983B129F3D80D00D83BBF /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1A983B329F3D80D00D83BBF /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
 		C1A983B529F3D80E00D83BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -109,6 +115,9 @@
 		C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		C19948BF2A03923F004CD4A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C19949062A067AC4004CD4A1 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		C19949092A068209004CD4A1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		C199490C2A06824D004CD4A1 /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
+		C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		C1A983AD29F3D80D00D83BBF /* MyPhotoReviewer-Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewerView.swift; sourceTree = "<group>"; };
@@ -347,6 +356,8 @@
 		C1A983DE29F3D8CD00D83BBF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C19949092A068209004CD4A1 /* BaseViewModel.swift */,
+				C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -354,6 +365,7 @@
 		C1A983DF29F3D8D400D83BBF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C199490C2A06824D004CD4A1 /* LocalStorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -622,12 +634,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C199490D2A06824D004CD4A1 /* LocalStorageService.swift in Sources */,
 				C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */,
 				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
 				C19948C02A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
+				C199490A2A068209004CD4A1 /* BaseViewModel.swift in Sources */,
 				C101B9D629FA7D6F000192CD /* PhotoReviewerView.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
+				C19949102A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */,
 				C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
@@ -646,12 +661,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19948B22A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C199490E2A06824D004CD4A1 /* LocalStorageService.swift in Sources */,
 				C19948BB2A037223004CD4A1 /* AppContext.swift in Sources */,
 				C19948BE2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
 				C19948C12A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F629FA8721000192CD /* AppDelegate.swift in Sources */,
+				C199490B2A068209004CD4A1 /* BaseViewModel.swift in Sources */,
 				C1A983B329F3D80D00D83BBF /* PhotoReviewerView.swift in Sources */,
 				C101B9E329FA8408000192CD /* EnvironmentManager.swift in Sources */,
+				C19949112A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */,
 				C19948AF2A036A9A004CD4A1 /* AlertView.swift in Sources */,
 				C189C8E429FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2329FC4294000192CD /* UserLoginView.swift in Sources */,

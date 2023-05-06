@@ -11,6 +11,8 @@ import Foundation
 class UserProfileModel: ObservableObject {
 
     // MARK: Public properties
+    
+    static let guestUserName: String = NSLocalizedString("Guest", comment: "Guest user name")
 
     var id: String
     var email: String

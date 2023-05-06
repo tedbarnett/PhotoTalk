@@ -7,9 +7,24 @@
 
 import SwiftUI
 
+/**
+ PhotoReviewerView is the main view shown to the user after successful user authentication.
+ It presents UI/UX for user to select source of images (Google drive, Apple iCloud, etc), presents
+ list of images and their preview.
+ 
+ It also provides the tools for adding details to the image like location,date, time, audio annotation, etc.
+ */
 struct PhotoReviewerView: View {
+    
+    // MARK: Private properties
+    
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var userProfile: UserProfileModel
+    @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
+    
+    @StateObject private var authenticationViewModel = UserAuthenticationViewModel()
+    
+    // MARK: User interface
     
     var body: some View {
         ZStack {
@@ -35,7 +50,14 @@ struct PhotoReviewerView: View {
                     
                     // Logout button
                     Button(action: {
-                        
+                        self.overlayContainerContext.shouldShowProgressIndicator = true
+                        self.authenticationViewModel.logutUser { didLogoutSuccessfully in
+                            self.overlayContainerContext.shouldShowProgressIndicator = false
+                            guard didLogoutSuccessfully else {
+                                return 
+                            }
+                            self.userProfile.isAuthenticated = false
+                        }
                     }) {
                         Image(systemName: "power.circle.fill")
                             .renderingMode(.template)
@@ -50,6 +72,9 @@ struct PhotoReviewerView: View {
                 Spacer()
             }
             .padding(.top, 20)
+        }
+        .onAppear {
+            self.authenticationViewModel.userProfile = self.userProfile
         }
     }
 }

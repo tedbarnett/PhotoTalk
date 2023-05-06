@@ -15,13 +15,12 @@ struct UserLoginView: View {
     @EnvironmentObject private var userProfile: UserProfileModel
     
     @State private var email: String = ""
-    @State private var isEmailInputValid: Bool = false
+    @State private var isEmailInputValid: Bool = true
     
     @State private var password: String = ""
-    @State private var isPasswordInputValid: Bool = false
+    @State private var isPasswordInputValid: Bool = true
     @State private var isPasswordIncorrect: Bool = false
     
-    @State private var isLoginEnabled: Bool = false
     @State private var shouldShowUserRegistrationView = false
     
     var body: some View {
@@ -74,8 +73,9 @@ struct UserLoginView: View {
                     .padding(.bottom, 20)
                     
                     Button(action: {
-                        guard self.isEmailInputValid, !self.email.isEmpty,
-                              self.isPasswordInputValid, !self.password.isEmpty else { return }
+                        guard self.areInputsValid() else {
+                            return
+                        }
                         
                         self.overlayContainerContext.shouldShowProgressIndicator = true
                         Auth.auth().signIn(withEmail: self.email, password: self.password) { authResult, error in
@@ -88,7 +88,7 @@ struct UserLoginView: View {
                                 self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
                                 return
                             }
-                            
+
                             print("Successfully logged in user!")
                             self.userProfile.id = result.user.uid
                             self.userProfile.email = userEmail
@@ -106,8 +106,8 @@ struct UserLoginView: View {
                                 .foregroundColor(Color.white)
                         }
                     }
-                    .disabled(!self.isLoginEnabled)
-                    .opacity(self.isLoginEnabled ? 1 : 0.5)
+                    .disabled(self.email.isEmpty || self.password.isEmpty)
+                    .opacity(self.email.isEmpty || self.password.isEmpty ? 0.5 : 1)
                     
                     HStack(alignment: .center) {
                         Text("New to Photo Reviewer?")
@@ -133,22 +133,15 @@ struct UserLoginView: View {
                     isActive: self.$shouldShowUserRegistrationView
                 ) { EmptyView() }
             }
-            .onAppear {
-                self.isLoginEnabled = false
-            }
-            .onChange(of: self.isEmailInputValid) { _ in
-                self.validateUserInputs()
-            }
-            .onChange(of: self.isPasswordInputValid) { _ in
-                self.validateUserInputs()
-            }
         }
         .navigationBarHidden(true)
     }
     
     // MARK: Private methods
     
-    private func validateUserInputs() {
-        self.isLoginEnabled = self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+    private func areInputsValid() -> Bool {
+        self.isEmailInputValid = !self.email.isEmpty && self.email.contains("@") && self.email.contains(".")
+        self.isPasswordInputValid = !self.password.isEmpty && self.password.count >= 8
+        return self.isEmailInputValid && self.isPasswordInputValid
     }
 }

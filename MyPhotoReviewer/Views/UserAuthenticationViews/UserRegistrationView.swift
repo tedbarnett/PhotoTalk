@@ -15,13 +15,11 @@ struct UserRegistrationView: View {
     @EnvironmentObject private var userProfile: UserProfileModel
     
     @State private var name = ""
-    @State private var isNameInputValid: Bool = false
+    @State private var isNameInputValid: Bool = true
     @State private var email = ""
-    @State private var isEmailInputValid: Bool = false
+    @State private var isEmailInputValid: Bool = true
     @State private var password = ""
-    @State private var isPasswordInputValid: Bool = false
-    
-    @State private var isLoginEnabled: Bool = false
+    @State private var isPasswordInputValid: Bool = true
     
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
     
@@ -96,10 +94,7 @@ struct UserRegistrationView: View {
                 .padding(.bottom, 20)
                 
                 Button(action: {
-                    guard self.isNameInputValid, !self.name.isEmpty,
-                          self.isEmailInputValid, !self.email.isEmpty,
-                          self.isPasswordInputValid, !self.password.isEmpty else { return }
-                    
+                    guard self.areInputsValid() else { return }
                     self.overlayContainerContext.shouldShowProgressIndicator = true
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
                         self.overlayContainerContext.shouldShowProgressIndicator = false
@@ -111,7 +106,7 @@ struct UserRegistrationView: View {
                             return
                         }
                         print("Successfully created a new user account with email: \(userEmail)")
-                        
+
                         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                         changeRequest?.displayName = self.name
                         changeRequest?.commitChanges { error in
@@ -131,28 +126,19 @@ struct UserRegistrationView: View {
                             .foregroundColor(Color.white)
                     }
                 }
-                .disabled(!self.isLoginEnabled)
-                .opacity(self.isLoginEnabled ? 1 : 0.5)
+                .disabled(self.name.isEmpty || self.email.isEmpty || self.password.isEmpty)
+                .opacity(self.name.isEmpty || self.email.isEmpty || self.password.isEmpty ? 0.5 : 1)
             }
             .padding(.all, 24)
-        }
-        .onAppear {
-            self.isLoginEnabled = false
-        }
-        .onChange(of: self.isNameInputValid) { _ in
-            self.validateUserInputs()
-        }
-        .onChange(of: self.isEmailInputValid) { _ in
-            self.validateUserInputs()
-        }
-        .onChange(of: self.isPasswordInputValid) { _ in
-            self.validateUserInputs()
         }
     }
     
     // MARK: Private methods
     
-    private func validateUserInputs() {
-        self.isLoginEnabled = self.isNameInputValid && !self.name.isEmpty && self.isEmailInputValid && !self.email.isEmpty && self.isPasswordInputValid && !self.password.isEmpty
+    private func areInputsValid() -> Bool {
+        self.isNameInputValid = !self.name.isEmpty
+        self.isEmailInputValid = !self.email.isEmpty && self.email.contains("@") && self.email.contains(".")
+        self.isPasswordInputValid = !self.password.isEmpty && self.password.count >= 8
+        return self.isNameInputValid && self.isEmailInputValid && self.isPasswordInputValid
     }
 }

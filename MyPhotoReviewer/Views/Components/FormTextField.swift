@@ -61,8 +61,8 @@ struct FormTextField: View {
             Text(self.type.validationMessage)
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.red400)
-                .opacity(self.didValidateInput ? self.isInputValid ? 0 : 1 : 0)
-                //.animation(.easeIn(duration: 0.2), value: self.didValidateInput)
+                .opacity(self.isInputValid ? 0 : 1)
+                .animation(.easeIn(duration: 0.2), value: self.isInputValid)
         }
     }
     

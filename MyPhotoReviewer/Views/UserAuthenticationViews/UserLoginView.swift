@@ -136,7 +136,7 @@ struct UserLoginView: View {
                             }
                     }
                 }
-                .padding(.all, 24)
+                .frame(width: UIDevice.isIpad ? UIScreen.main.bounds.width * 0.4 : UIScreen.main.bounds.width - 48)
                 
                 // Link to user registration view
                 NavigationLink(
@@ -147,8 +147,10 @@ struct UserLoginView: View {
                     isActive: self.$shouldShowUserRegistrationView
                 ) { EmptyView() }
             }
+            
         }
         .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             self.authenticationViewModel.userProfile = self.userProfile
         }

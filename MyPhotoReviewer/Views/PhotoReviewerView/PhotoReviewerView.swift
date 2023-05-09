@@ -67,11 +67,11 @@ struct PhotoReviewerView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, UIDevice.isIpad ? 40 : 16)
                 
                 Spacer()
             }
-            .padding(.top, 20)
+            .padding(.top, UIDevice.isIpad ? 40 : 20)
         }
         .onAppear {
             self.authenticationViewModel.userProfile = self.userProfile

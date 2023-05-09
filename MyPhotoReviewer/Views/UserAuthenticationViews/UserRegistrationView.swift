@@ -131,7 +131,7 @@ struct UserRegistrationView: View {
                 .disabled(self.name.isEmpty || self.email.isEmpty || self.password.isEmpty)
                 .opacity(self.name.isEmpty || self.email.isEmpty || self.password.isEmpty ? 0.5 : 1)
             }
-            .padding(.all, 24)
+            .frame(width: UIDevice.isIpad ? UIScreen.main.bounds.width * 0.4 : UIScreen.main.bounds.width - 48)
         }
     }
     

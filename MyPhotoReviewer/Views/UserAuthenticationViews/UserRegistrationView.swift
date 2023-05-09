@@ -115,7 +115,12 @@ struct UserRegistrationView: View {
                                 self.overlayContainerContext.presentAlert(ofType: .userRegistrationFailed)
                                 return
                             }
-                            self.overlayContainerContext.presentAlert(ofType: .userRegistrationSuccessfull)
+                            self.overlayContainerContext.presentAlert(
+                                ofType: .userRegistrationSuccessfull,
+                                primaryActionButtonHandler: {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            )
                         }
                 }) {
                     ZStack {

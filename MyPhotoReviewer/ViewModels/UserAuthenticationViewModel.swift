@@ -80,12 +80,12 @@ class UserAuthenticationViewModel: ObservableObject, BaseViewModel {
     /**
      Sends user email for resetting password 
      */
-    func sendEmailForPasswordReset(responseHandler: @escaping ResponseHandler<Bool>) {
+    func sendEmailForPasswordReset(userEmail: String, responseHandler: @escaping ResponseHandler<Bool>) {
         guard let userProfile = self.userProfile else {
             responseHandler(false)
             return
         }
-        Auth.auth().sendPasswordReset(withEmail: userProfile.email) { error in
+        Auth.auth().sendPasswordReset(withEmail: userEmail) { error in
             guard error == nil else {
                 responseHandler(false)
                 return

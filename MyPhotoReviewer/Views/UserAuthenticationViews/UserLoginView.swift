@@ -75,7 +75,7 @@ struct UserLoginView: View {
                                 .foregroundColor(Color.blue500)
                                 .onTapGesture {
                                     self.overlayContainerContext.shouldShowProgressIndicator = true
-                                    self.authenticationViewModel.sendEmailForPasswordReset { didSendEmail in
+                                    self.authenticationViewModel.sendEmailForPasswordReset(userEmail: self.email) { didSendEmail in
                                         self.overlayContainerContext.shouldShowProgressIndicator = false
                                         guard didSendEmail else {
                                             self.overlayContainerContext.presentAlert(ofType: .emailFailedForPasswordReset)

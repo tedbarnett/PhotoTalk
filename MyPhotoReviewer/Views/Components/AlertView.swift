@@ -122,7 +122,7 @@ struct AlertView: View {
             }
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxHeight: 200)
-            .padding(.horizontal, 16)
+            .frame(width: UIDevice.isIpad ? UIScreen.main.bounds.width * 0.3 : UIScreen.main.bounds.width - 32)
         }
         .onAppear {
             self.hasSmallScreen = UIDevice.hasSmallScreen

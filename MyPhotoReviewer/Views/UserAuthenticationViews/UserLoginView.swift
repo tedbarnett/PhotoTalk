@@ -98,17 +98,18 @@ struct UserLoginView: View {
                         self.overlayContainerContext.shouldShowProgressIndicator = true
                         self.authenticationViewModel.authenticateUser(
                             with: self.email,
-                            password: self.password) { isAuthenticationSuccessful in
+                            password: self.password) { alertType in
                                 self.overlayContainerContext.shouldShowProgressIndicator = false
-                                guard isAuthenticationSuccessful else {
-                                    self.overlayContainerContext.presentAlert(ofType: .userLoginFailed)
-                                    self.isPasswordIncorrect = true
+                                
+                                guard alertType == .userLoginSuccessfull else {
+                                    self.overlayContainerContext.presentAlert(ofType: alertType)
+                                    self.isPasswordIncorrect = alertType == .userLoginFailed
                                     return
                                 }
                                 
                                 self.isPasswordIncorrect = false
                                 self.userProfile.isAuthenticated = true
-                            }
+                        }
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)

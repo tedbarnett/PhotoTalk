@@ -29,18 +29,24 @@ class UserAuthenticationViewModel: ObservableObject, BaseViewModel {
     func authenticateUser(
         with email: String,
         password: String,
-        responseHandler: @escaping ResponseHandler<Bool>) {
+        responseHandler: @escaping ResponseHandler<AlertType>) {
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                guard let result = authResult,
-                      let userEmail = result.user.email,
-                      let userName = result.user.displayName,
-                      error == nil else {
-                    responseHandler(false)
+                
+                guard error == nil,
+                    let result = authResult,
+                    let userEmail = result.user.email,
+                    let userName = result.user.displayName else {
+                    responseHandler(.userLoginFailed)
+                    return
+                }
+                
+                guard result.user.isEmailVerified else {
+                    responseHandler(.userLoginFailedDueToUnverifiedAccount)
                     return
                 }
 
                 guard let profile = self.userProfile else {
-                    responseHandler(false)
+                    responseHandler(.userLoginFailed)
                     return
                 }
                 
@@ -51,7 +57,7 @@ class UserAuthenticationViewModel: ObservableObject, BaseViewModel {
                 self.localStorageService.isUserAuthenticated = true
                 self.localStorageService.userName = profile.name
                 
-                responseHandler(true)
+                responseHandler(.userLoginSuccessfull)
             }
     }
     
@@ -64,27 +70,32 @@ class UserAuthenticationViewModel: ObservableObject, BaseViewModel {
         password: String,
         responseHandler: @escaping ResponseHandler<Bool>) {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                guard error == nil else {
+                guard error == nil,
+                      let result = authResult else {
                     responseHandler(false)
                     return
                 }
-
-                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                changeRequest?.displayName = name
-                changeRequest?.commitChanges { _ in
-                    responseHandler(true)
+                
+                // Sending account verification email
+                result.user.sendEmailVerification { _ in
+                    print("An account verfication email is sent to \(email)")
+                    
+                    // Updating name for the user
+                    let changeRequest = result.user.createProfileChangeRequest()
+                    changeRequest.displayName = name
+                    changeRequest.commitChanges { _ in
+                        print("User name is updated as \(name)")
+                    }
                 }
+                
+                responseHandler(true)
             }
     }
     
     /**
-     Sends user email for resetting password 
+     Sends user email for resetting password
      */
     func sendEmailForPasswordReset(userEmail: String, responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let userProfile = self.userProfile else {
-            responseHandler(false)
-            return
-        }
         Auth.auth().sendPasswordReset(withEmail: userEmail) { error in
             guard error == nil else {
                 responseHandler(false)

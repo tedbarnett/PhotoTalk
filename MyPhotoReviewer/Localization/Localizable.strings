@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MyPhotoReviewer
 
@@ -27,12 +27,13 @@
 "Please enter minimum of 8 characters for password" = "Please enter minimum of 8 characters for password";
 "Guest" = "Guest";
 
-"Login failed" = "Login failed";
-"Oops! login failed. Please check your email, password and try again." = "Oops! login failed. Please check your email, password and try again.";
 "Registration successful" = "Registration successful";
-"Wooho! your new account is created. Please login with your email and password." = "Wooho! your new account is created. Please login with your email and password.";
+"Wooho! your new account is created. A verification email is sent to you for your account activation, please verify and then login with your email and password." = "Wooho! your new account is created. A verification email is sent to you for your account activation, please verify and then login with your email and password.";
 "Registration failed" = "Registration failed";
 "Oops! there was an error creating your account. Please try again." = "Oops! there was an error creating your account. Please try again.";
+"Login failed" = "Login failed";
+"Oops! login failed. Please check your email, password and try again." = "Oops! login failed. Please check your email, password and try again.";
+"Oops! login failed. Please verify your account by clicking on the account verification link sent via an email." = "Oops! login failed. Please verify your account by clicking on the account verification link sent via an email.";
 "Email sent for password reset" = "Email sent for password reset";
 "We sent you an email with details about resetting your password. Please follow the email instructions." = "We sent you an email with details about resetting your password. Please follow the email instructions.";
 "Failed to send email" = "Failed to send email";

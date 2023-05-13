@@ -132,20 +132,24 @@ struct AlertView: View {
 
 /// Enumeration for different alert view types
 enum AlertType: Equatable {
-    case userLoginFailed
     case userRegistrationSuccessfull
     case userRegistrationFailed
+    case userLoginSuccessfull
+    case userLoginFailed
+    case userLoginFailedDueToUnverifiedAccount
     case emailSentForPasswordReset
     case emailFailedForPasswordReset
-
+    
     // MARK: Public properties
 
     /// Boolean flag for showing close button
     var shouldShowCloseButton: Bool {
         switch self {
-        case .userLoginFailed,
-            .userRegistrationSuccessfull,
+        case .userRegistrationSuccessfull,
             .userRegistrationFailed,
+            .userLoginSuccessfull,
+            .userLoginFailed,
+            .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset: return false
         }
@@ -155,9 +159,11 @@ enum AlertType: Equatable {
     /// Its optional as every alert views won't have icon to show
     var icon: String? {
         switch self {
-        case .userLoginFailed,
-            .userRegistrationSuccessfull,
+        case .userRegistrationSuccessfull,
             .userRegistrationFailed,
+            .userLoginSuccessfull,
+            .userLoginFailed,
+            .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset: return nil
         }
@@ -166,12 +172,13 @@ enum AlertType: Equatable {
     /// Tittle text for the alert view
     var title: String? {
         switch self {
-        case .userLoginFailed:
-            return NSLocalizedString("Login failed", comment: "User login - failure title")
         case .userRegistrationSuccessfull:
             return NSLocalizedString("Registration successful", comment: "User registration - successful title")
         case .userRegistrationFailed:
             return NSLocalizedString("Registration failed", comment: "User registration - failure title")
+        case .userLoginSuccessfull: return nil
+        case .userLoginFailed, .userLoginFailedDueToUnverifiedAccount:
+            return NSLocalizedString("Login failed", comment: "User login - failure title")
         case .emailSentForPasswordReset:
             return NSLocalizedString("Email sent for password reset", comment: "User registration - password reset title")
         case .emailFailedForPasswordReset:
@@ -182,20 +189,26 @@ enum AlertType: Equatable {
     /// Description text for the alert view
     var description: String? {
         switch self {
-        case .userLoginFailed:
-            return NSLocalizedString(
-                "Oops! login failed. Please check your email, password and try again.",
-                comment: "User login - failure description"
-            )
         case .userRegistrationSuccessfull:
             return NSLocalizedString(
-                "Wooho! your new account is created. Please login with your email and password.",
+                "Wooho! your new account is created. A verification email is sent to you for your account activation, please verify and then login with your email and password.",
                 comment: "User registration - successful description"
             )
         case .userRegistrationFailed:
             return NSLocalizedString(
                 "Oops! there was an error creating your account. Please try again.",
                 comment: "User registration - failure description"
+            )
+        case .userLoginSuccessfull: return nil
+        case .userLoginFailed:
+            return NSLocalizedString(
+                "Oops! login failed. Please check your email, password and try again.",
+                comment: "User login - failure description"
+            )
+        case .userLoginFailedDueToUnverifiedAccount:
+            return NSLocalizedString(
+                "Oops! login failed. Please verify your account by clicking on the account verification link sent via an email.",
+                comment: "User login failed due to unverified account - failure description"
             )
         case .emailSentForPasswordReset:
             return NSLocalizedString(
@@ -212,9 +225,11 @@ enum AlertType: Equatable {
 
     var descriptionTextAlignment: TextAlignment {
         switch self {
-        case .userLoginFailed,
-            .userRegistrationSuccessfull,
+        case .userRegistrationSuccessfull,
             .userRegistrationFailed,
+            .userLoginSuccessfull,
+            .userLoginFailed,
+            .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset: return .leading
         }
@@ -223,9 +238,11 @@ enum AlertType: Equatable {
     /// Title text for the primary action button
     var actionButtonTitle: String? {
         switch self {
-        case .userLoginFailed,
-            .userRegistrationSuccessfull,
+        case .userRegistrationSuccessfull,
             .userRegistrationFailed,
+            .userLoginSuccessfull,
+            .userLoginFailed,
+            .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset:
             return NSLocalizedString("Ok", comment: "Common view - Ok button label")
@@ -236,13 +253,13 @@ enum AlertType: Equatable {
     /// Its optional as each alert view won't have dismiss button
     var dismissButtonTitle: String? {
         switch self {
-        case .userLoginFailed,
-            .userRegistrationSuccessfull,
+        case .userRegistrationSuccessfull,
             .userRegistrationFailed,
+            .userLoginSuccessfull,
+            .userLoginFailed,
+            .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset: return nil
         }
-        
-        // Other options - return NSLocalizedString("Cancel", comment: "Common view - Cancel button label")
     }
 }

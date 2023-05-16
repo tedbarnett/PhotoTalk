@@ -42,6 +42,7 @@
 		C1A983C229F3D80E00D83BBF /* MyPhotoReviewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983C129F3D80E00D83BBF /* MyPhotoReviewerTests.swift */; };
 		C1A983CC29F3D80E00D83BBF /* MyPhotoReviewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983CB29F3D80E00D83BBF /* MyPhotoReviewerUITests.swift */; };
 		C1A983CE29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983CD29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift */; };
+		C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,8 @@
 		C1A983C729F3D80E00D83BBF /* MyPhotoReviewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotoReviewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A983CB29F3D80E00D83BBF /* MyPhotoReviewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerUITests.swift; sourceTree = "<group>"; };
 		C1A983CD29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C1AF0BAE2A0F63E600C6853F /* MyPhotoReviewer-DevelopmentDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-DevelopmentDebug.entitlements"; sourceTree = "<group>"; };
+		C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +249,7 @@
 		C1A983DA29F3D8A600D83BBF /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				C1AF0BAF2A0F640500C6853F /* Entitlements */,
 				C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */,
 				C19948BF2A03923F004CD4A1 /* RootView.swift */,
 				C101B9F429FA8721000192CD /* AppDelegate.swift */,
@@ -283,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */,
+				C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -333,6 +338,14 @@
 			children = (
 			);
 			path = PhotoSlideShowView;
+			sourceTree = "<group>";
+		};
+		C1AF0BAF2A0F640500C6853F /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				C1AF0BAE2A0F63E600C6853F /* MyPhotoReviewer-DevelopmentDebug.entitlements */,
+			);
+			path = Entitlements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,6 +526,7 @@
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
@@ -546,12 +560,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-DevelopmentDebug.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 63K8J7P389;
+				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -560,17 +574,17 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BarnettLabs.PhotoReviewDEV;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.PhotoReviewer.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "My Photo Reviewer DEV Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -594,7 +608,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -13,6 +13,8 @@ class LocalStorageService {
     /// Wrapper for local storage keys
     private struct StorageKeys {
         static let isUserAuthenticated = "isUserAuthenticated"
+        static let userAuthenticationProvider = "userAuthenticationProvider"
+        static let userId = "userId"
         static let userName = "userName"
     }
 
@@ -33,6 +35,28 @@ class LocalStorageService {
         } get {
             let isAuthenticated = self.userDefaults?.bool(forKey: StorageKeys.isUserAuthenticated) ?? false
             return isAuthenticated
+        }
+    }
+    
+    /// This returns logged in user id
+    var userAuthenticationProvider: UserAuthenticationProvider? {
+        set {
+            guard let authProvider = newValue else { return }
+            self.userDefaults?.setValue(authProvider.rawValue, forKey: StorageKeys.userAuthenticationProvider)
+        } get {
+            let provider = self.userDefaults?.string(forKey: StorageKeys.userAuthenticationProvider) ?? ""
+            let authProvider = UserAuthenticationProvider(rawValue: provider) ?? nil
+            return authProvider
+        }
+    }
+    
+    /// This returns logged in user id
+    var userId: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.userId)
+        } get {
+            let id = self.userDefaults?.string(forKey: StorageKeys.userId) ?? ""
+            return id
         }
     }
     

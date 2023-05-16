@@ -17,6 +17,7 @@ class UserProfileModel: ObservableObject {
     var id: String
     var email: String
     var name: String
+    var authenticationProvider: UserAuthenticationProvider?
     
     @Published var isAuthenticated: Bool = false
 
@@ -53,4 +54,8 @@ extension UserProfileModel {
             name: UserProfileModel.defaultName
         )
     }
+}
+
+extension UserProfileModel {
+    static let guestUserPassword: String = "12345678"
 }

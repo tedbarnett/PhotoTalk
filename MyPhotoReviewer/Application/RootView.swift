@@ -38,7 +38,8 @@ struct RootView: View {
         }
         .environmentObject(self.overlayContainerContext)
         .onAppear {
-            self.initializeApp()
+            //self.initializeApp()
+            self.validateUserAuthenticationStateIfNeeded()
         }
     }
     
@@ -48,10 +49,20 @@ struct RootView: View {
      This method sets initial settings and configuration for the app
      */
     private func initializeApp() {
-        print("App is running with \(self.appContext.currentEnvironment.name.uppercased()) environment")
-        
-        let localStorageService = LocalStorageService()
-        self.userProfile.isAuthenticated = localStorageService.isUserAuthenticated
-        self.userProfile.name = localStorageService.userName
+//        let localStorageService = LocalStorageService()
+//        self.userProfile.isAuthenticated = localStorageService.isUserAuthenticated
+//        self.userProfile.authenticationProvider = localStorageService.userAuthenticationProvider
+//        self.userProfile.id = localStorageService.userId
+//        self.userProfile.name = localStorageService.userName
+    }
+    
+    /**
+     If the user is already authenticated, it checks if the user authentication state is still valid for application access.
+     If user authentication is invalidated, it logs out user from the app and presents the login screen.
+     */
+    private func validateUserAuthenticationStateIfNeeded() {
+        let userAuthenticationViewModel = UserAuthenticationViewModel()
+        userAuthenticationViewModel.userProfile = self.userProfile
+        userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded()
     }
 }

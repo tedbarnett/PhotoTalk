@@ -11,10 +11,10 @@
 
 //---------- User login and registration module text -----------
 
-"Log in to Photo Reviewer" = "Log in to Photo Reviewer";
+"Sign in to Photo Reviewer" = "Sign in to Photo Reviewer";
 "Forgot password?" = "Forgot password?";
 "Reset here" = "Reset here";
-"Login" = "Login";
+"Sign in" = "Sign in";
 "New to Photo Reviewer?" = "New to Photo Reviewer?";
 "Register here" = "Register here";
 "Get your free account" = "Get your free account";

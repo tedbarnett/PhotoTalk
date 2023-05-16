@@ -44,7 +44,7 @@ struct UserLoginView: View {
                     .padding(.vertical, 40)
                 
                 VStack(alignment: .center, spacing: 16) {
-                    Text(NSLocalizedString("Log in to Photo Reviewer", comment: "User login view - title"))
+                    Text(NSLocalizedString("Sign in to Photo Reviewer", comment: "User login view - title"))
                         .font(.system(size: 28, weight: .semibold))
                         .foregroundColor(Color.offwhite100)
                         .padding(.bottom, 20)
@@ -56,7 +56,7 @@ struct UserLoginView: View {
                         height: 45
                     )
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0) {
                         FormTextField(
                             type: .password,
                             text: self.$password,
@@ -88,7 +88,7 @@ struct UserLoginView: View {
                         }
                         .opacity(self.isPasswordIncorrect ? 1 : 0)
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
                     
                     Button(action: {
                         guard self.areInputsValid() else {
@@ -116,7 +116,7 @@ struct UserLoginView: View {
                                 .fill(Color.blue500)
                                 .frame(height: 45)
                         
-                            Text(NSLocalizedString("Login", comment: "User login view - login button title"))
+                            Text(NSLocalizedString("Sign in", comment: "User login view - Sign in button title"))
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color.white)
                         }
@@ -136,6 +136,74 @@ struct UserLoginView: View {
                                 self.shouldShowUserRegistrationView = true
                             }
                     }
+                    
+                    VStack(alignment: .center, spacing: 16) {
+                        Button(
+                            action: {
+                                self.authenticationViewModel.signInWithApple { didSignin in
+                                    guard didSignin else {
+                                        return
+                                    }
+                                    self.userProfile.isAuthenticated = true
+                                }
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.black)
+                                        .frame(height: 45)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color.offwhite100, lineWidth: 1)
+                                                .frame(height: 45)
+                                        }
+                                
+                                    HStack(alignment: .center, spacing: 12) {
+                                        Image(systemName: "apple.logo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
+                                            .tint(Color.white)
+                                        
+                                        Text(NSLocalizedString("Sign in with Apple", comment: "User login view - Apple signin button title"))
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(Color.white)
+                                    }
+                                }
+                            }
+                        )
+                        
+                        Button(
+                            action: {
+                                self.authenticationViewModel.signInWithGoogle()
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.black)
+                                        .frame(height: 45)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color.offwhite100, lineWidth: 1)
+                                                .frame(height: 45)
+                                        }
+                                
+                                    
+                                    HStack(alignment: .center, spacing: 12) {
+                                        Image("googleIcon")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
+                                        
+                                        Text(NSLocalizedString("Sign in with Google", comment: "User login view - Google signin button title"))
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(Color.white)
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    .padding(.top, 40)
                 }
                 .frame(width: UIDevice.isIpad ? UIScreen.main.bounds.width * 0.4 : UIScreen.main.bounds.width - 48)
                 
@@ -148,7 +216,6 @@ struct UserLoginView: View {
                     isActive: self.$shouldShowUserRegistrationView
                 ) { EmptyView() }
             }
-            
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())

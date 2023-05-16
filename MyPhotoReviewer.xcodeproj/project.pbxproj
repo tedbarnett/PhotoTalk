@@ -43,6 +43,8 @@
 		C1A983CC29F3D80E00D83BBF /* MyPhotoReviewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983CB29F3D80E00D83BBF /* MyPhotoReviewerUITests.swift */; };
 		C1A983CE29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983CD29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift */; };
 		C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */; };
+		C1B2CA562A1341ED00D2AE04 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA552A1341ED00D2AE04 /* GoogleSignIn */; };
+		C1B2CA582A1341ED00D2AE04 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA572A1341ED00D2AE04 /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,7 @@
 		C1A983CD29F3D80E00D83BBF /* MyPhotoReviewerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C1AF0BAE2A0F63E600C6853F /* MyPhotoReviewer-DevelopmentDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-DevelopmentDebug.entitlements"; sourceTree = "<group>"; };
 		C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationProvider.swift; sourceTree = "<group>"; };
+		C1B2CA592A13420D00D2AE04 /* MyPhotoReviewer-Development-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MyPhotoReviewer-Development-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +91,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B2CA582A1341ED00D2AE04 /* GoogleSignInSwift in Frameworks */,
 				C101B9FD29FA886A000192CD /* FirebaseCrashlytics in Frameworks */,
+				C1B2CA562A1341ED00D2AE04 /* GoogleSignIn in Frameworks */,
 				C101B9F929FA886A000192CD /* FirebaseAnalytics in Frameworks */,
 				C101BA0329FA886A000192CD /* FirebasePerformance in Frameworks */,
 				C101B9FF29FA886A000192CD /* FirebaseDatabase in Frameworks */,
@@ -187,6 +192,7 @@
 		C1A983A429F3D80D00D83BBF = {
 			isa = PBXGroup;
 			children = (
+				C1B2CA592A13420D00D2AE04 /* MyPhotoReviewer-Development-Info.plist */,
 				C1A983AF29F3D80D00D83BBF /* MyPhotoReviewer */,
 				C1A983C029F3D80E00D83BBF /* MyPhotoReviewerTests */,
 				C1A983CA29F3D80E00D83BBF /* MyPhotoReviewerUITests */,
@@ -373,6 +379,8 @@
 				C101BA0029FA886A000192CD /* FirebaseFirestore */,
 				C101BA0229FA886A000192CD /* FirebasePerformance */,
 				C101BA0429FA886A000192CD /* FirebaseStorage */,
+				C1B2CA552A1341ED00D2AE04 /* GoogleSignIn */,
+				C1B2CA572A1341ED00D2AE04 /* GoogleSignInSwift */,
 			);
 			productName = MyPhotoReviewer;
 			productReference = C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */;
@@ -443,6 +451,7 @@
 			mainGroup = C1A983A429F3D80D00D83BBF;
 			packageReferences = (
 				C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = C1A983AE29F3D80D00D83BBF /* Products */;
 			projectDirPath = "";
@@ -568,6 +577,7 @@
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -602,6 +612,7 @@
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -864,6 +875,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -901,6 +920,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		C1B2CA552A1341ED00D2AE04 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		C1B2CA572A1341ED00D2AE04 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

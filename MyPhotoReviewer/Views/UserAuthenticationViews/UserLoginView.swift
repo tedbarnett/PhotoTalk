@@ -175,7 +175,12 @@ struct UserLoginView: View {
                         
                         Button(
                             action: {
-                                self.authenticationViewModel.signInWithGoogle()
+                                self.authenticationViewModel.signInWithGoogle { didSignin in
+                                    guard didSignin else {
+                                        return
+                                    }
+                                    self.userProfile.isAuthenticated = true
+                                }
                             },
                             label: {
                                 ZStack {

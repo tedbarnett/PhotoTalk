@@ -14,11 +14,29 @@ class UserProfileModel: ObservableObject {
     
     static let guestUserName: String = NSLocalizedString("Guest", comment: "Guest user name")
 
+    /// `id` points to acrtual user id in the user selected authentication system
     var id: String
-    var email: String
-    var name: String
-    var authenticationProvider: UserAuthenticationProvider?
     
+    /// `email` is either user selected email during registration
+    /// Or email value provided by the user selected authentication sytem like Google, Apple.
+    /// This value could be optional for Apple authentication system, if user doesn't wish to share email.
+    var email: String?
+    
+    var name: String
+    
+    /// Authentication system selected by the user - `firebase, google, apple`
+    var authenticationServiceProvider: UserAuthenticationServiceProvider?
+    
+    /// User selected media source
+    var mediaSource: MediaSource?
+    
+    /// List of photo albums loaded from user selected media source
+    var photoAlbums: [PhotoAlbum]?
+    
+    /// List of photos (which doesn't belong to any photo album) loaded from user selected media source
+    var photos: Photo?
+    
+    /// This boolean flag indicates if the user is authenticated or not
     @Published var isAuthenticated: Bool = false
 
     // MARK: Initializer
@@ -54,8 +72,4 @@ extension UserProfileModel {
             name: UserProfileModel.defaultName
         )
     }
-}
-
-extension UserProfileModel {
-    static let guestUserPassword: String = "12345678"
 }

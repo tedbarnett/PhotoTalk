@@ -69,4 +69,12 @@ enum Environment {
         case .dev: return "dev"
         }
     }
+    
+    /// URL of the Firebase database
+    var databaseUrl: String {
+        switch self {
+        case .prod: return "https://my-photo-reviewer-default-rtdb.firebaseio.com/"
+        case .dev: return "https://my-photo-reviewer-dev-default-rtdb.firebaseio.com/"
+        }
+    }
 }

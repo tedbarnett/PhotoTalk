@@ -8,9 +8,9 @@
 import Foundation
 
 /**
- UserAuthenticationProvider enumeration defines the available service providers
+ UserAuthenticationServiceProvider enumeration defines the available service providers
  for user authentication
  */
-enum UserAuthenticationProvider: String {
+enum UserAuthenticationServiceProvider: String {
     case firebase, google, apple
 }

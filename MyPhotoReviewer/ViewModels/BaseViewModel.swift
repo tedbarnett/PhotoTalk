@@ -18,6 +18,7 @@ protocol BaseViewModel {
 
 /// Implementation of the common properties
 extension BaseViewModel {
+    
     var localStorageService: LocalStorageService {
         return LocalStorageService()
     }

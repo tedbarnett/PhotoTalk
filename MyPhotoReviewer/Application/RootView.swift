@@ -27,7 +27,7 @@ struct RootView: View {
             if self.userProfile.isAuthenticated {
                 // Main view that provides user option to select image source, preview image
                 // add image details like location, audio clip, etc
-                PhotoReviewerView()
+                HomeView()
             } else {
                 // User login view presents user authentication view
                 UserLoginView()

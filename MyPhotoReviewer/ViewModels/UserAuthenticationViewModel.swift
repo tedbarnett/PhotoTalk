@@ -57,10 +57,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                 profile.id = result.user.uid
                 profile.email = userEmail
                 profile.name = userName
-                profile.authenticationProvider = .firebase
+                profile.authenticationServiceProvider = .firebase
                 
                 self.localStorageService.isUserAuthenticated = true
-                self.localStorageService.userAuthenticationProvider = .firebase
+                self.localStorageService.authenticationServiceProvider = .firebase
                 self.localStorageService.userId = profile.id
                 self.localStorageService.userName = profile.name
                 
@@ -117,10 +117,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             profile.id = userId
             profile.email = uProfile.email
             profile.name = uProfile.name
-            profile.authenticationProvider = .firebase
+            profile.authenticationServiceProvider = .google
             
             strongSelf.localStorageService.isUserAuthenticated = true
-            strongSelf.localStorageService.userAuthenticationProvider = .google
+            strongSelf.localStorageService.authenticationServiceProvider = .google
             strongSelf.localStorageService.userName = profile.name
             strongSelf.localStorageService.userId = profile.id
             
@@ -183,19 +183,20 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         guard self.localStorageService.isUserAuthenticated,
               let userProfile = self.userProfile else { return }
         
-        userProfile.authenticationProvider = self.localStorageService.userAuthenticationProvider
+        userProfile.authenticationServiceProvider = self.localStorageService.authenticationServiceProvider
         userProfile.id = self.localStorageService.userId
         userProfile.name = self.localStorageService.userName
         
-        if self.localStorageService.userAuthenticationProvider == .apple {
+        if self.localStorageService.authenticationServiceProvider == .apple {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             appleIDProvider.getCredentialState(forUserID: self.localStorageService.userId) { credentialState, error in
                 switch credentialState {
                 case .authorized:
                     // The Apple ID credential is valid.
                     DispatchQueue.main.async {
-                        userProfile.isAuthenticated = true
+                        userProfile.email = self.localStorageService.userEmail
                         self.localStorageService.isUserAuthenticated = true
+                        userProfile.isAuthenticated = true
                     }
                     break
                 case .revoked, .notFound:
@@ -208,10 +209,15 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                     break
                 }
             }
-        } else if self.localStorageService.userAuthenticationProvider == .firebase {
-            userProfile.isAuthenticated = self.localStorageService.isUserAuthenticated
+        } else if self.localStorageService.authenticationServiceProvider == .firebase {
+            let user = Auth.auth().currentUser
+            if let user = user, let email = user.email {
+                userProfile.email = email
+                userProfile.isAuthenticated = self.localStorageService.isUserAuthenticated
+            }
         } else {
             GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                userProfile.email = self.localStorageService.userEmail
                 userProfile.isAuthenticated = error == nil
                 self.localStorageService.isUserAuthenticated = error == nil
             }
@@ -222,7 +228,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      Calls Firebase authentication service to logout user
      */
     func logutUser(responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let authProvider = self.userProfile?.authenticationProvider else { return }
+        guard let authProvider = self.userProfile?.authenticationServiceProvider else { return }
         switch authProvider {
         case .firebase: self.logoutFromFirebaseAuthSystem(responseHandler: responseHandler)
         case .apple: self.logoutUserFromAppleAuthSytem(responseHandler: responseHandler)
@@ -238,6 +244,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             try Auth.auth().signOut()
             self.localStorageService.userId = ""
             self.localStorageService.userName = UserProfileModel.guestUserName
+            self.localStorageService.userEmail = UserProfileModel.defaultEmail
             self.localStorageService.isUserAuthenticated = false
             responseHandler(true)
         } catch {
@@ -251,6 +258,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     private func logoutUserFromAppleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
         self.localStorageService.userId = ""
         self.localStorageService.userName = UserProfileModel.guestUserName
+        self.localStorageService.userEmail = UserProfileModel.defaultEmail
         self.localStorageService.isUserAuthenticated = false
         responseHandler(true)
     }
@@ -262,6 +270,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         GIDSignIn.sharedInstance.signOut()
         self.localStorageService.userId = ""
         self.localStorageService.userName = UserProfileModel.guestUserName
+        self.localStorageService.userEmail = UserProfileModel.defaultEmail
         self.localStorageService.isUserAuthenticated = false
         responseHandler(true)
     }
@@ -275,7 +284,6 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
         guard let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential,
-              let email = appleIDCredential.email,
               let user = appleIDCredential.fullName,
               let firstName = user.givenName,
               let familyName = user.familyName else {
@@ -291,10 +299,16 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
         let userName = "\(firstName) \(familyName)"
         profile.id = appleIDCredential.user
         profile.name = userName
-        profile.email = email
+        
+        if let email = appleIDCredential.email {
+            profile.email = email
+            self.localStorageService.userEmail = email
+        }
+        
+        profile.authenticationServiceProvider = .google
         
         self.localStorageService.isUserAuthenticated = true
-        self.localStorageService.userAuthenticationProvider = .apple
+        self.localStorageService.authenticationServiceProvider = .apple
         self.localStorageService.userId = profile.id
         self.localStorageService.userName = userName
         

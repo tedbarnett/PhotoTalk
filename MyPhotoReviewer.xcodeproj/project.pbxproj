@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C101B9D629FA7D6F000192CD /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
+		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
 		C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
@@ -52,7 +52,7 @@
 		C1B2CA7C2A15458600D2AE04 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948BF2A03923F004CD4A1 /* RootView.swift */; };
 		C1B2CA7D2A15458600D2AE04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9F429FA8721000192CD /* AppDelegate.swift */; };
 		C1B2CA7E2A15458600D2AE04 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19949092A068209004CD4A1 /* BaseViewModel.swift */; };
-		C1B2CA7F2A15458600D2AE04 /* PhotoReviewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */; };
+		C1B2CA7F2A15458600D2AE04 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C1B2CA802A15458600D2AE04 /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9E129FA80B8000192CD /* EnvironmentManager.swift */; };
 		C1B2CA812A15458600D2AE04 /* UserAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */; };
 		C1B2CA822A15458600D2AE04 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AD2A036A9A004CD4A1 /* AlertView.swift */; };
@@ -82,6 +82,28 @@
 		C1B2CA9D2A15458600D2AE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
 		C1B2CAA82A157D5C00D2AE04 /* MyPhotoReviewer-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1B2CA592A13420D00D2AE04 /* MyPhotoReviewer-Development-Info.plist */; };
 		C1B2CAAA2A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1B2CAA92A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist */; };
+		C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
+		C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
+		C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
+		C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
+		C1F6B8062A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
+		C1F6B8072A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
+		C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */; };
+		C1F6B80A2A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */; };
+		C1F6B80C2A24DDD000D3A822 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B80B2A24DDD000D3A822 /* Photo.swift */; };
+		C1F6B80D2A24DDD000D3A822 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B80B2A24DDD000D3A822 /* Photo.swift */; };
+		C1F6B80F2A24DE7700D3A822 /* PhotoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B80E2A24DE7700D3A822 /* PhotoLocation.swift */; };
+		C1F6B8102A24DE7700D3A822 /* PhotoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B80E2A24DE7700D3A822 /* PhotoLocation.swift */; };
+		C1F6B8122A24DE9800D3A822 /* PhotoAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8112A24DE9800D3A822 /* PhotoAudio.swift */; };
+		C1F6B8132A24DE9800D3A822 /* PhotoAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8112A24DE9800D3A822 /* PhotoAudio.swift */; };
+		C1F6B8152A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */; };
+		C1F6B8162A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */; };
+		C1F6B8182A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8172A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift */; };
+		C1F6B8192A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8172A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift */; };
+		C1F6B81B2A25A7A000D3A822 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */; };
+		C1F6B81C2A25A7A000D3A822 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */; };
+		C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */; };
+		C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,7 +132,7 @@
 		C199490C2A06824D004CD4A1 /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
 		C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
-		C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewerView.swift; sourceTree = "<group>"; };
+		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C1A983B429F3D80E00D83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C1A983BD29F3D80E00D83BBF /* MyPhotoReviewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotoReviewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +146,17 @@
 		C1B2CAA42A157BC200D2AE04 /* MyPhotoReviewer-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-Development.entitlements"; sourceTree = "<group>"; };
 		C1B2CAA52A157CF000D2AE04 /* MyPhotoReviewer-Distribution.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-Distribution.entitlements"; sourceTree = "<group>"; };
 		C1B2CAA92A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyPhotoReviewer-Distribution-Info.plist"; sourceTree = "<group>"; };
+		C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
+		C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
+		C1F6B8052A24DA6300D3A822 /* MediaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSource.swift; sourceTree = "<group>"; };
+		C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		C1F6B80B2A24DDD000D3A822 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		C1F6B80E2A24DE7700D3A822 /* PhotoLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocation.swift; sourceTree = "<group>"; };
+		C1F6B8112A24DE9800D3A822 /* PhotoAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAudio.swift; sourceTree = "<group>"; };
+		C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseServiceError.swift; sourceTree = "<group>"; };
+		C1F6B8172A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseReferenceNames.swift; sourceTree = "<group>"; };
+		C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourceSelectionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,7 +363,7 @@
 				C189C8E129FCF9A3007C5FB3 /* Extensions */,
 				C1A983DC29F3D8B800D83BBF /* Assets */,
 				C101BA1D29FC4166000192CD /* UserAuthenticationViews */,
-				C1A983E229F3DB1F00D83BBF /* PhotoReviewerView */,
+				C1A983E229F3DB1F00D83BBF /* HomeView */,
 				C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */,
 				C1A983E429F3DB3F00D83BBF /* PhotoSlideShowView */,
 			);
@@ -350,8 +383,13 @@
 		C1A983DD29F3D8C200D83BBF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */,
 				C1B2CA522A122F2800D2AE04 /* UserAuthenticationProvider.swift */,
+				C19948BC2A038F73004CD4A1 /* UserProfileModel.swift */,
+				C1F6B8052A24DA6300D3A822 /* MediaSource.swift */,
+				C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */,
+				C1F6B80B2A24DDD000D3A822 /* Photo.swift */,
+				C1F6B8112A24DE9800D3A822 /* PhotoAudio.swift */,
+				C1F6B80E2A24DE7700D3A822 /* PhotoLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +399,7 @@
 			children = (
 				C19949092A068209004CD4A1 /* BaseViewModel.swift */,
 				C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */,
+				C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -369,6 +408,10 @@
 			isa = PBXGroup;
 			children = (
 				C199490C2A06824D004CD4A1 /* LocalStorageService.swift */,
+				C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */,
+				C1F6B8172A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift */,
+				C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */,
+				C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -382,12 +425,13 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
-		C1A983E229F3DB1F00D83BBF /* PhotoReviewerView */ = {
+		C1A983E229F3DB1F00D83BBF /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				C1A983B229F3D80D00D83BBF /* PhotoReviewerView.swift */,
+				C1A983B229F3D80D00D83BBF /* HomeView.swift */,
+				C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */,
 			);
-			path = PhotoReviewerView;
+			path = HomeView;
 			sourceTree = "<group>";
 		};
 		C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */ = {
@@ -643,23 +687,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C199490D2A06824D004CD4A1 /* LocalStorageService.swift in Sources */,
+				C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
+				C1F6B81B2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
 				C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */,
 				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
+				C1F6B8182A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
+				C1F6B80C2A24DDD000D3A822 /* Photo.swift in Sources */,
 				C19948C02A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
+				C1F6B8062A24DA6300D3A822 /* MediaSource.swift in Sources */,
 				C199490A2A068209004CD4A1 /* BaseViewModel.swift in Sources */,
-				C101B9D629FA7D6F000192CD /* PhotoReviewerView.swift in Sources */,
+				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
+				C1F6B8152A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
 				C19949102A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */,
 				C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */,
+				C1F6B8122A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C1F6B80F2A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
+				C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
@@ -688,23 +743,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1B2CA782A15458600D2AE04 /* TypeAliases.swift in Sources */,
+				C1F6B80A2A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C1B2CA792A15458600D2AE04 /* LocalStorageService.swift in Sources */,
+				C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
+				C1F6B81C2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
 				C1B2CA7A2A15458600D2AE04 /* AppContext.swift in Sources */,
 				C1B2CA7B2A15458600D2AE04 /* UserProfileModel.swift in Sources */,
+				C1F6B8192A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
+				C1F6B80D2A24DDD000D3A822 /* Photo.swift in Sources */,
 				C1B2CA7C2A15458600D2AE04 /* RootView.swift in Sources */,
 				C1B2CA7D2A15458600D2AE04 /* AppDelegate.swift in Sources */,
+				C1F6B8072A24DA6300D3A822 /* MediaSource.swift in Sources */,
 				C1B2CA7E2A15458600D2AE04 /* BaseViewModel.swift in Sources */,
-				C1B2CA7F2A15458600D2AE04 /* PhotoReviewerView.swift in Sources */,
+				C1B2CA7F2A15458600D2AE04 /* HomeView.swift in Sources */,
+				C1F6B8162A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
 				C1B2CA802A15458600D2AE04 /* EnvironmentManager.swift in Sources */,
 				C1B2CA812A15458600D2AE04 /* UserAuthenticationViewModel.swift in Sources */,
 				C1B2CA822A15458600D2AE04 /* AlertView.swift in Sources */,
+				C1F6B8132A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
 				C1B2CA852A15458600D2AE04 /* UIDevice+ScreenSize.swift in Sources */,
 				C1B2CA862A15458600D2AE04 /* FormTextField.swift in Sources */,
+				C1F6B8102A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
+				C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA872A15458600D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C1B2CA882A15458600D2AE04 /* ActivityIndicator.swift in Sources */,
 				C1B2CA892A15458600D2AE04 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,
 				C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */,
 				C1B2CA8C2A15458600D2AE04 /* UserRegistrationView.swift in Sources */,

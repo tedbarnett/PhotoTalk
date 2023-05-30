@@ -42,3 +42,7 @@
 //---------- Photo reviewer module text -----------------------
 
 "Welcome back" = "Welcome back";
+"Please select source for your photos from the options listed below" = "Please select source for your photos from the options listed below";
+"Apple iCloud" = "Apple iCloud";
+"Google Drive" = "Google Drive";
+"Photos" = "Photos";

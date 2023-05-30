@@ -13,9 +13,10 @@ class LocalStorageService {
     /// Wrapper for local storage keys
     private struct StorageKeys {
         static let isUserAuthenticated = "isUserAuthenticated"
-        static let userAuthenticationProvider = "userAuthenticationProvider"
+        static let authenticationServiceProvider = "authenticationServiceProvider"
         static let userId = "userId"
         static let userName = "userName"
+        static let userEmail = "userEmail"
     }
 
     // MARK: Private Properties
@@ -39,13 +40,13 @@ class LocalStorageService {
     }
     
     /// This returns logged in user id
-    var userAuthenticationProvider: UserAuthenticationProvider? {
+    var authenticationServiceProvider: UserAuthenticationServiceProvider? {
         set {
             guard let authProvider = newValue else { return }
-            self.userDefaults?.setValue(authProvider.rawValue, forKey: StorageKeys.userAuthenticationProvider)
+            self.userDefaults?.setValue(authProvider.rawValue, forKey: StorageKeys.authenticationServiceProvider)
         } get {
-            let provider = self.userDefaults?.string(forKey: StorageKeys.userAuthenticationProvider) ?? ""
-            let authProvider = UserAuthenticationProvider(rawValue: provider) ?? nil
+            let provider = self.userDefaults?.string(forKey: StorageKeys.authenticationServiceProvider) ?? ""
+            let authProvider = UserAuthenticationServiceProvider(rawValue: provider) ?? nil
             return authProvider
         }
     }
@@ -70,6 +71,16 @@ class LocalStorageService {
         }
     }
 
+    /// This returns logged in user email
+    var userEmail: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.userEmail)
+        } get {
+            let email = self.userDefaults?.string(forKey: StorageKeys.userEmail) ?? ""
+            return email
+        }
+    }
+    
     // MARK: Initializer
 
     init() {

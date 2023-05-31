@@ -17,6 +17,8 @@ class LocalStorageService {
         static let userId = "userId"
         static let userName = "userName"
         static let userEmail = "userEmail"
+        static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
+        static let userSelectedMediaSource = "userSelectedMediaSource"
     }
 
     // MARK: Private Properties
@@ -51,6 +53,16 @@ class LocalStorageService {
         }
     }
     
+    /// Boolean flag indicating, if user granted permission for accessing user photos
+    var didUserAllowPhotoAccess: Bool {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.didUserAllowPhotoAccess)
+        } get {
+            let didAllow = self.userDefaults?.bool(forKey: StorageKeys.didUserAllowPhotoAccess) ?? false
+            return didAllow
+        }
+    }
+    
     /// This returns logged in user id
     var userId: String {
         set {
@@ -78,6 +90,17 @@ class LocalStorageService {
         } get {
             let email = self.userDefaults?.string(forKey: StorageKeys.userEmail) ?? ""
             return email
+        }
+    }
+    
+    
+    /// Returns the media source selected by user for photo access
+    var userSelectedMediaSource: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.userSelectedMediaSource)
+        } get {
+            let mediaSource = self.userDefaults?.string(forKey: StorageKeys.userSelectedMediaSource) ?? ""
+            return mediaSource
         }
     }
     

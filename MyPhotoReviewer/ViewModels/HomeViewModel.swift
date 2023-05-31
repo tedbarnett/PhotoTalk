@@ -5,7 +5,8 @@
 //  Created by Prem Pratap Singh on 30/05/23.
 //
 
-import Foundation
+import UIKit
+import GoogleSignIn
 
 /**
  HomeViewModel manages data and states for HomeView and helps communicate with the backend APIs.
@@ -18,7 +19,11 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     @Published var photoAlbums = [PhotoAlbum]()
     
     // List of photos (not part of any album) as loaded from user selected media source
-    @Published var photos = [Photo]()
+    //@Published var photos = [Photo]()
+    
+    @Published var photos = [CloudPhoto]()
+    
+    @Published var shouldShowProgressIndicator = false
     
     // Application run environment - prod or dev
     var currentEnvironment: Environment = .dev {
@@ -35,6 +40,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     // Database service that helps perfrom CRUD operations with Firebase database
     private var databaseService: FirebaseDatabaseService?
+    private var userPhotoService = UserPhotoService()
+    private var authenticationViewModel = UserAuthenticationViewModel()
     
     
     // MARK: Public methods
@@ -42,8 +49,55 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     /**
      Presents user consent popups based on user selected media source
      */
-    func presentMediaSelectionConsent(for mediaSource: MediaSource) {
-        print("Present consent popup for \(mediaSource.name)")
+    func presentMediaSelectionConsent(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
+        switch mediaSource {
+        case .iCloud: self.userPhotoService.requestAccessToUserICloud { didGrantAccess in
+            DispatchQueue.main.async {
+                self.localStorageService.didUserAllowPhotoAccess = true
+                self.localStorageService.userSelectedMediaSource = mediaSource.rawValue
+                responseHandler(didGrantAccess)
+            }
+        }
+        case .googleDrive:
+            self.authenticationViewModel.authenticateUserWithGoogle { authToken in
+                guard let token = authToken else {
+                    responseHandler(false)
+                    return
+                }
+                
+                self.localStorageService.didUserAllowPhotoAccess = true
+                self.localStorageService.userSelectedMediaSource = mediaSource.rawValue
+                responseHandler(true)
+            }
+        }
+    }
+    
+    /**
+     Calls PhotoService to download user photos
+     */
+    func downloadUserPhotos(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
+        switch mediaSource {
+        case .iCloud:
+            DispatchQueue.global().async {
+                self.userPhotoService.downloadUserPhotosFromICloud { userPhotos in
+                    DispatchQueue.main.async {
+                        self.photos.removeAll()
+                        self.photos.append(contentsOf: userPhotos)
+                        responseHandler(true)
+                    }
+                }
+            }
+        case .googleDrive:
+            DispatchQueue.global().async {
+                self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
+                    DispatchQueue.main.async {
+                        self.photos.removeAll()
+                        self.photos.append(contentsOf: userPhotos)
+                        responseHandler(true)
+                    }
+                }
+            }
+        }
     }
     
     /**

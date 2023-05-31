@@ -8,10 +8,10 @@
 import Foundation
 
 /**
- MediaSource enumeration defines the different media sources available - iCloud, Google Drive, photos (local photos)
+ MediaSource enumeration defines the different media sources available - iCloud and Google Drive
  */
 enum MediaSource: String, CaseIterable {
-    case iCloud, googleDrive, photos
+    case iCloud, googleDrive
     
     // MARK: Public properties
     
@@ -19,7 +19,6 @@ enum MediaSource: String, CaseIterable {
         switch self {
         case .iCloud: return "iCloudIcon"
         case .googleDrive: return "googleDriveIcon"
-        case .photos: return "photosIcon"
         }
     }
     
@@ -27,7 +26,6 @@ enum MediaSource: String, CaseIterable {
         switch self {
         case .iCloud: return NSLocalizedString("Apple iCloud", comment: "Media source - icloud name")
         case .googleDrive: return NSLocalizedString("Google Drive", comment: "Media source - google drive name")
-        case .photos: return NSLocalizedString("Photos", comment: "Media source - photos name")
         }
     }
 }

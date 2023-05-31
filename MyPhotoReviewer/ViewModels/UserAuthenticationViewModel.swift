@@ -131,6 +131,36 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     }
     
     /**
+     This method is called before trying to download photos from users google drive.
+     It presents Google authentication prompt to the user and returns the authentication token on
+     successful authentication.
+     */
+    func authenticateUserWithGoogle(responseHandler: @escaping ResponseHandler<String?>) {
+        guard let googleClientId = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String,
+              let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {
+            responseHandler(nil)
+            return
+        }
+        
+        let config = GIDConfiguration(clientID: googleClientId)
+        GIDSignIn.sharedInstance.configuration = config
+        GIDSignIn.sharedInstance.signIn(
+            withPresenting: presentingViewController,
+            hint: nil,
+            additionalScopes: ["https://www.googleapis.com/auth/drive.readonly"]) { [weak self] result, error in
+                guard error == nil,
+                      let strongSelf = self,
+                      let authResult = result else {
+                    responseHandler(nil)
+                    return
+                }
+                let accessToken = authResult.user.accessToken
+                let refreshToken = authResult.user.refreshToken
+                responseHandler(accessToken.tokenString)
+        }
+    }
+    
+    /**
      Calls Firebase authentication service to register new user with name, email and password combination
      */
     func registerUser(

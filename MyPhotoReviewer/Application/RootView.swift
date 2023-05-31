@@ -38,7 +38,7 @@ struct RootView: View {
         }
         .environmentObject(self.overlayContainerContext)
         .onAppear {
-            //self.initializeApp()
+            self.initializeUserProfile()
             self.validateUserAuthenticationStateIfNeeded()
         }
     }
@@ -46,14 +46,13 @@ struct RootView: View {
     // MARK: Private methods
     
     /**
-     This method sets initial settings and configuration for the app
+     Intializes user profile based on user profile information saved in local storage
      */
-    private func initializeApp() {
-//        let localStorageService = LocalStorageService()
-//        self.userProfile.isAuthenticated = localStorageService.isUserAuthenticated
-//        self.userProfile.authenticationProvider = localStorageService.userAuthenticationProvider
-//        self.userProfile.id = localStorageService.userId
-//        self.userProfile.name = localStorageService.userName
+    private func initializeUserProfile() {
+        let localStorageService = LocalStorageService()
+        self.userProfile.didAllowPhotoAccess = localStorageService.didUserAllowPhotoAccess
+        let mediaSource = MediaSource(rawValue: localStorageService.userSelectedMediaSource)
+        self.userProfile.mediaSource = mediaSource
     }
     
     /**

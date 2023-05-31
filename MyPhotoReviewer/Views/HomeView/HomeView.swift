@@ -73,7 +73,7 @@ struct HomeView: View {
                 Spacer()
                 
                 // Displaying media source selection options, if there are no user photos/albums
-                if self.viewModel.photoAlbums.isEmpty && self.viewModel.photos.isEmpty {
+                if !self.userProfile.didAllowPhotoAccess {
                     VStack(alignment: .center, spacing: 24) {
                         Text(NSLocalizedString(
                             "Please select source for your photos from the options listed below",
@@ -89,7 +89,11 @@ struct HomeView: View {
                                         mediaSource: mediaSource,
                                         width: UIScreen.main.bounds.width * 0.2,
                                         tapActionHandler: { mediaSource in
-                                            self.viewModel.presentMediaSelectionConsent(for: mediaSource)
+                                            self.userProfile.mediaSource = mediaSource
+                                            self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
+                                                self.userProfile.didAllowPhotoAccess = didAllow
+                                                self.loadUserPhotos()
+                                            }
                                         }
                                     )
                                 }
@@ -101,7 +105,11 @@ struct HomeView: View {
                                         mediaSource: mediaSource,
                                         width: UIScreen.main.bounds.width * 0.4,
                                         tapActionHandler: { mediaSource in
-                                            self.viewModel.presentMediaSelectionConsent(for: mediaSource)
+                                            self.userProfile.mediaSource = mediaSource
+                                            self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
+                                                self.userProfile.didAllowPhotoAccess = didAllow
+                                                self.loadUserPhotos()
+                                            }
                                         }
                                     )
                                 }
@@ -111,10 +119,15 @@ struct HomeView: View {
                     .padding(.horizontal, 16)
                 }
                 // Displaying user photos with details, if user photos/album details are saved in database
-                else {
-                    
+                else if !self.viewModel.photos.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .center, spacing: 12) {
+                            ForEach(self.viewModel.photos, id: \.self) { photo in
+                                PhotoView(photo: photo)
+                            }
+                        }
+                    }
                 }
-                
                 Spacer()
             }
             .padding(.top, UIDevice.isIpad ? 40 : 20)
@@ -122,6 +135,9 @@ struct HomeView: View {
         .onAppear {
             self.initializeViewModels()
             self.loadUserDetails()
+        }
+        .onChange(of: self.viewModel.shouldShowProgressIndicator) { shouldShowProgressIndicator in
+            self.overlayContainerContext.shouldShowProgressIndicator = shouldShowProgressIndicator
         }
     }
     
@@ -136,6 +152,15 @@ struct HomeView: View {
     private func loadUserDetails() {
         self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in 
             print("loaded user details from database")
+            self.loadUserPhotos()
+        }
+    }
+    
+    private func loadUserPhotos() {
+        guard let mediaSource = self.userProfile.mediaSource else { return }
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.downloadUserPhotos(for: mediaSource) { didDownloadPhotos in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }
 }

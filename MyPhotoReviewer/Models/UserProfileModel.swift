@@ -27,6 +27,9 @@ class UserProfileModel: ObservableObject {
     /// Authentication system selected by the user - `firebase, google, apple`
     var authenticationServiceProvider: UserAuthenticationServiceProvider?
     
+    /// Boolean flag indicating if the user allowed access to photos
+    @Published var didAllowPhotoAccess: Bool = false
+    
     /// User selected media source
     var mediaSource: MediaSource?
     

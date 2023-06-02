@@ -29,7 +29,7 @@ class EnvironmentManager {
     private static let instance = EnvironmentManager()
     private let buildEnvKey = "com.BarnettLabs.PhotoReview.Environment"
     private let buildEnvValueDev = "dev"
-    private let buildEnvValueProd = "dev"
+    private let buildEnvValueProd = "prod"
     
     
     // MARK: Initilizer

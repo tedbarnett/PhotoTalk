@@ -120,7 +120,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             profile.authenticationServiceProvider = .google
             
             strongSelf.localStorageService.isUserAuthenticated = true
-            strongSelf.localStorageService.authenticationServiceProvider = .google
+            strongSelf.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
             strongSelf.localStorageService.userName = profile.name
             strongSelf.localStorageService.userId = profile.id
             
@@ -147,9 +147,8 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         GIDSignIn.sharedInstance.signIn(
             withPresenting: presentingViewController,
             hint: nil,
-            additionalScopes: ["https://www.googleapis.com/auth/drive.readonly"]) { [weak self] result, error in
+            additionalScopes: ["https://www.googleapis.com/auth/drive.readonly"]) { result, error in
                 guard error == nil,
-                      let strongSelf = self,
                       let authResult = result else {
                     responseHandler(nil)
                     return
@@ -211,7 +210,9 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      */
     func validateUserAuthenticationStateIfNeeded() {
         guard self.localStorageService.isUserAuthenticated,
-              let userProfile = self.userProfile else { return }
+              let userProfile = self.userProfile else {
+            return
+        }
         
         userProfile.authenticationServiceProvider = self.localStorageService.authenticationServiceProvider
         userProfile.id = self.localStorageService.userId
@@ -314,9 +315,7 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
         guard let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential,
-              let user = appleIDCredential.fullName,
-              let firstName = user.givenName,
-              let familyName = user.familyName else {
+              let user = appleIDCredential.fullName else {
             self.authenticationResponseHandler?(false)
             return
         }
@@ -326,22 +325,31 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
             return
         }
         
-        let userName = "\(firstName) \(familyName)"
-        profile.id = appleIDCredential.user
-        profile.name = userName
+        /// Apple id may contain `.` charachter which isn't supported by Firebase database ad a node ID.
+        /// Therefore, replacing `.` with `_`
+        profile.id = appleIDCredential.user.replacingOccurrences(of: ".", with: "_")
+        
+        if let firstName = user.givenName,
+           let familyName = user.familyName {
+            let userName = "\(firstName) \(familyName)"
+            profile.name = userName
+        } else {
+            profile.name = UserProfileModel.defaultName
+        }
         
         if let email = appleIDCredential.email {
             profile.email = email
             self.localStorageService.userEmail = email
         }
         
-        profile.authenticationServiceProvider = .google
+        profile.authenticationServiceProvider = .apple
         
         self.localStorageService.isUserAuthenticated = true
-        self.localStorageService.authenticationServiceProvider = .apple
+        self.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
         self.localStorageService.userId = profile.id
-        self.localStorageService.userName = userName
+        self.localStorageService.userName = profile.name
         
+        profile.isAuthenticated = true
         self.authenticationResponseHandler?(true)
     }
     

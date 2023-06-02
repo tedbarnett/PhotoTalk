@@ -49,6 +49,13 @@
             ReferencedContainer = "container:MyPhotoReviewer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "com.BarnettLabs.PhotoReview.Environment"
+            value = "prod"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -121,7 +121,7 @@ struct HomeView: View {
                 // Displaying user photos with details, if user photos/album details are saved in database
                 else if !self.viewModel.photos.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .center, spacing: 12) {
+                        LazyHStack(alignment: .center, spacing: 12) {
                             ForEach(self.viewModel.photos, id: \.self) { photo in
                                 PhotoView(photo: photo)
                             }

@@ -24,6 +24,7 @@ class CloudPhoto: Hashable {
     var source: MediaSource = .iCloud
     var iCloudAsset: PHAsset? = nil
     var googleDriveFileId: String? = nil
+    var isDownloaded: Bool = false
     
     // MARK: Public methods
     
@@ -35,10 +36,26 @@ class CloudPhoto: Hashable {
         
         if self.source == .iCloud {
             guard let asset = self.iCloudAsset else { return }
-            photoService.downloadPhtoFromICloud(asset: asset, responseHandler: responseHandler)
+            photoService.downloadPhtoFromICloud(asset: asset) { image in
+                guard let downloadedImage = image else {
+                    self.isDownloaded = false
+                    responseHandler(nil)
+                    return
+                }
+                self.isDownloaded = true
+                responseHandler(downloadedImage)
+            }
         } else if self.source == .googleDrive {
             guard let fileId = self.googleDriveFileId else { return }
-            photoService.downloadPhtoFromGoogleDrive(fileId: fileId, responseHandler: responseHandler)
+            photoService.downloadPhtoFromGoogleDrive(fileId: fileId) { image in
+                guard let downloadedImage = image else {
+                    self.isDownloaded = false
+                    responseHandler(nil)
+                    return
+                }
+                self.isDownloaded = true
+                responseHandler(downloadedImage)
+            }
         }
     }
 }

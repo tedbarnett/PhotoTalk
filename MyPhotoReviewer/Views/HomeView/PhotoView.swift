@@ -41,14 +41,20 @@ struct PhotoView: View {
             }
             
             if self.isImageLoading {
-                HStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.offwhite100.opacity(0.6))
+                        .frame(
+                            width: UIScreen.main.bounds.width - 48,
+                            height: UIScreen.main.bounds.height * 0.7
+                        )
+                    
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 }
-                .background(Color.offwhite100.opacity(0.6))
             }
         }
         .onAppear {
+            guard !self.photo.isDownloaded else { return }
             self.isImageLoading = true
             self.photo.downloadPhoto { photo in
                 DispatchQueue.main.async {

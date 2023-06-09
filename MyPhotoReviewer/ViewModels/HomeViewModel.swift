@@ -21,8 +21,9 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     // List of photos (not part of any album) as loaded from user selected media source
     //@Published var photos = [Photo]()
     
+    @Published var shouldShowFolderSelectionView = false
     @Published var folders = [CloudAsset]()
-    @Published var selectedFolderId: String? = nil
+    @Published var selectedFolders: [CloudAsset]? = nil
     @Published var photos = [CloudAsset]()
     
     @Published var shouldShowProgressIndicator = false
@@ -90,10 +91,16 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         case .googleDrive:
-            let folderId = self.localStorageService.userSelectedGoogleDriveFolderId
-            if !folderId.isEmpty {
-                self.selectedFolderId = folderId
-                self.downloadPhotosFromFolder(folderId, responseHandler: responseHandler)
+            if let selectedFolders = self.localStorageService.userSelectedGoogleDriveFolders {
+                var assets = [CloudAsset]()
+                for folder in selectedFolders {
+                    let asset = CloudAsset()
+                    asset.googleDriveFolderId = folder.id
+                    asset.isSelected = true
+                    assets.append(asset)
+                }
+                self.selectedFolders = assets
+                self.downloadPhotosFromFolders(assets, responseHandler: responseHandler)
             } else {
                 DispatchQueue.global().async {
                     self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
@@ -111,6 +118,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                     }
                                 }
                             } else {
+                                self.shouldShowFolderSelectionView = true
                                 responseHandler(true)
                             }
                         }
@@ -123,16 +131,28 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     /**
      Connects to Google drive sdk to download photos from the given folder reference
      */
-    func downloadPhotosFromFolder(_ folderId: String, responseHandler: @escaping ResponseHandler<Bool>) {
-        self.selectedFolderId = folderId
-        self.localStorageService.userSelectedGoogleDriveFolderId = folderId
+    func downloadPhotosFromFolders(_ folders: [CloudAsset], responseHandler: @escaping ResponseHandler<Bool>) {
+        guard !folders.isEmpty else { return }
+        self.selectedFolders = folders
         
-        DispatchQueue.global(qos: .background).async {
-            self.userPhotoService.downloadPhotosFromGoogleDriveFolder(folderId: folderId) { userPhotos in
-                DispatchQueue.main.async {
-                    self.photos.removeAll()
-                    self.photos.append(contentsOf: userPhotos)
-                    responseHandler(true)
+        var photoAlbums = [PhotoAlbum]()
+        for folder in folders {
+            if let id = folder.googleDriveFolderId, let name = folder.googleDriveFolderName {
+                let photoAlbum = PhotoAlbum(id: id, name: name)
+                photoAlbums.append(photoAlbum)
+            }
+        }
+        self.localStorageService.userSelectedGoogleDriveFolders = photoAlbums
+        
+        for folder in folders {
+            if let folderId = folder.googleDriveFolderId {
+                DispatchQueue.global(qos: .background).async {
+                    self.userPhotoService.downloadPhotosFromGoogleDriveFolder(folderId: folderId) { userPhotos in
+                        DispatchQueue.main.async {
+                            self.photos.append(contentsOf: userPhotos)
+                            responseHandler(true)
+                        }
+                    }
                 }
             }
         }

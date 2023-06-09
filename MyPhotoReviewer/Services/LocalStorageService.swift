@@ -19,7 +19,7 @@ class LocalStorageService {
         static let userEmail = "userEmail"
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
-        static let userSelectedGoogleDriveFolderId = "userSelectedGoogleDriveFolderId"
+        static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
     }
 
     // MARK: Private Properties
@@ -105,13 +105,29 @@ class LocalStorageService {
         }
     }
     
-    /// Returns user selected Google Drive folder id
-    var userSelectedGoogleDriveFolderId: String {
+    /// Returns user selected Google Drive folders list
+    var userSelectedGoogleDriveFolders: [PhotoAlbum]? {
         set {
-            self.userDefaults?.setValue(newValue, forKey: StorageKeys.userSelectedGoogleDriveFolderId)
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(newValue)
+                self.userDefaults?.set(data, forKey: StorageKeys.userSelectedGoogleDriveFolders)
+            } catch {
+                print("Error saving user selected folders to local database - (\(error))")
+            }
         } get {
-            let folderId = self.userDefaults?.string(forKey: StorageKeys.userSelectedGoogleDriveFolderId) ?? ""
-            return folderId
+            if let data = UserDefaults.standard.data(forKey: StorageKeys.userSelectedGoogleDriveFolders) {
+                do {
+                    let decoder = JSONDecoder()
+                    let folders = try decoder.decode([PhotoAlbum].self, from: data)
+                    return folders
+                } catch {
+                    print("Error loading user selected folders from local database - (\(error))")
+                    return nil
+                }
+            } else {
+                return nil
+            }
         }
     }
     

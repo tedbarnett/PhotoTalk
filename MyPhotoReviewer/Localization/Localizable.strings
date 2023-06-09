@@ -6,10 +6,12 @@
   
 */
 
-//---------- Common text ---------------------------------------
+//---------- Common ---------------------------------------
 "Ok" = "Ok";
+"Done" = "Done";
+"Cancel" = "Cancel";
 
-//---------- User login and registration module text -----------
+//---------- User login and registration -----------
 
 "Sign in to Photo Reviewer" = "Sign in to Photo Reviewer";
 "Forgot password?" = "Forgot password?";
@@ -39,10 +41,12 @@
 "Failed to send email" = "Failed to send email";
 "Oops! there was an error sending email for password reset. Please try again." = "Oops! there was an error sending email for password reset. Please try again.";
 
-//---------- Photo reviewer module text -----------------------
+//---------- Home view -----------------------
 
 "Welcome back" = "Welcome back";
 "Please select source for your photos from the options listed below" = "Please select source for your photos from the options listed below";
 "Apple iCloud" = "Apple iCloud";
 "Google Drive" = "Google Drive";
 "Photos" = "Photos";
+"Change Photo Selection" = "Change Photo Selection";
+

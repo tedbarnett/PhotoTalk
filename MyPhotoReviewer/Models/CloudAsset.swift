@@ -33,6 +33,7 @@ class CloudAsset: Hashable {
     var googleDriveFileId: String? = nil
     
     var isDownloaded: Bool = false
+    var isSelected: Bool = false
     
     // MARK: Public methods
     

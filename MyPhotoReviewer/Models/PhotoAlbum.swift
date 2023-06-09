@@ -8,19 +8,14 @@
 import Foundation
 
 /**
- PhotoAlbum data object contains details about a collection of photos
+ PhotoAlbum data object contains details about a folder from Google drive
  */
-class PhotoAlbum: Hashable {
-    let id: String = ""
-    let name: String = ""
-    let url: String? = nil
-    let photos: [Photo] = []
+class PhotoAlbum: Codable {
+    let id: String
+    let name: String
     
-    static func == (lhs: PhotoAlbum, rhs: PhotoAlbum) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    init(id: String, name: String) {
+        self.id = id
+        self.name = name
     }
 }

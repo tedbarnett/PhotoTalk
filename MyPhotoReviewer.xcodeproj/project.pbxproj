@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
+		C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
 		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
@@ -101,8 +103,8 @@
 		C1DFD3282A27CFAE0001ABFC /* GTMSessionFetcherLogView in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3272A27CFAE0001ABFC /* GTMSessionFetcherLogView */; };
 		C1DFD32A2A27D0C20001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3292A27D0C20001ABFC /* GoogleAPIClientForREST_Drive */; };
 		C1DFD32C2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */; };
-		C1DFD32E2A27E8F80001ABFC /* CloudPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudPhoto.swift */; };
-		C1DFD32F2A27E8F90001ABFC /* CloudPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudPhoto.swift */; };
+		C1DFD32E2A27E8F80001ABFC /* CloudAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */; };
+		C1DFD32F2A27E8F90001ABFC /* CloudAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */; };
 		C1F6B8062A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
 		C1F6B8072A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
 		C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */; };
@@ -128,6 +130,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C101B3A52A3356110024E261 /* FolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSelectionView.swift; sourceTree = "<group>"; };
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		C101B9F429FA8721000192CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,7 +175,7 @@
 		C1DCE0702A33351B00C45549 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		C1DFD3012A27A0010001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
-		C1DFD32D2A27E8F80001ABFC /* CloudPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudPhoto.swift; sourceTree = "<group>"; };
+		C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAsset.swift; sourceTree = "<group>"; };
 		C1F6B8052A24DA6300D3A822 /* MediaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSource.swift; sourceTree = "<group>"; };
 		C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		C1F6B80B2A24DDD000D3A822 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -428,7 +431,7 @@
 				C1F6B8052A24DA6300D3A822 /* MediaSource.swift */,
 				C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */,
 				C1F6B80B2A24DDD000D3A822 /* Photo.swift */,
-				C1DFD32D2A27E8F80001ABFC /* CloudPhoto.swift */,
+				C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */,
 				C1F6B8112A24DE9800D3A822 /* PhotoAudio.swift */,
 				C1F6B80E2A24DE7700D3A822 /* PhotoLocation.swift */,
 			);
@@ -474,6 +477,7 @@
 				C1DCE0702A33351B00C45549 /* FolderView.swift */,
 				C1F6B8232A27659A00D3A822 /* PhotoView.swift */,
 				C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */,
+				C101B3A52A3356110024E261 /* FolderSelectionView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -826,7 +830,7 @@
 				C199490A2A068209004CD4A1 /* BaseViewModel.swift in Sources */,
 				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
 				C1F6B8152A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
-				C1DFD32E2A27E8F80001ABFC /* CloudPhoto.swift in Sources */,
+				C1DFD32E2A27E8F80001ABFC /* CloudAsset.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
 				C19949102A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */,
 				C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */,
@@ -843,6 +847,7 @@
 				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
+				C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
@@ -886,7 +891,7 @@
 				C1B2CA7E2A15458600D2AE04 /* BaseViewModel.swift in Sources */,
 				C1B2CA7F2A15458600D2AE04 /* HomeView.swift in Sources */,
 				C1F6B8162A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
-				C1DFD32F2A27E8F90001ABFC /* CloudPhoto.swift in Sources */,
+				C1DFD32F2A27E8F90001ABFC /* CloudAsset.swift in Sources */,
 				C1B2CA802A15458600D2AE04 /* EnvironmentManager.swift in Sources */,
 				C1B2CA812A15458600D2AE04 /* UserAuthenticationViewModel.swift in Sources */,
 				C1B2CA822A15458600D2AE04 /* AlertView.swift in Sources */,
@@ -903,6 +908,7 @@
 				C1B2CA882A15458600D2AE04 /* ActivityIndicator.swift in Sources */,
 				C1B2CA892A15458600D2AE04 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
+				C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,
 				C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */,
 				C1B2CA8C2A15458600D2AE04 /* UserRegistrationView.swift in Sources */,
@@ -1189,6 +1195,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -1226,6 +1233,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -1246,6 +1254,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.PhotoReviewer.dist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

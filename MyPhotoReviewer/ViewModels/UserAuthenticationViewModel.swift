@@ -273,10 +273,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     private func logoutFromFirebaseAuthSystem(responseHandler: @escaping ResponseHandler<Bool>) {
         do {
             try Auth.auth().signOut()
-            self.localStorageService.userId = ""
-            self.localStorageService.userName = UserProfileModel.guestUserName
-            self.localStorageService.userEmail = UserProfileModel.defaultEmail
-            self.localStorageService.isUserAuthenticated = false
+            self.localStorageService.reset()
             responseHandler(true)
         } catch {
             responseHandler(false)
@@ -287,10 +284,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      Logs out user from Apple auth system
      */
     private func logoutUserFromAppleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
-        self.localStorageService.userId = ""
-        self.localStorageService.userName = UserProfileModel.guestUserName
-        self.localStorageService.userEmail = UserProfileModel.defaultEmail
-        self.localStorageService.isUserAuthenticated = false
+        self.localStorageService.reset()
         responseHandler(true)
     }
     
@@ -299,10 +293,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      */
     private func logoutUserFromGoogleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
         GIDSignIn.sharedInstance.signOut()
-        self.localStorageService.userId = ""
-        self.localStorageService.userName = UserProfileModel.guestUserName
-        self.localStorageService.userEmail = UserProfileModel.defaultEmail
-        self.localStorageService.isUserAuthenticated = false
+        self.localStorageService.reset()
         responseHandler(true)
     }
 }

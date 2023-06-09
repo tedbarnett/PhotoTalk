@@ -19,6 +19,7 @@ class LocalStorageService {
         static let userEmail = "userEmail"
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
+        static let userSelectedGoogleDriveFolderId = "userSelectedGoogleDriveFolderId"
     }
 
     // MARK: Private Properties
@@ -101,6 +102,16 @@ class LocalStorageService {
         } get {
             let mediaSource = self.userDefaults?.string(forKey: StorageKeys.userSelectedMediaSource) ?? ""
             return mediaSource
+        }
+    }
+    
+    /// Returns user selected Google Drive folder id
+    var userSelectedGoogleDriveFolderId: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.userSelectedGoogleDriveFolderId)
+        } get {
+            let folderId = self.userDefaults?.string(forKey: StorageKeys.userSelectedGoogleDriveFolderId) ?? ""
+            return folderId
         }
     }
     

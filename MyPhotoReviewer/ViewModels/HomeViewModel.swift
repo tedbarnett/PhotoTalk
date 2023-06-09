@@ -21,7 +21,9 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     // List of photos (not part of any album) as loaded from user selected media source
     //@Published var photos = [Photo]()
     
-    @Published var photos = [CloudPhoto]()
+    @Published var folders = [CloudAsset]()
+    @Published var selectedFolderId: String? = nil
+    @Published var photos = [CloudAsset]()
     
     @Published var shouldShowProgressIndicator = false
     
@@ -73,9 +75,9 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     }
     
     /**
-     Calls PhotoService to download user photos
+     Connects to user selected Cloud services to fetch list of assets like phots, folders.
      */
-    func downloadUserPhotos(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
+    func downloadCloudAssets(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
         switch mediaSource {
         case .iCloud:
             DispatchQueue.global().async {
@@ -88,13 +90,49 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         case .googleDrive:
-            DispatchQueue.global().async {
-                self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
-                    DispatchQueue.main.async {
-                        self.photos.removeAll()
-                        self.photos.append(contentsOf: userPhotos)
-                        responseHandler(true)
+            let folderId = self.localStorageService.userSelectedGoogleDriveFolderId
+            if !folderId.isEmpty {
+                self.selectedFolderId = folderId
+                self.downloadPhotosFromFolder(folderId, responseHandler: responseHandler)
+            } else {
+                DispatchQueue.global().async {
+                    self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
+                        DispatchQueue.main.async {
+                            self.folders.removeAll()
+                            self.folders.append(contentsOf: userFolders)
+                            
+                            // If user doesn't have any folder, download the photos from root level
+                            if userFolders.isEmpty {
+                                self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
+                                    DispatchQueue.main.async {
+                                        self.photos.removeAll()
+                                        self.photos.append(contentsOf: userPhotos)
+                                        responseHandler(true)
+                                    }
+                                }
+                            } else {
+                                responseHandler(true)
+                            }
+                        }
                     }
+                }
+            }
+        }
+    }
+    
+    /**
+     Connects to Google drive sdk to download photos from the given folder reference
+     */
+    func downloadPhotosFromFolder(_ folderId: String, responseHandler: @escaping ResponseHandler<Bool>) {
+        self.selectedFolderId = folderId
+        self.localStorageService.userSelectedGoogleDriveFolderId = folderId
+        
+        DispatchQueue.global(qos: .background).async {
+            self.userPhotoService.downloadPhotosFromGoogleDriveFolder(folderId: folderId) { userPhotos in
+                DispatchQueue.main.async {
+                    self.photos.removeAll()
+                    self.photos.append(contentsOf: userPhotos)
+                    responseHandler(true)
                 }
             }
         }

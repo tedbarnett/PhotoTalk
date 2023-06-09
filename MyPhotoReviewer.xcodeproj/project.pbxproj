@@ -86,6 +86,8 @@
 		C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
 		C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
 		C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
+		C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
+		C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
 		C1DFD3032A27A00C0001ABFC /* GoogleDriveService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */; };
 		C1DFD3152A27CE750001ABFC /* GTMSessionFetcher in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */; };
 		C1DFD3172A27CE750001ABFC /* GTMSessionFetcherCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3162A27CE750001ABFC /* GTMSessionFetcherCore */; };
@@ -167,6 +169,7 @@
 		C1B2CAA92A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyPhotoReviewer-Distribution-Info.plist"; sourceTree = "<group>"; };
 		C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
 		C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
+		C1DCE0702A33351B00C45549 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		C1DFD3012A27A0010001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD32D2A27E8F80001ABFC /* CloudPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudPhoto.swift; sourceTree = "<group>"; };
@@ -468,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				C1A983B229F3D80D00D83BBF /* HomeView.swift */,
+				C1DCE0702A33351B00C45549 /* FolderView.swift */,
 				C1F6B8232A27659A00D3A822 /* PhotoView.swift */,
 				C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */,
 			);
@@ -832,6 +836,7 @@
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
+				C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */,
 				C1F6B80F2A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
@@ -891,6 +896,7 @@
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
 				C1B2CA852A15458600D2AE04 /* UIDevice+ScreenSize.swift in Sources */,
 				C1B2CA862A15458600D2AE04 /* FormTextField.swift in Sources */,
+				C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */,
 				C1F6B8102A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA872A15458600D2AE04 /* UserAuthenticationProvider.swift in Sources */,

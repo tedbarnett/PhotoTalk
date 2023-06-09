@@ -15,7 +15,7 @@ struct PhotoView: View {
     
     // MARK: Public properties
     
-    var photo: CloudPhoto
+    var photo: CloudAsset
     
     // MARK: Private properties
     

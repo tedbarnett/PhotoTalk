@@ -54,14 +54,14 @@ class UserPhotoService {
         }
     }
     
-    func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudPhoto]>) {
+    func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        var cloudPhotos = [CloudPhoto]()
+        var cloudPhotos = [CloudAsset]()
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         fetchResult.enumerateObjects { asset, _, _ in
-            var photo = CloudPhoto()
+            var photo = CloudAsset()
             photo.source = .iCloud
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
@@ -98,7 +98,66 @@ class UserPhotoService {
             })
     }
     
-    func downloadUserPhotosFromGoogleDrive(responseHandler: @escaping ResponseHandler<[CloudPhoto]>) {
+    func downloadUserFoldersFromGoogleDrive(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
+        let service = GTLRDriveService()
+        service.authorizer = GIDSignIn.sharedInstance.currentUser?.fetcherAuthorizer
+        let query = GTLRDriveQuery_FilesList .query()
+        query.q = "mimeType contains 'application/vnd.google-apps.folder'"
+        
+        service.executeQuery(query) { ticket, files, error in
+            guard error == nil,
+                  let response = files as? GTLRDrive_FileList,
+                  let folders = response.files else {
+                print("Error retrieving user folders from Google Drive")
+                responseHandler([])
+                return
+            }
+            
+            var cloudFolders = [CloudAsset]()
+            for folder in folders {
+                let asset = CloudAsset()
+                asset.source = .googleDrive
+                asset.googleDriveFolderId = folder.identifier
+                asset.googleDriveFolderName = folder.name
+                cloudFolders.append(asset)
+            }
+            responseHandler(cloudFolders)
+        }
+    }
+    
+    func downloadPhotosFromGoogleDriveFolder(folderId: String, responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
+        let service = GTLRDriveService()
+        service.authorizer = GIDSignIn.sharedInstance.currentUser?.fetcherAuthorizer
+        
+        let query = GTLRDriveQuery_FilesList.query()
+        query.q = "'\(folderId)' in parents and mimeType contains 'image/'"
+        
+//        let query = GTLRDriveQuery_FilesList.query()
+//        query.q = "'\(folderId)' in parents and mimeType contains 'image/'"
+//        query.spaces = "drive"
+//        query.fields = "files(id, name)"
+        
+        service.executeQuery(query) { ticket, files, error in
+            guard error == nil,
+                  let photos = files as? GTLRDrive_FileList,
+                  let fileList = photos.files else {
+                print("Error retrieving photos from Google Drive")
+                responseHandler([])
+                return
+            }
+            
+            var cloudPhotos = [CloudAsset]()
+            for file in fileList {
+                let asset = CloudAsset()
+                asset.source = .googleDrive
+                asset.googleDriveFileId = file.identifier
+                cloudPhotos.append(asset)
+            }
+            responseHandler(cloudPhotos)
+        }
+    }
+
+    func downloadUserPhotosFromGoogleDrive(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
         let service = GTLRDriveService()
         service.authorizer = GIDSignIn.sharedInstance.currentUser?.fetcherAuthorizer
         let query = GTLRDriveQuery_FilesList.query()
@@ -113,15 +172,12 @@ class UserPhotoService {
                 return
             }
             
-            var cloudPhotos = [CloudPhoto]()
+            var cloudPhotos = [CloudAsset]()
             for file in fileList {
-                let fileName = file.name
-                let fileId = file.identifier
-                
-                var photo = CloudPhoto()
-                photo.source = .googleDrive
-                photo.googleDriveFileId = fileId
-                cloudPhotos.append(photo)
+                let asset = CloudAsset()
+                asset.source = .googleDrive
+                asset.googleDriveFileId = file.identifier
+                cloudPhotos.append(asset)
             }
             responseHandler(cloudPhotos)
         }

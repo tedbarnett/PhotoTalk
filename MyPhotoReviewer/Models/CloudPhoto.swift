@@ -1,5 +1,5 @@
 //
-//  CloudPhoto.swift
+//  CloudAsset.swift
 //  MyPhotoReviewer
 //
 //  Created by Prem Pratap Singh on 01/06/23.
@@ -9,10 +9,10 @@ import UIKit
 import Photos
 
 /**
- CloudPhoto represents a photo stored either on iCloud or Google drive
+ CloudAsset represents an assets (folder or photo) stored either on iCloud or Google drive
  */
-class CloudPhoto: Hashable {
-    static func == (lhs: CloudPhoto, rhs: CloudPhoto) -> Bool {
+class CloudAsset: Hashable {
+    static func == (lhs: CloudAsset, rhs: CloudAsset) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -21,12 +21,27 @@ class CloudPhoto: Hashable {
     }
     
     let id: String = UUID().uuidString
+    let type: CloudAssetType = .photo
     var source: MediaSource = .iCloud
+    
+    // MARK: Properties for iCloud assets
     var iCloudAsset: PHAsset? = nil
+    
+    // MARK: Properties for Google Drive assets
+    var googleDriveFolderName: String? = nil
+    var googleDriveFolderId: String? = nil
     var googleDriveFileId: String? = nil
+    
     var isDownloaded: Bool = false
     
     // MARK: Public methods
+    
+    /**
+     Calls Google drive API to download list of photos from the folder
+     */
+    func downloadPhotos() {
+        
+    }
     
     /**
      Downloads photo from the cloud and returns back the same via response handler
@@ -58,4 +73,11 @@ class CloudPhoto: Hashable {
             }
         }
     }
+}
+
+/**
+ CloudAssetType defines the type of the cloud asset
+ */
+enum CloudAssetType {
+    case folder, photo
 }

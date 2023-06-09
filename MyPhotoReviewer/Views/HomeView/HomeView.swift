@@ -92,7 +92,7 @@ struct HomeView: View {
                                             self.userProfile.mediaSource = mediaSource
                                             self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
                                                 self.userProfile.didAllowPhotoAccess = didAllow
-                                                self.loadUserPhotos()
+                                                self.loadCloudAssets()
                                             }
                                         }
                                     )
@@ -108,7 +108,7 @@ struct HomeView: View {
                                             self.userProfile.mediaSource = mediaSource
                                             self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
                                                 self.userProfile.didAllowPhotoAccess = didAllow
-                                                self.loadUserPhotos()
+                                                self.loadCloudAssets()
                                             }
                                         }
                                     )
@@ -117,6 +117,17 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal, 16)
+                }
+                // Displaying list of folders, if available
+                else if !self.viewModel.folders.isEmpty, self.viewModel.selectedFolderId == nil {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())], spacing: 16) {
+                            ForEach(self.viewModel.folders, id: \.self) { folder in
+                                FolderView(folder: folder, delegate: self)
+                            }
+                        }
+                        .padding()
+                    }
                 }
                 // Displaying user photos with details, if user photos/album details are saved in database
                 else if !self.viewModel.photos.isEmpty {
@@ -152,14 +163,25 @@ struct HomeView: View {
     private func loadUserDetails() {
         self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in 
             print("loaded user details from database")
-            self.loadUserPhotos()
+            self.loadCloudAssets()
         }
     }
     
-    private func loadUserPhotos() {
+    private func loadCloudAssets() {
         guard let mediaSource = self.userProfile.mediaSource else { return }
         self.overlayContainerContext.shouldShowProgressIndicator = true
-        self.viewModel.downloadUserPhotos(for: mediaSource) { didDownloadPhotos in
+        self.viewModel.downloadCloudAssets(for: mediaSource) { _ in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
+    }
+}
+
+// MARK: FolderViewDelegate delegate methods
+extension HomeView: FolderViewDelegate {
+    func didSelectFolder(_ folder: CloudAsset) {
+        guard let folderId = folder.googleDriveFolderId else { return }
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.downloadPhotosFromFolder(folderId) { didLoadPhotos in
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }

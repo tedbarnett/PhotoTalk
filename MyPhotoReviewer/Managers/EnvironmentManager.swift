@@ -27,7 +27,8 @@ class EnvironmentManager {
     // MARK: - Private properties
     
     private static let instance = EnvironmentManager()
-    private let buildEnvKey = "com.BarnettLabs.PhotoReview.Environment"
+    private let environmentVariablesKey = "LSEnvironment"
+    private let environmentKey = "ENVIRONMENT"
     private let buildEnvValueDev = "dev"
     private let buildEnvValueProd = "prod"
     
@@ -41,12 +42,14 @@ class EnvironmentManager {
     /// Sets application run environment based on the launch key parameter
     /// Environment value determines the backend service endpoint URLs and other run environment specific details
     private func configureEnvironment() {
-        guard let launchEnvKey = ProcessInfo.processInfo.environment[self.buildEnvKey] else {
+        guard let infoDictionary = Bundle.main.infoDictionary,
+              let environmentVariables = infoDictionary[self.environmentVariablesKey] as? Dictionary<String, String>,
+              let environment = environmentVariables[self.environmentKey] else {
             self.currentEnvironment = .prod
             return
         }
-
-        switch launchEnvKey {
+        
+        switch environment {
         case buildEnvValueDev: self.currentEnvironment = .dev
         case buildEnvValueProd: self.currentEnvironment = .prod
         default: self.currentEnvironment = .prod

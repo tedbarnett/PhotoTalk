@@ -931,6 +931,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				ENVIRONMENT = dev;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -968,6 +969,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				ENVIRONMENT = dev;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -1195,6 +1197,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				ENVIRONMENT = prod;
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
@@ -1233,6 +1236,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
+				ENVIRONMENT = prod;
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";

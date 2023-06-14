@@ -23,5 +23,10 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>878194983320-t7kdd69c91vc5hpam17bn4gqpi6ioua0.apps.googleusercontent.com</string>
+	<key>LSEnvironment</key>
+	<dict>
+		<key>ENVIRONMENT</key>
+		<string>$(ENVIRONMENT)</string>
+	</dict>
 </dict>
 </plist>

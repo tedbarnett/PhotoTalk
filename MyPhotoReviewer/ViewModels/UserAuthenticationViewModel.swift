@@ -59,10 +59,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                 profile.name = userName
                 profile.authenticationServiceProvider = .firebase
                 
-                self.localStorageService.isUserAuthenticated = true
-                self.localStorageService.authenticationServiceProvider = .firebase
                 self.localStorageService.userId = profile.id
                 self.localStorageService.userName = profile.name
+                self.localStorageService.isUserAuthenticated = true
+                self.localStorageService.authenticationServiceProvider = .firebase
                 
                 responseHandler(.userLoginSuccessfull)
             }
@@ -119,10 +119,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             profile.name = uProfile.name
             profile.authenticationServiceProvider = .google
             
-            strongSelf.localStorageService.isUserAuthenticated = true
-            strongSelf.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
             strongSelf.localStorageService.userName = profile.name
             strongSelf.localStorageService.userId = profile.id
+            strongSelf.localStorageService.isUserAuthenticated = true
+            strongSelf.localStorageService.authenticationServiceProvider = .google
             
             DispatchQueue.main.async {
                 responseHandler(true)
@@ -191,7 +191,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     }
     
     /**
-     Sends user email for resetting password
+     Sends user email for resetting password, if the user was authenticated with Firebase authentication service
      */
     func sendEmailForPasswordReset(userEmail: String, responseHandler: @escaping ResponseHandler<Bool>) {
         Auth.auth().sendPasswordReset(withEmail: userEmail) { error in
@@ -318,6 +318,7 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
         
         /// Apple id may contain `.` charachter which isn't supported by Firebase database ad a node ID.
         /// Therefore, replacing `.` with `_`
+        let appleUserId = appleIDCredential.user
         profile.id = appleIDCredential.user.replacingOccurrences(of: ".", with: "_")
         
         if let firstName = user.givenName,
@@ -327,6 +328,7 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
         } else {
             profile.name = UserProfileModel.defaultName
         }
+        self.localStorageService.userName = profile.name
         
         if let email = appleIDCredential.email {
             profile.email = email

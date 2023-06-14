@@ -83,11 +83,47 @@ extension FirebaseDatabaseService {
             
             userDirectory.setValue(userDetails) { error, reference in
                 guard error == nil else {
-                    print("[Firebase Database] Failed to save user details to database")
+                    print("[Firebase Database] Failed to save user details for user \(userProfile.id)")
                     responseHandler(false)
                     return
                 }
-                print("[Firebase Database] Successfully saved user details to database - \(userDetails)")
+                print("[Firebase Database] Successfully saved user details for user \(userProfile.id)")
+                responseHandler(true)
+            }
+        }
+    
+    /// Saves user details to the database for the authenticated user
+    func loadUserDetailsFromDatabase(
+        _ userProfile: UserProfileModel,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(UserNodeProperties.nodeName).child(userProfile.id)
+            userDirectory.getData { error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot,
+                      dataSnapshot.exists(),
+                      let userDetails = dataSnapshot.value as? [String: Any] else {
+                    print("[Firebase Database] Failed to load user details for user \(userProfile.id)")
+                    responseHandler(false)
+                    return
+                }
+                
+                if let userName = userDetails[DatabaseNodeCommonProperties.name] as? String {
+                    userProfile.name = userName
+                }
+                
+                if let email = userDetails[UserNodeProperties.email] as? String {
+                    userProfile.email = email
+                }
+                
+                if let authProvider = userDetails[UserNodeProperties.authenticationServiceProvider] as? String {
+                    userProfile.authenticationServiceProvider = UserAuthenticationServiceProvider(rawValue: authProvider)
+                }
+                
+                if let mediaSource = userDetails[UserNodeProperties.mediaSource] as? String {
+                    userProfile.mediaSource = MediaSource(rawValue: mediaSource)
+                }
+                print("[Firebase Database] Successfully loaded user details for user \(userProfile.id)")
                 responseHandler(true)
             }
         }

@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 import AuthenticationServices
+import CryptoKit
 
 /**
  UserAuthenticationViewModel communicates with Firebase authentication services for
@@ -24,6 +25,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     
     var userProfile: UserProfileModel?
     var authenticationResponseHandler: ResponseHandler<Bool>?
+    
+    // MARK: Private properties
+    
+    private var currentNonce: String?
     
     // MARK: Public methods
     
@@ -77,6 +82,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
+        
+        let nonce = self.randomNonceString()
+        self.currentNonce = nonce
+        request.nonce = self.sha256(nonce)
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -223,11 +232,27 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             appleIDProvider.getCredentialState(forUserID: self.localStorageService.userId) { credentialState, error in
                 switch credentialState {
                 case .authorized:
-                    // The Apple ID credential is valid.
-                    DispatchQueue.main.async {
+                    guard let user = Auth.auth().currentUser else {
+                        return
+                    }
+                    
+                    let idToken = self.localStorageService.appleIdToken
+                    let nonce = self.localStorageService.nonceUserdForAppleAuthentication
+                    let credential = OAuthProvider.credential(
+                        withProviderID: "apple.com",
+                        idToken: idToken,
+                        rawNonce: nonce)
+                    
+                    user.reauthenticate(with: credential) { authResult, error in
+                        guard error != nil else { return }
                         userProfile.email = self.localStorageService.userEmail
                         self.localStorageService.isUserAuthenticated = true
                         userProfile.isAuthenticated = true
+                    }
+                    
+                    // The Apple ID credential is valid.
+                    DispatchQueue.main.async {
+                        
                     }
                     break
                 case .revoked, .notFound:
@@ -296,6 +321,38 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         self.localStorageService.reset()
         responseHandler(true)
     }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        var randomBytes = [UInt8](repeating: 0, count: length)
+        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
+        if errorCode != errSecSuccess {
+            fatalError(
+                "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+            )
+        }
+        
+        let charset: [Character] =
+        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        
+        let nonce = randomBytes.map { byte in
+            // Pick a random character from the set, wrapping around if needed.
+            charset[Int(byte) % charset.count]
+        }
+        
+        return String(nonce)
+    }
+    
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = SHA256.hash(data: inputData)
+      let hashString = hashedData.compactMap {
+        String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
+    }
 }
 
 // MARK: ASAuthorizationControllerDelegate methods
@@ -316,34 +373,67 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
             return
         }
         
-        /// Apple id may contain `.` charachter which isn't supported by Firebase database ad a node ID.
-        /// Therefore, replacing `.` with `_`
-        let appleUserId = appleIDCredential.user
-        profile.id = appleIDCredential.user.replacingOccurrences(of: ".", with: "_")
-        
-        if let firstName = user.givenName,
-           let familyName = user.familyName {
-            let userName = "\(firstName) \(familyName)"
-            profile.name = userName
-        } else {
-            profile.name = UserProfileModel.defaultName
-        }
-        self.localStorageService.userName = profile.name
-        
-        if let email = appleIDCredential.email {
-            profile.email = email
-            self.localStorageService.userEmail = email
+        guard let nonce = self.currentNonce else {
+            print("Invalid state: A login callback was received, but no login request was sent.")
+            self.authenticationResponseHandler?(false)
+            return
         }
         
-        profile.authenticationServiceProvider = .apple
+        guard let appleIDToken = appleIDCredential.identityToken else {
+            print("Unable to fetch identity token")
+            self.authenticationResponseHandler?(false)
+            return
+        }
+        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+            self.authenticationResponseHandler?(false)
+            return
+        }
         
-        self.localStorageService.isUserAuthenticated = true
-        self.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
-        self.localStorageService.userId = profile.id
-        self.localStorageService.userName = profile.name
+        // Initialize a Firebase credential, including the user's full name.
+        let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
+                                                       rawNonce: nonce,
+                                                       fullName: user)
         
-        profile.isAuthenticated = true
-        self.authenticationResponseHandler?(true)
+        // Sign in with Firebase.
+        Auth.auth().signIn(with: credential) { authResult, error in
+            guard error == nil,
+                  let result = authResult else {
+                self.authenticationResponseHandler?(false)
+                return
+            }
+            
+            /// Apple id may contain `.` charachter which isn't supported by Firebase database ad a node ID.
+            /// Therefore, replacing `.` with `_`
+            let appleUserId = appleIDCredential.user
+            profile.id = result.user.uid
+            
+            if let firstName = user.givenName,
+               let familyName = user.familyName {
+                let userName = "\(firstName) \(familyName)"
+                profile.name = userName
+            } else {
+                profile.name = UserProfileModel.defaultName
+            }
+            self.localStorageService.userName = profile.name
+            
+            if let email = appleIDCredential.email {
+                profile.email = email
+                self.localStorageService.userEmail = email
+            }
+            
+            profile.authenticationServiceProvider = .apple
+            
+            self.localStorageService.isUserAuthenticated = true
+            self.localStorageService.appleIdToken = idTokenString
+            self.localStorageService.nonceUserdForAppleAuthentication = nonce
+            self.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
+            self.localStorageService.userId = profile.id
+            self.localStorageService.userName = profile.name
+            
+            profile.isAuthenticated = true
+            self.authenticationResponseHandler?(true)
+        }
     }
     
     func authorizationController(

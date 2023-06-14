@@ -17,6 +17,8 @@ class LocalStorageService {
         static let userId = "userId"
         static let userName = "userName"
         static let userEmail = "userEmail"
+        static let appleIdToken = "appleIdToken"
+        static let nonceUserdForAppleAuthentication = "nonceUserdForAppleAuthentication"
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
         static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
@@ -94,6 +96,25 @@ class LocalStorageService {
         }
     }
     
+    /// This returns id token obtained after successful user authentication with Apple
+    var appleIdToken: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.appleIdToken)
+        } get {
+            let token = self.userDefaults?.string(forKey: StorageKeys.appleIdToken) ?? ""
+            return token
+        }
+    }
+    
+    /// This returns nonce string used for successful authentication with Apple
+    var nonceUserdForAppleAuthentication: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.nonceUserdForAppleAuthentication)
+        } get {
+            let nonce = self.userDefaults?.string(forKey: StorageKeys.nonceUserdForAppleAuthentication) ?? ""
+            return nonce
+        }
+    }
     
     /// Returns the media source selected by user for photo access
     var userSelectedMediaSource: String {

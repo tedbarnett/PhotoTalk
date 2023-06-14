@@ -50,6 +50,31 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     // MARK: Public methods
     
     /**
+     Calls database service to fetch user details (name, email, photo albums, audio, etc) from Firebase database.
+     If user details aren't found in database, it adds save user details in the database
+     */
+    func loadUserDetailsFromDatabase(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let databaseService = self.databaseService, let userProfile = self.userProfile else {
+            responseHandler(false)
+            return
+        }
+        
+        databaseService.areUserDetailsSavedToDatabase(forUserId: userProfile.id) { areDetailsSaved in
+            // Loading user details if available in the database
+            if areDetailsSaved {
+                databaseService.loadUserDetailsFromDatabase(userProfile, responseHandler: responseHandler)
+            }
+            // Else, saving user details to the database for the first time
+            else {
+                databaseService.saveUserDetailsToDatabase(userProfile) { didSaveDetails in
+                    print("Saved user details to the database")
+                    responseHandler(false)
+                }
+            }
+        }
+    }
+    
+    /**
      Presents user consent popups based on user selected media source
      */
     func presentMediaSelectionConsent(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
@@ -153,32 +178,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             responseHandler(true)
                         }
                     }
-                }
-            }
-        }
-    }
-    
-    /**
-     Calls database service to fetch user details (name, email, photo albums, audio, etc) from Firebase database.
-     If user details aren't found in database, it adds save user details in the database
-     */
-    func loadUserDetailsFromDatabase(responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let databaseService = self.databaseService, let userProfile = self.userProfile else {
-            responseHandler(false)
-            return
-        }
-        
-        databaseService.areUserDetailsSavedToDatabase(forUserId: userProfile.id) { areDetailsSaved in
-            // Loading user details if available in the database
-            if areDetailsSaved {
-                print("load user details")
-                responseHandler(true)
-            }
-            // Else, saving user details to the database for the first time
-            else {
-                databaseService.saveUserDetailsToDatabase(userProfile) { didSaveDetails in
-                    print("Saved user details to the database")
-                    responseHandler(false)
                 }
             }
         }

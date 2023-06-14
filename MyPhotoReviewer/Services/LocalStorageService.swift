@@ -18,6 +18,8 @@ class LocalStorageService {
         static let userName = "userName"
         static let userEmail = "userEmail"
         static let appleIdToken = "appleIdToken"
+        static let googleIdToken = "googleIdToken"
+        static let googleAccessToken = "googleAccessToken"
         static let nonceUserdForAppleAuthentication = "nonceUserdForAppleAuthentication"
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
@@ -102,6 +104,26 @@ class LocalStorageService {
             self.userDefaults?.setValue(newValue, forKey: StorageKeys.appleIdToken)
         } get {
             let token = self.userDefaults?.string(forKey: StorageKeys.appleIdToken) ?? ""
+            return token
+        }
+    }
+    
+    /// This returns id token obtained after successful user authentication with Google
+    var googleIdToken: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.googleIdToken)
+        } get {
+            let token = self.userDefaults?.string(forKey: StorageKeys.googleIdToken) ?? ""
+            return token
+        }
+    }
+    
+    /// This returns access token obtained after successful user authentication with Google
+    var googleAccessToken: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.googleAccessToken)
+        } get {
+            let token = self.userDefaults?.string(forKey: StorageKeys.googleAccessToken) ?? ""
             return token
         }
     }

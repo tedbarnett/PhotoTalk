@@ -108,7 +108,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             guard error == nil,
                   let strongSelf = self,
                   let authResult = result,
-                  let userId = authResult.user.userID,
+                  let idToken = authResult.user.idToken,
                   let uProfile = authResult.user.profile else {
                 DispatchQueue.main.async {
                     responseHandler(false)
@@ -123,18 +123,32 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                 return
             }
             
-            profile.id = userId
-            profile.email = uProfile.email
-            profile.name = uProfile.name
-            profile.authenticationServiceProvider = .google
-            
-            strongSelf.localStorageService.userName = profile.name
-            strongSelf.localStorageService.userId = profile.id
-            strongSelf.localStorageService.isUserAuthenticated = true
-            strongSelf.localStorageService.authenticationServiceProvider = .google
-            
-            DispatchQueue.main.async {
-                responseHandler(true)
+            let acessToken = authResult.user.accessToken.tokenString
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
+                                                             accessToken: acessToken)
+            Auth.auth().signIn(with: credential) { firResult, error in
+                guard error == nil,
+                      let firbaseAuthResult = firResult else {
+                    responseHandler(false)
+                    return
+                }
+                
+                profile.id = firbaseAuthResult.user.uid
+                profile.email = uProfile.email
+                profile.name = uProfile.name
+                profile.authenticationServiceProvider = .google
+                
+                strongSelf.localStorageService.userEmail = profile.email ?? ""
+                strongSelf.localStorageService.userName = profile.name
+                strongSelf.localStorageService.userId = profile.id
+                strongSelf.localStorageService.googleIdToken = idToken.tokenString
+                strongSelf.localStorageService.googleAccessToken = acessToken
+                strongSelf.localStorageService.isUserAuthenticated = true
+                strongSelf.localStorageService.authenticationServiceProvider = .google
+                
+                DispatchQueue.main.async {
+                    responseHandler(true)
+                }
             }
         }
     }
@@ -232,7 +246,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             appleIDProvider.getCredentialState(forUserID: self.localStorageService.userId) { credentialState, error in
                 switch credentialState {
                 case .authorized:
-                    guard let user = Auth.auth().currentUser else {
+                    guard error == nil, let user = Auth.auth().currentUser else {
                         return
                     }
                     
@@ -248,11 +262,6 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                         userProfile.email = self.localStorageService.userEmail
                         self.localStorageService.isUserAuthenticated = true
                         userProfile.isAuthenticated = true
-                    }
-                    
-                    // The Apple ID credential is valid.
-                    DispatchQueue.main.async {
-                        
                     }
                     break
                 case .revoked, .notFound:
@@ -273,9 +282,19 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             }
         } else {
             GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-                userProfile.email = self.localStorageService.userEmail
-                userProfile.isAuthenticated = error == nil
-                self.localStorageService.isUserAuthenticated = error == nil
+                guard error == nil, let user = Auth.auth().currentUser else {
+                    return
+                }
+                let idToken = self.localStorageService.googleIdToken
+                let acessToken = self.localStorageService.googleAccessToken
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                                 accessToken: acessToken)
+                user.reauthenticate(with: credential) { authResult, error in
+                    guard error == nil else { return }
+                    userProfile.email = self.localStorageService.userEmail
+                    userProfile.isAuthenticated = error == nil
+                    self.localStorageService.isUserAuthenticated = error == nil
+                }
             }
         }
     }
@@ -405,7 +424,6 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
             
             /// Apple id may contain `.` charachter which isn't supported by Firebase database ad a node ID.
             /// Therefore, replacing `.` with `_`
-            let appleUserId = appleIDCredential.user
             profile.id = result.user.uid
             
             if let firstName = user.givenName,

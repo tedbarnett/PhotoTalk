@@ -128,6 +128,7 @@
 		C1F6B8242A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
 		C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
 		C1FC400A2A3B3AC200E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
+		C1FC400B2A3B407A00E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -889,6 +890,7 @@
 				C1B2CA7B2A15458600D2AE04 /* UserProfileModel.swift in Sources */,
 				C1F6B8192A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
 				C1F6B80D2A24DDD000D3A822 /* Photo.swift in Sources */,
+				C1FC400B2A3B407A00E09D66 /* PhotoDetailsView.swift in Sources */,
 				C1B2CA7C2A15458600D2AE04 /* RootView.swift in Sources */,
 				C1B2CA7D2A15458600D2AE04 /* AppDelegate.swift in Sources */,
 				C1F6B8072A24DA6300D3A822 /* MediaSource.swift in Sources */,

@@ -69,7 +69,7 @@ struct FolderSelectionView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.gray200)
-                                .frame(width: 150, height: 40)
+                                .frame(height: 40)
                             Text(NSLocalizedString("Cancel", comment: "Common - Cancel button title"))
                                 .font(.system(size: 16))
                                 .foregroundColor(Color.black)
@@ -85,7 +85,7 @@ struct FolderSelectionView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.blue)
-                                .frame(width: 150, height: 40)
+                                .frame(height: 40)
                             Text(NSLocalizedString("Done", comment: "Common - Done button title"))
                                 .font(.system(size: 16))
                                 .foregroundColor(Color.white)

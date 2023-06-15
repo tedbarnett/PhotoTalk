@@ -7,6 +7,9 @@
 
 import UIKit
 import GoogleSignIn
+import PhotosUI
+import Photos
+import SwiftUI
 
 /**
  HomeViewModel manages data and states for HomeView and helps communicate with the backend APIs.
@@ -17,6 +20,22 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     // List of photo albums as loaded from user selected media source
     @Published var photoAlbums = [PhotoAlbum]()
+    
+    var photoGridColumns: [GridItem] {
+        let itemCount = UIDevice.isIpad ? 4 : 2
+        var gridItems = [GridItem]()
+        for _ in 0..<itemCount {
+            gridItems.append(GridItem(.flexible()))
+        }
+        return gridItems
+    }
+    
+    var photoGridColumnWidth: CGFloat {
+        let itemCount = CGFloat(UIDevice.isIpad ? 4 : 2)
+        let spacing: CGFloat = 16
+        let unitWidth =  (UIScreen.main.bounds.width - (((itemCount - 1) + 2) * spacing)) / itemCount
+        return unitWidth
+    }
     
     // List of photos (not part of any album) as loaded from user selected media source
     //@Published var photos = [Photo]()
@@ -100,6 +119,14 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    func presentICloudPhotoPicker() {
+        guard let rootViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {
+            return
+        }
+        PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: rootViewController) { _ in
+            self.downloadCloudAssets(for: .iCloud) {_ in }
+        }
+    }
     /**
      Connects to user selected Cloud services to fetch list of assets like phots, folders.
      */

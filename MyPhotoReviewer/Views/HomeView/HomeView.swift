@@ -121,25 +121,35 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 16)
                     }
+                    
                     // Displaying user photos with details, if user photos/album details are saved in database
                     else if !self.viewModel.photos.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(alignment: .center, spacing: 12) {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 16) {
                                 ForEach(self.viewModel.photos, id: \.self) { photo in
-                                    PhotoView(photo: photo)
+                                    PhotoView(
+                                        photo: photo,
+                                        width: self.viewModel.photoGridColumnWidth
+                                    )
                                 }
                             }
+                            .padding()
                         }
                     }
                     
+                    Spacer()
+                    
                     // Change folder button
-                    if let mediaSource = self.userProfile.mediaSource,
-                       mediaSource == .googleDrive,
-                       let selectedFolders = self.viewModel.selectedFolders,
-                       !selectedFolders.isEmpty {
+                    if let mediaSource = self.userProfile.mediaSource {
                         Button(
                             action: {
-                                self.shouldShowFolderSelectionView = true
+                                if mediaSource == .iCloud {
+                                    self.viewModel.presentICloudPhotoPicker()
+                                } else if mediaSource == .googleDrive,
+                                    let selectedFolders = self.viewModel.selectedFolders,
+                                    !selectedFolders.isEmpty {
+                                    self.shouldShowFolderSelectionView = true
+                                }
                             },
                             label: {
                                 ZStack {
@@ -155,8 +165,6 @@ struct HomeView: View {
                         )
                         
                     }
-                    
-                    Spacer()
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
             }
@@ -189,7 +197,9 @@ struct HomeView: View {
     }
     
     private func loadUserDetails() {
-        self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in 
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
             self.loadCloudAssets()
         }
     }

@@ -93,6 +93,15 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    func loadGoogleDriveFoldersFromDatabaseIfAny() {
+        let driveFolders = self.loadFoldersFromLocalDatabase(targetFolders: .allFolders)
+        let userSelectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders)
+        
+        guard !driveFolders.isEmpty else { return }
+        self.folders.removeAll()
+        self.folders.append(contentsOf: driveFolders)
+    }
+    
     /**
      Presents user consent popups based on user selected media source
      */
@@ -143,22 +152,18 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         case .googleDrive:
-            if let selectedFolders = self.localStorageService.userSelectedGoogleDriveFolders {
-                var assets = [CloudAsset]()
-                for folder in selectedFolders {
-                    let asset = CloudAsset()
-                    asset.googleDriveFolderId = folder.id
-                    asset.isSelected = true
-                    assets.append(asset)
-                }
-                self.selectedFolders = assets
-                self.downloadPhotosFromFolders(assets, responseHandler: responseHandler)
+            let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders)
+            if !selectedFolders.isEmpty {
+                self.selectedFolders = selectedFolders
+                self.downloadPhotosFromFolders(selectedFolders, responseHandler: responseHandler)
             } else {
                 DispatchQueue.global().async {
                     self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
                         DispatchQueue.main.async {
                             self.folders.removeAll()
                             self.folders.append(contentsOf: userFolders)
+                            
+                            self.saveFoldersToLocalDatabase(userFolders: userFolders)
                             
                             // If user doesn't have any folder, download the photos from root level
                             if userFolders.isEmpty {
@@ -180,22 +185,59 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    private func saveFoldersToLocalDatabase(userFolders: [CloudAsset]) {
+        var driveFolder = [PhotoAlbum]()
+        for folder in userFolders {
+            if let id = folder.googleDriveFolderId, let name = folder.googleDriveFolderName {
+                let album = PhotoAlbum(id: id, name: name)
+                album.isSelected = folder.isSelected
+                driveFolder.append(album)
+            }
+        }
+        self.localStorageService.googleDriveFoldersForUser = driveFolder
+    }
+    
+    private func loadFoldersFromLocalDatabase(targetFolders: GoogleDriveFoldersTarget) -> [CloudAsset] {
+        var driveFolders = [CloudAsset]()
+        var localDatabaseFolders = [PhotoAlbum]()
+        
+        if targetFolders == .allFolders, let allDriveFolders = self.localStorageService.googleDriveFoldersForUser {
+            localDatabaseFolders.append(contentsOf: allDriveFolders)
+        } else if targetFolders == .userSelectedFolders, let selectedFolders = self.localStorageService.userSelectedGoogleDriveFolders {
+            localDatabaseFolders.append(contentsOf: selectedFolders)
+        }
+        
+        for folder in localDatabaseFolders {
+            let asset = CloudAsset()
+            asset.googleDriveFolderId = folder.id
+            asset.googleDriveFolderName = folder.name
+            asset.isSelected = folder.isSelected
+            driveFolders.append(asset)
+        }
+        return driveFolders
+    }
+    
     /**
      Connects to Google drive sdk to download photos from the given folder reference
      */
     func downloadPhotosFromFolders(_ folders: [CloudAsset], responseHandler: @escaping ResponseHandler<Bool>) {
-        guard !folders.isEmpty else { return }
+        guard !folders.isEmpty else {
+            responseHandler(false)
+            return
+        }
         self.selectedFolders = folders
         
         var photoAlbums = [PhotoAlbum]()
         for folder in folders {
             if let id = folder.googleDriveFolderId, let name = folder.googleDriveFolderName {
                 let photoAlbum = PhotoAlbum(id: id, name: name)
+                photoAlbum.isSelected = true
                 photoAlbums.append(photoAlbum)
             }
         }
         self.localStorageService.userSelectedGoogleDriveFolders = photoAlbums
         
+        self.photos.removeAll()
         for folder in folders {
             if let folderId = folder.googleDriveFolderId {
                 DispatchQueue.global(qos: .background).async {
@@ -209,4 +251,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
     }
+}
+
+enum GoogleDriveFoldersTarget {
+    case allFolders, userSelectedFolders
 }

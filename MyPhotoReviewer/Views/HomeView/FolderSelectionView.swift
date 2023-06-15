@@ -93,6 +93,7 @@ struct FolderSelectionView: View {
                     }
                 )
             }
+            .padding(.horizontal, 16)
         }
     }
 }

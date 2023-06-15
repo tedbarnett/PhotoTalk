@@ -25,6 +25,7 @@ class LocalStorageService {
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
         static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
+        static let googleDriveFoldersForUser = "googleDriveFoldersForUser"
     }
 
     // MARK: Private Properties
@@ -156,6 +157,32 @@ class LocalStorageService {
         } get {
             let mediaSource = self.userDefaults?.string(forKey: StorageKeys.userSelectedMediaSource) ?? ""
             return mediaSource
+        }
+    }
+    
+    /// Returns list of Google Drive folders for logged in user
+    var googleDriveFoldersForUser: [PhotoAlbum]? {
+        set {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(newValue)
+                self.userDefaults?.set(data, forKey: StorageKeys.googleDriveFoldersForUser)
+            } catch {
+                print("Error saving user user's drive folders to local database - (\(error))")
+            }
+        } get {
+            if let data = UserDefaults.standard.data(forKey: StorageKeys.googleDriveFoldersForUser) {
+                do {
+                    let decoder = JSONDecoder()
+                    let folders = try decoder.decode([PhotoAlbum].self, from: data)
+                    return folders
+                } catch {
+                    print("Error loading user's drive folders from local database - (\(error))")
+                    return nil
+                }
+            } else {
+                return nil
+            }
         }
     }
     

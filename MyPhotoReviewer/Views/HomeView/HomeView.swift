@@ -193,6 +193,7 @@ struct HomeView: View {
     private func initializeViewModels() {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
         self.viewModel.userProfile = self.userProfile
+        self.viewModel.loadGoogleDriveFoldersFromDatabaseIfAny()
         self.authenticationViewModel.userProfile = self.userProfile
     }
     

@@ -13,6 +13,7 @@ import Foundation
 class PhotoAlbum: Codable {
     let id: String
     let name: String
+    var isSelected: Bool = false
     
     init(id: String, name: String) {
         self.id = id

@@ -15,6 +15,7 @@ class LocalStorageService {
         static let isUserAuthenticated = "isUserAuthenticated"
         static let authenticationServiceProvider = "authenticationServiceProvider"
         static let userId = "userId"
+        static let appleUserId = "appleUserId"
         static let userName = "userName"
         static let userEmail = "userEmail"
         static let appleIdToken = "appleIdToken"
@@ -74,6 +75,16 @@ class LocalStorageService {
             self.userDefaults?.setValue(newValue, forKey: StorageKeys.userId)
         } get {
             let id = self.userDefaults?.string(forKey: StorageKeys.userId) ?? ""
+            return id
+        }
+    }
+    
+    /// This returns logged in user's Apple id
+    var appleUserId: String {
+        set {
+            self.userDefaults?.setValue(newValue, forKey: StorageKeys.appleUserId)
+        } get {
+            let id = self.userDefaults?.string(forKey: StorageKeys.appleUserId) ?? ""
             return id
         }
     }

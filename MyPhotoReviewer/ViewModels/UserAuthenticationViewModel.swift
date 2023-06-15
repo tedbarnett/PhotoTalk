@@ -243,26 +243,31 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
         
         if self.localStorageService.authenticationServiceProvider == .apple {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
-            appleIDProvider.getCredentialState(forUserID: self.localStorageService.userId) { credentialState, error in
+            appleIDProvider.getCredentialState(forUserID: self.localStorageService.appleUserId) { credentialState, error in
                 switch credentialState {
                 case .authorized:
                     guard error == nil, let user = Auth.auth().currentUser else {
                         return
                     }
                     
-                    let idToken = self.localStorageService.appleIdToken
-                    let nonce = self.localStorageService.nonceUserdForAppleAuthentication
-                    let credential = OAuthProvider.credential(
-                        withProviderID: "apple.com",
-                        idToken: idToken,
-                        rawNonce: nonce)
+                    userProfile.email = self.localStorageService.userEmail
+                    self.localStorageService.isUserAuthenticated = true
+                    userProfile.isAuthenticated = true
                     
-                    user.reauthenticate(with: credential) { authResult, error in
-                        guard error != nil else { return }
-                        userProfile.email = self.localStorageService.userEmail
-                        self.localStorageService.isUserAuthenticated = true
-                        userProfile.isAuthenticated = true
-                    }
+                    // Uncomment below code, if the user needs to be re-authenticated with Firebase
+//                    let idToken = self.localStorageService.appleIdToken
+//                    let nonce = self.localStorageService.nonceUserdForAppleAuthentication
+//                    let credential = OAuthProvider.credential(
+//                        withProviderID: "apple.com",
+//                        idToken: idToken,
+//                        rawNonce: nonce)
+//
+//                    user.reauthenticate(with: credential) { authResult, error in
+//                        guard error != nil else { return }
+//                        userProfile.email = self.localStorageService.userEmail
+//                        self.localStorageService.isUserAuthenticated = true
+//                        userProfile.isAuthenticated = true
+//                    }
                     break
                 case .revoked, .notFound:
                     // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
@@ -328,7 +333,15 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      Logs out user from Apple auth system
      */
     private func logoutUserFromAppleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
+        let userName = self.localStorageService.userName
+        let userEmail = self.localStorageService.userEmail
+        
         self.localStorageService.reset()
+        // Apple auth system doesn't return user name and email on second login attempts,
+        // therefore saving the user name and email for later user
+        self.localStorageService.userName = userName
+        self.localStorageService.userEmail = userEmail
+        
         responseHandler(true)
     }
     
@@ -403,6 +416,7 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
             self.authenticationResponseHandler?(false)
             return
         }
+        
         guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
             print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
             self.authenticationResponseHandler?(false)
@@ -430,10 +444,11 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
                let familyName = user.familyName {
                 let userName = "\(firstName) \(familyName)"
                 profile.name = userName
+                self.localStorageService.userName = userName
             } else {
-                profile.name = UserProfileModel.defaultName
+                let name = self.localStorageService.userName
+                profile.name = name
             }
-            self.localStorageService.userName = profile.name
             
             if let email = appleIDCredential.email {
                 profile.email = email
@@ -441,13 +456,13 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
             }
             
             profile.authenticationServiceProvider = .apple
-            
-            self.localStorageService.isUserAuthenticated = true
+            self.localStorageService.userId = profile.id
+            let appleUserId = appleIDCredential.user
+            self.localStorageService.appleUserId = appleUserId
             self.localStorageService.appleIdToken = idTokenString
+            self.localStorageService.isUserAuthenticated = true
             self.localStorageService.nonceUserdForAppleAuthentication = nonce
             self.localStorageService.authenticationServiceProvider = profile.authenticationServiceProvider
-            self.localStorageService.userId = profile.id
-            self.localStorageService.userName = profile.name
             
             profile.isAuthenticated = true
             self.authenticationResponseHandler?(true)

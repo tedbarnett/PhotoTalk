@@ -127,6 +127,7 @@
 		C1F6B8222A25FB9E00D3A822 /* UserPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */; };
 		C1F6B8242A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
 		C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
+		C1FC400A2A3B3AC200E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,6 +188,7 @@
 		C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourceSelectionButton.swift; sourceTree = "<group>"; };
 		C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoService.swift; sourceTree = "<group>"; };
 		C1F6B8232A27659A00D3A822 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +487,7 @@
 		C1A983E329F3DB2D00D83BBF /* PhotoDetailsView */ = {
 			isa = PBXGroup;
 			children = (
+				C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */,
 			);
 			path = PhotoDetailsView;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
 				C1F6B8182A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
 				C1F6B80C2A24DDD000D3A822 /* Photo.swift in Sources */,
+				C1FC400A2A3B3AC200E09D66 /* PhotoDetailsView.swift in Sources */,
 				C19948C02A03923F004CD4A1 /* RootView.swift in Sources */,
 				C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */,
 				C1F6B8062A24DA6300D3A822 /* MediaSource.swift in Sources */,

@@ -26,6 +26,8 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     @State private var shouldShowFolderSelectionView = false
+    @State private var shouldShowPhotoDetails = false
+    @State private var selectedPhoto: CloudAsset?
     
     // MARK: User interface
     
@@ -129,8 +131,14 @@ struct HomeView: View {
                                 ForEach(self.viewModel.photos, id: \.self) { photo in
                                     PhotoView(
                                         photo: photo,
-                                        width: self.viewModel.photoGridColumnWidth
+                                        width: self.viewModel.photoGridColumnWidth,
+                                        height: self.viewModel.photoGridColumnWidth
                                     )
+                                    .onTapGesture {
+                                        photo.isDownloaded = false
+                                        self.selectedPhoto = photo
+                                        self.shouldShowPhotoDetails = true
+                                    }
                                 }
                             }
                             .padding()
@@ -167,6 +175,15 @@ struct HomeView: View {
                     }
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
+                
+                // Link to photo details view
+                NavigationLink(
+                    destination:
+                        PhotoDetailsView(photo: self.selectedPhoto)
+                        .navigationBarHidden(true)
+                    ,
+                    isActive: self.$shouldShowPhotoDetails
+                ) { EmptyView() }
             }
             
         }

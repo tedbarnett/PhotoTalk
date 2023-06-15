@@ -17,6 +17,8 @@ struct PhotoView: View {
     
     var photo: CloudAsset
     var width: CGFloat
+    var height: CGFloat
+    var forcePhotoDownload: Bool = false
     
     // MARK: Private properties
     
@@ -24,8 +26,13 @@ struct PhotoView: View {
     @State private var isImageLoading = true
     
     private let horizontalPadding: CGFloat = 12
+    
     private var imageWidth: CGFloat {
         return self.width - (self.horizontalPadding * 2)
+    }
+    
+    private var imageHeight: CGFloat {
+        return self.height - (self.horizontalPadding * 2)
     }
     
     // MARK: User interface
@@ -34,21 +41,21 @@ struct PhotoView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.black600)
-                .frame(width: self.width, height: self.width)
+                .frame(width: self.width, height: self.height)
                 .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
             
             if let img = self.image {
                 Image(uiImage: img)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: self.imageWidth, height: imageWidth)
+                    .frame(width: self.imageWidth, height: imageHeight)
             }
             
             if self.isImageLoading {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.offwhite100.opacity(0.6))
-                        .frame(width: self.width, height: self.width)
+                        .frame(width: self.width, height: self.height)
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                 }
             }

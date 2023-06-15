@@ -106,7 +106,7 @@ struct UserRegistrationView: View {
                 Button(action: {
                     guard self.areInputsValid() else { return }
                     self.overlayContainerContext.shouldShowProgressIndicator = true
-                    self.authenticationViewModel.registerUser(
+                    self.authenticationViewModel.registerUserWithFirebase(
                         with: self.name,
                         email: self.email,
                         password: self.password) { didRegisterUserSuccessfully in

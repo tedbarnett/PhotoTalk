@@ -33,9 +33,40 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     // MARK: Public methods
     
     /**
+     Calls Firebase authentication service to register new user with name, email and password combination
+     */
+    func registerUserWithFirebase(
+        with name: String,
+        email: String,
+        password: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                guard error == nil,
+                      let result = authResult else {
+                    responseHandler(false)
+                    return
+                }
+                
+                // Sending account verification email
+                result.user.sendEmailVerification { _ in
+                    print("An account verfication email is sent to \(email)")
+                    
+                    // Updating name for the user
+                    let changeRequest = result.user.createProfileChangeRequest()
+                    changeRequest.displayName = name
+                    changeRequest.commitChanges { _ in
+                        print("User name is updated as \(name)")
+                    }
+                }
+                
+                responseHandler(true)
+            }
+    }
+    
+    /**
      Calls Firebase authentication service to login user with email and password combination
      */
-    func authenticateUser(
+    func signInUserWithFirebase(
         with email: String,
         password: String,
         responseHandler: @escaping ResponseHandler<AlertType>) {
@@ -74,25 +105,116 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
     }
     
     /**
-     It initiates the sign in flow using Apple authentication framework
+     Sends user email for resetting password, if the user was authenticated with Firebase authentication service
      */
-    func signInWithApple(responseHandler: ResponseHandler<Bool>?) {
-        self.authenticationResponseHandler = responseHandler
-        
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let nonce = self.randomNonceString()
-        self.currentNonce = nonce
-        request.nonce = self.sha256(nonce)
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.performRequests()
+    func sendEmailForFirebasePasswordReset(userEmail: String, responseHandler: @escaping ResponseHandler<Bool>) {
+        Auth.auth().sendPasswordReset(withEmail: userEmail) { error in
+            guard error == nil else {
+                responseHandler(false)
+                return
+            }
+            responseHandler(true)
+        }
     }
     
-    func signInWithGoogle(responseHandler: @escaping ResponseHandler<Bool>) {
+    /**
+     This method checks if the logged in user authentication state is still valid.
+     If the authentication state is invalidated/expired by the authentication service provider,
+     it logs user out of the system and prsents the login prompt
+     */
+    func validateUserAuthenticationStateIfNeeded(responseHandler: @escaping VoidResponseHandler) {
+        guard self.localStorageService.isUserAuthenticated,
+              let userProfile = self.userProfile else {
+            responseHandler()
+            return
+        }
+        
+        userProfile.authenticationServiceProvider = self.localStorageService.authenticationServiceProvider
+        userProfile.id = self.localStorageService.userId
+        userProfile.name = self.localStorageService.userName
+        
+        if self.localStorageService.authenticationServiceProvider == .apple {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            appleIDProvider.getCredentialState(forUserID: self.localStorageService.appleUserId) { credentialState, error in
+                switch credentialState {
+                case .authorized:
+                    guard error == nil else {
+                        responseHandler()
+                        return
+                    }
+                    
+                    userProfile.email = self.localStorageService.userEmail
+                    self.localStorageService.isUserAuthenticated = true
+                    userProfile.isAuthenticated = true
+                    responseHandler()
+                    
+                    // Uncomment below code, if the user needs to be re-authenticated with Firebase
+//                    let idToken = self.localStorageService.appleIdToken
+//                    let nonce = self.localStorageService.nonceUserdForAppleAuthentication
+//                    let credential = OAuthProvider.credential(
+//                        withProviderID: "apple.com",
+//                        idToken: idToken,
+//                        rawNonce: nonce)
+//
+//                    user.reauthenticate(with: credential) { authResult, error in
+//                        guard error != nil else { return }
+//                        userProfile.email = self.localStorageService.userEmail
+//                        self.localStorageService.isUserAuthenticated = true
+//                        userProfile.isAuthenticated = true
+//                    }
+                    break
+                case .revoked, .notFound:
+                    // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
+                    DispatchQueue.main.async {
+                        userProfile.isAuthenticated = false
+                        self.localStorageService.isUserAuthenticated = false
+                        responseHandler()
+                    }
+                default:
+                    responseHandler()
+                    break
+                }
+            }
+        } else if self.localStorageService.authenticationServiceProvider == .firebase {
+            let user = Auth.auth().currentUser
+            if let user = user, let email = user.email {
+                userProfile.email = email
+                userProfile.isAuthenticated = self.localStorageService.isUserAuthenticated
+                responseHandler()
+            }
+        } else {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                guard error == nil, let user = Auth.auth().currentUser else {
+                    responseHandler()
+                    return
+                }
+                let idToken = self.localStorageService.googleIdToken
+                let acessToken = self.localStorageService.googleAccessToken
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                                 accessToken: acessToken)
+                user.reauthenticate(with: credential) { authResult, error in
+                    guard error == nil else {
+                        responseHandler()
+                        return
+                    }
+                    userProfile.email = self.localStorageService.userEmail
+                    userProfile.isAuthenticated = error == nil
+                    self.localStorageService.isUserAuthenticated = error == nil
+                    responseHandler()
+                }
+            }
+        }
+    }
+}
+
+// MARK: Sign in methods for Google and Google Drive authentication services
+
+extension UserAuthenticationViewModel {
+    
+    /**
+     This method initiates the user authentication workflow using Google authentication system
+     */
+    func signInUserWithGoogle(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController,
               let firebaseApp = FirebaseApp.app(),
               let clientID = firebaseApp.options.clientID else {
@@ -158,7 +280,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      It presents Google authentication prompt to the user and returns the authentication token on
      successful authentication.
      */
-    func authenticateUserWithGoogle(responseHandler: @escaping ResponseHandler<String?>) {
+    func authenticateUserWithGoogleDrive(responseHandler: @escaping ResponseHandler<String?>) {
         guard let googleClientId = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String,
               let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {
             responseHandler(nil)
@@ -181,215 +303,30 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                 responseHandler(accessToken.tokenString)
         }
     }
-    
-    /**
-     Calls Firebase authentication service to register new user with name, email and password combination
-     */
-    func registerUser(
-        with name: String,
-        email: String,
-        password: String,
-        responseHandler: @escaping ResponseHandler<Bool>) {
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                guard error == nil,
-                      let result = authResult else {
-                    responseHandler(false)
-                    return
-                }
-                
-                // Sending account verification email
-                result.user.sendEmailVerification { _ in
-                    print("An account verfication email is sent to \(email)")
-                    
-                    // Updating name for the user
-                    let changeRequest = result.user.createProfileChangeRequest()
-                    changeRequest.displayName = name
-                    changeRequest.commitChanges { _ in
-                        print("User name is updated as \(name)")
-                    }
-                }
-                
-                responseHandler(true)
-            }
-    }
-    
-    /**
-     Sends user email for resetting password, if the user was authenticated with Firebase authentication service
-     */
-    func sendEmailForPasswordReset(userEmail: String, responseHandler: @escaping ResponseHandler<Bool>) {
-        Auth.auth().sendPasswordReset(withEmail: userEmail) { error in
-            guard error == nil else {
-                responseHandler(false)
-                return
-            }
-            responseHandler(true)
-        }
-    }
-    
-    /**
-     This method checks if the logged in user authentication state is still valid.
-     If the authentication state is invalidated/expired by the authentication service provider,
-     it logs user out of the system and prsents the login prompt
-     */
-    func validateUserAuthenticationStateIfNeeded() {
-        guard self.localStorageService.isUserAuthenticated,
-              let userProfile = self.userProfile else {
-            return
-        }
-        
-        userProfile.authenticationServiceProvider = self.localStorageService.authenticationServiceProvider
-        userProfile.id = self.localStorageService.userId
-        userProfile.name = self.localStorageService.userName
-        
-        if self.localStorageService.authenticationServiceProvider == .apple {
-            let appleIDProvider = ASAuthorizationAppleIDProvider()
-            appleIDProvider.getCredentialState(forUserID: self.localStorageService.appleUserId) { credentialState, error in
-                switch credentialState {
-                case .authorized:
-                    guard error == nil, let user = Auth.auth().currentUser else {
-                        return
-                    }
-                    
-                    userProfile.email = self.localStorageService.userEmail
-                    self.localStorageService.isUserAuthenticated = true
-                    userProfile.isAuthenticated = true
-                    
-                    // Uncomment below code, if the user needs to be re-authenticated with Firebase
-//                    let idToken = self.localStorageService.appleIdToken
-//                    let nonce = self.localStorageService.nonceUserdForAppleAuthentication
-//                    let credential = OAuthProvider.credential(
-//                        withProviderID: "apple.com",
-//                        idToken: idToken,
-//                        rawNonce: nonce)
-//
-//                    user.reauthenticate(with: credential) { authResult, error in
-//                        guard error != nil else { return }
-//                        userProfile.email = self.localStorageService.userEmail
-//                        self.localStorageService.isUserAuthenticated = true
-//                        userProfile.isAuthenticated = true
-//                    }
-                    break
-                case .revoked, .notFound:
-                    // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
-                    DispatchQueue.main.async {
-                        userProfile.isAuthenticated = false
-                        self.localStorageService.isUserAuthenticated = false
-                    }
-                default:
-                    break
-                }
-            }
-        } else if self.localStorageService.authenticationServiceProvider == .firebase {
-            let user = Auth.auth().currentUser
-            if let user = user, let email = user.email {
-                userProfile.email = email
-                userProfile.isAuthenticated = self.localStorageService.isUserAuthenticated
-            }
-        } else {
-            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-                guard error == nil, let user = Auth.auth().currentUser else {
-                    return
-                }
-                let idToken = self.localStorageService.googleIdToken
-                let acessToken = self.localStorageService.googleAccessToken
-                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                                 accessToken: acessToken)
-                user.reauthenticate(with: credential) { authResult, error in
-                    guard error == nil else { return }
-                    userProfile.email = self.localStorageService.userEmail
-                    userProfile.isAuthenticated = error == nil
-                    self.localStorageService.isUserAuthenticated = error == nil
-                }
-            }
-        }
-    }
-    
-    /**
-     Calls Firebase authentication service to logout user
-     */
-    func logutUser(responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let authProvider = self.userProfile?.authenticationServiceProvider else { return }
-        switch authProvider {
-        case .firebase: self.logoutFromFirebaseAuthSystem(responseHandler: responseHandler)
-        case .apple: self.logoutUserFromAppleAuthSytem(responseHandler: responseHandler)
-        case .google: self.logoutUserFromGoogleAuthSytem(responseHandler: responseHandler)
-        }
-    }
-    
-    /**
-     Logs out user from Firebase auth system
-     */
-    private func logoutFromFirebaseAuthSystem(responseHandler: @escaping ResponseHandler<Bool>) {
-        do {
-            try Auth.auth().signOut()
-            self.localStorageService.reset()
-            responseHandler(true)
-        } catch {
-            responseHandler(false)
-        }
-    }
-    
-    /**
-     Logs out user from Apple auth system
-     */
-    private func logoutUserFromAppleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
-        let userName = self.localStorageService.userName
-        let userEmail = self.localStorageService.userEmail
-        
-        self.localStorageService.reset()
-        // Apple auth system doesn't return user name and email on second login attempts,
-        // therefore saving the user name and email for later user
-        self.localStorageService.userName = userName
-        self.localStorageService.userEmail = userEmail
-        
-        responseHandler(true)
-    }
-    
-    /**
-     Logs out user from Google auth system
-     */
-    private func logoutUserFromGoogleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
-        GIDSignIn.sharedInstance.signOut()
-        self.localStorageService.reset()
-        responseHandler(true)
-    }
-    
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        if errorCode != errSecSuccess {
-            fatalError(
-                "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
-            )
-        }
-        
-        let charset: [Character] =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        
-        let nonce = randomBytes.map { byte in
-            // Pick a random character from the set, wrapping around if needed.
-            charset[Int(byte) % charset.count]
-        }
-        
-        return String(nonce)
-    }
-    
-    @available(iOS 13, *)
-    private func sha256(_ input: String) -> String {
-      let inputData = Data(input.utf8)
-      let hashedData = SHA256.hash(data: inputData)
-      let hashString = hashedData.compactMap {
-        String(format: "%02x", $0)
-      }.joined()
-
-      return hashString
-    }
 }
 
-// MARK: ASAuthorizationControllerDelegate methods
+// MARK: Sign in methods with Apple authentication service
 
 extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
+    /**
+     It initiates the sign in flow using Apple authentication framework
+     */
+    func signInUserWithApple(responseHandler: ResponseHandler<Bool>?) {
+        self.authenticationResponseHandler = responseHandler
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let nonce = self.randomNonceString()
+        self.currentNonce = nonce
+        request.nonce = self.sha256(nonce)
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.performRequests()
+    }
+    
     func authorizationController(
         controller: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
@@ -475,5 +412,98 @@ extension UserAuthenticationViewModel: ASAuthorizationControllerDelegate {
     ) {
         print(error.localizedDescription)
         self.authenticationResponseHandler?(false)
+    }
+}
+
+// MARK: Logout methods
+
+extension UserAuthenticationViewModel {
+    /**
+     Calls Firebase authentication service to logout user
+     */
+    func logutUser(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let authProvider = self.userProfile?.authenticationServiceProvider else { return }
+        switch authProvider {
+        case .firebase: self.logoutFromFirebaseAuthSystem(responseHandler: responseHandler)
+        case .apple: self.logoutUserFromAppleAuthSytem(responseHandler: responseHandler)
+        case .google: self.logoutUserFromGoogleAuthSytem(responseHandler: responseHandler)
+        }
+    }
+    
+    /**
+     Logs out user from Firebase auth system
+     */
+    private func logoutFromFirebaseAuthSystem(responseHandler: @escaping ResponseHandler<Bool>) {
+        do {
+            try Auth.auth().signOut()
+            self.resetLocalStoragePostLogout()
+            responseHandler(true)
+        } catch {
+            responseHandler(false)
+        }
+    }
+    
+    /**
+     Logs out user from Apple auth system
+     */
+    private func logoutUserFromAppleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
+        self.resetLocalStoragePostLogout()
+        responseHandler(true)
+    }
+    
+    /**
+     Logs out user from Google auth system
+     */
+    private func logoutUserFromGoogleAuthSytem(responseHandler: @escaping ResponseHandler<Bool>) {
+        GIDSignIn.sharedInstance.signOut()
+        self.resetLocalStoragePostLogout()
+        responseHandler(true)
+    }
+    
+    private func resetLocalStoragePostLogout() {
+        let userName = self.localStorageService.userName
+        let userEmail = self.localStorageService.userEmail
+        
+        self.localStorageService.reset()
+        // Apple auth system doesn't return user name and email on second login attempts,
+        // therefore saving the user name and email for later user
+        self.localStorageService.userName = userName
+        self.localStorageService.userEmail = userEmail
+    }
+}
+
+// MARK: Helper methods for encryption/decription
+
+extension UserAuthenticationViewModel {
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        var randomBytes = [UInt8](repeating: 0, count: length)
+        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
+        if errorCode != errSecSuccess {
+            fatalError(
+                "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+            )
+        }
+        
+        let charset: [Character] =
+        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        
+        let nonce = randomBytes.map { byte in
+            // Pick a random character from the set, wrapping around if needed.
+            charset[Int(byte) % charset.count]
+        }
+        
+        return String(nonce)
+    }
+    
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = SHA256.hash(data: inputData)
+      let hashString = hashedData.compactMap {
+        String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
     }
 }

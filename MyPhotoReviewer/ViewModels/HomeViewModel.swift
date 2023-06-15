@@ -87,7 +87,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         case .googleDrive:
-            self.authenticationViewModel.authenticateUserWithGoogle { authToken in
+            self.authenticationViewModel.authenticateUserWithGoogleDrive { authToken in
                 guard let token = authToken, !token.isEmpty else {
                     responseHandler(false)
                     return

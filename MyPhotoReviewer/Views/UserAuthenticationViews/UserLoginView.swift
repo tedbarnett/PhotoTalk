@@ -75,7 +75,7 @@ struct UserLoginView: View {
                                 .foregroundColor(Color.blue500)
                                 .onTapGesture {
                                     self.overlayContainerContext.shouldShowProgressIndicator = true
-                                    self.authenticationViewModel.sendEmailForPasswordReset(userEmail: self.email) { didSendEmail in
+                                    self.authenticationViewModel.sendEmailForFirebasePasswordReset(userEmail: self.email) { didSendEmail in
                                         self.overlayContainerContext.shouldShowProgressIndicator = false
                                         guard didSendEmail else {
                                             self.overlayContainerContext.presentAlert(ofType: .emailFailedForPasswordReset)
@@ -96,7 +96,7 @@ struct UserLoginView: View {
                         }
                         
                         self.overlayContainerContext.shouldShowProgressIndicator = true
-                        self.authenticationViewModel.authenticateUser(
+                        self.authenticationViewModel.signInUserWithFirebase(
                             with: self.email,
                             password: self.password) { alertType in
                                 self.overlayContainerContext.shouldShowProgressIndicator = false
@@ -140,7 +140,7 @@ struct UserLoginView: View {
                     VStack(alignment: .center, spacing: 16) {
                         Button(
                             action: {
-                                self.authenticationViewModel.signInWithApple { didSignin in
+                                self.authenticationViewModel.signInUserWithApple { didSignin in
                                     guard didSignin else {
                                         return
                                     }
@@ -175,7 +175,7 @@ struct UserLoginView: View {
                         
                         Button(
                             action: {
-                                self.authenticationViewModel.signInWithGoogle { didSignin in
+                                self.authenticationViewModel.signInUserWithGoogle { didSignin in
                                     guard didSignin else {
                                         return
                                     }

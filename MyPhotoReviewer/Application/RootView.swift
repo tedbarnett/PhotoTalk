@@ -17,21 +17,25 @@ struct RootView: View {
     
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var userProfile: UserProfileModel
-
     @StateObject private var overlayContainerContext = OverlayContainerContext()
+    
+    @State private var isValidatingUserAuthentication = true
     
     // MARK: - User interface
     
     var body: some View {
         ZStack {
-            if self.userProfile.isAuthenticated {
-                // Main view that provides user option to select image source, preview image
-                // add image details like location, audio clip, etc
-                HomeView()
-            } else {
-                // User login view presents user authentication view
-                UserLoginView()
+            ZStack {
+                if self.userProfile.isAuthenticated {
+                    // Main view that provides user option to select image source, preview image
+                    // add image details like location, audio clip, etc
+                    HomeView()
+                } else {
+                    // User login view presents user authentication view
+                    UserLoginView()
+                }
             }
+            .opacity(self.isValidatingUserAuthentication ? 0 : 1)
             
             // Overlay (progress indicator, alert views, etc) container view
             OverlayContainerView()
@@ -60,8 +64,13 @@ struct RootView: View {
      If user authentication is invalidated, it logs out user from the app and presents the login screen.
      */
     private func validateUserAuthenticationStateIfNeeded() {
+        self.isValidatingUserAuthentication = true
+        self.overlayContainerContext.shouldShowProgressIndicator = true
         let userAuthenticationViewModel = UserAuthenticationViewModel()
         userAuthenticationViewModel.userProfile = self.userProfile
-        userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded()
+        userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded {
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+            self.isValidatingUserAuthentication = false
+        }
     }
 }

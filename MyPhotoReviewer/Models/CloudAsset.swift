@@ -25,24 +25,23 @@ class CloudAsset: Hashable {
     var source: MediaSource = .iCloud
     
     // MARK: Properties for iCloud assets
+    
     var iCloudAsset: PHAsset? = nil
+    var iCloudAssetId: String? = nil
     
     // MARK: Properties for Google Drive assets
+    
     var googleDriveFolderName: String? = nil
     var googleDriveFolderId: String? = nil
     var googleDriveFileId: String? = nil
+    
+    var width: Int? = nil
+    var height: Int? = nil
     
     var isDownloaded: Bool = false
     var isSelected: Bool = false
     
     // MARK: Public methods
-    
-    /**
-     Calls Google drive API to download list of photos from the folder
-     */
-    func downloadPhotos() {
-        
-    }
     
     /**
      Downloads photo from the cloud and returns back the same via response handler

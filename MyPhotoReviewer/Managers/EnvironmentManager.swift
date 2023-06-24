@@ -80,4 +80,12 @@ enum Environment {
         case .dev: return "https://my-photo-reviewer-dev-default-rtdb.firebaseio.com/"
         }
     }
+    
+    /// URL of the Firebase storage
+    var storageUrl: String {
+        switch self {
+        case .prod: return "gs://my-photo-reviewer.appspot.com"
+        case .dev: return "gs://my-photo-reviewer-dev.appspot.com"
+        }
+    }
 }

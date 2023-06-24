@@ -127,6 +127,53 @@ extension FirebaseDatabaseService {
                 responseHandler(true)
             }
         }
+    
+    /**
+     Checks if Firebase `PhotoAudio` folder has a sub folder with name matching user id
+     */
+    func doesUserFolderExistUnderPhotoAudioFolder(
+        forUserId: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoAudioNodeProperties.nodeName).child(forUserId)
+            
+            userDirectory.getData { error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot else {
+                    print("[Firebase Database] User folder doesn't exist under photo audio folder")
+                    responseHandler(false)
+                    return
+                }
+                
+                let areDetailsSaved = dataSnapshot.exists()
+                print("[Firebase Database] User folder exists under photo audio folder")
+                responseHandler(areDetailsSaved)
+            }
+    }
+    
+    /**
+     Checks if user details are already saved in the database
+     */
+    func doesAudioExistInDatabase(
+        forUserId: String,
+        forPhotoId: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoAudioNodeProperties.nodeName).child(forUserId).child(forPhotoId)
+            
+            userDirectory.getData { error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot else {
+                    print("[Firebase Database] User photo audio aren't saved to the database")
+                    responseHandler(false)
+                    return
+                }
+                
+                let areDetailsSaved = dataSnapshot.exists()
+                print("[Firebase Database] User details \(areDetailsSaved ? "are" : "aren't") saved to the database")
+                responseHandler(areDetailsSaved)
+            }
+        }
 }
 
 // MARK: Photo albums related database operations

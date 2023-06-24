@@ -105,6 +105,10 @@
 		C1DFD32C2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */; };
 		C1DFD32E2A27E8F80001ABFC /* CloudAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */; };
 		C1DFD32F2A27E8F90001ABFC /* CloudAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */; };
+		C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDF04A2A46F255005D3FAD /* PhotoDetailsViewModel.swift */; };
+		C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDF04A2A46F255005D3FAD /* PhotoDetailsViewModel.swift */; };
+		C1EDF04E2A475E33005D3FAD /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDF04D2A475E33005D3FAD /* AudioService.swift */; };
+		C1EDF04F2A475E33005D3FAD /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDF04D2A475E33005D3FAD /* AudioService.swift */; };
 		C1F6B8062A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
 		C1F6B8072A24DA6300D3A822 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8052A24DA6300D3A822 /* MediaSource.swift */; };
 		C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */; };
@@ -178,6 +182,8 @@
 		C1DFD3012A27A0010001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAsset.swift; sourceTree = "<group>"; };
+		C1EDF04A2A46F255005D3FAD /* PhotoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewModel.swift; sourceTree = "<group>"; };
+		C1EDF04D2A475E33005D3FAD /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		C1F6B8052A24DA6300D3A822 /* MediaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSource.swift; sourceTree = "<group>"; };
 		C1F6B8082A24DD5E00D3A822 /* PhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		C1F6B80B2A24DDD000D3A822 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -447,6 +453,7 @@
 				C19949092A068209004CD4A1 /* BaseViewModel.swift */,
 				C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */,
 				C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */,
+				C1EDF04A2A46F255005D3FAD /* PhotoDetailsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -460,6 +467,7 @@
 				C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */,
 				C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */,
 				C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */,
+				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -818,6 +826,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1EDF04E2A475E33005D3FAD /* AudioService.swift in Sources */,
 				C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
 				C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C199490D2A06824D004CD4A1 /* LocalStorageService.swift in Sources */,
@@ -842,6 +851,7 @@
 				C1F6B8122A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C1F6B8212A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
+				C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
@@ -880,6 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1EDF04F2A475E33005D3FAD /* AudioService.swift in Sources */,
 				C1B2CA782A15458600D2AE04 /* TypeAliases.swift in Sources */,
 				C1F6B80A2A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C1B2CA792A15458600D2AE04 /* LocalStorageService.swift in Sources */,
@@ -904,6 +915,7 @@
 				C1F6B8132A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C1F6B8222A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
+				C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
 				C1B2CA852A15458600D2AE04 /* UIDevice+ScreenSize.swift in Sources */,
 				C1B2CA862A15458600D2AE04 /* FormTextField.swift in Sources */,
@@ -932,7 +944,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
@@ -942,6 +954,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -954,7 +967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.PhotoReviewer.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -971,7 +984,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -980,6 +993,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -992,7 +1006,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.PhotoReviewer.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1199,7 +1213,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1209,6 +1223,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1238,7 +1253,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1248,6 +1263,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

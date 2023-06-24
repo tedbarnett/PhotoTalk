@@ -21,6 +21,12 @@ struct PhotoDetailsView: View {
     
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
     
+    @EnvironmentObject private var appContext: AppContext
+    @EnvironmentObject private var userProfile: UserProfileModel
+    @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
+    
+    @StateObject private var viewModel = PhotoDetailsViewModel()
+    
     // MARK: User interface
     
     var body: some View {
@@ -29,46 +35,101 @@ struct PhotoDetailsView: View {
             Color.black900
                 .ignoresSafeArea()
             
-            // Header
+            // Main content
             VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    Button(
-                        action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        },
-                        label: {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 40, height: 40)
-                                Image("leftArrowIcon")
-                                    .renderingMode(.template)
-                                    
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 9, height: 16)
-                                    .tint(.white)
-                            }
-                        }
-                    )
-                    Spacer()
-                }
-                
-                // Main content view
-                
+                // Photo Preview
                 if let photo = self.photo {
                     PhotoView(
                         photo: photo,
                         width: UIScreen.main.bounds.width - 48,
-                        height: UIScreen.main.bounds.height * 0.8,
+                        height: UIScreen.main.bounds.height * 0.65,
                         forcePhotoDownload: true
                     )
+                    .padding(.bottom, 14)
+                }
+                
+                if self.viewModel.arePhotoDetailsDownloaded {
+                    if self.viewModel.photoAudioLocalFileUrl != nil {
+                        // Play audio button
+                        Button(
+                            action: {
+                                if self.viewModel.isPlayingAudio {
+                                    self.viewModel.pauseAudio()
+                                } else {
+                                    self.viewModel.playAudio()
+                                }
+                            },
+                            label: {
+                                Image(self.viewModel.isPlayingAudio ? "pauseButton" : "playButton")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 70, height: 70)
+                                    .animation(.easeIn(duration: 0.2), value: self.viewModel.isPlayingAudio)
+                            }
+                        )
+                    } else {
+                        Button(
+                            action: {
+                                if self.viewModel.isRecoringInProgress {
+                                    self.viewModel.stopAudioRecording()
+                                    self.overlayContainerContext.shouldShowProgressIndicator = true
+                                    self.viewModel.saveUserRecordingToFirebase { didSaveRecording in
+                                        self.overlayContainerContext.shouldShowProgressIndicator = false
+                                    }
+                                } else {
+                                    self.viewModel.startAudioRecording()
+                                }
+                            },
+                            label: {
+                                Image(self.viewModel.isRecoringInProgress  ? "recordButton" : "microphoneIcon")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 70, height: 70)
+                                    .animation(.easeIn(duration: 0.2), value: self.viewModel.isRecoringInProgress)
+                            }
+                        )
+                    }
                 }
                 
                 Spacer()
                 
+                // Done button
+                Button(
+                    action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    },
+                    label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.blue)
+                                .frame(height: 40)
+                            Text(NSLocalizedString("Done", comment: "Common - Done button title"))
+                                .font(.system(size: 16))
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                )
+                
             }
             .padding(.horizontal, 24)
         }
+        .onAppear {
+            self.initializeViewModel()
+            self.overlayContainerContext.shouldShowProgressIndicator = true
+            self.viewModel.loadPhotoAudio { _ in
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+            }
+        }
+        .onDisappear {
+            self.viewModel.invalidateViewModel()
+        }
+    }
+    
+    // MARK: Private methods
+    
+    private func initializeViewModel() {
+        self.viewModel.currentEnvironment = self.appContext.currentEnvironment
+        self.viewModel.photo = self.photo
+        self.viewModel.userProfile = self.userProfile
     }
 }

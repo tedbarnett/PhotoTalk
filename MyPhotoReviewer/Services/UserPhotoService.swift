@@ -35,25 +35,6 @@ class UserPhotoService {
         }
     }
     
-    func downloadUserPhotoAlbumsFromICloud() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        
-        let fetchResult = PHAssetCollection.fetchAssetCollections(
-            with: .album,
-            subtype: .albumCloudShared,
-            options: nil
-        )
-        
-        fetchResult.enumerateObjects { collection, _, _ in
-            // Process each iCloud album
-            // For example, you can retrieve the album's title:
-            let albumTitle = collection.localizedTitle
-            // Perform further operations as needed
-        }
-    }
-    
     func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -61,8 +42,12 @@ class UserPhotoService {
         var cloudPhotos = [CloudAsset]()
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         fetchResult.enumerateObjects { asset, _, _ in
+            let id = asset.localIdentifier
             var photo = CloudAsset()
             photo.source = .iCloud
+            photo.iCloudAssetId = asset.localIdentifier
+            photo.width = asset.pixelWidth
+            photo.height = asset.pixelHeight
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
         }

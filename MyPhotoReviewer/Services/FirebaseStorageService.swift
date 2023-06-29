@@ -64,12 +64,18 @@ extension FirebaseStorageService {
         photoId: String,
         completionHandler: @escaping ResponseHandler<URL?>) {
             
+            guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+                print("Unable to access document directory.")
+                completionHandler(nil)
+                return
+            }
+            
             let storage = Storage.storage().reference(forURL: self.environment.storageUrl)
             let photoAudioFolderRef = storage.child(PhotoAudioNodeProperties.nodeName)
             let photoAudioStorageReference = photoAudioFolderRef.child("\(userId)/\(photoId).\(AudioService.audioFileExtension)")
             
             let localAudioFileName = UUID().uuidString.appending(".\(AudioService.audioFileExtension)")
-            let localAudioFileUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(localAudioFileName)
+            let localAudioFileUrl = documentDirectory.appendingPathComponent(localAudioFileName)
             photoAudioStorageReference.write(toFile: localAudioFileUrl) { url, error in
                 if let error = error {
                     print("[Firebase Storage]: Error downloading photo audio: \(photoId), error: \(error.localizedDescription)")

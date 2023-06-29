@@ -26,6 +26,7 @@ class LocalStorageService {
         static let userSelectedMediaSource = "userSelectedMediaSource"
         static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
         static let googleDriveFoldersForUser = "googleDriveFoldersForUser"
+        static let photoAudios = "photoAudio"
     }
 
     // MARK: Private Properties
@@ -208,6 +209,32 @@ class LocalStorageService {
                 }
             } else {
                 return nil
+            }
+        }
+    }
+    
+    /// Returns list of photo audio details saved in local storage
+    var photoAudios: [PhotoAudio] {
+        set {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(newValue)
+                self.userDefaults?.set(data, forKey: StorageKeys.photoAudios)
+            } catch {
+                print("Error saving user audio files to local database - (\(error))")
+            }
+        } get {
+            if let data = UserDefaults.standard.data(forKey: StorageKeys.photoAudios) {
+                do {
+                    let decoder = JSONDecoder()
+                    let audios = try decoder.decode([PhotoAudio].self, from: data)
+                    return audios
+                } catch {
+                    print("Error loading user's audio files from local database - (\(error))")
+                    return [PhotoAudio]()
+                }
+            } else {
+                return [PhotoAudio]()
             }
         }
     }

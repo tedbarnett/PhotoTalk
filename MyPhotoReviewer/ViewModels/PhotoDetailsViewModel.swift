@@ -13,7 +13,7 @@ import Foundation
  2. Saving/Loading of location details
  3. Saving/Loading of date details
  */
-class PhotoDetailsViewModel: ObservableObject {
+class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     
     // MARK: Public properties
     
@@ -139,11 +139,36 @@ class PhotoDetailsViewModel: ObservableObject {
             return
         }
         
+        // First, look for photo audio URL in the local storage
+        var photoAudios = self.localStorageService.photoAudios
+        if let audio = photoAudios.first(where: { $0.photoId == photoId }) {
+            self.isPlayingAudio = false
+            self.photoAudioLocalFileUrl = URL(string: audio.url)
+            self.arePhotoDetailsDownloaded = true
+            self.audioDuration = 0
+            responseHandler(true)
+            return
+        }
+        
+        // Load photo URL from Firebase storage, if not found in local storage
         service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { localFileUrl in
             self.isPlayingAudio = false
             self.photoAudioLocalFileUrl = localFileUrl
             self.arePhotoDetailsDownloaded = true
             self.audioDuration = 0
+            
+            // Save photo audio details in local database
+            if let url = localFileUrl?.absoluteString {
+                let photoAudio = PhotoAudio(
+                    id: UUID().uuidString,
+                    photoId: photoId,
+                    url: url,
+                    recordedDate: Date().description
+                )
+                photoAudios.append(photoAudio)
+                self.localStorageService.photoAudios = photoAudios
+            }
+            
             responseHandler(true)
         }
     }

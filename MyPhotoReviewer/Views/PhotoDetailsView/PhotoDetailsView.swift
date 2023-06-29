@@ -52,30 +52,63 @@ struct PhotoDetailsView: View {
                 // Buttons for recording/playing audio
                 if self.viewModel.arePhotoDetailsDownloaded {
                     if self.viewModel.photoAudioLocalFileUrl != nil {
-                        // Audio playback information
-                        if self.viewModel.audioDuration > 0 {
-                            Text("\(self.viewModel.audioPlaybackTime, specifier: "%.1f") / \(self.viewModel.audioDuration, specifier: "%.1f")")
-                                .font(.system(size: 18))
-                                .foregroundColor(Color.white)
-                        }
                         
-                        // Play audio button
-                        Button(
-                            action: {
-                                if self.viewModel.isPlayingAudio {
-                                    self.viewModel.pauseAudio()
-                                } else {
-                                    self.viewModel.playAudio()
-                                }
-                            },
-                            label: {
-                                Image(self.viewModel.isPlayingAudio ? "pauseButton" : "playButton")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 70, height: 70)
-                                    .animation(.easeIn(duration: 0.2), value: self.viewModel.isPlayingAudio)
+                        ZStack {
+                            // Rounded background
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.black600)
+                                .frame(height: 60)
+                                .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
+                            
+                            HStack(alignment: .center, spacing: 16) {
+                                // Play/Pause audio button
+                                Button(
+                                    action: {
+                                        if self.viewModel.isPlayingAudio {
+                                            self.viewModel.pauseAudio()
+                                        } else {
+                                            self.viewModel.playAudio()
+                                        }
+                                    },
+                                    label: {
+                                        Image(self.viewModel.isPlayingAudio ? "pauseButtonIcon" : "playButtonIcon")
+                                            .resizable()
+                                            .renderingMode(.template)
+                                            .tint(Color.offwhite100)
+                                            .scaledToFit()
+                                            .frame(width: 24, height: 24)
+                                            .animation(.easeIn(duration: 0.2), value: self.viewModel.isPlayingAudio)
+                                    }
+                                )
+                                
+                                // Audio playback duration detail
+                                Text("\(self.viewModel.audioPlaybackTime, specifier: "%.1f") / \(self.viewModel.audioDuration, specifier: "%.1f")")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.offwhite100)
+                                    .frame(width: 70)
+                                
+                                // Audio playback progress indicator
+                                RoundedRectangle(cornerRadius: 2)
+                                    .fill(Color.offwhite100)
+                                    .frame(height: 4)
+                                
+                                // Delete audio button
+                                Button(
+                                    action: {
+                                        // TODO: Present confirmation popup for user consent to delete audio
+                                    },
+                                    label: {
+                                        Image("deleteButtonIcon")
+                                            .resizable()
+                                            .renderingMode(.template)
+                                            .tint(Color.offwhite100)
+                                            .scaledToFit()
+                                            .frame(width: 24, height: 24)
+                                    }
+                                )
                             }
-                        )
+                            .padding(.horizontal, 16)
+                        }
                     } else {
                         Button(
                             action: {

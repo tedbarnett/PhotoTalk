@@ -12,8 +12,10 @@ import AVFoundation
  AudioServiceDelegate helps notifying about audio service related events
  */
 protocol AudioServiceDelegate {
+    func isPlayingAudio(currentTime: Double)
     func didFinishPlayingAudio()
     func didPausePlayingAudio()
+    func didStopPlayingAudio()
     func didResumePlayingAudio()
     func didFailPlayingAudio()
 }
@@ -28,14 +30,19 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
     
     static let instance = AudioService()
     static let audioFileExtension = "m4a"
+    
     var audioFileUrl: URL?
     var delegate: AudioServiceDelegate?
+    var audioDuration: Double = 0
     
     // MARK: Private properties
     
     private var audioRecorder: AVAudioRecorder?
-    var audioPlayer: AVAudioPlayer?
-    var playerItem: AVPlayerItem?
+    private var audioPlayer: AVAudioPlayer?
+    private var playerItem: AVPlayerItem?
+    private var audioPlaybackTime: Double = 0
+    private var audioPlaybackTimer: Timer?
+    
     
     // MARK: Public methods
     
@@ -75,6 +82,7 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
     func playAudio(_ url: URL) {
         guard self.audioPlayer == nil else {
             self.audioPlayer?.play()
+            self.startAudioPlaybackTimer()
             self.delegate?.didResumePlayingAudio()
             return
         }
@@ -87,7 +95,9 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
             self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.volume = 0.7
             self.audioPlayer?.delegate = self
+            self.audioDuration = self.audioPlayer?.duration ?? 0
             self.audioPlayer?.play()
+            self.startAudioPlaybackTimer()
         } catch {
             print("[AudioService] Error playing audio from url: \(url)")
         }
@@ -97,16 +107,49 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
         self.audioPlayer?.pause()
         self.delegate?.didPausePlayingAudio()
     }
+    
+    func stopAudio() {
+        self.audioPlayer?.stop()
+        self.stopAudioPlaybackTimer()
+        self.delegate?.didStopPlayingAudio()
+    }
+    
+    // MARK: Private methods
+    
+    private func startAudioPlaybackTimer() {
+        self.audioPlaybackTimer = Timer.scheduledTimer(
+            timeInterval: 0.1,
+            target: self,
+            selector: #selector(onAudioPlaybackTimer),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    private func stopAudioPlaybackTimer() {
+        self.audioPlaybackTime = 0
+        self.audioPlaybackTimer?.invalidate()
+        self.audioPlaybackTimer = nil
+    }
+    
+    @objc private func onAudioPlaybackTimer() {
+        self.audioPlaybackTime += 0.1
+        self.delegate?.isPlayingAudio(currentTime: self.audioPlaybackTime)
+    }
 }
+
+// MARK: AVAudioPlayerDelegate delegate methods
 
 extension AudioService: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.audioPlayer = nil
+        self.stopAudioPlaybackTimer()
         self.delegate?.didFinishPlayingAudio()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         self.audioPlayer = nil
+        self.stopAudioPlaybackTimer()
         self.delegate?.didFailPlayingAudio()
     }
     

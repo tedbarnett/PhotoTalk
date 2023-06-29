@@ -48,8 +48,17 @@ struct PhotoDetailsView: View {
                     .padding(.bottom, 14)
                 }
                 
+                
+                // Buttons for recording/playing audio
                 if self.viewModel.arePhotoDetailsDownloaded {
                     if self.viewModel.photoAudioLocalFileUrl != nil {
+                        // Audio playback information
+                        if self.viewModel.audioDuration > 0 {
+                            Text("\(self.viewModel.audioPlaybackTime, specifier: "%.1f") / \(self.viewModel.audioDuration, specifier: "%.1f")")
+                                .font(.system(size: 18))
+                                .foregroundColor(Color.white)
+                        }
+                        
                         // Play audio button
                         Button(
                             action: {
@@ -121,6 +130,7 @@ struct PhotoDetailsView: View {
             }
         }
         .onDisappear {
+            self.viewModel.stopAudio()
             self.viewModel.invalidateViewModel()
         }
     }

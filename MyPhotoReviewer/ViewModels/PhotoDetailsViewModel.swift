@@ -21,6 +21,8 @@ class PhotoDetailsViewModel: ObservableObject {
     @Published var photoAudioLocalFileUrl: URL?
     @Published var isRecoringInProgress = false
     @Published var isPlayingAudio = false
+    @Published var audioDuration: Double = 0
+    @Published var audioPlaybackTime: Double = 0
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -63,45 +65,6 @@ class PhotoDetailsViewModel: ObservableObject {
     // MARK: Public methods
     
     /**
-     Connects with Firebase backend to check if user recorded and saved a photo audio for
-     the selected photo. If so, it downloads the photo audio content for playback.
-     */
-    func loadPhotoAudio(responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let profile = self.userProfile,
-              let photoId = self.photoId,
-              let service = self.storatgeService else {
-            responseHandler(false)
-            return
-        }
-        
-        service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { localFileUrl in
-            self.isPlayingAudio = false
-            self.photoAudioLocalFileUrl = localFileUrl
-            self.arePhotoDetailsDownloaded = true
-            responseHandler(true)
-        }
-    }
-    
-    /**
-     Connects to Firebase storage service to save user recording to the backend
-     */
-    func saveUserRecordingToFirebase(responseHandler: @escaping ResponseHandler<Bool>) {
-        guard let audioUrl = AudioService.instance.audioFileUrl,
-              let profile = self.userProfile,
-              let photoId = self.photoId,
-              let service = self.storatgeService else { return }
-        
-        service.uploadPhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { audioFileName in
-            guard let fileName = audioFileName else {
-                responseHandler(false)
-                return
-            }
-            print("Saved user audio recording with filename: \(fileName)")
-            self.loadPhotoAudio(responseHandler: responseHandler)
-        }
-    }
-    
-    /**
      Initiates the workflow to start user audio recording for the photo
      */
     func startAudioRecording() {
@@ -130,13 +93,64 @@ class PhotoDetailsViewModel: ObservableObject {
     }
     
     /**
-     Attempts to pause available photo audio
+     Attempts to pause available photo audio playback
      */
     func pauseAudio() {
         AudioService.instance.pauseAudio()
         self.isPlayingAudio = false
     }
     
+    /**
+     Attempts to stop available photo audio playback
+     */
+    func stopAudio() {
+        AudioService.instance.stopAudio()
+        self.isPlayingAudio = false
+    }
+    
+    /**
+     Connects to Firebase storage service to save user recording to the backend
+     */
+    func saveUserRecordingToFirebase(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let audioUrl = AudioService.instance.audioFileUrl,
+              let profile = self.userProfile,
+              let photoId = self.photoId,
+              let service = self.storatgeService else { return }
+        
+        service.uploadPhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { audioFileName in
+            guard let fileName = audioFileName else {
+                responseHandler(false)
+                return
+            }
+            print("Saved user audio recording with filename: \(fileName)")
+            self.loadPhotoAudio(responseHandler: responseHandler)
+        }
+    }
+    
+    /**
+     Connects with Firebase backend to check if user recorded and saved a photo audio for
+     the selected photo. If so, it downloads the photo audio content for playback.
+     */
+    func loadPhotoAudio(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let profile = self.userProfile,
+              let photoId = self.photoId,
+              let service = self.storatgeService else {
+            responseHandler(false)
+            return
+        }
+        
+        service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { localFileUrl in
+            self.isPlayingAudio = false
+            self.photoAudioLocalFileUrl = localFileUrl
+            self.arePhotoDetailsDownloaded = true
+            self.audioDuration = 0
+            responseHandler(true)
+        }
+    }
+    
+    /**
+     Resets state and properties to default
+     */
     func invalidateViewModel() {
         AudioService.instance.delegate = nil
         self.photoAudioLocalFileUrl = nil
@@ -146,11 +160,20 @@ class PhotoDetailsViewModel: ObservableObject {
 // MARK: AudioServiceDelegate delegate methods
 
 extension PhotoDetailsViewModel: AudioServiceDelegate {
+    func isPlayingAudio(currentTime: Double) {
+        self.audioDuration = AudioService.instance.audioDuration
+        self.audioPlaybackTime = currentTime
+    }
+    
     func didFinishPlayingAudio() {
         self.isPlayingAudio = false
     }
     
     func didPausePlayingAudio() {
+        self.isPlayingAudio = false
+    }
+    
+    func didStopPlayingAudio() {
         self.isPlayingAudio = false
     }
     

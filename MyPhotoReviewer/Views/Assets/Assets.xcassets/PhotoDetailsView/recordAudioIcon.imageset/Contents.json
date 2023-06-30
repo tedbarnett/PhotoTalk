@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "folderIcon.png",
+      "filename" : "recordAudio.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "folderIcon 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "folderIcon 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

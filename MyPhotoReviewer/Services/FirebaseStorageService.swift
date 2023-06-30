@@ -56,6 +56,34 @@ extension FirebaseStorageService {
     }
     
     /**
+     It attempts to delete user recorded audio from Firebase storage service.
+     And responds back via completionHandler to update about success/failure status.
+     */
+    func deletePhotoAudioFor(
+        userId: String,
+        photoId: String,
+        audioUrl: URL,
+        completionHandler: @escaping ResponseHandler<Bool>) {
+        
+            let storage = Storage.storage().reference(forURL: self.environment.storageUrl)
+            let photoAudioFolderRef = storage.child(PhotoAudioNodeProperties.nodeName)
+            
+            let audioFileNmae = photoId
+            let audioFileExtension = audioUrl.pathExtension
+            let existingAudioFileName = "\(audioFileNmae).\(audioFileExtension)"
+            let existingAudioStorageReference = photoAudioFolderRef.child("\(userId)/\(existingAudioFileName)")
+            let _ = existingAudioStorageReference.delete { error in
+                if let error = error {
+                    print("[Firebase Storage]: Error deleting photo audio: \(existingAudioFileName), Error: \(error.localizedDescription)")
+                    completionHandler(false)
+                    return
+                }
+                print("[Firebase Storage]: Successfuly deleted photo audio: \(existingAudioFileName)")
+                completionHandler(true)
+            }
+    }
+    
+    /**
      It attempts to download user recorded audio from Firebase storage service.
      And responds back via completionHandler to update about success/failure status.
      */

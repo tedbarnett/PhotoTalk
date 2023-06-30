@@ -35,31 +35,77 @@ struct PhotoDetailsView: View {
             Color.black900
                 .ignoresSafeArea()
             
-            // Main content
-            VStack(alignment: .leading, spacing: 16) {
-                // Photo Preview
-                if let photo = self.photo {
-                    PhotoView(
-                        photo: photo,
-                        width: UIScreen.main.bounds.width - 48,
-                        height: UIScreen.main.bounds.height * 0.65,
-                        forcePhotoDownload: true
+            // Photo Preview
+            if let photo = self.photo {
+                PhotoView(
+                    photo: photo,
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height,
+                    forcePhotoDownload: true
+                )
+                .ignoresSafeArea()
+            }
+            
+            // Back button, favourite button, photo details and audio recording/playback controls
+            VStack(alignment: .leading) {
+                
+                HStack {
+                    // Back button
+                    Button(
+                        action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: 40, height: 40)
+                                Image("leftArrowIcon")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 9, height: 16)
+                                    .tint(Color.offwhite100)
+                            }
+                        }
                     )
-                    .padding(.bottom, 14)
+                    
+                    Spacer()
+                    
+                    // Favourite button
+                    Button(
+                        action: {
+                            // TODO: Update photo details as favourite - in local database and firebase
+                        },
+                        label: {
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: 40, height: 40)
+                                Image("favouriteIcon")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                            }
+                        }
+                    )
+                    .padding(.trailing, 6)
                 }
+                .padding(.top, 50)
                 
+                Spacer()
                 
-                // Buttons for recording/playing audio
+                // Photo details and audio recording/playback controls
                 if self.viewModel.arePhotoDetailsDownloaded {
-                    if self.viewModel.photoAudioLocalFileUrl != nil {
+                    ZStack {
+                        // Rounded background
+                        RoundedRectangle(cornerRadius: 40)
+                            .fill(Color.black600)
+                            .frame(height: 80)
+                            .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
                         
-                        ZStack {
-                            // Rounded background
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.black600)
-                                .frame(height: 60)
-                                .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
-                            
+                        // Controls for recording, saving and deleting audio
+                        if self.viewModel.photoAudioLocalFileUrl != nil {
                             HStack(alignment: .center, spacing: 16) {
                                 // Play/Pause audio button
                                 Button(
@@ -76,26 +122,42 @@ struct PhotoDetailsView: View {
                                             .renderingMode(.template)
                                             .tint(Color.offwhite100)
                                             .scaledToFit()
-                                            .frame(width: 24, height: 24)
+                                            .frame(width: 30, height: 30)
                                             .animation(.easeIn(duration: 0.2), value: self.viewModel.isPlayingAudio)
                                     }
                                 )
                                 
                                 // Audio playback duration detail
                                 Text("\(self.viewModel.audioPlaybackTime, specifier: "%.1f") / \(self.viewModel.audioDuration, specifier: "%.1f")")
-                                    .font(.system(size: 16))
+                                    .font(.system(size: 14))
+                                    .scaledToFit()
                                     .foregroundColor(Color.offwhite100)
                                     .frame(width: 70)
                                 
                                 // Audio playback progress indicator
-                                RoundedRectangle(cornerRadius: 2)
-                                    .fill(Color.offwhite100)
-                                    .frame(height: 4)
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .fill(Color.offwhite100)
+                                        .frame(width: 150, height: 4)
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .fill(Color.blue500)
+                                        .frame(height: 4)
+                                        .frame(width: 150 * self.viewModel.audioPlaybackPercent)
+                                }
+                                
                                 
                                 // Delete audio button
                                 Button(
                                     action: {
-                                        // TODO: Present confirmation popup for user consent to delete audio
+                                        self.overlayContainerContext.presentAlert(
+                                            ofType: .deleteAudioRecording,
+                                            primaryActionButtonHandler: {
+                                                self.overlayContainerContext.shouldShowProgressIndicator = true
+                                                self.viewModel.deleteAudioRecordingFromServer { didDeleteRecording in
+                                                    self.overlayContainerContext.shouldShowProgressIndicator = false
+                                                }
+                                            }
+                                        )
                                     },
                                     label: {
                                         Image("deleteButtonIcon")
@@ -103,60 +165,90 @@ struct PhotoDetailsView: View {
                                             .renderingMode(.template)
                                             .tint(Color.offwhite100)
                                             .scaledToFit()
-                                            .frame(width: 24, height: 24)
+                                            .frame(width: 30, height: 30)
                                     }
                                 )
                             }
-                            .padding(.horizontal, 16)
+                            .padding(.horizontal, 24)
+                            
                         }
-                    } else {
-                        Button(
-                            action: {
-                                if self.viewModel.isRecoringInProgress {
-                                    self.viewModel.stopAudioRecording()
-                                    self.overlayContainerContext.shouldShowProgressIndicator = true
-                                    self.viewModel.saveUserRecordingToFirebase { didSaveRecording in
-                                        self.overlayContainerContext.shouldShowProgressIndicator = false
+                        // Controls for playing, progress and deleting audio
+                        else {
+                            HStack(alignment: .center, spacing: 16) {
+                                
+                                // Save audio recording button
+                                Button(
+                                    action: {
+                                        self.overlayContainerContext.shouldShowProgressIndicator = true
+                                        self.viewModel.saveUserRecordingToServer { didSaveRecording in
+                                            self.overlayContainerContext.shouldShowProgressIndicator = false
+                                        }
+                                    },
+                                    label: {
+                                        Image("saveButtonIcon")
+                                            .resizable()
+                                            .renderingMode(.template)
+                                            .tint(self.viewModel.didRecordAudio ? Color.offwhite100 : Color.gray600)
+                                            .scaledToFit()
+                                            .frame(width: 24, height: 24)
                                     }
-                                } else {
-                                    self.viewModel.startAudioRecording()
-                                }
-                            },
-                            label: {
-                                Image(self.viewModel.isRecoringInProgress  ? "recordButton" : "microphoneIcon")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 70, height: 70)
-                                    .animation(.easeIn(duration: 0.2), value: self.viewModel.isRecoringInProgress)
+                                )
+                                .disabled(!self.viewModel.didRecordAudio)
+                                
+                                Spacer()
+                                
+                                // Record audio button
+                                Button(
+                                    action: {
+                                        if self.viewModel.isRecoringInProgress {
+                                            self.viewModel.stopAudioRecording()
+                                        } else {
+                                            self.viewModel.startAudioRecording()
+                                        }
+                                    },
+                                    label: {
+                                        Image(self.viewModel.isRecoringInProgress ? "recordingAudioIcon" : "recordAudioIcon")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40, height: 40)
+                                    }
+                                )
+                                
+                                Spacer()
+                                
+                                // Delete audio recording button
+                                Button(
+                                    action: {
+                                        self.overlayContainerContext.presentAlert(
+                                            ofType: .deleteAudioRecording,
+                                            primaryActionButtonHandler: {
+                                                self.viewModel.deleteAudioRecordingFromLocal()
+                                            }
+                                        )
+                                    },
+                                    label: {
+                                        Image("deleteButtonIcon")
+                                            .resizable()
+                                            .renderingMode(.template)
+                                            .tint(self.viewModel.didRecordAudio ? Color.offwhite100 : Color.gray600)
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    }
+                                )
+                                .disabled(!self.viewModel.didRecordAudio)
                             }
-                        )
-                    }
-                }
-                
-                Spacer()
-                
-                // Done button
-                Button(
-                    action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    },
-                    label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.blue)
-                                .frame(height: 40)
-                            Text(NSLocalizedString("Done", comment: "Common - Done button title"))
-                                .font(.system(size: 16))
-                                .foregroundColor(Color.white)
+                            .padding(.horizontal, 24)
                         }
                     }
-                )
-                
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 32)
+                }
             }
-            .padding(.horizontal, 24)
+            .frame(height: UIScreen.main.bounds.height)
         }
         .onAppear {
             self.initializeViewModel()
+            self.viewModel.stopAudio()
             self.overlayContainerContext.shouldShowProgressIndicator = true
             self.viewModel.loadPhotoAudio { _ in
                 self.overlayContainerContext.shouldShowProgressIndicator = false

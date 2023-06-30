@@ -10,6 +10,8 @@
 "Ok" = "Ok";
 "Done" = "Done";
 "Cancel" = "Cancel";
+"Yes" = "Yes";
+"No" = "No";
 
 //---------- User login and registration -----------
 
@@ -50,3 +52,7 @@
 "Photos" = "Photos";
 "Change Photo Selection" = "Change Photo Selection";
 
+
+//---------- Photo details view -----------------------
+"Delete audio?" = "Delete audio?";
+"Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";

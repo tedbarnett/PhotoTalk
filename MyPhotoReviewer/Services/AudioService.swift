@@ -42,7 +42,17 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
     private var playerItem: AVPlayerItem?
     private var audioPlaybackTime: Double = 0
     private var audioPlaybackTimer: Timer?
+    private var timerManager: TimerManager?
     
+    
+    // MARK: Initializer
+    
+    override init() {
+        super.init()
+        
+        self.timerManager = TimerManager()
+        self.timerManager?.delegate = self
+    }
     
     // MARK: Public methods
     
@@ -79,10 +89,25 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
         self.audioRecorder?.stop()
     }
     
+    // FileManager.default.isDeletableFile(atPath: fileUrl.absoluteString)
+    func deleteUserAudioRecording() {
+        guard let fileUrl = self.audioFileUrl else { return }
+        do {
+            try FileManager.default.removeItem(atPath: fileUrl.absoluteString)
+            self.audioRecorder?.deleteRecording()
+            self.audioFileUrl = nil
+        } catch {
+            print("[AudioService] Error deleting audio recording from local file storage")
+        }
+    }
+    
     func playAudio(_ url: URL) {
+        self.audioFileUrl = url
+        
         guard self.audioPlayer == nil else {
+            self.timerManager?.startTimer()
+            self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.play()
-            self.startAudioPlaybackTimer()
             self.delegate?.didResumePlayingAudio()
             return
         }
@@ -95,9 +120,10 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
             self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.volume = 0.7
             self.audioPlayer?.delegate = self
-            self.audioDuration = self.audioPlayer?.duration ?? 0
+            self.audioDuration = (self.audioPlayer?.duration ?? 0) - 0.1
+            self.timerManager?.startTimer()
+            self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.play()
-            self.startAudioPlaybackTimer()
         } catch {
             print("[AudioService] Error playing audio from url: \(url)")
         }
@@ -105,36 +131,22 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
     
     func pauseAudio() {
         self.audioPlayer?.pause()
+        self.timerManager?.pauseTimer()
         self.delegate?.didPausePlayingAudio()
     }
     
     func stopAudio() {
         self.audioPlayer?.stop()
-        self.stopAudioPlaybackTimer()
+        self.timerManager?.stopTimer()
         self.delegate?.didStopPlayingAudio()
     }
     
-    // MARK: Private methods
-    
-    private func startAudioPlaybackTimer() {
-        self.audioPlaybackTimer = Timer.scheduledTimer(
-            timeInterval: 0.1,
-            target: self,
-            selector: #selector(onAudioPlaybackTimer),
-            userInfo: nil,
-            repeats: true
-        )
-    }
-    
-    private func stopAudioPlaybackTimer() {
+    func invalidate() {
         self.audioPlaybackTime = 0
-        self.audioPlaybackTimer?.invalidate()
-        self.audioPlaybackTimer = nil
-    }
-    
-    @objc private func onAudioPlaybackTimer() {
-        self.audioPlaybackTime += 0.1
-        self.delegate?.isPlayingAudio(currentTime: self.audioPlaybackTime)
+        self.audioFileUrl = nil
+        self.audioPlayer = nil
+        self.delegate = nil
+        self.timerManager?.invalidate()
     }
 }
 
@@ -143,13 +155,14 @@ class AudioService: NSObject, AVAudioRecorderDelegate {
 extension AudioService: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.audioPlayer = nil
-        self.stopAudioPlaybackTimer()
+        self.timerManager?.stopTimer()
+        self.timerManager?.invalidate()
         self.delegate?.didFinishPlayingAudio()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         self.audioPlayer = nil
-        self.stopAudioPlaybackTimer()
+        self.timerManager?.stopTimer()
         self.delegate?.didFailPlayingAudio()
     }
     
@@ -161,5 +174,13 @@ extension AudioService: AVAudioPlayerDelegate {
     func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
         self.audioPlayer?.play()
         self.delegate?.didResumePlayingAudio()
+    }
+}
+
+
+extension AudioService: TimerManagerDelegate {
+    func onChangeTime(_ time: Double) {
+        self.audioPlaybackTime = self.audioPlayer?.currentTime ?? 0
+        self.delegate?.isPlayingAudio(currentTime: self.audioPlaybackTime)
     }
 }

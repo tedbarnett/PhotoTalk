@@ -20,9 +20,11 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var arePhotoDetailsDownloaded = false
     @Published var photoAudioLocalFileUrl: URL?
     @Published var isRecoringInProgress = false
+    @Published var didRecordAudio = false
     @Published var isPlayingAudio = false
     @Published var audioDuration: Double = 0
     @Published var audioPlaybackTime: Double = 0
+    @Published var audioPlaybackPercent: Double = 0
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -70,6 +72,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func startAudioRecording() {
         AudioService.instance.startUserAudioRecording { didStartRecording in
             self.isRecoringInProgress = didStartRecording
+            self.didRecordAudio = false
         }
     }
     
@@ -80,38 +83,29 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         AudioService.instance.stopUserAudioRecording()
         if self.isRecoringInProgress {
             self.isRecoringInProgress = false
+            self.didRecordAudio = true
         }
     }
     
     /**
-     Attempts to play available photo audio
+     It deletes audio recording temporarily saved in local storage so that user
+     could record a new audio, if needed.
      */
-    func playAudio() {
-        guard let url = self.photoAudioLocalFileUrl else { return }
-        self.isPlayingAudio = true
-        AudioService.instance.playAudio(url)
-    }
-    
-    /**
-     Attempts to pause available photo audio playback
-     */
-    func pauseAudio() {
-        AudioService.instance.pauseAudio()
-        self.isPlayingAudio = false
-    }
-    
-    /**
-     Attempts to stop available photo audio playback
-     */
-    func stopAudio() {
-        AudioService.instance.stopAudio()
-        self.isPlayingAudio = false
+    func deleteAudioRecordingFromLocal() {
+        AudioService.instance.deleteUserAudioRecording()
+        
+        self.photoAudioLocalFileUrl = nil
+        AudioService.instance.audioFileUrl = nil
+        self.didRecordAudio = false
+        self.audioDuration = 0
+        self.audioPlaybackTime = 0
+        self.audioPlaybackPercent = 0
     }
     
     /**
      Connects to Firebase storage service to save user recording to the backend
      */
-    func saveUserRecordingToFirebase(responseHandler: @escaping ResponseHandler<Bool>) {
+    func saveUserRecordingToServer(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
               let photoId = self.photoId,
@@ -124,6 +118,26 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             print("Saved user audio recording with filename: \(fileName)")
             self.loadPhotoAudio(responseHandler: responseHandler)
+        }
+    }
+    
+    /**
+     It deletes the audio recording file from backend
+     */
+    func deleteAudioRecordingFromServer(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let audioUrl = AudioService.instance.audioFileUrl,
+              let profile = self.userProfile,
+              let photoId = self.photoId,
+              let service = self.storatgeService else { return }
+        
+        service.deletePhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { didDelete in
+            guard didDelete else {
+                responseHandler(false)
+                return
+            }
+            print("Deleted user audio recording with filename")
+            self.deleteAudioRecordingFromLocal()
+            responseHandler(false)
         }
     }
     
@@ -174,10 +188,35 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     }
     
     /**
+     Attempts to play available photo audio
+     */
+    func playAudio() {
+        guard let url = self.photoAudioLocalFileUrl else { return }
+        self.isPlayingAudio = true
+        AudioService.instance.playAudio(url)
+    }
+    
+    /**
+     Attempts to pause available photo audio playback
+     */
+    func pauseAudio() {
+        AudioService.instance.pauseAudio()
+        self.isPlayingAudio = false
+    }
+    
+    /**
+     Attempts to stop available photo audio playback
+     */
+    func stopAudio() {
+        AudioService.instance.stopAudio()
+        self.isPlayingAudio = false
+    }
+    
+    /**
      Resets state and properties to default
      */
     func invalidateViewModel() {
-        AudioService.instance.delegate = nil
+        AudioService.instance.invalidate()
         self.photoAudioLocalFileUrl = nil
     }
 }
@@ -188,6 +227,9 @@ extension PhotoDetailsViewModel: AudioServiceDelegate {
     func isPlayingAudio(currentTime: Double) {
         self.audioDuration = AudioService.instance.audioDuration
         self.audioPlaybackTime = currentTime
+        if self.audioPlaybackTime > 0 && self.audioDuration > 0 {
+            self.audioPlaybackPercent = self.audioPlaybackTime/self.audioDuration
+        }
     }
     
     func didFinishPlayingAudio() {

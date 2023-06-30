@@ -84,6 +84,8 @@
 		C1B2CA9D2A15458600D2AE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
 		C1B2CAA82A157D5C00D2AE04 /* MyPhotoReviewer-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1B2CA592A13420D00D2AE04 /* MyPhotoReviewer-Development-Info.plist */; };
 		C1B2CAAA2A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1B2CAA92A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist */; };
+		C1C6FEF02A4DC05200C02D1E /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6FEEF2A4DC05200C02D1E /* TimerManager.swift */; };
+		C1C6FEF12A4DC05200C02D1E /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6FEEF2A4DC05200C02D1E /* TimerManager.swift */; };
 		C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
 		C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
 		C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
@@ -176,6 +178,7 @@
 		C1B2CAA42A157BC200D2AE04 /* MyPhotoReviewer-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-Development.entitlements"; sourceTree = "<group>"; };
 		C1B2CAA52A157CF000D2AE04 /* MyPhotoReviewer-Distribution.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "MyPhotoReviewer-Distribution.entitlements"; sourceTree = "<group>"; };
 		C1B2CAA92A157F4300D2AE04 /* MyPhotoReviewer-Distribution-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyPhotoReviewer-Distribution-Info.plist"; sourceTree = "<group>"; };
+		C1C6FEEF2A4DC05200C02D1E /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
 		C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		C1DCE0702A33351B00C45549 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				C101B9E129FA80B8000192CD /* EnvironmentManager.swift */,
+				C1C6FEEF2A4DC05200C02D1E /* TimerManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -833,6 +837,7 @@
 				C1F6B8242A27659A00D3A822 /* PhotoView.swift in Sources */,
 				C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
 				C1F6B81B2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
+				C1C6FEF02A4DC05200C02D1E /* TimerManager.swift in Sources */,
 				C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */,
 				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
 				C1F6B8182A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
@@ -897,6 +902,7 @@
 				C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */,
 				C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
 				C1F6B81C2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
+				C1C6FEF12A4DC05200C02D1E /* TimerManager.swift in Sources */,
 				C1B2CA7A2A15458600D2AE04 /* AppContext.swift in Sources */,
 				C1B2CA7B2A15458600D2AE04 /* UserProfileModel.swift in Sources */,
 				C1F6B8192A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
@@ -962,6 +968,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1001,6 +1008,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1231,6 +1239,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1271,6 +1280,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

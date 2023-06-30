@@ -139,6 +139,7 @@ enum AlertType: Equatable {
     case userLoginFailedDueToUnverifiedAccount
     case emailSentForPasswordReset
     case emailFailedForPasswordReset
+    case deleteAudioRecording
     
     // MARK: Public properties
 
@@ -151,7 +152,8 @@ enum AlertType: Equatable {
             .userLoginFailed,
             .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
-            .emailFailedForPasswordReset: return false
+            .emailFailedForPasswordReset,
+            .deleteAudioRecording: return false
         }
     }
 
@@ -165,7 +167,8 @@ enum AlertType: Equatable {
             .userLoginFailed,
             .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
-            .emailFailedForPasswordReset: return nil
+            .emailFailedForPasswordReset,
+            .deleteAudioRecording: return nil
         }
     }
 
@@ -183,6 +186,8 @@ enum AlertType: Equatable {
             return NSLocalizedString("Email sent for password reset", comment: "User registration - password reset title")
         case .emailFailedForPasswordReset:
             return NSLocalizedString("Failed to send email", comment: "User registration - password reset title")
+        case .deleteAudioRecording:
+            return NSLocalizedString("Delete audio?", comment: "Photo details view - delete audio consent title")
         }
     }
 
@@ -220,6 +225,11 @@ enum AlertType: Equatable {
                 "Oops! there was an error sending email for password reset. Please try again.",
                 comment: "User registration - password reset title"
             )
+        case .deleteAudioRecording:
+            return NSLocalizedString(
+                "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.",
+                comment: "Photo details view - delete audio consent description"
+            )
         }
     }
 
@@ -231,7 +241,8 @@ enum AlertType: Equatable {
             .userLoginFailed,
             .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
-            .emailFailedForPasswordReset: return .leading
+            .emailFailedForPasswordReset,
+            .deleteAudioRecording: return .leading
         }
     }
 
@@ -246,6 +257,8 @@ enum AlertType: Equatable {
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset:
             return NSLocalizedString("Ok", comment: "Common view - Ok button label")
+        case .deleteAudioRecording:
+            return NSLocalizedString("Yes", comment: "Common view - Yes button label")
         }
     }
 
@@ -260,6 +273,8 @@ enum AlertType: Equatable {
             .userLoginFailedDueToUnverifiedAccount,
             .emailSentForPasswordReset,
             .emailFailedForPasswordReset: return nil
+        case .deleteAudioRecording:
+            return NSLocalizedString("No", comment: "Common view - No button label")
         }
     }
 }

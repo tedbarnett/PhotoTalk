@@ -24,7 +24,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var isPlayingAudio = false
     @Published var audioDuration: Double = 0
     @Published var audioPlaybackTime: Double = 0
-    @Published var audioPlaybackPercent: Double = 0
+    @Published var audioPlaybackPercent: Double = 0.001
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -39,24 +39,6 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     // MARK: Private properties
     
     private var storatgeService: FirebaseStorageService?
-    
-    private var photoId: String? {
-        guard let photo = self.photo else {
-            return nil
-        }
-        
-        if let applePhotoId = photo.iCloudAssetId {
-            if applePhotoId.contains("/") {
-                // iCloud photo ids (Ex: 6F2093EF-C398-48B4-901F-858C58E36A1C/L0/001) have `/` char
-                // so they need to be replaced with - to prevent Firebase storage reference error
-                return applePhotoId.replacingOccurrences(of: "/", with: "-")
-            }
-            return applePhotoId
-        } else if let googlePhotoId = photo.googleDriveFileId {
-            return googlePhotoId
-        }
-        return nil
-    }
     
     // Initializer
     
@@ -108,7 +90,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func saveUserRecordingToServer(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
-              let photoId = self.photoId,
+              let photoId = self.photo?.photoId,
               let service = self.storatgeService else { return }
         
         service.uploadPhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { audioFileName in
@@ -127,7 +109,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func deleteAudioRecordingFromServer(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
-              let photoId = self.photoId,
+              let photoId = self.photo?.photoId,
               let service = self.storatgeService else { return }
         
         service.deletePhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { didDelete in
@@ -147,7 +129,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func loadPhotoAudio(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
-              let photoId = self.photoId,
+              let photoId = self.photo?.photoId,
               let service = self.storatgeService else {
             responseHandler(false)
             return

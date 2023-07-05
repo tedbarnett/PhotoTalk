@@ -41,6 +41,22 @@ class CloudAsset: Hashable {
     var isDownloaded: Bool = false
     var isSelected: Bool = false
     
+    // MARK: Common properties
+    
+    var photoId: String? {
+        if self.source == .iCloud, let assetId = self.iCloudAssetId {
+            if assetId.contains("/") {
+                // iCloud photo ids (Ex: 6F2093EF-C398-48B4-901F-858C58E36A1C/L0/001) have `/` char
+                // so they need to be replaced with - to prevent Firebase storage reference error
+                return assetId.replacingOccurrences(of: "/", with: "-")
+            }
+            return assetId
+        } else if self.source == .googleDrive, let fileId = self.googleDriveFileId {
+            return fileId
+        }
+        return nil
+    }
+    
     // MARK: Public methods
     
     /**

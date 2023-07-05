@@ -182,6 +182,82 @@ extension FirebaseDatabaseService {
 
 // MARK: Photos related database operations
 extension FirebaseDatabaseService {
+    
+    /**
+     Checks if Firebase `Photo` folder has a sub folder with name matching user id
+     */
+    func doesUserFolderExistUnderPhotoFolder(
+        forUserId: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(forUserId)
+            
+            userDirectory.getData { error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot else {
+                    print("[Firebase Database] User folder doesn't exist under photo folder")
+                    responseHandler(false)
+                    return
+                }
+                
+                let areDetailsSaved = dataSnapshot.exists()
+                print("[Firebase Database] User folder exists under photo folder")
+                responseHandler(areDetailsSaved)
+            }
+    }
+    
+    /**
+     Adds a new database node for each user selected photo
+     */
+    func saveUserPhotosToDatabase(
+        userId: String,
+        photos: [CloudAsset],
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            
+            for photo in photos {
+                if let id = photo.photoId {
+                    let photoNode = userDirectory.child(id)
+                    var photoDetails: [String: Any] = [
+                        DatabaseNodeCommonProperties.id: id,
+                        UserNodeProperties.mediaSource: photo.source.rawValue
+                    ]
+                    photoDetails[PhotoNodeProperties.dateAndTime] = nil
+                    photoDetails[PhotoNodeProperties.location] = nil
+                    photoNode.setValue(photoDetails) { error, reference in
+                        guard error == nil else {
+                            print("[Firebase Database] Failed to save photo details for photo \(id)")
+                            return
+                        }
+                        print("[Firebase Database] Successfully saved photo details for photo \(id)")
+                    }
+                }
+            }
+            
+            responseHandler(true)
+    }
+    
+    /**
+     Removes database node for the given photos
+     */
+    func removeUserPhotosFromDatabase(
+        userId: String,
+        photos: [CloudAsset],
+        responseHandler: @escaping ResponseHandler<Bool>) {
+        
+    }
+    
+    /**
+     Removes database node for the given photos
+     */
+    func setDateForUserPhoto(
+        userId: String,
+        photo: CloudAsset,
+        date: Date,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+        
+    }
 }
 
 // MARK: Photo audios related database operations

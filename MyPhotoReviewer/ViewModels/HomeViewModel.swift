@@ -51,6 +51,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     var currentEnvironment: Environment = .dev {
         didSet {
             self.databaseService = FirebaseDatabaseService(environment: self.currentEnvironment)
+            self.storageService = FirebaseStorageService(environment: self.currentEnvironment)
         }
     }
     
@@ -62,6 +63,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     // Database service that helps perfrom CRUD operations with Firebase database
     private var databaseService: FirebaseDatabaseService?
+    private var storageService: FirebaseStorageService?
     private var userPhotoService = UserPhotoService()
     private var authenticationViewModel = UserAuthenticationViewModel()
     
@@ -136,6 +138,29 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             self.downloadCloudAssets(for: .iCloud) {_ in }
         }
     }
+    
+    /**
+     It compares newly selected user photos with previously selected photos and
+     1. Adds a new database node for any new selected photo
+     2. Removes database node for a unselected photo
+     */
+    private func updateUserPhotosSelectionOnServer(newlySelectedPhotos: [CloudAsset]) {
+        guard let profile = self.userProfile,
+              let service = self.databaseService else { return }
+        
+        service.doesUserFolderExistUnderPhotoFolder(forUserId: profile.id) { userFolderExists in
+            if userFolderExists {
+                // Compare newly selected photos with previously selected ones and
+                // as needed, add/remove photo node from server database
+            } else {
+                // Save user selected photos to server database
+                service.saveUserPhotosToDatabase(userId: profile.id, photos: self.photos) { didSavePhotos in
+                    print("Saved user photos to Firebase database")
+                }
+            }
+        }
+    }
+    
     /**
      Connects to user selected Cloud services to fetch list of assets like phots, folders.
      */
@@ -144,6 +169,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         case .iCloud:
             DispatchQueue.global().async {
                 self.userPhotoService.downloadUserPhotosFromICloud { userPhotos in
+                    self.updateUserPhotosSelectionOnServer(newlySelectedPhotos: userPhotos)
                     DispatchQueue.main.async {
                         self.photos.removeAll()
                         self.photos.append(contentsOf: userPhotos)

@@ -138,11 +138,12 @@ struct PhotoDetailsView: View {
                                 ZStack(alignment: .leading) {
                                     RoundedRectangle(cornerRadius: 2)
                                         .fill(Color.offwhite100)
-                                        .frame(width: 150, height: 4)
+                                        .frame(height: 4)
+                                        .frame(maxWidth: .infinity * 0.4)
                                     RoundedRectangle(cornerRadius: 2)
                                         .fill(Color.blue500)
                                         .frame(height: 4)
-                                        .frame(width: 150 * self.viewModel.audioPlaybackPercent)
+                                        .frame(maxWidth: (.infinity * 0.4) * self.viewModel.audioPlaybackPercent)
                                 }
                                 
                                 

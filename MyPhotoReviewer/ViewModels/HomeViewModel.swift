@@ -140,28 +140,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     }
     
     /**
-     It compares newly selected user photos with previously selected photos and
-     1. Adds a new database node for any new selected photo
-     2. Removes database node for a unselected photo
-     */
-    private func updateUserPhotosSelectionOnServer(newlySelectedPhotos: [CloudAsset]) {
-        guard let profile = self.userProfile,
-              let service = self.databaseService else { return }
-        
-        service.doesUserFolderExistUnderPhotoFolder(forUserId: profile.id) { userFolderExists in
-            if userFolderExists {
-                // Compare newly selected photos with previously selected ones and
-                // as needed, add/remove photo node from server database
-            } else {
-                // Save user selected photos to server database
-                service.saveUserPhotosToDatabase(userId: profile.id, photos: self.photos) { didSavePhotos in
-                    print("Saved user photos to Firebase database")
-                }
-            }
-        }
-    }
-    
-    /**
      Connects to user selected Cloud services to fetch list of assets like phots, folders.
      */
     func downloadCloudAssets(for mediaSource: MediaSource, responseHandler: @escaping ResponseHandler<Bool>) {
@@ -169,7 +147,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         case .iCloud:
             DispatchQueue.global().async {
                 self.userPhotoService.downloadUserPhotosFromICloud { userPhotos in
-                    self.updateUserPhotosSelectionOnServer(newlySelectedPhotos: userPhotos)
+                    self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
                     DispatchQueue.main.async {
                         self.photos.removeAll()
                         self.photos.append(contentsOf: userPhotos)
@@ -194,6 +172,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             // If user doesn't have any folder, download the photos from root level
                             if userFolders.isEmpty {
                                 self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
+                                    self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
                                     DispatchQueue.main.async {
                                         self.photos.removeAll()
                                         self.photos.append(contentsOf: userPhotos)
@@ -273,6 +252,52 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             responseHandler(true)
                         }
                     }
+                }
+            }
+        }
+        self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+    }
+    
+    /**
+     It compares newly selected user photos with previously selected photos and
+     1. Adds a new database node for any new selected photo
+     2. Removes database node for a unselected photo
+     */
+    private func syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: [CloudAsset]) {
+        guard let profile = self.userProfile,
+              let service = self.databaseService else { return }
+        
+        service.doesUserFolderExistUnderPhotoFolder(forUserId: profile.id) { userFolderExists in
+            if userFolderExists {
+                // Compare newly selected photos with previously selected ones and
+                // as needed, add/remove photo node from server database
+                service.getUserPhotosFromServer(forUserId: profile.id) { photos in
+                    guard let userPhotosOnServer = photos else { return }
+                    let serverPhotoIds = userPhotosOnServer.map { $0.id }
+                    let newlySelectedPhotoIds = newlySelectedPhotos.map { $0.photoId ?? "" }
+                    let newPhotosToSaveOnServer = newlySelectedPhotoIds.filter { serverPhotoIds.contains($0) == false }
+                    let existingPhotosToDeleteFromServer = serverPhotoIds.filter { newlySelectedPhotoIds.contains($0) == false }
+                    
+                    // Saving newly selected photos to server
+                    if !newPhotosToSaveOnServer.isEmpty {
+                        let newPhotos = newlySelectedPhotos.filter { newPhotosToSaveOnServer.contains($0.photoId ?? "") }
+                        service.saveUserPhotosToDatabase(userId: profile.id, photos: newPhotos) { didSavePhotos in
+                            print("Saved user photos to Firebase database")
+                        }
+                    }
+                    
+                    // Removing existing photos from server that aren't selected by user
+                    if !existingPhotosToDeleteFromServer.isEmpty {
+                        let photosToRemove = userPhotosOnServer.filter { existingPhotosToDeleteFromServer.contains($0.id) }
+                        service.removeUserPhotosFromDatabase(userId: profile.id, photos: photosToRemove) { didDelete in
+                            print("Removed user photos from Firebase database")
+                        }
+                    }
+                }
+            } else {
+                // Save user selected photos to server database
+                service.saveUserPhotosToDatabase(userId: profile.id, photos: self.photos) { didSavePhotos in
+                    print("Saved user photos to Firebase database")
                 }
             }
         }

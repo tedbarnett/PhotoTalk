@@ -11,7 +11,7 @@ import Foundation
  Photo data object contains details about each user photos
  */
 class Photo {
-    let id: String = ""
+    var id: String = ""
     let photoAlbumId: String? = nil
     let name: String = ""
     let extnsion: String = ""

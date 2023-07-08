@@ -145,7 +145,9 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                     
                     userProfile.email = self.localStorageService.userEmail
                     self.localStorageService.isUserAuthenticated = true
-                    userProfile.isAuthenticated = true
+                    DispatchQueue.main.async {
+                        userProfile.isAuthenticated = true
+                    }
                     responseHandler()
                     
                     // Uncomment below code, if the user needs to be re-authenticated with Firebase

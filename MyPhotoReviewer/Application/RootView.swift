@@ -69,8 +69,10 @@ struct RootView: View {
         let userAuthenticationViewModel = UserAuthenticationViewModel()
         userAuthenticationViewModel.userProfile = self.userProfile
         userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded {
-            self.overlayContainerContext.shouldShowProgressIndicator = false
-            self.isValidatingUserAuthentication = false
+            DispatchQueue.main.async {
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+                self.isValidatingUserAuthentication = false
+            }
         }
     }
 }

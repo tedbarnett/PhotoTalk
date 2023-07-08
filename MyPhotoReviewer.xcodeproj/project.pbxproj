@@ -90,6 +90,10 @@
 		C1D1E6972A59AAA8005F508B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6962A59AAA8005F508B /* FirebaseDatabase */; };
 		C1D1E6992A59AAA9005F508B /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6982A59AAA9005F508B /* FirebaseDatabaseSwift */; };
 		C1D1E69B2A59AAA9005F508B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E69A2A59AAA9005F508B /* FirebaseStorage */; };
+		C1D1E69D2A59F619005F508B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E69C2A59F619005F508B /* FirebaseAnalytics */; };
+		C1D1E69F2A59F61A005F508B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E69E2A59F61A005F508B /* FirebaseAuth */; };
+		C1D1E6A12A59F61A005F508B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6A02A59F61A005F508B /* FirebaseDatabase */; };
+		C1D1E6A32A59F61A005F508B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6A22A59F61A005F508B /* FirebaseStorage */; };
 		C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
 		C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
 		C1DFD3032A27A00C0001ABFC /* GoogleDriveService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */; };
@@ -259,8 +263,12 @@
 				C1DFD3202A27CF3F0001ABFC /* GTMSessionFetcherCore in Frameworks */,
 				C1DFD31E2A27CF3F0001ABFC /* GTMSessionFetcher in Frameworks */,
 				C1DFD32C2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */,
+				C1D1E6A12A59F61A005F508B /* FirebaseDatabase in Frameworks */,
 				C1DFD3222A27CF3F0001ABFC /* GTMSessionFetcherFull in Frameworks */,
+				C1D1E6A32A59F61A005F508B /* FirebaseStorage in Frameworks */,
+				C1D1E69F2A59F61A005F508B /* FirebaseAuth in Frameworks */,
 				C1DFD3242A27CF3F0001ABFC /* GTMSessionFetcherLogView in Frameworks */,
+				C1D1E69D2A59F619005F508B /* FirebaseAnalytics in Frameworks */,
 				495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,6 +678,10 @@
 				C1DFD3232A27CF3F0001ABFC /* GTMSessionFetcherLogView */,
 				C1DFD3252A27CF980001ABFC /* GoogleAPIClientForRESTCore */,
 				C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */,
+				C1D1E69C2A59F619005F508B /* FirebaseAnalytics */,
+				C1D1E69E2A59F61A005F508B /* FirebaseAuth */,
+				C1D1E6A02A59F61A005F508B /* FirebaseDatabase */,
+				C1D1E6A22A59F61A005F508B /* FirebaseStorage */,
 			);
 			productName = MyPhotoReviewer;
 			productReference = C1B2CAA12A15458600D2AE04 /* MyPhotoReviewer-Distribution.app */;
@@ -706,8 +718,8 @@
 			mainGroup = C1A983A429F3D80D00D83BBF;
 			packageReferences = (
 				C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */,
-				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */,
+				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
+				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C1A983AE29F3D80D00D83BBF /* Products */;
@@ -1055,7 +1067,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
@@ -1098,7 +1110,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1481,7 +1493,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */ = {
+		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/gtm-session-fetcher.git";
 			requirement = {
@@ -1489,7 +1501,7 @@
 				minimumVersion = 3.1.1;
 			};
 		};
-		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */ = {
+		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest.git";
 			requirement = {
@@ -1550,64 +1562,84 @@
 			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
+		C1D1E69C2A59F619005F508B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C1D1E69E2A59F61A005F508B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C1D1E6A02A59F61A005F508B /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		C1D1E6A22A59F61A005F508B /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD3162A27CE750001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3182A27CE750001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD31B2A27CEC50001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD31D2A27CF3F0001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD31F2A27CF3F0001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3212A27CF3F0001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD3232A27CF3F0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3252A27CF980001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD3272A27CFAE0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3292A27D0C20001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 		C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 /* End XCSwiftPackageProductDependency section */

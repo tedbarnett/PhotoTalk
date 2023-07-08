@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */; };
+		BC3378B96E3D16B36417DA7D /* Pods_MyPhotoReviewer_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */; };
 		C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
 		C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
 		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
@@ -15,15 +17,14 @@
 		C101B9DB29FA7D6F000192CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B429F3D80E00D83BBF /* Assets.xcassets */; };
 		C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9E129FA80B8000192CD /* EnvironmentManager.swift */; };
 		C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9F429FA8721000192CD /* AppDelegate.swift */; };
-		C101B9F929FA886A000192CD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C101B9F829FA886A000192CD /* FirebaseAnalytics */; };
-		C101B9FB29FA886A000192CD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C101B9FA29FA886A000192CD /* FirebaseAuth */; };
-		C101B9FD29FA886A000192CD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C101B9FC29FA886A000192CD /* FirebaseCrashlytics */; };
-		C101B9FF29FA886A000192CD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C101B9FE29FA886A000192CD /* FirebaseDatabase */; };
-		C101BA0129FA886A000192CD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0029FA886A000192CD /* FirebaseFirestore */; };
-		C101BA0329FA886A000192CD /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0229FA886A000192CD /* FirebasePerformance */; };
-		C101BA0529FA886A000192CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C101BA0429FA886A000192CD /* FirebaseStorage */; };
 		C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
 		C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
+		C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
+		C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
+		C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
+		C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
+		C17E94AD2A5976A8005AA499 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */; };
+		C17E94AE2A5976A8005AA499 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */; };
 		C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */; };
 		C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */; };
 		C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E629FD0F20007C5FB3 /* FormTextField.swift */; };
@@ -69,14 +70,7 @@
 		C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C1B2CA8C2A15458600D2AE04 /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
 		C1B2CA8E2A15458600D2AE04 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA762A15458600D2AE04 /* GoogleSignInSwift */; };
-		C1B2CA8F2A15458600D2AE04 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA6F2A15458600D2AE04 /* FirebaseCrashlytics */; };
 		C1B2CA902A15458600D2AE04 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA742A15458600D2AE04 /* GoogleSignIn */; };
-		C1B2CA912A15458600D2AE04 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA6C2A15458600D2AE04 /* FirebaseAnalytics */; };
-		C1B2CA922A15458600D2AE04 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA722A15458600D2AE04 /* FirebasePerformance */; };
-		C1B2CA932A15458600D2AE04 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA702A15458600D2AE04 /* FirebaseDatabase */; };
-		C1B2CA942A15458600D2AE04 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA732A15458600D2AE04 /* FirebaseStorage */; };
-		C1B2CA952A15458600D2AE04 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA712A15458600D2AE04 /* FirebaseFirestore */; };
-		C1B2CA962A15458600D2AE04 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C1B2CA6E2A15458600D2AE04 /* FirebaseAuth */; };
 		C1B2CA992A15458600D2AE04 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C19949062A067AC4004CD4A1 /* Localizable.strings */; };
 		C1B2CA9A2A15458600D2AE04 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */; };
 		C1B2CA9B2A15458600D2AE04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */; };
@@ -90,6 +84,12 @@
 		C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */; };
 		C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
 		C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */; };
+		C1D1E6912A59AAA8005F508B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6902A59AAA8005F508B /* FirebaseAnalytics */; };
+		C1D1E6932A59AAA8005F508B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6922A59AAA8005F508B /* FirebaseAuth */; };
+		C1D1E6952A59AAA8005F508B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6942A59AAA8005F508B /* FirebaseCrashlytics */; };
+		C1D1E6972A59AAA8005F508B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6962A59AAA8005F508B /* FirebaseDatabase */; };
+		C1D1E6992A59AAA9005F508B /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6982A59AAA9005F508B /* FirebaseDatabaseSwift */; };
+		C1D1E69B2A59AAA9005F508B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E69A2A59AAA9005F508B /* FirebaseStorage */; };
 		C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
 		C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
 		C1DFD3032A27A00C0001ABFC /* GoogleDriveService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */; };
@@ -138,6 +138,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; sourceTree = "<group>"; };
+		82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.release.xcconfig"; sourceTree = "<group>"; };
 		C101B3A52A3356110024E261 /* FolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSelectionView.swift; sourceTree = "<group>"; };
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
@@ -146,6 +149,9 @@
 		C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C101BA1E29FC4196000192CD /* UserRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationView.swift; sourceTree = "<group>"; };
 		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
+		C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoDetailsView.swift; sourceTree = "<group>"; };
+		C17E94A72A584D0A005AA499 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
 		C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
 		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 		C19949092A068209004CD4A1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C199490C2A06824D004CD4A1 /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
 		C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewModel.swift; sourceTree = "<group>"; };
+		C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.debug.xcconfig"; sourceTree = "<group>"; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C1A983B429F3D80E00D83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,6 +188,8 @@
 		C1C6FEEF2A4DC05200C02D1E /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C1CCBB622A1D230E0040C3BD /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
 		C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
+		C1D1E6762A59935F005F508B /* FirebaseDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1D1E67A2A599372005F508B /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DCE0702A33351B00C45549 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		C1DFD3012A27A0010001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
@@ -199,6 +208,8 @@
 		C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoService.swift; sourceTree = "<group>"; };
 		C1F6B8232A27659A00D3A822 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsView.swift; sourceTree = "<group>"; };
+		C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,21 +217,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D1E6992A59AAA9005F508B /* FirebaseDatabaseSwift in Frameworks */,
+				C1D1E6972A59AAA8005F508B /* FirebaseDatabase in Frameworks */,
 				C1B2CA582A1341ED00D2AE04 /* GoogleSignInSwift in Frameworks */,
-				C101B9FD29FA886A000192CD /* FirebaseCrashlytics in Frameworks */,
 				C1DFD3172A27CE750001ABFC /* GTMSessionFetcherCore in Frameworks */,
 				C1B2CA562A1341ED00D2AE04 /* GoogleSignIn in Frameworks */,
 				C1DFD31C2A27CEC50001ABFC /* GoogleAPIClientForRESTCore in Frameworks */,
-				C101B9F929FA886A000192CD /* FirebaseAnalytics in Frameworks */,
 				C1DFD3282A27CFAE0001ABFC /* GTMSessionFetcherLogView in Frameworks */,
 				C1DFD3152A27CE750001ABFC /* GTMSessionFetcher in Frameworks */,
-				C101BA0329FA886A000192CD /* FirebasePerformance in Frameworks */,
+				C1D1E69B2A59AAA9005F508B /* FirebaseStorage in Frameworks */,
 				C1DFD32A2A27D0C20001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */,
-				C101B9FF29FA886A000192CD /* FirebaseDatabase in Frameworks */,
+				C1D1E6932A59AAA8005F508B /* FirebaseAuth in Frameworks */,
 				C1DFD3192A27CE750001ABFC /* GTMSessionFetcherFull in Frameworks */,
-				C101BA0529FA886A000192CD /* FirebaseStorage in Frameworks */,
-				C101BA0129FA886A000192CD /* FirebaseFirestore in Frameworks */,
-				C101B9FB29FA886A000192CD /* FirebaseAuth in Frameworks */,
+				C1D1E6952A59AAA8005F508B /* FirebaseCrashlytics in Frameworks */,
+				C1D1E6912A59AAA8005F508B /* FirebaseAnalytics in Frameworks */,
+				BC3378B96E3D16B36417DA7D /* Pods_MyPhotoReviewer_Development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,25 +255,30 @@
 			files = (
 				C1DFD3262A27CF980001ABFC /* GoogleAPIClientForRESTCore in Frameworks */,
 				C1B2CA8E2A15458600D2AE04 /* GoogleSignInSwift in Frameworks */,
-				C1B2CA8F2A15458600D2AE04 /* FirebaseCrashlytics in Frameworks */,
 				C1B2CA902A15458600D2AE04 /* GoogleSignIn in Frameworks */,
 				C1DFD3202A27CF3F0001ABFC /* GTMSessionFetcherCore in Frameworks */,
-				C1B2CA912A15458600D2AE04 /* FirebaseAnalytics in Frameworks */,
 				C1DFD31E2A27CF3F0001ABFC /* GTMSessionFetcher in Frameworks */,
-				C1B2CA922A15458600D2AE04 /* FirebasePerformance in Frameworks */,
-				C1B2CA932A15458600D2AE04 /* FirebaseDatabase in Frameworks */,
 				C1DFD32C2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive in Frameworks */,
-				C1B2CA942A15458600D2AE04 /* FirebaseStorage in Frameworks */,
 				C1DFD3222A27CF3F0001ABFC /* GTMSessionFetcherFull in Frameworks */,
-				C1B2CA952A15458600D2AE04 /* FirebaseFirestore in Frameworks */,
 				C1DFD3242A27CF3F0001ABFC /* GTMSessionFetcherLogView in Frameworks */,
-				C1B2CA962A15458600D2AE04 /* FirebaseAuth in Frameworks */,
+				495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57318A5859ACE9BC3ED496BF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */,
+				82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */,
+				34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */,
+				C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C101B9E029FA808D000192CD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +307,10 @@
 		C101BA0D29FC3E75000192CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1D1E67A2A599372005F508B /* FirebaseStorage.framework */,
+				C1D1E6762A59935F005F508B /* FirebaseDatabase.framework */,
+				1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */,
+				C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -341,6 +361,7 @@
 				C1A983CA29F3D80E00D83BBF /* MyPhotoReviewerUITests */,
 				C1A983AE29F3D80D00D83BBF /* Products */,
 				C101BA0D29FC3E75000192CD /* Frameworks */,
+				57318A5859ACE9BC3ED496BF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -472,6 +493,8 @@
 				C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */,
 				C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */,
 				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
+				C17E94A72A584D0A005AA499 /* LocationService.swift */,
+				C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -501,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */,
+				C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */,
 			);
 			path = PhotoDetailsView;
 			sourceTree = "<group>";
@@ -553,11 +577,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C101B9DC29FA7D6F000192CD /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Development" */;
 			buildPhases = (
+				45C90FF3F00FB6F6AE6AFF7A /* [CP] Check Pods Manifest.lock */,
 				C101B9D529FA7D6F000192CD /* Sources */,
 				C101B9D829FA7D6F000192CD /* Frameworks */,
 				C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3062A27A3F20001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C101B9D929FA7D6F000192CD /* Resources */,
+				6B15D82B71E15645E2FBEC6B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -565,13 +591,6 @@
 			);
 			name = "MyPhotoReviewer-Development";
 			packageProductDependencies = (
-				C101B9F829FA886A000192CD /* FirebaseAnalytics */,
-				C101B9FA29FA886A000192CD /* FirebaseAuth */,
-				C101B9FC29FA886A000192CD /* FirebaseCrashlytics */,
-				C101B9FE29FA886A000192CD /* FirebaseDatabase */,
-				C101BA0029FA886A000192CD /* FirebaseFirestore */,
-				C101BA0229FA886A000192CD /* FirebasePerformance */,
-				C101BA0429FA886A000192CD /* FirebaseStorage */,
 				C1B2CA552A1341ED00D2AE04 /* GoogleSignIn */,
 				C1B2CA572A1341ED00D2AE04 /* GoogleSignInSwift */,
 				C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */,
@@ -580,6 +599,12 @@
 				C1DFD31B2A27CEC50001ABFC /* GoogleAPIClientForRESTCore */,
 				C1DFD3272A27CFAE0001ABFC /* GTMSessionFetcherLogView */,
 				C1DFD3292A27D0C20001ABFC /* GoogleAPIClientForREST_Drive */,
+				C1D1E6902A59AAA8005F508B /* FirebaseAnalytics */,
+				C1D1E6922A59AAA8005F508B /* FirebaseAuth */,
+				C1D1E6942A59AAA8005F508B /* FirebaseCrashlytics */,
+				C1D1E6962A59AAA8005F508B /* FirebaseDatabase */,
+				C1D1E6982A59AAA9005F508B /* FirebaseDatabaseSwift */,
+				C1D1E69A2A59AAA9005F508B /* FirebaseStorage */,
 			);
 			productName = MyPhotoReviewer;
 			productReference = C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */;
@@ -623,11 +648,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1B2CA9E2A15458600D2AE04 /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Distribution" */;
 			buildPhases = (
+				0C558A5CB01B14164A9CD174 /* [CP] Check Pods Manifest.lock */,
 				C1B2CA772A15458600D2AE04 /* Sources */,
 				C1B2CA8D2A15458600D2AE04 /* Frameworks */,
 				C1B2CA972A15458600D2AE04 /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3042A27A0400001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C1B2CA982A15458600D2AE04 /* Resources */,
+				7269D839025B8705CAD2C1C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -635,13 +662,6 @@
 			);
 			name = "MyPhotoReviewer-Distribution";
 			packageProductDependencies = (
-				C1B2CA6C2A15458600D2AE04 /* FirebaseAnalytics */,
-				C1B2CA6E2A15458600D2AE04 /* FirebaseAuth */,
-				C1B2CA6F2A15458600D2AE04 /* FirebaseCrashlytics */,
-				C1B2CA702A15458600D2AE04 /* FirebaseDatabase */,
-				C1B2CA712A15458600D2AE04 /* FirebaseFirestore */,
-				C1B2CA722A15458600D2AE04 /* FirebasePerformance */,
-				C1B2CA732A15458600D2AE04 /* FirebaseStorage */,
 				C1B2CA742A15458600D2AE04 /* GoogleSignIn */,
 				C1B2CA762A15458600D2AE04 /* GoogleSignInSwift */,
 				C1DFD31D2A27CF3F0001ABFC /* GTMSessionFetcher */,
@@ -685,10 +705,10 @@
 			);
 			mainGroup = C1A983A429F3D80D00D83BBF;
 			packageReferences = (
-				C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
-				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */,
+				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */,
+				C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C1A983AE29F3D80D00D83BBF /* Products */;
 			projectDirPath = "";
@@ -747,6 +767,84 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0C558A5CB01B14164A9CD174 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Distribution-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45C90FF3F00FB6F6AE6AFF7A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Development-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B15D82B71E15645E2FBEC6B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7269D839025B8705CAD2C1C9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -855,9 +953,11 @@
 				C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */,
 				C1F6B8122A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C1F6B8212A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
+				C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
+				C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
 				C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */,
@@ -870,6 +970,7 @@
 				C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
+				C17E94AD2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -920,9 +1021,11 @@
 				C1B2CA822A15458600D2AE04 /* AlertView.swift in Sources */,
 				C1F6B8132A24DE9800D3A822 /* PhotoAudio.swift in Sources */,
 				C1F6B8222A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
+				C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
 				C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
+				C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,
 				C1B2CA852A15458600D2AE04 /* UIDevice+ScreenSize.swift in Sources */,
 				C1B2CA862A15458600D2AE04 /* FormTextField.swift in Sources */,
 				C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */,
@@ -935,6 +1038,7 @@
 				C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,
 				C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */,
+				C17E94AE2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
 				C1B2CA8C2A15458600D2AE04 /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -944,6 +1048,7 @@
 /* Begin XCBuildConfiguration section */
 		C101B9DD29FA7D6F000192CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -956,6 +1061,7 @@
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
 				ENVIRONMENT = dev;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
@@ -986,6 +1092,7 @@
 		};
 		C101B9DE29FA7D6F000192CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1015,6 +1122,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xparrow.PhotoReviewer.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1215,6 +1323,7 @@
 		};
 		C1B2CA9F2A15458600D2AE04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1257,6 +1366,7 @@
 		};
 		C1B2CAA02A15458600D2AE04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1347,28 +1457,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
-			};
-		};
 		C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.0.0;
-			};
-		};
-		C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
 			};
 		};
 		C1B2CA752A15458600D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
@@ -1379,7 +1473,15 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */ = {
+		C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/gtm-session-fetcher.git";
 			requirement = {
@@ -1387,7 +1489,7 @@
 				minimumVersion = 3.1.1;
 			};
 		};
-		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest.git";
 			requirement = {
@@ -1398,41 +1500,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C101B9F829FA886A000192CD /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		C101B9FA29FA886A000192CD /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		C101B9FC29FA886A000192CD /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		C101B9FE29FA886A000192CD /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		C101BA0029FA886A000192CD /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		C101BA0229FA886A000192CD /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
-		};
-		C101BA0429FA886A000192CD /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C101B9F729FA886A000192CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
 		C1B2CA552A1341ED00D2AE04 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
@@ -1442,41 +1509,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
-		};
-		C1B2CA6C2A15458600D2AE04 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		C1B2CA6E2A15458600D2AE04 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		C1B2CA6F2A15458600D2AE04 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		C1B2CA702A15458600D2AE04 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		C1B2CA712A15458600D2AE04 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		C1B2CA722A15458600D2AE04 /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
-		};
-		C1B2CA732A15458600D2AE04 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1B2CA6D2A15458600D2AE04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
 		};
 		C1B2CA742A15458600D2AE04 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1488,64 +1520,94 @@
 			package = C1B2CA752A15458600D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
 		};
+		C1D1E6902A59AAA8005F508B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C1D1E6922A59AAA8005F508B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C1D1E6942A59AAA8005F508B /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		C1D1E6962A59AAA8005F508B /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		C1D1E6982A59AAA9005F508B /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		C1D1E69A2A59AAA9005F508B /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD3162A27CE750001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3182A27CE750001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD31B2A27CEC50001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD31D2A27CF3F0001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD31F2A27CF3F0001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3212A27CF3F0001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD3232A27CF3F0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3252A27CF980001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD3272A27CFAE0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3292A27D0C20001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 		C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 /* End XCSwiftPackageProductDependency section */

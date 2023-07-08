@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GooglePlaces
 
 @main
 struct MyPhotoReviewerApp: App {
@@ -13,6 +14,10 @@ struct MyPhotoReviewerApp: App {
     
     @StateObject private var appContext = AppContext()
     @StateObject private var userProfile = UserProfileModel.defaultUserProfile
+    
+    init() {
+        GMSPlacesClient.provideAPIKey("AIzaSyAZzjRcTc9YKCF5tdcSuH8jVaqabNRn3L8")
+    }
     
     var body: some Scene {
         WindowGroup {

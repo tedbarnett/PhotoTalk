@@ -13,10 +13,8 @@ import Foundation
 class Photo {
     var id: String = ""
     let photoAlbumId: String? = nil
-    let name: String = ""
-    let extnsion: String = ""
     let url: String = ""
     let dateAndTime: Date? = nil
-    let location: PhotoLocation? = nil
+    var location: String? = nil
     let audio: PhotoAudio? = nil
 }

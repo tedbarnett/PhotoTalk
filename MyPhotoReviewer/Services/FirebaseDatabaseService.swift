@@ -5,9 +5,10 @@
 //  Created by Prem Pratap Singh on 23/05/23.
 //
 
+import FirebaseDatabase
+import Firebase
 import Foundation
 import FirebaseAuth
-import FirebaseDatabase
 
 /**
  FirebaseDatabaseService helps in setting up connection to the application Firebase database and
@@ -29,6 +30,7 @@ class FirebaseDatabaseService {
 }
 
 // MARK: User profile related database operations
+
 extension FirebaseDatabaseService {
     
     /**
@@ -206,6 +208,38 @@ extension FirebaseDatabaseService {
             }
     }
     
+    /// Saves user details to the database for the authenticated user
+    func loadPhotoDetailsFromDatabase(
+        userId: String,
+        photoId: String,
+        responseHandler: @escaping ResponseHandler<Photo?>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            photoReference.getData { error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot,
+                      dataSnapshot.exists(),
+                      let userDetails = dataSnapshot.value as? [String: Any] else {
+                    print("[Firebase Database] Failed to load photo details for id \(photoId)")
+                    responseHandler(nil)
+                    return
+                }
+                
+                let photo = Photo()
+                if let id = userDetails[DatabaseNodeCommonProperties.id] as? String {
+                    photo.id = id
+                }
+                
+                if let location = userDetails[PhotoNodeProperties.location] as? String {
+                    photo.location = location
+                }
+                
+                print("[Firebase Database] Successfully loaded photo details for id \(photoId)")
+                responseHandler(photo)
+            }
+        }
+    
     /**
      Checks if Firebase `Photo` folder has a sub folder with name matching user id
      */
@@ -299,6 +333,33 @@ extension FirebaseDatabaseService {
                 }
             }
             responseHandler(true)
+    }
+    
+    /**
+     Removes database node for the given photos
+     */
+    func saveLocationForUserPhoto(
+        userId: String,
+        photoId: String,
+        location: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            
+            let locationDetails: [String: Any] = [
+                PhotoNodeProperties.location: location
+            ]
+            
+            photoReference.updateChildValues(locationDetails) { error, reference in
+                guard error == nil else {
+                    print("[Firebase Database] Failed to save location for photo \(photoId)")
+                    responseHandler(false)
+                    return
+                }
+                print("[Firebase Database] Successfully saved location for photo \(photoId)")
+                responseHandler(true)
+            }
     }
     
     /**

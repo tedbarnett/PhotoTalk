@@ -276,21 +276,12 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                     let serverPhotoIds = userPhotosOnServer.map { $0.id }
                     let newlySelectedPhotoIds = newlySelectedPhotos.map { $0.photoId ?? "" }
                     let newPhotosToSaveOnServer = newlySelectedPhotoIds.filter { serverPhotoIds.contains($0) == false }
-                    let existingPhotosToDeleteFromServer = serverPhotoIds.filter { newlySelectedPhotoIds.contains($0) == false }
                     
                     // Saving newly selected photos to server
                     if !newPhotosToSaveOnServer.isEmpty {
                         let newPhotos = newlySelectedPhotos.filter { newPhotosToSaveOnServer.contains($0.photoId ?? "") }
                         service.saveUserPhotosToDatabase(userId: profile.id, photos: newPhotos) { didSavePhotos in
                             print("Saved user photos to Firebase database")
-                        }
-                    }
-                    
-                    // Removing existing photos from server that aren't selected by user
-                    if !existingPhotosToDeleteFromServer.isEmpty {
-                        let photosToRemove = userPhotosOnServer.filter { existingPhotosToDeleteFromServer.contains($0.id) }
-                        service.removeUserPhotosFromDatabase(userId: profile.id, photos: photosToRemove) { didDelete in
-                            print("Removed user photos from Firebase database")
                         }
                     }
                 }

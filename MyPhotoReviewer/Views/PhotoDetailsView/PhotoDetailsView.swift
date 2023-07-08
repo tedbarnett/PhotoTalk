@@ -26,6 +26,8 @@ struct PhotoDetailsView: View {
     @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
     
     @StateObject private var viewModel = PhotoDetailsViewModel()
+    @State private var shouldShowAddPhotoDetailsView = false
+    @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode = .addLocation
     
     // MARK: User interface
     
@@ -72,6 +74,48 @@ struct PhotoDetailsView: View {
                     
                     Spacer()
                     
+                    // Add location button
+                    if self.viewModel.photoLocation == nil {
+                        Button(
+                            action: {
+                                self.addPhotoDetailsViewMode = .addLocation
+                                self.shouldShowAddPhotoDetailsView = true
+                            },
+                            label: {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.clear)
+                                        .frame(width: 40, height: 40)
+                                    Image("addLocationIcon")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                }
+                            }
+                        )
+                    }
+                    
+                    // Add Date button
+                    if self.viewModel.photoDate == nil {
+                        Button(
+                            action: {
+                                self.addPhotoDetailsViewMode = .addDate
+                                self.shouldShowAddPhotoDetailsView = true
+                            },
+                            label: {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.clear)
+                                        .frame(width: 40, height: 40)
+                                    Image("addDateIcon")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                }
+                            }
+                        )
+                    }
+                    
                     // Favourite button
                     Button(
                         action: {
@@ -92,6 +136,18 @@ struct PhotoDetailsView: View {
                     .padding(.trailing, 6)
                 }
                 .padding(.top, 50)
+                
+                // Photo location and date
+                VStack(alignment: .center) {
+                    if let location = self.viewModel.photoLocation {
+                        Text(location)
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundColor(Color.offwhite100)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
                 
                 Spacer()
                 
@@ -173,6 +229,7 @@ struct PhotoDetailsView: View {
                             .padding(.horizontal, 24)
                             
                         }
+                        
                         // Controls for playing, progress and deleting audio
                         else {
                             HStack(alignment: .center, spacing: 16) {
@@ -251,6 +308,7 @@ struct PhotoDetailsView: View {
             self.initializeViewModel()
             self.viewModel.stopAudio()
             self.overlayContainerContext.shouldShowProgressIndicator = true
+            self.viewModel.loadPhotoDetails()
             self.viewModel.loadPhotoAudio { _ in
                 self.overlayContainerContext.shouldShowProgressIndicator = false
             }
@@ -258,6 +316,12 @@ struct PhotoDetailsView: View {
         .onDisappear {
             self.viewModel.stopAudio()
             self.viewModel.invalidateViewModel()
+        }
+        .sheet(isPresented: self.$shouldShowAddPhotoDetailsView) {
+            AddPhotoDetailsView(
+                mode: self.addPhotoDetailsViewMode,
+                delegate: self
+            )
         }
     }
     
@@ -267,5 +331,20 @@ struct PhotoDetailsView: View {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
         self.viewModel.photo = self.photo
         self.viewModel.userProfile = self.userProfile
+    }
+}
+
+// MARK: AddPhotoDetailsViewDelegate delegate methods
+
+extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
+    func didSelectDate(date: Date) {
+        print("Save date to database")
+    }
+    
+    func didSelectLocation(location: String) {
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.savePhotoLocation(location) { didSave in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
     }
 }

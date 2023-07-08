@@ -25,6 +25,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var audioDuration: Double = 0
     @Published var audioPlaybackTime: Double = 0
     @Published var audioPlaybackPercent: Double = 0.001
+    @Published var photoLocation: String? = ""
+    @Published var photoDate: Date? = Date()
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -33,12 +35,14 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     var currentEnvironment: Environment = .dev {
         didSet {
             self.storatgeService = FirebaseStorageService(environment: self.currentEnvironment)
+            self.databaseService = FirebaseDatabaseService(environment: self.currentEnvironment)
         }
     }
     
     // MARK: Private properties
     
     private var storatgeService: FirebaseStorageService?
+    private var databaseService: FirebaseDatabaseService?
     
     // Initializer
     
@@ -47,6 +51,22 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     }
     
     // MARK: Public methods
+    
+    /**
+     Loads details of the photo like location, date, time, etc from server
+     */
+    func loadPhotoDetails() {
+        guard let profile = self.userProfile,
+              let photoId = self.photo?.photoId,
+              let service = self.databaseService else { return }
+        service.loadPhotoDetailsFromDatabase(userId: profile.id, photoId: photoId) { details in
+            guard let photoDetails = details else {
+                self.photoLocation = nil
+                return
+            }
+            self.photoLocation = photoDetails.location
+        }
+    }
     
     /**
      Initiates the workflow to start user audio recording for the photo
@@ -91,7 +111,10 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
               let photoId = self.photo?.photoId,
-              let service = self.storatgeService else { return }
+              let service = self.storatgeService else {
+            responseHandler(false)
+            return
+        }
         
         service.uploadPhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { audioFileName in
             guard let fileName = audioFileName else {
@@ -110,7 +133,10 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
               let photoId = self.photo?.photoId,
-              let service = self.storatgeService else { return }
+              let service = self.storatgeService else {
+            responseHandler(false)
+            return
+        }
         
         service.deletePhotoAudioFor(userId: profile.id, photoId: photoId, audioUrl: audioUrl) { didDelete in
             guard didDelete else {
@@ -192,6 +218,27 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func stopAudio() {
         AudioService.instance.stopAudio()
         self.isPlayingAudio = false
+    }
+    
+    /**
+     Saves photo location on the server
+     */
+    func savePhotoLocation(_ location: String, responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let profile = self.userProfile,
+              let photoId = self.photo?.photoId,
+              let service = self.databaseService else {
+            responseHandler(false)
+            return
+        }
+        
+        service.saveLocationForUserPhoto(userId: profile.id, photoId: photoId, location: location) { didSave in
+            guard didSave else {
+                responseHandler(false)
+                return
+            }
+            self.photoLocation = location
+            responseHandler(true)
+        }
     }
     
     /**

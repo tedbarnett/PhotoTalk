@@ -179,7 +179,10 @@ struct HomeView: View {
                 // Link to photo details view
                 NavigationLink(
                     destination:
-                        PhotoDetailsView(photo: self.selectedPhoto)
+                        PhotoDetailsView(
+                            photos: self.viewModel.photos,
+                            selectedPhoto: self.selectedPhoto
+                        )
                         .navigationBarHidden(true)
                     ,
                     isActive: self.$shouldShowPhotoDetails

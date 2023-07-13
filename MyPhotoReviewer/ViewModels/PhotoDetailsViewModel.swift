@@ -29,7 +29,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var photoDateString: String? = ""
     @Published var isFavourite: Bool = false
     
-    var photo: CloudAsset?
+    var photos: [CloudAsset]?
+    var selectedPhoto: CloudAsset?
     var userProfile: UserProfileModel?
     
     // Application run environment - prod or dev
@@ -58,7 +59,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func loadPhotoDetails() {
         guard let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.databaseService else { return }
         service.loadPhotoDetailsFromDatabase(userId: profile.id, photoId: photoId) { details in
             guard let photoDetails = details else {
@@ -113,7 +114,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func saveUserRecordingToServer(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.storatgeService else {
             responseHandler(false)
             return
@@ -135,7 +136,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func deleteAudioRecordingFromServer(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let audioUrl = AudioService.instance.audioFileUrl,
               let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.storatgeService else {
             responseHandler(false)
             return
@@ -158,7 +159,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func loadPhotoAudio(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.storatgeService else {
             responseHandler(false)
             return
@@ -204,7 +205,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func savePhotoLocation(_ location: String, responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.databaseService else {
             responseHandler(false)
             return
@@ -225,7 +226,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func savePhotoDateAndTime(_ date: Date, responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.databaseService else {
             responseHandler(false)
             return
@@ -250,7 +251,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func updateFavouriteState(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
-              let photoId = self.photo?.photoId,
+              let photoId = self.selectedPhoto?.photoId,
               let service = self.databaseService else {
             responseHandler(false)
             return

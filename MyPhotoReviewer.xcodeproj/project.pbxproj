@@ -23,6 +23,8 @@
 		C12FA6B42A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
 		C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
+		C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
+		C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
 		C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
 		C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
 		C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
@@ -159,6 +161,7 @@
 		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
+		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
 		C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoDetailsView.swift; sourceTree = "<group>"; };
 		C17E94A72A584D0A005AA499 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
@@ -357,6 +360,7 @@
 				C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */,
 				C19948AD2A036A9A004CD4A1 /* AlertView.swift */,
 				C19948B62A0371CD004CD4A1 /* OverlayContainerView.swift */,
+				C12FA6B82A60621700867500 /* SlidesScrollView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -977,6 +981,7 @@
 				C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */,
+				C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */,
 				C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,
@@ -1047,6 +1052,7 @@
 				C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
 				C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */,
+				C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */,
 				C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
 				C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,

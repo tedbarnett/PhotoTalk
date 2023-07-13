@@ -15,7 +15,8 @@ struct PhotoDetailsView: View {
     
     // MARK: Public properties
     
-    var photo: CloudAsset?
+    var photos: [CloudAsset]?
+    var selectedPhoto: CloudAsset?
     
     // MARK: Private properties
     
@@ -28,6 +29,9 @@ struct PhotoDetailsView: View {
     @StateObject private var viewModel = PhotoDetailsViewModel()
     @State private var shouldShowAddPhotoDetailsView = false
     @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode = .addLocation
+    @State private var currentSlideIndex: Int = 0
+    @State private var canSlideToLeft: Bool = false
+    @State private var canSlideToRight: Bool = true
     
     // MARK: User interface
     
@@ -36,6 +40,32 @@ struct PhotoDetailsView: View {
             // Background
             Color.black900
                 .ignoresSafeArea()
+            
+            VStack(alignment: .leading) {
+                // Photo Preview horizontal scroll view
+                if let photos = self.viewModel.photos {
+                    SlidesScrollView(
+                        pageCount: photos.count,
+                        isLeftSlideEnabled: self.canSlideToLeft,
+                        isRightSlideEnabled: self.canSlideToRight,
+                        currentIndex: self.$currentSlideIndex,
+                        delegate: self
+                    ) {
+                        ForEach (0..<photos.count, id: \.self) { index in
+                            let photo = photos[index]
+                            PhotoView(
+                                photo: photo,
+                                width: UIScreen.main.bounds.width,
+                                height: UIScreen.main.bounds.height,
+                                forcePhotoDownload: true,
+                                shouldShowBackground: false
+                            )
+                        }
+                    }
+                }
+                Spacer(minLength: 100)
+            }
+            .ignoresSafeArea()
             
             // Main Content
             VStack(alignment: .center) {
@@ -136,18 +166,6 @@ struct PhotoDetailsView: View {
                 
                 // Photo details - Location, Date, Audio Recording/Playback controls
                 if self.viewModel.arePhotoDetailsDownloaded {
-                    // Photo Preview
-                    if let photo = self.photo {
-                        PhotoView(
-                            photo: photo,
-                            width: UIScreen.main.bounds.width,
-                            height: UIScreen.main.bounds.height * 0.6,
-                            forcePhotoDownload: true,
-                            shouldShowBackground: false
-                        )
-                    }
-                    
-                    Spacer()
                     
                     VStack(alignment: .center, spacing: 16) {
                         // Photo location
@@ -335,12 +353,7 @@ struct PhotoDetailsView: View {
         }
         .onAppear {
             self.initializeViewModel()
-            self.viewModel.stopAudio()
-            self.overlayContainerContext.shouldShowProgressIndicator = true
-            self.viewModel.loadPhotoDetails()
-            self.viewModel.loadPhotoAudio { _ in
-                self.overlayContainerContext.shouldShowProgressIndicator = false
-            }
+            self.downloadPhotoDetails()
         }
         .onDisappear {
             self.viewModel.stopAudio()
@@ -360,8 +373,30 @@ struct PhotoDetailsView: View {
     
     private func initializeViewModel() {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
-        self.viewModel.photo = self.photo
+        self.viewModel.photos = self.photos
+        self.viewModel.selectedPhoto = self.selectedPhoto
+        if let selectedPhoto = self.selectedPhoto,
+           let photos = self.photos,
+           let index = photos.firstIndex(where: {$0.photoId == selectedPhoto.photoId}) {
+            self.currentSlideIndex = index
+            self.canSlideToLeft = index > 0
+            self.canSlideToRight = index < photos.count - 1
+        }
         self.viewModel.userProfile = self.userProfile
+    }
+    
+    private func downloadPhotoDetails() {
+        self.viewModel.stopAudio()
+        self.viewModel.arePhotoDetailsDownloaded = false
+//        self.viewModel.photoLocation = ""
+//        self.viewModel.photoDateString = ""
+//        self.viewModel.photoAudioLocalFileUrl = nil
+        
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.loadPhotoDetails()
+        self.viewModel.loadPhotoAudio { _ in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
     }
 }
 
@@ -381,4 +416,20 @@ extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }
+}
+
+// MARK: SlidesScrollViewDelegate delegate methods
+
+extension PhotoDetailsView: SlidesScrollViewDelegate {
+    func didSlidePage(index: Int, position: CGFloat) {
+        guard let photos = self.viewModel.photos else { return }
+        self.canSlideToLeft = index > 0
+        self.canSlideToRight = index < photos.count - 1
+        
+        let photo = photos[index]
+        self.viewModel.selectedPhoto = photo
+        self.downloadPhotoDetails()
+    }
+
+    func didChangeSlidePosition(index: Int, position: CGFloat) {}
 }

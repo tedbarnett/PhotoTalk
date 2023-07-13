@@ -64,7 +64,7 @@ struct PhotoView: View {
             }
         }
         .onAppear {
-            guard !self.photo.isDownloaded else { return }
+            guard !self.photo.isDownloaded || self.forcePhotoDownload else { return }
             self.isImageLoading = true
             self.photo.downloadPhoto { photo in
                 DispatchQueue.main.async {

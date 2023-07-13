@@ -64,66 +64,71 @@ struct PhotoDetailsView: View {
                     
                     Spacer()
                     
-                    // Add location button
-                    if self.viewModel.photoLocation == nil {
-                        Button(
-                            action: {
-                                self.addPhotoDetailsViewMode = .addLocation
-                                self.shouldShowAddPhotoDetailsView = true
-                            },
-                            label: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.clear)
-                                        .frame(width: 40, height: 40)
-                                    Image("addLocationIcon")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 30, height: 30)
+                    if self.viewModel.arePhotoDetailsDownloaded {
+                        // Add location button
+                        if self.viewModel.photoLocation == nil {
+                            Button(
+                                action: {
+                                    self.addPhotoDetailsViewMode = .addLocation
+                                    self.shouldShowAddPhotoDetailsView = true
+                                },
+                                label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .fill(Color.clear)
+                                            .frame(width: 40, height: 40)
+                                        Image("addLocationIcon")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    }
                                 }
-                            }
-                        )
-                    }
-                    
-                    // Add Date button
-                    if self.viewModel.photoDateString == nil {
-                        Button(
-                            action: {
-                                self.addPhotoDetailsViewMode = .addDate
-                                self.shouldShowAddPhotoDetailsView = true
-                            },
-                            label: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.clear)
-                                        .frame(width: 40, height: 40)
-                                    Image("addDateIcon")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 30, height: 30)
-                                }
-                            }
-                        )
-                    }
-                    
-                    // Favourite button
-                    Button(
-                        action: {
-                            // TODO: Update photo details as favourite - in local database and firebase
-                        },
-                        label: {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 40, height: 40)
-                                Image("favouriteIcon")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                            }
+                            )
                         }
-                    )
-                    .padding(.trailing, 6)
+                        
+                        // Add Date button
+                        if self.viewModel.photoDateString == nil {
+                            Button(
+                                action: {
+                                    self.addPhotoDetailsViewMode = .addDate
+                                    self.shouldShowAddPhotoDetailsView = true
+                                },
+                                label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .fill(Color.clear)
+                                            .frame(width: 40, height: 40)
+                                        Image("addDateIcon")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    }
+                                }
+                            )
+                        }
+                        
+                        // Favourite button
+                        Button(
+                            action: {
+                                self.overlayContainerContext.shouldShowProgressIndicator = true
+                                self.viewModel.updateFavouriteState { _ in
+                                    self.overlayContainerContext.shouldShowProgressIndicator = false
+                                }
+                            },
+                            label: {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.clear)
+                                        .frame(width: 40, height: 40)
+                                    Image(self.viewModel.isFavourite ? "favouriteIcon" : "unfavouriteIcon")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                }
+                            }
+                        )
+                        .padding(.trailing, 6)
+                    }
                 }
                 .padding(.top, 50)
                 

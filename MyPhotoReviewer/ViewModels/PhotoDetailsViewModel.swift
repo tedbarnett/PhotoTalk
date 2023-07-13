@@ -26,7 +26,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var audioPlaybackTime: Double = 0
     @Published var audioPlaybackPercent: Double = 0.001
     @Published var photoLocation: String? = ""
-    @Published var photoDateString: String? = nil
+    @Published var photoDateString: String? = ""
+    @Published var isFavourite: Bool = false
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -66,6 +67,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             self.photoLocation = photoDetails.location
             self.photoDateString = photoDetails.dateAndTime?.photoNodeFormattedDateString
+            self.isFavourite = photoDetails.isFavourite
         }
     }
     
@@ -162,36 +164,12 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             return
         }
         
-        // First, look for photo audio URL in the local storage
-        var photoAudios = self.localStorageService.photoAudios
-//        if let audio = photoAudios.first(where: { $0.photoId == photoId }) {
-//            self.isPlayingAudio = false
-//            self.photoAudioLocalFileUrl = URL(string: audio.url)
-//            self.arePhotoDetailsDownloaded = true
-//            self.audioDuration = 0
-//            responseHandler(true)
-//            return
-//        }
-        
         // Load photo URL from Firebase storage, if not found in local storage
         service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { localFileUrl in
             self.isPlayingAudio = false
             self.photoAudioLocalFileUrl = localFileUrl
             self.arePhotoDetailsDownloaded = true
             self.audioDuration = 0
-            
-            // Save photo audio details in local database
-//            if let url = localFileUrl?.absoluteString, photoAudios.first(where: {$0.photoId == photoId}) == nil {
-//                let photoAudio = PhotoAudio(
-//                    id: UUID().uuidString,
-//                    photoId: photoId,
-//                    url: url,
-//                    recordedDate: Date().description
-//                )
-//                photoAudios.append(photoAudio)
-//                self.localStorageService.photoAudios = photoAudios
-//            }
-            
             responseHandler(true)
         }
     }
@@ -263,6 +241,30 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                     return
                 }
                 self.photoDateString = dateAndTimeString
+                responseHandler(true)
+            }
+    }
+    
+    /**
+     Saves photo date and time on the server
+     */
+    func updateFavouriteState(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let profile = self.userProfile,
+              let photoId = self.photo?.photoId,
+              let service = self.databaseService else {
+            responseHandler(false)
+            return
+        }
+        
+        service.saveFavouriteStateForUserPhoto(
+            userId: profile.id,
+            photoId: photoId,
+            isFavourite: !self.isFavourite) { didSave in
+                guard didSave else {
+                    responseHandler(false)
+                    return
+                }
+                self.isFavourite = !self.isFavourite
                 responseHandler(true)
             }
     }

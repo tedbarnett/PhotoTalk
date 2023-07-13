@@ -239,6 +239,10 @@ extension FirebaseDatabaseService {
                     photo.dateAndTime = dateAndTimeString.photoNodeDateFromString
                 }
                 
+                if let isFavourite = userDetails[PhotoNodeProperties.isFavourite] as? String {
+                    photo.isFavourite = isFavourite == "1"
+                }
+                
                 print("[Firebase Database] Successfully loaded photo details for id \(photoId)")
                 responseHandler(photo)
             }
@@ -378,17 +382,44 @@ extension FirebaseDatabaseService {
             let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
             let photoReference = userDirectory.child(photoId)
             
-            let locationDetails: [String: Any] = [
+            let dateAndTimeDetails: [String: Any] = [
                 PhotoNodeProperties.dateAndTime: dateAndTimeString
             ]
             
-            photoReference.updateChildValues(locationDetails) { error, reference in
+            photoReference.updateChildValues(dateAndTimeDetails) { error, reference in
                 guard error == nil else {
-                    print("[Firebase Database] Failed to save location for photo \(photoId)")
+                    print("[Firebase Database] Failed to save date and time for photo \(photoId)")
                     responseHandler(false)
                     return
                 }
-                print("[Firebase Database] Successfully saved location for photo \(photoId)")
+                print("[Firebase Database] Successfully saved date and time for photo \(photoId)")
+                responseHandler(true)
+            }
+    }
+    
+    /**
+     Saves favourite state for the user photo with given user id and photo id
+     */
+    func saveFavouriteStateForUserPhoto(
+        userId: String,
+        photoId: String,
+        isFavourite: Bool,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            
+            let favouriteStateDetails: [String: Any] = [
+                PhotoNodeProperties.isFavourite: isFavourite ? "1" : "0"
+            ]
+            
+            photoReference.updateChildValues(favouriteStateDetails) { error, reference in
+                guard error == nil else {
+                    print("[Firebase Database] Failed to save favourite state for photo \(photoId)")
+                    responseHandler(false)
+                    return
+                }
+                print("[Firebase Database] Successfully saved favourite state for photo \(photoId)")
                 responseHandler(true)
             }
     }

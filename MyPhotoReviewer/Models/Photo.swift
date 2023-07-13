@@ -17,4 +17,5 @@ class Photo {
     var dateAndTime: Date? = nil
     var location: String? = nil
     let audio: PhotoAudio? = nil
+    var isFavourite: Bool = false
 }

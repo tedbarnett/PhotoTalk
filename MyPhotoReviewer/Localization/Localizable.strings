@@ -9,6 +9,7 @@
 //---------- Common ---------------------------------------
 "Ok" = "Ok";
 "Done" = "Done";
+"Save" = "Save";
 "Cancel" = "Cancel";
 "Yes" = "Yes";
 "No" = "No";
@@ -56,4 +57,8 @@
 //---------- Photo details view -----------------------
 "Delete audio?" = "Delete audio?";
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
+"Add location where this photo was taken" = "Add location where this photo was taken";
+"Add date when this photo was taken" = "Add date when this photo was taken";
 "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result" = "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result";
+"Pick a date and time" = "Pick a date and time";
+"You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button" = "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button";

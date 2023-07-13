@@ -27,7 +27,6 @@ struct PhotoDetailsView: View {
     
     @StateObject private var viewModel = PhotoDetailsViewModel()
     @State private var shouldShowAddPhotoDetailsView = false
-    @State private var selectedLocation: String? = nil
     @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode = .addLocation
     
     // MARK: User interface
@@ -87,7 +86,7 @@ struct PhotoDetailsView: View {
                     }
                     
                     // Add Date button
-                    if self.viewModel.photoDate == nil {
+                    if self.viewModel.photoDateString == nil {
                         Button(
                             action: {
                                 self.addPhotoDetailsViewMode = .addDate
@@ -149,12 +148,23 @@ struct PhotoDetailsView: View {
                         // Photo location
                         if let location = self.viewModel.photoLocation {
                             Text(location)
-                                .font(.system(size: 20, weight: .semibold))
+                                .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(Color.offwhite100)
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .onTapGesture {
                                     self.addPhotoDetailsViewMode = .addLocation
-                                    self.selectedLocation = self.viewModel.photoLocation
+                                    self.shouldShowAddPhotoDetailsView = true
+                                }
+                        }
+                        
+                        // Photo date and time
+                        if let photoDateString = self.viewModel.photoDateString {
+                            Text(photoDateString)
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(Color.offwhite100)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .onTapGesture {
+                                    self.addPhotoDetailsViewMode = .addDate
                                     self.shouldShowAddPhotoDetailsView = true
                                 }
                         }
@@ -334,7 +344,8 @@ struct PhotoDetailsView: View {
         .sheet(isPresented: self.$shouldShowAddPhotoDetailsView) {
             AddPhotoDetailsView(
                 mode: self.addPhotoDetailsViewMode,
-                selectedLocation: self.selectedLocation,
+                selectedLocation: self.viewModel.photoLocation,
+                selectedDateString: self.viewModel.photoDateString,
                 delegate: self
             )
         }
@@ -353,7 +364,10 @@ struct PhotoDetailsView: View {
 
 extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
     func didSelectDate(date: Date) {
-        print("Save date to database")
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.savePhotoDateAndTime(date) { didSave in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
     }
     
     func didSelectLocation(location: String) {

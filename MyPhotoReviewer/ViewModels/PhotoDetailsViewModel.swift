@@ -26,7 +26,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var audioPlaybackTime: Double = 0
     @Published var audioPlaybackPercent: Double = 0.001
     @Published var photoLocation: String? = ""
-    @Published var photoDate: Date? = Date()
+    @Published var photoDateString: String? = nil
     
     var photo: CloudAsset?
     var userProfile: UserProfileModel?
@@ -65,6 +65,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 return
             }
             self.photoLocation = photoDetails.location
+            self.photoDateString = photoDetails.dateAndTime?.photoNodeFormattedDateString
         }
     }
     
@@ -239,6 +240,31 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             self.photoLocation = location
             responseHandler(true)
         }
+    }
+    
+    /**
+     Saves photo date and time on the server
+     */
+    func savePhotoDateAndTime(_ date: Date, responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let profile = self.userProfile,
+              let photoId = self.photo?.photoId,
+              let service = self.databaseService else {
+            responseHandler(false)
+            return
+        }
+        
+        let dateAndTimeString = date.photoNodeFormattedDateString
+        service.saveDateAndTimeForUserPhoto(
+            userId: profile.id,
+            photoId: photoId,
+            dateAndTimeString: dateAndTimeString) { didSave in
+                guard didSave else {
+                    responseHandler(false)
+                    return
+                }
+                self.photoDateString = dateAndTimeString
+                responseHandler(true)
+            }
     }
     
     /**

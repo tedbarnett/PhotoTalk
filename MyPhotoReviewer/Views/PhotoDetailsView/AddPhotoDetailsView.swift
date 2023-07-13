@@ -52,6 +52,7 @@ struct AddPhotoDetailsView: View {
     
     var mode: AddPhotoDetailsViewMode = .addLocation
     var selectedLocation: String? = nil
+    var selectedDateString: String? = nil
     var delegate: AddPhotoDetailsViewDelegate?
     
     // MARK: Private properties
@@ -59,11 +60,19 @@ struct AddPhotoDetailsView: View {
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
     @StateObject private var placesService = GooglePlacesService()
     @State private var locationSearchString = ""
+    @State private var date = Date()
     
     private var changeLocationDescriptionText: String? {
         guard let location = self.selectedLocation else { return nil }
         let string = NSLocalizedString("You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result", comment: "Add photo details view - change location description")
         let formattedString = String.StringLiteralType(format: string, location)
+        return formattedString
+    }
+    
+    private var changeDateAndTimeDescriptionText: String? {
+        guard let dateString = self.selectedDateString else { return nil }
+        let string = NSLocalizedString("You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button", comment: "Add photo details view - change date and time description")
+        let formattedString = String.StringLiteralType(format: string, dateString)
         return formattedString
     }
     
@@ -154,6 +163,39 @@ struct AddPhotoDetailsView: View {
 
                 } else if self.mode == .addDate {
                     
+                    // Currently selected location, if available
+                    if let descriptionText = self.changeDateAndTimeDescriptionText {
+                        Text(descriptionText)
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(Color.offwhite100)
+                            .padding(.top, 8)
+                    }
+                    
+                    DatePicker(
+                        NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
+                        selection: $date,
+                        in: ...Date(),
+                        displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(.automatic)
+                    .padding(.top, 24)
+                    
+                    Button(
+                        action: {
+                            self.delegate?.didSelectDate(date: self.date)
+                            self.presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.blue)
+                                    .frame(height: 40)
+                                Text(NSLocalizedString("Save", comment: "Common - Save button title"))
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.white)
+                            }
+                        }
+                    )
+                    .padding(.top, 8)
                 }
                 
                 Spacer()

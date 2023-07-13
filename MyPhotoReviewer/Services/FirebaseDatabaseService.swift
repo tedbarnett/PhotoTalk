@@ -235,6 +235,10 @@ extension FirebaseDatabaseService {
                     photo.location = location
                 }
                 
+                if let dateAndTimeString = userDetails[PhotoNodeProperties.dateAndTime] as? String {
+                    photo.dateAndTime = dateAndTimeString.photoNodeDateFromString
+                }
+                
                 print("[Firebase Database] Successfully loaded photo details for id \(photoId)")
                 responseHandler(photo)
             }
@@ -336,7 +340,7 @@ extension FirebaseDatabaseService {
     }
     
     /**
-     Removes database node for the given photos
+     Saves given location for the useer photo with given user id and photo id
      */
     func saveLocationForUserPhoto(
         userId: String,
@@ -363,14 +367,30 @@ extension FirebaseDatabaseService {
     }
     
     /**
-     Removes database node for the given photos
+     Saves given date/time details for the user photo with given user id and photo id
      */
-    func setDateForUserPhoto(
+    func saveDateAndTimeForUserPhoto(
         userId: String,
-        photo: CloudAsset,
-        date: Date,
+        photoId: String,
+        dateAndTimeString: String,
         responseHandler: @escaping ResponseHandler<Bool>) {
-        
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            
+            let locationDetails: [String: Any] = [
+                PhotoNodeProperties.dateAndTime: dateAndTimeString
+            ]
+            
+            photoReference.updateChildValues(locationDetails) { error, reference in
+                guard error == nil else {
+                    print("[Firebase Database] Failed to save location for photo \(photoId)")
+                    responseHandler(false)
+                    return
+                }
+                print("[Firebase Database] Successfully saved location for photo \(photoId)")
+                responseHandler(true)
+            }
     }
 }
 

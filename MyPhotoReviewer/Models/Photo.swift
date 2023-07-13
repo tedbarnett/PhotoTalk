@@ -14,7 +14,7 @@ class Photo {
     var id: String = ""
     let photoAlbumId: String? = nil
     let url: String = ""
-    let dateAndTime: Date? = nil
+    var dateAndTime: Date? = nil
     var location: String? = nil
     let audio: PhotoAudio? = nil
 }

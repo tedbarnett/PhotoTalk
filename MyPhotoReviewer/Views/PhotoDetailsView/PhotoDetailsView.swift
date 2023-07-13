@@ -27,6 +27,7 @@ struct PhotoDetailsView: View {
     
     @StateObject private var viewModel = PhotoDetailsViewModel()
     @State private var shouldShowAddPhotoDetailsView = false
+    @State private var selectedLocation: String? = nil
     @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode = .addLocation
     
     // MARK: User interface
@@ -151,7 +152,11 @@ struct PhotoDetailsView: View {
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(Color.offwhite100)
                                 .frame(maxWidth: .infinity, alignment: .center)
-                                //.padding(.top, 16)
+                                .onTapGesture {
+                                    self.addPhotoDetailsViewMode = .addLocation
+                                    self.selectedLocation = self.viewModel.photoLocation
+                                    self.shouldShowAddPhotoDetailsView = true
+                                }
                         }
                         
                         // Audio recording/playback controls
@@ -329,6 +334,7 @@ struct PhotoDetailsView: View {
         .sheet(isPresented: self.$shouldShowAddPhotoDetailsView) {
             AddPhotoDetailsView(
                 mode: self.addPhotoDetailsViewMode,
+                selectedLocation: self.selectedLocation,
                 delegate: self
             )
         }

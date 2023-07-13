@@ -51,6 +51,7 @@ struct AddPhotoDetailsView: View {
     // MARK: Public properties
     
     var mode: AddPhotoDetailsViewMode = .addLocation
+    var selectedLocation: String? = nil
     var delegate: AddPhotoDetailsViewDelegate?
     
     // MARK: Private properties
@@ -76,6 +77,13 @@ struct AddPhotoDetailsView: View {
                 
                 if self.mode == .addLocation {
                     VStack(alignment: .leading, spacing: 32) {
+                        
+                        // Currently selected location, if available
+                        if let location = self.selectedLocation {
+                            Text("You saved '\(location)' as this photo location. To change location, please search for a new location and select one from the search result")
+                                .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color.offwhite100)
+                        }
                         
                         // Search field
                         ZStack(alignment: .leading) {

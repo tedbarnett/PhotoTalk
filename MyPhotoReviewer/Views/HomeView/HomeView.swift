@@ -185,7 +185,6 @@ struct HomeView: View {
                     isActive: self.$shouldShowPhotoDetails
                 ) { EmptyView() }
             }
-            
         }
         .onAppear {
             self.initializeViewModels()

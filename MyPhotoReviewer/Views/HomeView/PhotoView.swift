@@ -19,6 +19,7 @@ struct PhotoView: View {
     var width: CGFloat
     var height: CGFloat
     var forcePhotoDownload: Bool = false
+    var shouldShowBackground: Bool = true
     
     // MARK: Private properties
     
@@ -39,10 +40,12 @@ struct PhotoView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black600)
-                .frame(width: self.width, height: self.height)
-                .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
+            if self.shouldShowBackground {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.black600)
+                    .frame(width: self.width, height: self.height)
+                    .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
+            }
             
             if let img = self.image {
                 Image(uiImage: img)

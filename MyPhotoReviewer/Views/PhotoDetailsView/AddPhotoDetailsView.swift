@@ -60,6 +60,13 @@ struct AddPhotoDetailsView: View {
     @StateObject private var placesService = GooglePlacesService()
     @State private var locationSearchString = ""
     
+    private var changeLocationDescriptionText: String? {
+        guard let location = self.selectedLocation else { return nil }
+        let string = NSLocalizedString("You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result", comment: "Add photo details view - change location description")
+        let formattedString = String.StringLiteralType(format: string, location)
+        return formattedString
+    }
+    
     // MARK: User interface
     var body: some View {
         ZStack {
@@ -71,18 +78,19 @@ struct AddPhotoDetailsView: View {
             
             VStack(alignment: .center, spacing: 16) {
                 Text(self.mode.title)
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundColor(Color.offwhite100)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(Color.blue500)
                     .padding(.top, 16)
                 
                 if self.mode == .addLocation {
                     VStack(alignment: .leading, spacing: 32) {
                         
                         // Currently selected location, if available
-                        if let location = self.selectedLocation {
-                            Text("You saved '\(location)' as this photo location. To change location, please search for a new location and select one from the search result")
+                        if let descriptionText = self.changeLocationDescriptionText {
+                            Text(descriptionText)
                                 .font(.system(size: 16, weight: .regular))
                                 .foregroundColor(Color.offwhite100)
+                                .padding(.top, 8)
                         }
                         
                         // Search field

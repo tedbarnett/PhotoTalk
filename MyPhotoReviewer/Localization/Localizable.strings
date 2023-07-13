@@ -56,3 +56,4 @@
 //---------- Photo details view -----------------------
 "Delete audio?" = "Delete audio?";
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
+"You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result" = "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result";

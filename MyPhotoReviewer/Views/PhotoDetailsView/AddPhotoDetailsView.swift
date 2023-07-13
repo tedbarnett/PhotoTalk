@@ -20,12 +20,12 @@ enum AddPhotoDetailsViewMode {
         switch self {
         case .addLocation:
             return NSLocalizedString(
-                "Add location where this photo was taken",
+                "Add location",
                 comment: "Add photo details view - Add location title"
             )
         case .addDate:
             return NSLocalizedString(
-                "Add date when this photo was taken",
+                "Add date and time",
                 comment: "Add photo details view - Add date title"
             )
         }
@@ -84,15 +84,37 @@ struct AddPhotoDetailsView: View {
                 .ignoresSafeArea()
             
             // Main content
-            
             VStack(alignment: .center, spacing: 16) {
+                
+                HStack(alignment: .center) {
+                    Spacer()
+                    
+                    // Dismiss button
+                    Button(
+                        action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: 40, height: 40)
+                                Image("closeButtonIcon")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                            }
+                        }
+                    )
+                }
+                
+                // Title text
                 Text(self.mode.title)
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(Color.blue500)
-                    .padding(.top, 16)
                 
                 if self.mode == .addLocation {
-                    VStack(alignment: .leading, spacing: 32) {
+                    VStack(alignment: .leading, spacing: 16) {
                         
                         // Currently selected location, if available
                         if let descriptionText = self.changeLocationDescriptionText {
@@ -157,7 +179,6 @@ struct AddPhotoDetailsView: View {
                                 }
                             }
                         }
-                        Spacer()
                     }
                     .padding(.horizontal, 16)
 

@@ -175,6 +175,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 if errorCode == 404 {
                     self.arePhotoDetailsDownloaded = true
                 }
+                self.photoAudioLocalFileUrl = nil
                 responseHandler(false)
                 return
             }

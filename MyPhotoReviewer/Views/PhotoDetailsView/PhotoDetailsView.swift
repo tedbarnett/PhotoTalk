@@ -388,11 +388,8 @@ struct PhotoDetailsView: View {
     private func downloadPhotoDetails() {
         self.viewModel.stopAudio()
         self.viewModel.arePhotoDetailsDownloaded = false
-//        self.viewModel.photoLocation = ""
-//        self.viewModel.photoDateString = ""
-//        self.viewModel.photoAudioLocalFileUrl = nil
-        
         self.overlayContainerContext.shouldShowProgressIndicator = true
+        
         self.viewModel.loadPhotoDetails()
         self.viewModel.loadPhotoAudio { _ in
             self.overlayContainerContext.shouldShowProgressIndicator = false

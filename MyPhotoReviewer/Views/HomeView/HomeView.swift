@@ -27,6 +27,7 @@ struct HomeView: View {
     
     @State private var shouldShowFolderSelectionView = false
     @State private var shouldShowPhotoDetails = false
+    @State private var shouldShowPhotoSlideShowView = false
     @State private var selectedPhoto: CloudAsset?
     
     // MARK: User interface
@@ -97,6 +98,7 @@ struct HomeView: View {
                                                 self.userProfile.mediaSource = mediaSource
                                                 self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
                                                     self.userProfile.didAllowPhotoAccess = didAllow
+                                                    guard didAllow else { return }
                                                     self.loadCloudAssets()
                                                 }
                                             }
@@ -113,6 +115,7 @@ struct HomeView: View {
                                                 self.userProfile.mediaSource = mediaSource
                                                 self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
                                                     self.userProfile.didAllowPhotoAccess = didAllow
+                                                    guard didAllow else { return }
                                                     self.loadCloudAssets()
                                                 }
                                             }
@@ -171,7 +174,29 @@ struct HomeView: View {
                                 }
                             }
                         )
-                        
+                    }
+                    
+                    // Start photo slide show button
+                    if let mediaSource = self.userProfile.mediaSource {
+                        Button(
+                            action: {
+                                self.shouldShowPhotoSlideShowView = true
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.blue)
+                                        .frame(height: 40)
+                                        .padding(.horizontal, 16)
+                                    Text(
+                                        NSLocalizedString("Start Photo Slide Show",
+                                                          comment: "Home view - Start photo slide show button title")
+                                    )
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.white)
+                                }
+                            }
+                        )
                     }
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
@@ -186,6 +211,19 @@ struct HomeView: View {
                         .navigationBarHidden(true)
                     ,
                     isActive: self.$shouldShowPhotoDetails
+                ) { EmptyView() }
+                
+                
+                // Link to photo slide view
+                NavigationLink(
+                    destination:
+                        PhotoSlideShowView(
+                            photoAssets: self.viewModel.photos,
+                            selectedPhotoAsset: self.selectedPhoto
+                        )
+                        .navigationBarHidden(true)
+                    ,
+                    isActive: self.$shouldShowPhotoSlideShowView
                 ) { EmptyView() }
             }
         }

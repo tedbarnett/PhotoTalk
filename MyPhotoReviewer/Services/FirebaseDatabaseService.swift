@@ -212,7 +212,7 @@ extension FirebaseDatabaseService {
     func loadPhotoDetailsFromDatabase(
         userId: String,
         photoId: String,
-        responseHandler: @escaping ResponseHandler<Photo?>) {
+        responseHandler: @escaping ResponseHandler<PhotoDetailsLoadResponse>) {
             let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
             let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
             let photoReference = userDirectory.child(photoId)
@@ -222,7 +222,12 @@ extension FirebaseDatabaseService {
                       dataSnapshot.exists(),
                       let userDetails = dataSnapshot.value as? [String: Any] else {
                     print("[Firebase Database] Failed to load photo details for id \(photoId)")
-                    responseHandler(nil)
+                    
+                    var errorCode = 404
+                    if let databaseError = error as? NSError {
+                        errorCode = databaseError.code
+                    }
+                    responseHandler(PhotoDetailsLoadResponse(photo: nil, errorCode: errorCode))
                     return
                 }
                 
@@ -244,7 +249,7 @@ extension FirebaseDatabaseService {
                 }
                 
                 print("[Firebase Database] Successfully loaded photo details for id \(photoId)")
-                responseHandler(photo)
+                responseHandler(PhotoDetailsLoadResponse(photo: photo, errorCode: nil))
             }
         }
     
@@ -431,4 +436,10 @@ extension FirebaseDatabaseService {
 
 // MARK: Photo locations related database operations
 extension FirebaseDatabaseService {
+}
+
+
+struct PhotoDetailsLoadResponse {
+    var photo: Photo?
+    var errorCode: Int?
 }

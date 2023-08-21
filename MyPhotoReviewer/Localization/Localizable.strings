@@ -52,6 +52,7 @@
 "Google Drive" = "Google Drive";
 "Photos" = "Photos";
 "Change Photo Selection" = "Change Photo Selection";
+"Start Photo Slide Show" = "Start Photo Slide Show";
 
 
 //---------- Photo details view -----------------------
@@ -62,3 +63,7 @@
 "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result" = "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result";
 "Pick a date and time" = "Pick a date and time";
 "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button" = "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button";
+
+//---------- Photo slide show view -----------------------
+"Photo slide show" = "Photo slide show";
+"Oops! error loading photo details for the slide show. Please try again." = "Oops! error loading photo details for the slide show. Please try again.";

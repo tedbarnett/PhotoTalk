@@ -90,11 +90,11 @@ extension FirebaseStorageService {
     func downloadPhotoAudioFor(
         userId: String,
         photoId: String,
-        completionHandler: @escaping ResponseHandler<URL?>) {
+        completionHandler: @escaping ResponseHandler<PhotoAudioLoadResponse>) {
             
             guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
                 print("Unable to access document directory.")
-                completionHandler(nil)
+                completionHandler(PhotoAudioLoadResponse(audioLocalUrl: nil, errorCode: 401))
                 return
             }
             
@@ -107,10 +107,14 @@ extension FirebaseStorageService {
             photoAudioStorageReference.write(toFile: localAudioFileUrl) { url, error in
                 if let error = error {
                     print("[Firebase Storage]: Error downloading photo audio: \(photoId), error: \(error.localizedDescription)")
-                    completionHandler(nil)
+                    var errorCode = 404
+                    if let databaseError = error as? NSError, let code = databaseError.userInfo["ResponseErrorCode"] as? Int {
+                        errorCode = code
+                    }
+                    completionHandler(PhotoAudioLoadResponse(audioLocalUrl: nil, errorCode: errorCode))
                 } else {
                     print("[Firebase Storage]: Succussfully downloaded photo audio: \(photoId)")
-                    completionHandler(url)
+                    completionHandler(PhotoAudioLoadResponse(audioLocalUrl: url, errorCode: nil))
                 }
             }
     }
@@ -162,5 +166,10 @@ extension FirebaseStorageService {
                 }
             }
     }
+}
+
+struct PhotoAudioLoadResponse {
+    var audioLocalUrl: URL?
+    var errorCode: Int?
 }
 

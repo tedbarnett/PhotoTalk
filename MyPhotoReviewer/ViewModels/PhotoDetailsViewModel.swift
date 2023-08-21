@@ -61,8 +61,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         guard let profile = self.userProfile,
               let photoId = self.selectedPhoto?.photoId,
               let service = self.databaseService else { return }
-        service.loadPhotoDetailsFromDatabase(userId: profile.id, photoId: photoId) { details in
-            guard let photoDetails = details else {
+        service.loadPhotoDetailsFromDatabase(userId: profile.id, photoId: photoId) { response in
+            guard let photoDetails = response.photo else {
                 self.photoLocation = nil
                 return
             }
@@ -166,7 +166,18 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         }
         
         // Load photo URL from Firebase storage, if not found in local storage
-        service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { localFileUrl in
+        service.downloadPhotoAudioFor(userId: profile.id, photoId: photoId) { response in
+            guard let localFileUrl = response.audioLocalUrl else {
+                guard let errorCode = response.errorCode else {
+                    return
+                }
+                
+                if errorCode == 404 {
+                    self.arePhotoDetailsDownloaded = true
+                }
+                responseHandler(false)
+                return
+            }
             self.isPlayingAudio = false
             self.photoAudioLocalFileUrl = localFileUrl
             self.arePhotoDetailsDownloaded = true

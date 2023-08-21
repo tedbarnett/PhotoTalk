@@ -25,6 +25,9 @@
 		C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
 		C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
 		C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
+		C16DDC482A8B6C9D00009869 /* PhotoSlideShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */; };
+		C16DDC4A2A8B6CB500009869 /* PhotoSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */; };
+		C16DDC4C2A8B6CE800009869 /* PhotoSlideShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */; };
 		C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
 		C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
 		C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
@@ -162,6 +165,9 @@
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
 		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
+		C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowView.swift; sourceTree = "<group>"; };
+		C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideView.swift; sourceTree = "<group>"; };
+		C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowViewModel.swift; sourceTree = "<group>"; };
 		C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoDetailsView.swift; sourceTree = "<group>"; };
 		C17E94A72A584D0A005AA499 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
@@ -499,6 +505,7 @@
 				C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */,
 				C1F6B81A2A25A7A000D3A822 /* HomeViewModel.swift */,
 				C1EDF04A2A46F255005D3FAD /* PhotoDetailsViewModel.swift */,
+				C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -552,6 +559,8 @@
 		C1A983E429F3DB3F00D83BBF /* PhotoSlideShowView */ = {
 			isa = PBXGroup;
 			children = (
+				C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */,
+				C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */,
 			);
 			path = PhotoSlideShowView;
 			sourceTree = "<group>";
@@ -954,14 +963,17 @@
 			files = (
 				C1EDF04E2A475E33005D3FAD /* AudioService.swift in Sources */,
 				C19948B12A036AC7004CD4A1 /* TypeAliases.swift in Sources */,
+				C16DDC4C2A8B6CE800009869 /* PhotoSlideShowViewModel.swift in Sources */,
 				C1F6B8092A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C199490D2A06824D004CD4A1 /* LocalStorageService.swift in Sources */,
 				C1F6B8242A27659A00D3A822 /* PhotoView.swift in Sources */,
 				C1CCBB662A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
+				C16DDC4A2A8B6CB500009869 /* PhotoSlideView.swift in Sources */,
 				C1F6B81B2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
 				C1C6FEF02A4DC05200C02D1E /* TimerManager.swift in Sources */,
 				C19948BA2A037223004CD4A1 /* AppContext.swift in Sources */,
 				C19948BD2A038F73004CD4A1 /* UserProfileModel.swift in Sources */,
+				C16DDC482A8B6C9D00009869 /* PhotoSlideShowView.swift in Sources */,
 				C12FA6B32A60434500867500 /* Date + Formatting.swift in Sources */,
 				C1F6B8182A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
 				C1F6B80C2A24DDD000D3A822 /* Photo.swift in Sources */,
@@ -1360,7 +1372,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1402,7 +1414,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;

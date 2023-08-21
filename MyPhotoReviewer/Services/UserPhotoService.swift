@@ -31,7 +31,14 @@ class UserPhotoService {
         }
         
         PHPhotoLibrary.requestAuthorization { status in
-            responseHandler(status == .authorized)
+            switch status {
+            case .authorized, .limited:
+                responseHandler(true)
+            case .denied, .restricted, .notDetermined:
+                responseHandler(false)
+            @unknown default:
+                responseHandler(false)
+            }
         }
     }
     

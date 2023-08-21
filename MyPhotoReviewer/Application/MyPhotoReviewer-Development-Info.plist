@@ -28,5 +28,7 @@
 		<key>ENVIRONMENT</key>
 		<string>$(ENVIRONMENT)</string>
 	</dict>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 </dict>
 </plist>

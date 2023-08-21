@@ -111,9 +111,14 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         switch mediaSource {
         case .iCloud: self.userPhotoService.requestAccessToUserICloud { didGrantAccess in
             DispatchQueue.main.async {
+                guard didGrantAccess else {
+                    responseHandler(false)
+                    return
+                }
+                
                 self.localStorageService.didUserAllowPhotoAccess = true
                 self.localStorageService.userSelectedMediaSource = mediaSource.rawValue
-                responseHandler(didGrantAccess)
+                responseHandler(true)
             }
         }
         case .googleDrive:

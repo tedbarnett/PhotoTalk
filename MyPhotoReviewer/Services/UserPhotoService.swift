@@ -18,6 +18,11 @@ import GoogleSignIn
  */
 class UserPhotoService {
     
+    // MARK: Private properties
+    
+    /// The manager that will fetch and cache photos for us
+    var imageCachingManager = PHCachingImageManager()
+    
     // MARK: Public methods
     
     /**
@@ -43,9 +48,13 @@ class UserPhotoService {
     }
     
     func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        self.imageCachingManager.allowsCachingHighQualityImages = false
         
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.includeHiddenAssets = false
+        fetchOptions.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: false)
+        ]
         var cloudPhotos = [CloudAsset]()
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         fetchResult.enumerateObjects { asset, _, _ in
@@ -58,36 +67,38 @@ class UserPhotoService {
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
         }
+        
         responseHandler(cloudPhotos)
     }
     
-    func downloadPhtoFromICloud(asset: PHAsset, responseHandler: @escaping ResponseHandler<UIImage?>) {
-        let requiredPhotoSize = CGSize(
-            width: 200,
-            height: 200
+    func downloadPhtoFromICloud(asset: PHAsset, targetSize: CGSize = PHImageManagerMaximumSize) async throws -> UIImage? {
+        let results = PHAsset.fetchAssets(
+            withLocalIdentifiers: [asset.localIdentifier],
+            options: nil
         )
         
-        let reqOptions = PHImageRequestOptions()
-        reqOptions.isNetworkAccessAllowed = true
-        reqOptions.progressHandler = { (progress, error, stop, info) in
-            //print("Asset download progress is at \(progress)")
-        }
-        PHCachingImageManager().requestImage(
-            for: asset,
-            targetSize: requiredPhotoSize,
-            contentMode: .aspectFill,
-            options: reqOptions,
-            resultHandler: { image, info in
-                
-                guard let img = image else {
-                    if let isIniCloud = info?[PHImageResultIsInCloudKey] as? NSNumber, isIniCloud.boolValue == true {
-                        print("Downloading image from iCloud...")
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .opportunistic
+        options.resizeMode = .fast
+        options.isNetworkAccessAllowed = true
+        options.isSynchronous = true
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+            /// Use the imageCachingManager to fetch the image
+            self?.imageCachingManager.requestImage(
+                for: asset,
+                targetSize: targetSize,
+                contentMode: .default,
+                options: options,
+                resultHandler: { image, info in
+                    /// image is of type UIImage
+                    if let error = info?[PHImageErrorKey] as? Error {
+                        continuation.resume(throwing: error)
+                        return
                     }
-                    responseHandler(nil)
-                    return
+                    continuation.resume(returning: image)
                 }
-                responseHandler(img)
-            })
+            )
+        }
     }
     
     func downloadUserFoldersFromGoogleDrive(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {

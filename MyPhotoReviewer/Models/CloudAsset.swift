@@ -62,62 +62,32 @@ class CloudAsset: Hashable {
     /**
      Downloads photo from the cloud and returns back the same via response handler
      */
-    func downloadPhoto(responseHandler: @escaping ResponseHandler<UIImage?>) {
+    func downloadPhoto() async -> UIImage? {
         let photoService = UserPhotoService()
         
         if self.source == .iCloud {
-            guard let asset = self.iCloudAsset else { return }
-            photoService.downloadPhtoFromICloud(asset: asset) { image in
-                guard let downloadedImage = image else {
-                    self.isDownloaded = false
-                    responseHandler(nil)
-                    return
-                }
-                self.isDownloaded = true
-                responseHandler(downloadedImage)
+            guard let asset = self.iCloudAsset,
+                  let downloadedImage = try? await photoService.downloadPhtoFromICloud(asset: asset) else {
+                self.isDownloaded = false
+                return nil
             }
+            self.isDownloaded = true
+            return downloadedImage
         } else if self.source == .googleDrive {
-            guard let fileId = self.googleDriveFileId else { return }
-            photoService.downloadPhtoFromGoogleDrive(fileId: fileId) { image in
-                guard let downloadedImage = image else {
-                    self.isDownloaded = false
-                    responseHandler(nil)
-                    return
-                }
-                self.isDownloaded = true
-                responseHandler(downloadedImage)
-            }
-        }
-    }
-    
-    func downsample(
-        imageAt imageURL: URL,
-        to pointSize: CGSize,
-        scale: CGFloat = UIScreen.main.scale) -> UIImage? {
-
-        // Create an CGImageSource that represent an image
-        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
             return nil
+//            guard let fileId = self.googleDriveFileId else { return }
+//            photoService.downloadPhtoFromGoogleDrive(fileId: fileId) { image in
+//                guard let downloadedImage = image else {
+//                    self.isDownloaded = false
+//                    responseHandler(nil)
+//                    return
+//                }
+//                self.isDownloaded = true
+//                responseHandler(downloadedImage)
+//            }
         }
         
-        // Calculate the desired dimension
-        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
-        
-        // Perform downsampling
-        let downsampleOptions = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-        ] as CFDictionary
-            
-        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
-            return nil
-        }
-        
-        // Return the downsampled image as UIImage
-        return UIImage(cgImage: downsampledImage)
+        return nil
     }
 }
 

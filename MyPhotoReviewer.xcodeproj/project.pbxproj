@@ -19,6 +19,9 @@
 		C101B9F529FA8721000192CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B9F429FA8721000192CD /* AppDelegate.swift */; };
 		C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA1E29FC4196000192CD /* UserRegistrationView.swift */; };
 		C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101BA2129FC4294000192CD /* UserLoginView.swift */; };
+		C10CE91D2A954AA10030EDBC /* PhotoSlideShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */; };
+		C10CE91E2A954AA60030EDBC /* PhotoSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */; };
+		C10CE91F2A954AAC0030EDBC /* PhotoSlideShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */; };
 		C12FA6B32A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B42A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
@@ -1037,14 +1040,17 @@
 			files = (
 				C1EDF04F2A475E33005D3FAD /* AudioService.swift in Sources */,
 				C1B2CA782A15458600D2AE04 /* TypeAliases.swift in Sources */,
+				C10CE91F2A954AAC0030EDBC /* PhotoSlideShowViewModel.swift in Sources */,
 				C1F6B80A2A24DD5E00D3A822 /* PhotoAlbum.swift in Sources */,
 				C1B2CA792A15458600D2AE04 /* LocalStorageService.swift in Sources */,
 				C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */,
 				C1CCBB672A1D23200040C3BD /* FirebaseStorageService.swift in Sources */,
+				C10CE91E2A954AA60030EDBC /* PhotoSlideView.swift in Sources */,
 				C1F6B81C2A25A7A000D3A822 /* HomeViewModel.swift in Sources */,
 				C1C6FEF12A4DC05200C02D1E /* TimerManager.swift in Sources */,
 				C1B2CA7A2A15458600D2AE04 /* AppContext.swift in Sources */,
 				C1B2CA7B2A15458600D2AE04 /* UserProfileModel.swift in Sources */,
+				C10CE91D2A954AA10030EDBC /* PhotoSlideShowView.swift in Sources */,
 				C12FA6B42A60434500867500 /* Date + Formatting.swift in Sources */,
 				C1F6B8192A24FCF800D3A822 /* FirebaseDatabaseReferenceNames.swift in Sources */,
 				C1F6B80D2A24DDD000D3A822 /* Photo.swift in Sources */,
@@ -1097,7 +1103,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
@@ -1139,7 +1145,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1370,7 +1376,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1412,7 +1418,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;

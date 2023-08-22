@@ -54,6 +54,8 @@ struct PhotoDetailsView: View {
                         ForEach (0..<photos.count, id: \.self) { index in
                             let photo = photos[index]
                             PhotoView(
+                                currentSlideIndex: self.$currentSlideIndex,
+                                index: index,
                                 photo: photo,
                                 width: UIScreen.main.bounds.width,
                                 height: UIScreen.main.bounds.height,

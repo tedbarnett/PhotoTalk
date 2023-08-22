@@ -131,8 +131,10 @@ struct HomeView: View {
                     else if !self.viewModel.photos.isEmpty {
                         ScrollView(.vertical, showsIndicators: false) {
                             LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 16) {
-                                ForEach(self.viewModel.photos, id: \.self) { photo in
+                                ForEach(self.viewModel.photos, id: \.self.id) { photo in
                                     PhotoView(
+                                        currentSlideIndex: .constant(0),
+                                        index: 0,
                                         photo: photo,
                                         width: self.viewModel.photoGridColumnWidth,
                                         height: self.viewModel.photoGridColumnWidth
@@ -219,7 +221,7 @@ struct HomeView: View {
                     destination:
                         PhotoSlideShowView(
                             photoAssets: self.viewModel.photos,
-                            selectedPhotoAsset: self.selectedPhoto
+                            selectedPhotoAsset: nil
                         )
                         .navigationBarHidden(true)
                     ,

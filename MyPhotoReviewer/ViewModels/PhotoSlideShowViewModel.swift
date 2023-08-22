@@ -112,17 +112,18 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                 print("Loaded details for photo: \(details.id)")
                 
                 // Loading actual image
-                asset.downloadPhoto { image in
+                Task {
+                    guard let photo = await asset.downloadPhoto() else {
+                        loadStatus.didLoadImage = false
+                        print("Error loading image for photo: \(details.id)")
+                        return
+                    }
+                    
+                    details.image = photo
+                    loadStatus.didLoadImage = true
+                    print("Loaded image for photo: \(details.id)")
+                    
                     DispatchQueue.main.async {
-                        guard let img = image else {
-                            loadStatus.didLoadImage = false
-                            print("Error loading image for photo: \(details.id)")
-                            return
-                        }
-                        details.image = img
-                        loadStatus.didLoadImage = true
-                        print("Loaded image for photo: \(details.id)")
-                        
                         if self.photoDetails.first(where: { $0.id == details.id }) == nil {
                             self.photoDetails.append(details)
                         }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Photos
 
 /**
  PhotoView displays user photos and provides controls for making favourite, adding
@@ -15,6 +16,8 @@ struct PhotoView: View {
     
     // MARK: Public properties
     
+    @Binding var currentSlideIndex: Int
+    var index: Int = 0
     var photo: CloudAsset
     var width: CGFloat
     var height: CGFloat
@@ -23,7 +26,7 @@ struct PhotoView: View {
     
     // MARK: Private properties
     
-    @State private var image: UIImage?
+    @State private var image: Image?
     @State private var isImageLoading = true
     
     private let horizontalPadding: CGFloat = 12
@@ -48,32 +51,44 @@ struct PhotoView: View {
             }
             
             if let img = self.image {
-                Image(uiImage: img)
+                img
                     .resizable()
                     .scaledToFit()
                     .frame(width: self.imageWidth, height: imageHeight)
-            }
-            
-            if self.isImageLoading {
+            } else {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.offwhite100.opacity(0.6))
                         .frame(width: self.width, height: self.height)
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                 }
+                .opacity(0)
             }
         }
         .onAppear {
-            guard !self.photo.isDownloaded || self.forcePhotoDownload else { return }
-            self.isImageLoading = true
-            print("Showing phooto for id: \(self.photo.id)")
-            self.photo.downloadPhoto { photo in
-                DispatchQueue.main.async {
-                    self.isImageLoading = false
-                    guard let image = photo else { return }
-                    self.image = image
-                }
+            guard self.index == 0 || self.index == self.currentSlideIndex else { return }
+            Task {
+                await self.loadImageAsset()
             }
         }
+        .onChange(of: self.currentSlideIndex) { currentSlideIndex in
+            guard self.index == currentSlideIndex else { return }
+            Task {
+                await self.loadImageAsset()
+            }
+        }
+        .onDisappear {
+            //self.image = nil
+        }
+    }
+    
+    // MARK: Private methods
+    
+    func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
+        guard let uiImage = await self.photo.downloadPhoto() else {
+            self.image = nil
+            return
+        }
+        self.image = Image(uiImage: uiImage)
     }
 }

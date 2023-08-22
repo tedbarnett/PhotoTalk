@@ -120,6 +120,11 @@ struct PhotoSlideShowView: View {
             self.viewModel.arePhotoDetailsDownloaded = true
         }
     }
+    
+    private func endSlideShowPresentation() {
+        self.viewModel.resetToDefault()
+        self.presentationMode.wrappedValue.dismiss()
+    }
 }
 
 // MARK: SlidesScrollViewDelegate delegate methods
@@ -137,10 +142,14 @@ extension PhotoSlideShowView: SlidesScrollViewDelegate {
 extension PhotoSlideShowView: PhotoSlideViewDelegate {
     func slideToNextPhoto() {
         let nextSlideIndex = self.viewModel.currentPhotoIndex + 1
-        guard let assets = self.viewModel.photoAssets, nextSlideIndex < assets.count else { return }
+        guard let assets = self.viewModel.photoAssets, nextSlideIndex < assets.count else {
+            // Ending slide show as all of the photo details have been presented
+            self.endSlideShowPresentation()
+            return
+        }
         
-        self.viewModel.currentPhotoIndex += 1
-        self.currentSlideIndex = self.viewModel.currentPhotoIndex
+        self.viewModel.currentPhotoIndex = nextSlideIndex
+        self.currentSlideIndex = nextSlideIndex
         print("PhotoSlideShowView > Presenting next slide > loading/caching data for next set of slides")
         print("PhotoSlideShowView > Next slide index: \(self.currentSlideIndex)")
         self.viewModel.loadPhotoDetails { _ in }

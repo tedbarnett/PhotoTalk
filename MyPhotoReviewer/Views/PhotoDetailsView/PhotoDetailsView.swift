@@ -231,17 +231,19 @@ struct PhotoDetailsView: View {
                                         .frame(width: 70)
                                     
                                     // Audio playback progress indicator
-                                    ZStack(alignment: .leading) {
-                                        RoundedRectangle(cornerRadius: 2)
-                                            .fill(Color.offwhite100)
-                                            .frame(height: 4)
-                                            .frame(maxWidth: .infinity * 0.4)
-                                        RoundedRectangle(cornerRadius: 2)
-                                            .fill(Color.blue500)
-                                            .frame(height: 4)
-                                            .frame(maxWidth: (.infinity * 0.4) * self.viewModel.audioPlaybackPercent)
+                                    GeometryReader { reader in
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(Color.offwhite100)
+                                                .frame(height: 4)
+                                                .frame(width: reader.size.width)
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(Color.blue500)
+                                                .frame(height: 4)
+                                                .frame(width: reader.size.width * self.viewModel.audioPlaybackPercent)
+                                        }
                                     }
-                                    
+                                    .frame(height: 4)
                                     
                                     // Delete audio button
                                     Button(

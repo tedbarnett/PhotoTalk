@@ -298,7 +298,9 @@ extension PhotoDetailsViewModel: AudioServiceDelegate {
         self.audioDuration = AudioService.instance.audioDuration
         self.audioPlaybackTime = currentTime
         if self.audioPlaybackTime > 0 && self.audioDuration > 0 {
-            self.audioPlaybackPercent = self.audioPlaybackTime/self.audioDuration
+            let percent = self.audioPlaybackTime/self.audioDuration
+            self.audioPlaybackPercent = percent > 1 ? 0 : percent
+            self.audioPlaybackTime = percent > 1 ? 0 : currentTime
         }
     }
     

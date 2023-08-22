@@ -104,22 +104,23 @@ struct PhotoSlideView: View {
                                         .frame(width: 70)
                                     
                                     // Audio playback progress indicator
-                                    ZStack(alignment: .leading) {
-                                        RoundedRectangle(cornerRadius: 2)
-                                            .fill(Color.offwhite100)
-                                            .frame(height: 4)
-                                            .frame(maxWidth: .infinity * 0.6)
-                                        RoundedRectangle(cornerRadius: 2)
-                                            .fill(Color.blue500)
-                                            .frame(height: 4)
-                                            .frame(maxWidth: (.infinity * 0.6) * self.audioPlaybackPercent)
+                                    GeometryReader { reader in
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(Color.offwhite100)
+                                                .frame(height: 4)
+                                                .frame(width: reader.size.width)
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(Color.blue500)
+                                                .frame(height: 4)
+                                                .frame(width: reader.size.width * self.audioPlaybackPercent)
+                                        }
                                     }
+                                    .frame(height: 4)
                                 }
                                 .padding(.horizontal, 24)
                             }
                             .padding(.top, 8)
-                            .padding(.bottom, 16)
-
                         }
                     }
                     .padding(.all, 24)
@@ -220,7 +221,9 @@ extension PhotoSlideView: AudioServiceDelegate {
         self.audioDuration = AudioService.instance.audioDuration
         self.audioPlaybackTime = currentTime
         if self.audioPlaybackTime > 0 && self.audioDuration > 0 {
-            self.audioPlaybackPercent = self.audioPlaybackTime/self.audioDuration
+            let percent = self.audioPlaybackTime/self.audioDuration
+            self.audioPlaybackPercent = percent > 1.0 ? 1.0 : percent
+            self.audioPlaybackTime = percent > 1 ? 0 : currentTime
         }
     }
     

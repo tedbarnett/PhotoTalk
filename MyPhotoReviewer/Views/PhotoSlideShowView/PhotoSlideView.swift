@@ -58,6 +58,13 @@ struct PhotoSlideView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: self.width, height: height)
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.offwhite100.opacity(0.6))
+                            .frame(width: self.width, height: self.height)
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    }
                 }
             }
             .ignoresSafeArea()

@@ -55,14 +55,6 @@ struct PhotoView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: self.imageWidth, height: imageHeight)
-            } else {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.offwhite100.opacity(0.6))
-                        .frame(width: self.width, height: self.height)
-                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                }
-                .opacity(0)
             }
         }
         .onAppear {
@@ -78,7 +70,7 @@ struct PhotoView: View {
             }
         }
         .onDisappear {
-            //self.image = nil
+            self.image = nil
         }
     }
     

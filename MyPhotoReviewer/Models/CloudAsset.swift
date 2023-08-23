@@ -67,7 +67,7 @@ class CloudAsset: Hashable {
         
         if self.source == .iCloud {
             guard let asset = self.iCloudAsset,
-                  let downloadedImage = try? await photoService.downloadPhtoFromICloud(asset: asset) else {
+                  let downloadedImage = try? await photoService.downloadPhtoFromICloud(asset: asset, targetSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) else {
                 self.isDownloaded = false
                 return nil
             }

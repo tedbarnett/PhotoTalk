@@ -137,7 +137,8 @@ struct HomeView: View {
                                         index: 0,
                                         photo: photo,
                                         width: self.viewModel.photoGridColumnWidth,
-                                        height: self.viewModel.photoGridColumnWidth
+                                        height: self.viewModel.photoGridColumnWidth,
+                                        isPresentedAsThumbnail: true
                                     )
                                     .onTapGesture {
                                         photo.isDownloaded = false

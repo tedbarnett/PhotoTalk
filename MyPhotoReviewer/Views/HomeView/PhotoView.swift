@@ -23,6 +23,7 @@ struct PhotoView: View {
     var height: CGFloat
     var forcePhotoDownload: Bool = false
     var shouldShowBackground: Bool = true
+    var isPresentedAsThumbnail: Bool = false
     
     // MARK: Private properties
     
@@ -77,7 +78,8 @@ struct PhotoView: View {
     // MARK: Private methods
     
     func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
-        guard let uiImage = await self.photo.downloadPhoto() else {
+        print("...loading image of size > width: \(self.width), height: \(self.height)")
+        guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width, height: self.height)) else {
             self.image = nil
             return
         }

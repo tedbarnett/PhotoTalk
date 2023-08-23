@@ -71,15 +71,10 @@ class UserPhotoService {
         responseHandler(cloudPhotos)
     }
     
-    func downloadPhtoFromICloud(asset: PHAsset, targetSize: CGSize = PHImageManagerMaximumSize) async throws -> UIImage? {
-        let results = PHAsset.fetchAssets(
-            withLocalIdentifiers: [asset.localIdentifier],
-            options: nil
-        )
-        
+    func downloadPhtoFromICloud(asset: PHAsset, targetSize: CGSize) async throws -> UIImage? {
         let options = PHImageRequestOptions()
         options.deliveryMode = .opportunistic
-        options.resizeMode = .fast
+        options.resizeMode = .none
         options.isNetworkAccessAllowed = true
         options.isSynchronous = true
         return try await withCheckedThrowingContinuation { [weak self] continuation in
@@ -87,7 +82,7 @@ class UserPhotoService {
             self?.imageCachingManager.requestImage(
                 for: asset,
                 targetSize: targetSize,
-                contentMode: .default,
+                contentMode: .aspectFit,
                 options: options,
                 resultHandler: { image, info in
                     /// image is of type UIImage

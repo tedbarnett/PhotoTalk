@@ -113,7 +113,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                 
                 // Loading actual image
                 Task {
-                    guard let photo = await asset.downloadPhoto() else {
+                    guard let photo = await asset.downloadPhoto(ofSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) else {
                         loadStatus.didLoadImage = false
                         print("Error loading image for photo: \(details.id)")
                         return

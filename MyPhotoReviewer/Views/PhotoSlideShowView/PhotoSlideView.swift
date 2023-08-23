@@ -148,6 +148,10 @@ struct PhotoSlideView: View {
             guard self.index == 0 else { return }
             self.initializeSlidePresentation()
         }
+        .onDisappear {
+            guard let details = self.photoDetails else { return }
+            details.image = nil
+        }
         .onChange(of: self.currentSlideIndex) { index in
             guard self.index == index else { return }
             self.initializeSlidePresentation()

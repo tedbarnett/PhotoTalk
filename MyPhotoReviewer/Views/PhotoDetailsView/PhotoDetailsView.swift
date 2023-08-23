@@ -60,7 +60,8 @@ struct PhotoDetailsView: View {
                                 width: UIScreen.main.bounds.width,
                                 height: UIScreen.main.bounds.height,
                                 forcePhotoDownload: true,
-                                shouldShowBackground: false
+                                shouldShowBackground: false,
+                                isPresentedAsThumbnail: false
                             )
                         }
                     }

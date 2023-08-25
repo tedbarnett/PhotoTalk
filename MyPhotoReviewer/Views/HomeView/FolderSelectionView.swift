@@ -103,18 +103,8 @@ struct FolderSelectionView: View {
 extension FolderSelectionView: FolderViewDelegate {
     func didChangeSelection(isSelected: Bool, folder: CloudAsset) {
         folder.isSelected = isSelected
-//        if isSelected {
-//            if self.selectedFolders.first(where: { $0.id == folder.id }) == nil {
-//                self.selectedFolders.append(folder)
-//            }
-//        } else {
-//            if let index = self.selectedFolders.firstIndex(where: { $0.id == folder.id }) {
-//                self.selectedFolders.remove(at: index)
-//            }
-//        }
     }
 }
-
 
 struct FolderSelectionView_Previews: PreviewProvider {
     static var folders: [CloudAsset] {

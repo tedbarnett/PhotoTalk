@@ -149,6 +149,9 @@ struct PhotoSlideView: View {
             self.initializeSlidePresentation()
         }
         .onDisappear {
+            self.stopAudio()
+            AudioService.instance.invalidate()
+            
             guard let details = self.photoDetails else { return }
             details.image = nil
         }
@@ -181,6 +184,7 @@ struct PhotoSlideView: View {
         if let url = self.photoDetails?.audioUrl {
             self.audioUrl = url
             AudioService.instance.delegate = self
+            AudioService.instance.initializeAudioPlayer(forAudioUrl: url)
             self.playAudio()
         } else {
             if self.slideToNextPhotoTimer == nil {
@@ -204,7 +208,7 @@ struct PhotoSlideView: View {
     private func playAudio() {
         guard let url = self.audioUrl else { return }
         self.isPlayingAudio = true
-        AudioService.instance.playAudio(url)
+        AudioService.instance.playAudio()
     }
     
     /**

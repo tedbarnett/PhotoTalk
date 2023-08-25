@@ -398,6 +398,7 @@ struct PhotoDetailsView: View {
         self.viewModel.loadPhotoDetails()
         self.viewModel.loadPhotoAudio { _ in
             self.overlayContainerContext.shouldShowProgressIndicator = false
+            self.viewModel.initializeAudioPlayer()
         }
     }
 }

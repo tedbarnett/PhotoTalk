@@ -45,6 +45,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     
     private var storatgeService: FirebaseStorageService?
     private var databaseService: FirebaseDatabaseService?
+    private var isAudioPaused = false
     
     // Initializer
     
@@ -182,18 +183,31 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             self.isPlayingAudio = false
             self.photoAudioLocalFileUrl = localFileUrl
             self.arePhotoDetailsDownloaded = true
-            self.audioDuration = 0
             responseHandler(true)
         }
+    }
+    
+    /**
+     Intializes audio player for playback but it doesn't start playback
+     */
+    func initializeAudioPlayer() {
+        guard let audioUrl = self.photoAudioLocalFileUrl else { return }
+        AudioService.instance.initializeAudioPlayer(forAudioUrl: audioUrl)
+        self.audioDuration = AudioService.instance.audioDuration
     }
     
     /**
      Attempts to play available photo audio
      */
     func playAudio() {
-        guard let url = self.photoAudioLocalFileUrl else { return }
+        guard self.photoAudioLocalFileUrl != nil else { return }
+        if self.isAudioPaused {
+            AudioService.instance.resumeAudio()
+        } else {
+            AudioService.instance.playAudio()
+        }
+        self.isAudioPaused = false
         self.isPlayingAudio = true
-        AudioService.instance.playAudio(url)
     }
     
     /**
@@ -202,6 +216,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func pauseAudio() {
         AudioService.instance.pauseAudio()
         self.isPlayingAudio = false
+        self.isAudioPaused = true
     }
     
     /**
@@ -287,6 +302,10 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     func invalidateViewModel() {
         AudioService.instance.invalidate()
+        self.audioPlaybackTime = 0
+        self.audioPlaybackPercent = 0
+        self.isPlayingAudio = false
+        self.isAudioPaused = false
         self.photoAudioLocalFileUrl = nil
     }
 }
@@ -295,7 +314,6 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
 
 extension PhotoDetailsViewModel: AudioServiceDelegate {
     func isPlayingAudio(currentTime: Double) {
-        self.audioDuration = AudioService.instance.audioDuration
         self.audioPlaybackTime = currentTime
         if self.audioPlaybackTime > 0 && self.audioDuration > 0 {
             let percent = self.audioPlaybackTime/self.audioDuration
@@ -306,10 +324,12 @@ extension PhotoDetailsViewModel: AudioServiceDelegate {
     
     func didFinishPlayingAudio() {
         self.isPlayingAudio = false
+        self.isAudioPaused = false
     }
     
     func didPausePlayingAudio() {
         self.isPlayingAudio = false
+        self.isAudioPaused = true
     }
     
     func didStopPlayingAudio() {
@@ -318,9 +338,11 @@ extension PhotoDetailsViewModel: AudioServiceDelegate {
     
     func didResumePlayingAudio() {
         self.isPlayingAudio = true
+        self.isAudioPaused = false
     }
     
     func didFailPlayingAudio() {
         self.isPlayingAudio = false
+        self.isAudioPaused = false
     }
 }

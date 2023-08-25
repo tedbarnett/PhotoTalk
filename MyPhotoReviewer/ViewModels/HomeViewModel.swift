@@ -344,8 +344,14 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         self.localStorageService.userSelectedIcloudAlbums = photoAlbums
         
         let iCloudAlbumIds = albums.compactMap { $0.iCloudAlbumId }
-        let assetCollections = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: iCloudAlbumIds, options: PHFetchOptions())
         
+        guard iCloudAlbumIds.count > 0 else {
+            responseHandler(false)
+            return
+        }
+        
+        self.photos.removeAll()
+        let assetCollections = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: iCloudAlbumIds, options: PHFetchOptions())
         for i in 0..<assetCollections.count {
             let collection =  assetCollections[i]
             let assetFetchOptions = PHFetchOptions()
@@ -353,7 +359,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             let fetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: assetFetchOptions)
             
             if fetchResult.count > 0 {
-                self.photos.removeAll()
                 fetchResult.enumerateObjects { asset, _, _ in
                     let photo = CloudAsset()
                     photo.source = .iCloud

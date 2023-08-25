@@ -153,8 +153,8 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    // Change folder button
-                    if let mediaSource = self.userProfile.mediaSource {
+                    if let mediaSource = self.userProfile.mediaSource, !self.viewModel.photos.isEmpty {
+                        // Change folder button
                         Button(
                             action: {
                                 if mediaSource == .iCloud {
@@ -177,10 +177,8 @@ struct HomeView: View {
                                 }
                             }
                         )
-                    }
-                    
-                    // Start photo slide show button
-                    if let mediaSource = self.userProfile.mediaSource {
+                        
+                        // Start photo slide show button
                         Button(
                             action: {
                                 self.shouldShowPhotoSlideShowView = true

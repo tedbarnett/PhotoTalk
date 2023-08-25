@@ -28,6 +28,8 @@
 		C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
 		C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
 		C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
+		C14E2C362A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */; };
+		C14E2C372A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */; };
 		C16DDC482A8B6C9D00009869 /* PhotoSlideShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */; };
 		C16DDC4A2A8B6CB500009869 /* PhotoSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */; };
 		C16DDC4C2A8B6CE800009869 /* PhotoSlideShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */; };
@@ -168,6 +170,7 @@
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
 		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
+		C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset + Preview Image + Raw Image.swift"; sourceTree = "<group>"; };
 		C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowView.swift; sourceTree = "<group>"; };
 		C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideView.swift; sourceTree = "<group>"; };
 		C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowViewModel.swift; sourceTree = "<group>"; };
@@ -358,6 +361,7 @@
 				C19948B32A036C24004CD4A1 /* UIDevice+ScreenSize.swift */,
 				C12FA6B22A60434500867500 /* Date + Formatting.swift */,
 				C12FA6B52A6043BC00867500 /* String + Date.swift */,
+				C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1008,6 +1012,7 @@
 				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C14E2C362A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
@@ -1082,6 +1087,7 @@
 				C1B2CA872A15458600D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C1B2CA882A15458600D2AE04 /* ActivityIndicator.swift in Sources */,
 				C1B2CA892A15458600D2AE04 /* UserAuthenticationBackgroundArt.swift in Sources */,
+				C14E2C372A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,

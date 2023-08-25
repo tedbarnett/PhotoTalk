@@ -79,7 +79,8 @@ struct FolderSelectionView: View {
                 
                 Button(
                     action: {
-                        self.delegate?.didChangeFolderSelection(selectedFolders: self.selectedFolders)
+                        let folders = self.folders.filter { $0.isSelected == true }
+                        self.delegate?.didChangeFolderSelection(selectedFolders: folders)
                     },
                     label: {
                         ZStack {
@@ -101,15 +102,16 @@ struct FolderSelectionView: View {
 // MARK: FolderViewDelegate delegate methods
 extension FolderSelectionView: FolderViewDelegate {
     func didChangeSelection(isSelected: Bool, folder: CloudAsset) {
-        if isSelected {
-            if self.selectedFolders.first(where: { $0.id == folder.id }) == nil {
-                self.selectedFolders.append(folder)
-            }
-        } else {
-            if let index = self.selectedFolders.firstIndex(where: { $0.id == folder.id }) {
-                self.selectedFolders.remove(at: index)
-            }
-        }
+        folder.isSelected = isSelected
+//        if isSelected {
+//            if self.selectedFolders.first(where: { $0.id == folder.id }) == nil {
+//                self.selectedFolders.append(folder)
+//            }
+//        } else {
+//            if let index = self.selectedFolders.firstIndex(where: { $0.id == folder.id }) {
+//                self.selectedFolders.remove(at: index)
+//            }
+//        }
     }
 }
 

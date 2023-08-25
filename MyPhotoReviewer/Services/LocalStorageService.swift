@@ -25,7 +25,9 @@ class LocalStorageService {
         static let didUserAllowPhotoAccess = "didUserAllowPhotoAccess"
         static let userSelectedMediaSource = "userSelectedMediaSource"
         static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
+        static let userSelectedIcloudAlbums = "userSelectedIcloudAlbums"
         static let googleDriveFoldersForUser = "googleDriveFoldersForUser"
+        static let iCloudAlbumsForUser = "iCloudAlbumsForUser"
         static let photoAudios = "photoAudio"
     }
 
@@ -187,6 +189,32 @@ class LocalStorageService {
         }
     }
     
+    /// Returns list of user albums from Apple device local photo gallery album
+    var iCloudAlbumsForUser: [PhotoAlbum]? {
+        set {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(newValue)
+                self.userDefaults?.set(data, forKey: StorageKeys.iCloudAlbumsForUser)
+            } catch {
+                print("Error saving user's Apple device photo albums to local database - (\(error))")
+            }
+        } get {
+            if let data = UserDefaults.standard.data(forKey: StorageKeys.iCloudAlbumsForUser) {
+                do {
+                    let decoder = JSONDecoder()
+                    let folders = try decoder.decode([PhotoAlbum].self, from: data)
+                    return folders
+                } catch {
+                    print("Error saving user's Apple device photo albums frome local database - (\(error))")
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        }
+    }
+    
     /// Returns user selected Google Drive folders list
     var userSelectedGoogleDriveFolders: [PhotoAlbum]? {
         set {
@@ -205,6 +233,32 @@ class LocalStorageService {
                     return folders
                 } catch {
                     print("Error loading user selected folders from local database - (\(error))")
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    /// Returns user selected Apple device photo gallery album
+    var userSelectedIcloudAlbums: [PhotoAlbum]? {
+        set {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(newValue)
+                self.userDefaults?.set(data, forKey: StorageKeys.userSelectedIcloudAlbums)
+            } catch {
+                print("Error saving user selected Apple device photo albums to local database - (\(error))")
+            }
+        } get {
+            if let data = UserDefaults.standard.data(forKey: StorageKeys.userSelectedIcloudAlbums) {
+                do {
+                    let decoder = JSONDecoder()
+                    let folders = try decoder.decode([PhotoAlbum].self, from: data)
+                    return folders
+                } catch {
+                    print("Error loading user selected Apple device photo albums from local database - (\(error))")
                     return nil
                 }
             } else {

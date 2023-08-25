@@ -30,7 +30,7 @@ class UserPhotoService {
      */
     func requestAccessToUserICloud(responseHandler: @escaping ResponseHandler<Bool>) {
         let readStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        guard readStatus != .authorized else {
+        guard readStatus != .authorized || readStatus != .limited else {
             responseHandler(true)
             return
         }
@@ -47,6 +47,23 @@ class UserPhotoService {
         }
     }
     
+    func fetchPhotoAlbumsFromUserDevice(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
+        let result = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
+        var photoAlbums = [CloudAsset]()
+        result.enumerateObjects { photoAlbum, _, _ in
+            let albumPhotos = PHAsset.fetchAssets(in: photoAlbum, options: nil)
+            if albumPhotos.count > 0 {
+                let album = CloudAsset()
+                album.source = .iCloud
+                album.iCloudAlbumId = photoAlbum.localIdentifier
+                album.iCloudAlbumTitle = photoAlbum.localizedTitle
+                album.iCloudAlbumPreviewImage = albumPhotos.firstObject?.getAssetThumbnail()
+                photoAlbums.append(album)
+            }
+        }
+        responseHandler(photoAlbums)
+    }
+    
     func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
         self.imageCachingManager.allowsCachingHighQualityImages = false
         
@@ -58,8 +75,7 @@ class UserPhotoService {
         var cloudPhotos = [CloudAsset]()
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         fetchResult.enumerateObjects { asset, _, _ in
-            let id = asset.localIdentifier
-            var photo = CloudAsset()
+            let photo = CloudAsset()
             photo.source = .iCloud
             photo.iCloudAssetId = asset.localIdentifier
             photo.width = asset.pixelWidth

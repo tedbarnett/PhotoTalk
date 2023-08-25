@@ -28,6 +28,9 @@ class CloudAsset: Hashable {
     
     var iCloudAsset: PHAsset? = nil
     var iCloudAssetId: String? = nil
+    var iCloudAlbumId: String? = nil
+    var iCloudAlbumTitle: String? = nil
+    var iCloudAlbumPreviewImage: UIImage?
     
     // MARK: Properties for Google Drive assets
     
@@ -44,7 +47,7 @@ class CloudAsset: Hashable {
     // MARK: Common properties
     
     var photoId: String? {
-        if self.source == .iCloud, let assetId = self.iCloudAssetId {
+        if self.source == .iCloud, let assetId = self.iCloudId {
             if assetId.contains("/") {
                 // iCloud photo ids (Ex: 6F2093EF-C398-48B4-901F-858C58E36A1C/L0/001) have `/` char
                 // so they need to be replaced with - to prevent Firebase storage reference error
@@ -55,6 +58,13 @@ class CloudAsset: Hashable {
             return fileId
         }
         return nil
+    }
+    
+    var iCloudId: String? {
+        if let assetId = self.iCloudAssetId {
+            return assetId
+        }
+        return self.iCloudAlbumId
     }
     
     // MARK: Public methods

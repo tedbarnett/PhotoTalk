@@ -95,13 +95,20 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
-    func loadGoogleDriveFoldersFromDatabaseIfAny() {
-        let driveFolders = self.loadFoldersFromLocalDatabase(targetFolders: .allFolders)
-        let userSelectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders)
+    func loadUserFoldersFromDatabaseIfAny() {
+        guard let mediaSource = self.userProfile?.mediaSource else { return }
+        let driveFolders = self.loadFoldersFromLocalDatabase(targetFolders: .allFolders, mediaSource: mediaSource)
+        let userSelectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: mediaSource)
         
-        guard !driveFolders.isEmpty else { return }
-        self.folders.removeAll()
-        self.folders.append(contentsOf: driveFolders)
+        if !driveFolders.isEmpty {
+            self.folders.removeAll()
+            self.folders.append(contentsOf: driveFolders)
+        }
+        
+        if !userSelectedFolders.isEmpty {
+            self.selectedFolders?.removeAll()
+            self.selectedFolders?.append(contentsOf: userSelectedFolders)
+        }
     }
     
     /**
@@ -135,15 +142,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
-    func presentICloudPhotoPicker() {
-        guard let rootViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {
-            return
-        }
-        PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: rootViewController) { _ in
-            self.downloadCloudAssets(for: .iCloud) {_ in }
-        }
-    }
-    
     /**
      Connects to user selected Cloud services to fetch list of assets like phots, folders.
      */
@@ -151,20 +149,29 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         switch mediaSource {
         case .iCloud:
             DispatchQueue.global().async {
-                self.userPhotoService.downloadUserPhotosFromICloud { userPhotos in
-                    self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
+                let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: .iCloud)
+                if !selectedFolders.isEmpty {
                     DispatchQueue.main.async {
-                        self.photos.removeAll()
-                        self.photos.append(contentsOf: userPhotos)
-                        responseHandler(true)
+                        self.selectedFolders = selectedFolders
+                        self.downloadPhotosFromICloudAlbums(selectedFolders, responseHandler: responseHandler)
+                    }
+                } else {
+                    self.userPhotoService.fetchPhotoAlbumsFromUserDevice { photoAlbums in
+                        DispatchQueue.main.async {
+                            self.folders.removeAll()
+                            self.folders.append(contentsOf: photoAlbums)
+                            self.saveFoldersToLocalDatabase(userFolders: photoAlbums, mediaSource: .iCloud)
+                            self.shouldShowFolderSelectionView = true
+                            responseHandler(true)
+                        }
                     }
                 }
             }
         case .googleDrive:
-            let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders)
+            let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: .googleDrive)
             if !selectedFolders.isEmpty {
                 self.selectedFolders = selectedFolders
-                self.downloadPhotosFromFolders(selectedFolders, responseHandler: responseHandler)
+                self.downloadPhotosFromGoogleDriveFolders(selectedFolders, responseHandler: responseHandler)
             } else {
                 DispatchQueue.global().async {
                     self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
@@ -172,7 +179,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             self.folders.removeAll()
                             self.folders.append(contentsOf: userFolders)
                             
-                            self.saveFoldersToLocalDatabase(userFolders: userFolders)
+                            self.saveFoldersToLocalDatabase(userFolders: userFolders, mediaSource: .googleDrive)
                             
                             // If user doesn't have any folder, download the photos from root level
                             if userFolders.isEmpty {
@@ -195,42 +202,94 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
-    private func saveFoldersToLocalDatabase(userFolders: [CloudAsset]) {
-        var driveFolder = [PhotoAlbum]()
+    private func saveFoldersToLocalDatabase(userFolders: [CloudAsset], mediaSource: MediaSource) {
+        var albums = [PhotoAlbum]()
         for folder in userFolders {
-            if let id = folder.googleDriveFolderId, let name = folder.googleDriveFolderName {
-                let album = PhotoAlbum(id: id, name: name)
+            var id: String?
+            var name: String?
+            
+            if mediaSource == .iCloud {
+                id = folder.iCloudAlbumId
+                name = folder.iCloudAlbumTitle
+            } else if mediaSource == .googleDrive {
+                id = folder.googleDriveFolderId
+                name = folder.googleDriveFolderName
+            }
+            
+            if let folderId = id, let folderName = name {
+                let album = PhotoAlbum(id: folderId, name: folderName)
                 album.isSelected = folder.isSelected
-                driveFolder.append(album)
+                albums.append(album)
             }
         }
-        self.localStorageService.googleDriveFoldersForUser = driveFolder
+        
+        if mediaSource == .iCloud {
+            self.localStorageService.iCloudAlbumsForUser = albums
+        } else if mediaSource == .googleDrive {
+            self.localStorageService.googleDriveFoldersForUser = albums
+        }
     }
     
-    private func loadFoldersFromLocalDatabase(targetFolders: GoogleDriveFoldersTarget) -> [CloudAsset] {
-        var driveFolders = [CloudAsset]()
+    private func loadFoldersFromLocalDatabase(targetFolders: UserFoldersTarget, mediaSource: MediaSource) -> [CloudAsset] {
         var localDatabaseFolders = [PhotoAlbum]()
         
-        if targetFolders == .allFolders, let allDriveFolders = self.localStorageService.googleDriveFoldersForUser {
-            localDatabaseFolders.append(contentsOf: allDriveFolders)
-        } else if targetFolders == .userSelectedFolders, let selectedFolders = self.localStorageService.userSelectedGoogleDriveFolders {
-            localDatabaseFolders.append(contentsOf: selectedFolders)
+        if targetFolders == .allFolders {
+            if mediaSource == .iCloud, let iCloudAlbums = self.localStorageService.iCloudAlbumsForUser {
+                localDatabaseFolders.append(contentsOf: iCloudAlbums)
+            } else if mediaSource == .googleDrive, let gDriveFolders = self.localStorageService.googleDriveFoldersForUser {
+                localDatabaseFolders.append(contentsOf: gDriveFolders)
+            }
+        } else if targetFolders == .userSelectedFolders {
+            if mediaSource == .iCloud, let iCloudAlbums = self.localStorageService.userSelectedIcloudAlbums {
+                localDatabaseFolders.append(contentsOf: iCloudAlbums)
+            } else if mediaSource == .googleDrive, let gDriveFolders = self.localStorageService.userSelectedGoogleDriveFolders {
+                localDatabaseFolders.append(contentsOf: gDriveFolders)
+            }
         }
         
+        var driveFolders = [CloudAsset]()
         for folder in localDatabaseFolders {
             let asset = CloudAsset()
-            asset.googleDriveFolderId = folder.id
-            asset.googleDriveFolderName = folder.name
+            if mediaSource == .iCloud {
+                asset.iCloudAlbumId = folder.id
+                asset.iCloudAlbumTitle = folder.name
+                
+                // Fetching thumbnail image for the photo album
+                let assetCollections = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [folder.id], options: PHFetchOptions())
+                if let collection = assetCollections.firstObject {
+                    let albumPhotos = PHAsset.fetchAssets(in: collection, options: nil)
+                    if albumPhotos.count > 0 {
+                        asset.iCloudAlbumPreviewImage = albumPhotos.firstObject?.getAssetThumbnail()
+                    }
+                }
+            } else if mediaSource == .googleDrive {
+                asset.googleDriveFolderId = folder.id
+                asset.googleDriveFolderName = folder.name
+            }
+            
             asset.isSelected = folder.isSelected
             driveFolders.append(asset)
         }
+        
         return driveFolders
+    }
+    
+    func setFoldersAsSelectedIfAny() {
+        guard let allSelectedFolders = self.selectedFolders else { return }
+        for folder in self.folders {
+            if allSelectedFolders.first(where: {
+                guard let id1 = $0.photoId, let id2 = folder.photoId else { return false }
+                return id1 == id2
+            }) != nil {
+                folder.isSelected = true
+            }
+        }
     }
     
     /**
      Connects to Google drive sdk to download photos from the given folder reference
      */
-    func downloadPhotosFromFolders(_ folders: [CloudAsset], responseHandler: @escaping ResponseHandler<Bool>) {
+    func downloadPhotosFromGoogleDriveFolders(_ folders: [CloudAsset], responseHandler: @escaping ResponseHandler<Bool>) {
         guard !folders.isEmpty else {
             responseHandler(false)
             return
@@ -261,6 +320,54 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+    }
+    
+    /**
+     Fetches photos from user selected Apple device photo albums
+     */
+    func downloadPhotosFromICloudAlbums(_ albums: [CloudAsset], responseHandler: @escaping ResponseHandler<Bool>) {
+        guard !albums.isEmpty else {
+            responseHandler(false)
+            return
+        }
+        
+        self.selectedFolders = albums
+        
+        var photoAlbums = [PhotoAlbum]()
+        for album in albums {
+            if let id = album.iCloudAlbumId, let name = album.iCloudAlbumTitle {
+                let photoAlbum = PhotoAlbum(id: id, name: name)
+                photoAlbum.isSelected = true
+                photoAlbums.append(photoAlbum)
+            }
+        }
+        self.localStorageService.userSelectedIcloudAlbums = photoAlbums
+        
+        let iCloudAlbumIds = albums.compactMap { $0.iCloudAlbumId }
+        let assetCollections = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: iCloudAlbumIds, options: PHFetchOptions())
+        
+        for i in 0..<assetCollections.count {
+            let collection =  assetCollections[i]
+            let assetFetchOptions = PHFetchOptions()
+            assetFetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            let fetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: assetFetchOptions)
+            
+            if fetchResult.count > 0 {
+                self.photos.removeAll()
+                fetchResult.enumerateObjects { asset, _, _ in
+                    let photo = CloudAsset()
+                    photo.source = .iCloud
+                    photo.iCloudAssetId = asset.localIdentifier
+                    photo.width = asset.pixelWidth
+                    photo.height = asset.pixelHeight
+                    photo.iCloudAsset = asset
+                    self.photos.append(photo)
+                }
+            }
+        }
+        
+        self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+        responseHandler(true)
     }
     
     /**
@@ -300,6 +407,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     }
 }
 
-enum GoogleDriveFoldersTarget {
+enum UserFoldersTarget {
     case allFolders, userSelectedFolders
 }

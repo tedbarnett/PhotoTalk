@@ -153,15 +153,13 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    if let mediaSource = self.userProfile.mediaSource, !self.viewModel.photos.isEmpty {
+                    if self.userProfile.mediaSource != nil, !self.viewModel.photos.isEmpty {
                         // Change folder button
                         Button(
                             action: {
-                                if mediaSource == .iCloud {
-                                    self.viewModel.presentICloudPhotoPicker()
-                                } else if mediaSource == .googleDrive,
-                                    let selectedFolders = self.viewModel.selectedFolders,
-                                    !selectedFolders.isEmpty {
+                                if let selectedFolders = self.viewModel.selectedFolders,
+                                   !selectedFolders.isEmpty {
+                                    self.viewModel.setFoldersAsSelectedIfAny()
                                     self.shouldShowFolderSelectionView = true
                                 }
                             },
@@ -251,7 +249,7 @@ struct HomeView: View {
     private func initializeViewModels() {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
         self.viewModel.userProfile = self.userProfile
-        self.viewModel.loadGoogleDriveFoldersFromDatabaseIfAny()
+        self.viewModel.loadUserFoldersFromDatabaseIfAny()
         self.authenticationViewModel.userProfile = self.userProfile
     }
     
@@ -282,8 +280,15 @@ extension HomeView: FolderSelectionViewDelegate {
     func didChangeFolderSelection(selectedFolders: [CloudAsset]) {
         self.shouldShowFolderSelectionView = false
         self.overlayContainerContext.shouldShowProgressIndicator = true
-        self.viewModel.downloadPhotosFromFolders(selectedFolders) { didLoadPhotos in
-            self.overlayContainerContext.shouldShowProgressIndicator = false
+        
+        if self.userProfile.mediaSource == .iCloud {
+            self.viewModel.downloadPhotosFromICloudAlbums(selectedFolders) { didLoadPhotos in
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+            }
+        } else if self.userProfile.mediaSource == .googleDrive {
+            self.viewModel.downloadPhotosFromGoogleDriveFolders(selectedFolders) { didLoadPhotos in
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+            }
         }
     }
 }

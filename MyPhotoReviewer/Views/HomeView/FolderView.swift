@@ -28,20 +28,45 @@ struct FolderView: View {
     
     @State private var isSelected = false
     
+    /*
+     Returns title of the Google drive folder or iCloud photo album
+     */
+    private var folderTitle: String {
+        if let gDriveFolderTitle = folder.googleDriveFolderName {
+            return gDriveFolderTitle
+        } else if let iCloudAlbumTitle = folder.iCloudAlbumTitle {
+            return iCloudAlbumTitle
+        }
+        return ""
+    }
+    
     // MARK: User interface
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 0) {
-                Image("folderIcon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width:125, height: 125)
-                if let folderName = self.folder.googleDriveFolderName {
-                    Text(folderName)
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(Color.black)
+                
+                if let image = self.folder.iCloudAlbumPreviewImage {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.black300)
+                            .frame(width:125, height: 125)
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:110, height: 110)
+                    }
+                    .padding(.bottom, 4)
+                } else {
+                    Image("folderIcon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:125, height: 125)
                 }
+                
+                Text(self.folderTitle)
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(Color.offwhite100)
             }
             .padding(.all, 10)
             

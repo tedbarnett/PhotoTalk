@@ -82,7 +82,7 @@ struct HomeView: View {
                     if !self.userProfile.didAllowPhotoAccess {
                         VStack(alignment: .center, spacing: 24) {
                             Text(NSLocalizedString(
-                                "Please select source for your photos from the options listed below",
+                                "Where are your photos stored? Please select from the following options:",
                                 comment: "Home view - Media source selection description")
                             )
                             .font(.system(size: 16, weight: .regular))
@@ -169,7 +169,7 @@ struct HomeView: View {
                                         .fill(Color.blue)
                                         .frame(height: 40)
                                         .padding(.horizontal, 16)
-                                    Text(NSLocalizedString("Change Photo Selection", comment: "Home view - Change photo selection"))
+                                    Text(NSLocalizedString("Change Photo Album", comment: "Home view - Change photo selection"))
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.white)
                                 }
@@ -188,7 +188,7 @@ struct HomeView: View {
                                         .frame(height: 40)
                                         .padding(.horizontal, 16)
                                     Text(
-                                        NSLocalizedString("Start Photo Slide Show",
+                                        NSLocalizedString("Start Slide Show",
                                                           comment: "Home view - Start photo slide show button title")
                                     )
                                     .font(.system(size: 16))
@@ -249,7 +249,6 @@ struct HomeView: View {
     private func initializeViewModels() {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
         self.viewModel.userProfile = self.userProfile
-        self.viewModel.loadUserFoldersFromDatabaseIfAny()
         self.authenticationViewModel.userProfile = self.userProfile
     }
     
@@ -257,6 +256,7 @@ struct HomeView: View {
         self.overlayContainerContext.shouldShowProgressIndicator = true
         self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in
             self.overlayContainerContext.shouldShowProgressIndicator = false
+            self.viewModel.loadUserFoldersFromDatabaseIfAny()
             self.loadCloudAssets()
         }
     }

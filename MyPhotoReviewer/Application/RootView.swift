@@ -17,7 +17,7 @@ struct RootView: View {
     
     @EnvironmentObject private var appContext: AppContext
     @EnvironmentObject private var userProfile: UserProfileModel
-    @StateObject private var overlayContainerContext = OverlayContainerContext()
+    @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
     
     @State private var isValidatingUserAuthentication = true
     
@@ -40,7 +40,7 @@ struct RootView: View {
             // Overlay (progress indicator, alert views, etc) container view
             OverlayContainerView()
         }
-        .environmentObject(self.overlayContainerContext)
+        
         .onAppear {
             self.initializeUserProfile()
             self.validateUserAuthenticationStateIfNeeded()
@@ -70,7 +70,6 @@ struct RootView: View {
         userAuthenticationViewModel.userProfile = self.userProfile
         userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded {
             DispatchQueue.main.async {
-                self.overlayContainerContext.shouldShowProgressIndicator = false
                 self.isValidatingUserAuthentication = false
             }
         }

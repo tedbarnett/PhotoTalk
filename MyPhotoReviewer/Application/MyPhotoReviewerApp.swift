@@ -14,6 +14,7 @@ struct MyPhotoReviewerApp: App {
     
     @StateObject private var appContext = AppContext()
     @StateObject private var userProfile = UserProfileModel.defaultUserProfile
+    @StateObject private var overlayContainerContext = OverlayContainerContext()
     
     init() {
         GMSPlacesClient.provideAPIKey("AIzaSyAZzjRcTc9YKCF5tdcSuH8jVaqabNRn3L8")
@@ -24,6 +25,7 @@ struct MyPhotoReviewerApp: App {
             RootView()
                 .environmentObject(self.appContext)
                 .environmentObject(self.userProfile)
+                .environmentObject(self.overlayContainerContext)
         }
     }
 }

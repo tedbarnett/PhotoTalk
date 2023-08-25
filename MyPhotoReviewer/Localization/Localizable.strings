@@ -47,12 +47,12 @@
 //---------- Home view -----------------------
 
 "Welcome back" = "Welcome back";
-"Please select source for your photos from the options listed below" = "Please select source for your photos from the options listed below";
+"Where are your photos stored? Please select from the following options:" = "Where are your photos stored? Please select from the following options:";
 "Apple iCloud" = "Apple iCloud";
 "Google Drive" = "Google Drive";
 "Photos" = "Photos";
-"Change Photo Selection" = "Change Photo Selection";
-"Start Photo Slide Show" = "Start Photo Slide Show";
+"Change Photo Album" = "Change Photo Album";
+"Start Slide Show" = "Start Slide Show";
 
 
 //---------- Photo details view -----------------------

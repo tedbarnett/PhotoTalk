@@ -44,7 +44,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     @Published var folders = [CloudAsset]()
     @Published var selectedFolders: [CloudAsset]? = nil
     @Published var photos = [CloudAsset]()
-    
     @Published var shouldShowProgressIndicator = false
     
     // Application run environment - prod or dev
@@ -96,7 +95,9 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     }
     
     func loadUserFoldersFromDatabaseIfAny() {
-        guard let mediaSource = self.userProfile?.mediaSource else { return }
+        guard let mediaSource = self.userProfile?.mediaSource else {
+            return
+        }
         let driveFolders = self.loadFoldersFromLocalDatabase(targetFolders: .allFolders, mediaSource: mediaSource)
         let userSelectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: mediaSource)
         

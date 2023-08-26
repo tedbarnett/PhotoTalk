@@ -25,7 +25,6 @@ class AppContext: ObservableObject {
  */
 class OverlayContainerContext: ObservableObject {
     @Published var shouldShowProgressIndicator = false
-    
     @Published var shouldShowAlert = false
     @Published var alertType: AlertType = .userRegistrationSuccessfull
     @Published var primaryActionButtonHandler: VoidResponseHandler?

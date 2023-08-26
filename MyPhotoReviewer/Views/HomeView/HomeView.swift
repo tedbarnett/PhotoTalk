@@ -96,11 +96,7 @@ struct HomeView: View {
                                             width: UIScreen.main.bounds.width * 0.2,
                                             tapActionHandler: { mediaSource in
                                                 self.userProfile.mediaSource = mediaSource
-                                                self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
-                                                    self.userProfile.didAllowPhotoAccess = didAllow
-                                                    guard didAllow else { return }
-                                                    self.loadCloudAssets()
-                                                }
+                                                self.presentMediaSelectionConsent(for: mediaSource)
                                             }
                                         )
                                     }
@@ -113,11 +109,7 @@ struct HomeView: View {
                                             width: UIScreen.main.bounds.width * 0.4,
                                             tapActionHandler: { mediaSource in
                                                 self.userProfile.mediaSource = mediaSource
-                                                self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
-                                                    self.userProfile.didAllowPhotoAccess = didAllow
-                                                    guard didAllow else { return }
-                                                    self.loadCloudAssets()
-                                                }
+                                                self.presentMediaSelectionConsent(for: mediaSource)
                                             }
                                         )
                                     }
@@ -153,15 +145,12 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    if self.userProfile.mediaSource != nil, !self.viewModel.photos.isEmpty {
-                        // Change folder button
+                    if !self.viewModel.folders.isEmpty {
+                        // Change album button
                         Button(
                             action: {
-                                if let selectedFolders = self.viewModel.selectedFolders,
-                                   !selectedFolders.isEmpty {
-                                    self.viewModel.setFoldersAsSelectedIfAny()
-                                    self.shouldShowFolderSelectionView = true
-                                }
+                                self.viewModel.setFoldersAsSelectedIfAny()
+                                self.shouldShowFolderSelectionView = true
                             },
                             label: {
                                 ZStack {
@@ -177,25 +166,27 @@ struct HomeView: View {
                         )
                         
                         // Start photo slide show button
-                        Button(
-                            action: {
-                                self.shouldShowPhotoSlideShowView = true
-                            },
-                            label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.blue)
-                                        .frame(height: 40)
-                                        .padding(.horizontal, 16)
-                                    Text(
-                                        NSLocalizedString("Start Slide Show",
-                                                          comment: "Home view - Start photo slide show button title")
-                                    )
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.white)
+                        if !self.viewModel.photos.isEmpty {
+                            Button(
+                                action: {
+                                    self.shouldShowPhotoSlideShowView = true
+                                },
+                                label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color.blue)
+                                            .frame(height: 40)
+                                            .padding(.horizontal, 16)
+                                        Text(
+                                            NSLocalizedString("Start Slide Show",
+                                                              comment: "Home view - Start photo slide show button title")
+                                        )
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.white)
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
@@ -257,15 +248,47 @@ struct HomeView: View {
         self.viewModel.loadUserDetailsFromDatabase { didLoadDetails in
             self.overlayContainerContext.shouldShowProgressIndicator = false
             self.viewModel.loadUserFoldersFromDatabaseIfAny()
-            self.loadCloudAssets()
+            
+            guard let mediaSource = self.userProfile.mediaSource,
+                  self.userProfile.didAllowPhotoAccess else {
+                return
+            }
+            
+            // Empty viewModel.folders means that the app has been installed fresh
+            // So instead of loading user assets, we need to present media selection consent.
+            
+            if self.viewModel.folders.isEmpty {
+                self.presentMediaSelectionConsent(for: mediaSource)
+            }
+            // For non-empty viewModel.folders, this means that the user had previously
+            // given media consent, so we can proceed with presenting album selection view
+            else {
+                self.loadCloudAssets()
+            }
         }
     }
     
     private func loadCloudAssets() {
-        guard let mediaSource = self.userProfile.mediaSource else { return }
+        guard let mediaSource = self.userProfile.mediaSource,
+              self.userProfile.didAllowPhotoAccess else {
+            return
+        }
         self.overlayContainerContext.shouldShowProgressIndicator = true
         self.viewModel.downloadCloudAssets(for: mediaSource) { _ in
             self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
+    }
+    
+    private func presentMediaSelectionConsent(for mediaSource: MediaSource) {
+        if self.userProfile.didAllowPhotoAccess {
+            self.loadCloudAssets()
+        }
+        else {
+            self.viewModel.presentMediaSelectionConsent(for: mediaSource) { didAllow in
+                self.userProfile.didAllowPhotoAccess = didAllow
+                guard didAllow else { return }
+                self.loadCloudAssets()
+            }
         }
     }
 }

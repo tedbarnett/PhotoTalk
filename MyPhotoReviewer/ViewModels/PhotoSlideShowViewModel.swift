@@ -58,7 +58,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         // load details for current slideIndex and next 2 photos
         // load audio for current slideIndex and next 2 photos
         
-        guard let assets = self.photoAssets else { return }
+        guard let assets = self.photoAssets, !assets.isEmpty else { return }
         
         var indexOfPhotoDetailsToLoad: [Int] = [self.currentPhotoIndex]
         for i in 1..<self.numberOfPhotosToLoadDetailsFor {
@@ -178,13 +178,11 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
     private func checkPhotoDetailsLoadProgress() {
         if self.didLoadAllPhotoDetails() {
             self.invalidateTimer()
-            print(">>>>> All details loaded for selected photos...")
             self.photoDetailsLoadResponseHandler?(true)
             self.photoDetailsLoadResponseHandler = nil
         } else {
             if self.timeElapsedSincePhotoDetailsLoadStart >= 12 {
                 self.invalidateTimer()
-                print("------- Oops! Couldn't load photo details even after 10 seconds, cancelling...")
                 self.photoDetailsLoadResponseHandler?(false)
                 self.photoDetailsLoadResponseHandler = nil
             }
@@ -243,6 +241,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
             photo.location = photoDetails.location
             photo.dateAndTime = photoDetails.dateAndTime
             photo.isFavourite = photoDetails.isFavourite
+            photo.didChangeDetails = photoDetails.didChangeDetails
             responseHandler(photo)
         }
     }

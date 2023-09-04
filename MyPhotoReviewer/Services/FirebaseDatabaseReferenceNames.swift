@@ -51,6 +51,7 @@ struct PhotoNodeProperties {
     static let location = "location"
     static let audio = "audio"
     static let isFavourite = "isFavourite"
+    static let didChangeDetails = "didChangeDetails"
 }
 
 /**

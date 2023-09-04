@@ -27,6 +27,7 @@ class LocalStorageService {
         static let userSelectedGoogleDriveFolders = "userSelectedGoogleDriveFolders"
         static let userSelectedIcloudAlbums = "userSelectedIcloudAlbums"
         static let googleDriveFoldersForUser = "googleDriveFoldersForUser"
+        static let idsOfUpdatedPhotosByUser = "idsOfUpdatedPhotosByUser"
         static let iCloudAlbumsForUser = "iCloudAlbumsForUser"
         static let photoAudios = "photoAudio"
     }
@@ -290,6 +291,15 @@ class LocalStorageService {
             } else {
                 return [PhotoAudio]()
             }
+        }
+    }
+    
+    var idsOfUpdatedPhotosByUser: [String] {
+        set {
+            self.userDefaults?.set(newValue, forKey: StorageKeys.idsOfUpdatedPhotosByUser)
+        } get {
+            let ids = self.userDefaults?.object(forKey: StorageKeys.idsOfUpdatedPhotosByUser) as? [String] ?? []
+            return ids
         }
     }
     

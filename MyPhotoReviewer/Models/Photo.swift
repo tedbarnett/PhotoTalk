@@ -18,6 +18,7 @@ class Photo {
     var location: String? = nil
     var audioUrl: URL? = nil
     var image: UIImage? = nil
+    var didChangeDetails: Bool = false
     
     var hasSomeDetailToShow: Bool {
         return self.location != nil || self.audioUrl != nil || self.dateAndTime != nil

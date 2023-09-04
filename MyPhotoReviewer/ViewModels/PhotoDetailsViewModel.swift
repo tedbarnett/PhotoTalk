@@ -131,6 +131,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 return
             }
             print("Saved user audio recording with filename: \(fileName)")
+            self.updateDetailsChangeStatus()
             self.loadPhotoAudio(responseHandler: responseHandler)
         }
     }
@@ -242,6 +243,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             photo.iCloudPhotoLocation = locationCordinates
             photo.updateEXIFLocation(to: locationCordinates)
+            
+            self.updateDetailsChangeStatus()
         }
     }
     
@@ -273,6 +276,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         guard let photo = self.selectedPhoto else { return }
         photo.iCloudPhotoCreationDate = date
         photo.updateEXIFCreationDate(to: date)
+        
+        self.updateDetailsChangeStatus()
     }
     
     /**
@@ -381,6 +386,25 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         }
         self.photoDateString = date.photoNodeFormattedDateString
         self.savePhotoDateAndTime(date, responseHandler: { _ in })
+    }
+    
+    /**
+     Updates EXIF details change flag for the selected photo when user
+     changes location or creation date
+     */
+    private func updateDetailsChangeStatus() {
+        guard let profile = self.userProfile,
+              let photoId = self.selectedPhoto?.photoId,
+              let service = self.databaseService else {
+            return
+        }
+        service.saveDetailsChangeStatusForUserPhoto(userId: profile.id, photoId: photoId) { didUpdate in
+            guard didUpdate else { return }
+            
+            var ids = self.localStorageService.idsOfUpdatedPhotosByUser
+            ids.append(photoId)
+            self.localStorageService.idsOfUpdatedPhotosByUser = ids
+        }
     }
 }
 

@@ -54,6 +54,15 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    var photosUpdatedByUser: [CloudAsset] {
+        let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
+        let photos = self.photos.filter({
+            guard let photoId = $0.photoId else { return false }
+            return idsOfUpdatedPhotos.contains(photoId)
+        })
+        return photos
+    }
+    
     // User details like id, name, email, photo albums, photos, audio, etc
     var userProfile: UserProfileModel?
     
@@ -68,6 +77,18 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     
     // MARK: Public methods
+    
+    /**
+     Loads ids of updated photos from database
+     */
+    func loadIdsOfUpdatedPhotos() {
+        guard let databaseService = self.databaseService, let userProfile = self.userProfile else {
+            return
+        }
+        databaseService.getIdsOfUpdatedPhotosByUser(userId: userProfile.id) { ids in
+            self.localStorageService.idsOfUpdatedPhotosByUser = ids
+        }
+    }
     
     /**
      Calls database service to fetch user details (name, email, photo albums, audio, etc) from Firebase database.

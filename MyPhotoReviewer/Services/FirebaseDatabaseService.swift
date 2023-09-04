@@ -208,6 +208,38 @@ extension FirebaseDatabaseService {
             }
     }
     
+    /**
+     Fetches ids of photos from database for which user updated any of the details - location, date or audio recording
+     */
+    func getIdsOfUpdatedPhotosByUser(
+        userId: String,
+        responseHandler: @escaping ResponseHandler<[String]>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userPhotoDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            userPhotoDirectory.getData {error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot,
+                      dataSnapshot.childrenCount > 0 else {
+                    responseHandler([])
+                    return
+                }
+                
+                var ids = [String]()
+                for childSnapshot in dataSnapshot.children {
+                    if let node = childSnapshot as? DataSnapshot,
+                       let details = node.value as? [String: Any],
+                       let id = details[DatabaseNodeCommonProperties.id] as? String,
+                       let didChangeDetails = details[PhotoNodeProperties.didChangeDetails] as? String
+                        {
+                        if didChangeDetails == "1" {
+                            ids.append(id)
+                        }
+                    }
+                }
+                responseHandler(ids)
+            }
+        }
+    
     /// Saves user details to the database for the authenticated user
     func loadPhotoDetailsFromDatabase(
         userId: String,
@@ -246,6 +278,10 @@ extension FirebaseDatabaseService {
                 
                 if let isFavourite = userDetails[PhotoNodeProperties.isFavourite] as? String {
                     photo.isFavourite = isFavourite == "1"
+                }
+                
+                if let didChangeDetails = userDetails[PhotoNodeProperties.didChangeDetails] as? String {
+                    photo.didChangeDetails = didChangeDetails == "1"
                 }
                 
                 print("[Firebase Database] Successfully loaded photo details for id \(photoId)")
@@ -311,6 +347,9 @@ extension FirebaseDatabaseService {
                         ]
                         photoDetails[PhotoNodeProperties.dateAndTime] = nil
                         photoDetails[PhotoNodeProperties.location] = nil
+                        photoDetails[PhotoNodeProperties.isFavourite] = "0"
+                        photoDetails[PhotoNodeProperties.didChangeDetails] = "0"
+                        
                         photoNode.setValue(photoDetails) { error, reference in
                             guard error == nil else {
                                 print("[Firebase Database] Failed to save photo details for photo \(id)")
@@ -371,6 +410,34 @@ extension FirebaseDatabaseService {
                     return
                 }
                 print("[Firebase Database] Successfully saved location for photo \(photoId)")
+                responseHandler(true)
+            }
+    }
+    
+    /**
+     Saves boolan flag for the photo in database that indicates, if the user has updated
+     any EXIF details for the given photo
+     */
+    func saveDetailsChangeStatusForUserPhoto(
+        userId: String,
+        photoId: String,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            
+            let details: [String: Any] = [
+                PhotoNodeProperties.didChangeDetails: "1"
+            ]
+            
+            photoReference.updateChildValues(details) { error, reference in
+                guard error == nil else {
+                    print("[Firebase Database] Failed to save update flag for photo \(photoId)")
+                    responseHandler(false)
+                    return
+                }
+                print("[Firebase Database] Successfully saved update flag for photo \(photoId)")
                 responseHandler(true)
             }
     }

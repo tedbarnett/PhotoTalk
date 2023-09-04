@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /**
  PhotoDetailsViewModel provides data, state and required backend integration for
@@ -30,7 +31,12 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var isFavourite: Bool = false
     
     var photos: [CloudAsset]?
-    var selectedPhoto: CloudAsset?
+    var selectedPhoto: CloudAsset? {
+        didSet {
+            self.getPhotoLocationFromEXIFData()
+            self.getPhotoCreationDateFromEXIFData()
+        }
+    }
     var userProfile: UserProfileModel?
     
     // Application run environment - prod or dev
@@ -67,8 +73,6 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 self.photoLocation = nil
                 return
             }
-            self.photoLocation = photoDetails.location
-            self.photoDateString = photoDetails.dateAndTime?.photoNodeFormattedDateString
             self.isFavourite = photoDetails.isFavourite
         }
     }
@@ -228,6 +232,20 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     }
     
     /**
+     Updates photo's EXIF location with the given location
+     */
+    func updatePhotoEXIFLocation(to location: GooglePlace) {
+        guard let photo = self.selectedPhoto else { return }
+        location.getCordinates { cords in
+            guard let locationCordinates = cords else {
+                return
+            }
+            photo.iCloudPhotoLocation = locationCordinates
+            photo.updateEXIFLocation(to: locationCordinates)
+        }
+    }
+    
+    /**
      Saves photo location on the server
      */
     func savePhotoLocation(_ location: String, responseHandler: @escaping ResponseHandler<Bool>) {
@@ -246,6 +264,15 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             self.photoLocation = location
             responseHandler(true)
         }
+    }
+    
+    /**
+     Updates photo's EXIF date with the given date
+     */
+    func updatePhotoEXIFDate(to date: Date) {
+        guard let photo = self.selectedPhoto else { return }
+        photo.iCloudPhotoCreationDate = date
+        photo.updateEXIFCreationDate(to: date)
     }
     
     /**
@@ -307,6 +334,53 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         self.isPlayingAudio = false
         self.isAudioPaused = false
         self.photoAudioLocalFileUrl = nil
+    }
+    
+    // MARK: Private methods
+    
+    /**
+     Reads photo location from photo EXIF data and saves the same in Firebase database
+     */
+    private func getPhotoLocationFromEXIFData() {
+        let unknownLocationText = NSLocalizedString(
+            "Location unknown",
+            comment: "Photo details view - Unknown photo location"
+        )
+        
+        guard let photo = self.selectedPhoto,
+              let photoLocation = photo.iCloudPhotoLocation else {
+            self.photoLocation = unknownLocationText
+            return
+        }
+        
+        let geoLocation = CLLocation(latitude: photoLocation.coordinate.latitude, longitude: photoLocation.coordinate.longitude)
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(geoLocation) { placemarks, error in
+            guard error == nil,
+                  let marks = placemarks,
+                  let locationMark = marks.first,
+                  let name = locationMark.name,
+                  let locality = locationMark.locality,
+                  let country = locationMark.country else {
+                self.photoLocation = unknownLocationText
+                return
+            }
+            
+            let loction = "\(name), \(locality), \(country)"
+            self.photoLocation = loction
+            self.savePhotoLocation(loction, responseHandler: { _ in })
+        }
+    }
+    
+    /**
+     Reads photo creation date from photo EXIF data and saves the same in Firebase database
+     */
+    private func getPhotoCreationDateFromEXIFData() {
+        guard let photo = self.selectedPhoto, let date = photo.iCloudPhotoCreationDate else {
+            return
+        }
+        self.photoDateString = date.photoNodeFormattedDateString
+        self.savePhotoDateAndTime(date, responseHandler: { _ in })
     }
 }
 

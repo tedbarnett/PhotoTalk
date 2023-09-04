@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import CoreLocation
 
 /**
  CloudAsset represents an assets (folder or photo) stored either on iCloud or Google drive
@@ -31,6 +32,8 @@ class CloudAsset: Hashable {
     var iCloudAlbumId: String? = nil
     var iCloudAlbumTitle: String? = nil
     var iCloudAlbumPreviewImage: UIImage?
+    var iCloudPhotoCreationDate: Date?
+    var iCloudPhotoLocation: CLLocation?
     
     // MARK: Properties for Google Drive assets
     
@@ -68,6 +71,38 @@ class CloudAsset: Hashable {
     }
     
     // MARK: Public methods
+    
+    func updateEXIFLocation(to location: CLLocation) {
+        guard let photoAsset = self.iCloudAsset else {
+            return
+        }
+        PHPhotoLibrary.shared().performChanges({
+            let assetChangeRequest = PHAssetChangeRequest(for: photoAsset)
+            assetChangeRequest.location = location
+        }, completionHandler: { success, error in
+            guard success, error == nil else {
+                print("Error updating EXIF location: \(error)")
+                return
+            }
+            print("Successfully updated EXIF location")
+        })
+    }
+    
+    func updateEXIFCreationDate(to date: Date) {
+        guard let photoAsset = self.iCloudAsset else {
+            return
+        }
+        PHPhotoLibrary.shared().performChanges({
+            let assetChangeRequest = PHAssetChangeRequest(for: photoAsset)
+            assetChangeRequest.creationDate = date
+        }, completionHandler: { success, error in
+            guard success, error == nil else {
+                print("Error updating EXIF date: \(error)")
+                return
+            }
+            print("Successfully updated EXIF date")
+        })
+    }
     
     /**
      Downloads photo from the cloud and returns back the same via response handler

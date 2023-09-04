@@ -367,6 +367,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                     photo.width = asset.pixelWidth
                     photo.height = asset.pixelHeight
                     photo.iCloudAsset = asset
+                    photo.iCloudPhotoLocation = asset.location
+                    photo.iCloudPhotoCreationDate = asset.creationDate
                     self.photos.append(photo)
                 }
             }

@@ -7,6 +7,7 @@
 
 import Foundation
 import GooglePlaces
+import CoreLocation
 
 
 /**
@@ -39,7 +40,7 @@ class GooglePlacesService: ObservableObject {
             sessionToken: nil) { gmsResult, error in
                 guard let result = gmsResult, error == nil else { return }
                 let places = result.compactMap({
-                    GooglePlace(name: $0.attributedFullText.string, id: $0.placeID)
+                    GooglePlace(id: $0.placeID, name: $0.attributedFullText.string)
                 })
                 self.places.removeAll()
                 self.places.append(contentsOf: places)
@@ -55,8 +56,26 @@ struct GooglePlace {
     let name: String
     let id: String
     
-    init(name: String, id: String) {
-        self.name = name
+    init(id: String, name: String) {
         self.id = id
+        self.name = name
+    }
+    
+    func getCordinates(responseHandler: @escaping ResponseHandler<CLLocation?>)  {
+        guard !self.id.isEmpty else {
+            responseHandler(nil)
+            return
+        }
+        GMSPlacesClient.shared().lookUpPlaceID(self.id) { place, error in
+            guard let googlePlace = place, error == nil else {
+                responseHandler(nil)
+                return
+            }
+            let location = CLLocation.init(
+                latitude: googlePlace.coordinate.latitude,
+                longitude: googlePlace.coordinate.longitude
+            )
+            responseHandler(location)
+        }
     }
 }

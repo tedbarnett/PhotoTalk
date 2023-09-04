@@ -37,7 +37,7 @@ enum AddPhotoDetailsViewMode {
  details are added to the photo
  */
 protocol AddPhotoDetailsViewDelegate {
-    func didSelectLocation(location: String)
+    func didSelectLocation(location: GooglePlace)
     func didSelectDate(date: Date)
 }
 
@@ -172,8 +172,7 @@ struct AddPhotoDetailsView: View {
                                             )
                                     }
                                     .onTapGesture {
-                                        guard !place.name.isEmpty else { return }
-                                        self.delegate?.didSelectLocation(location: place.name)
+                                        self.delegate?.didSelectLocation(location: place)
                                         self.presentationMode.wrappedValue.dismiss()
                                     }
                                 }

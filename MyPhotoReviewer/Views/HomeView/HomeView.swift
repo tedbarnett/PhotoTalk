@@ -158,7 +158,7 @@ struct HomeView: View {
                                         .fill(Color.blue)
                                         .frame(height: 40)
                                         .padding(.horizontal, 16)
-                                    Text(NSLocalizedString("Change Photo Album", comment: "Home view - Change photo selection"))
+                                    Text(NSLocalizedString("Add Photo Album", comment: "Home view - Add photo selection"))
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.white)
                                 }

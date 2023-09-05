@@ -178,15 +178,25 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
     private func checkPhotoDetailsLoadProgress() {
         if self.didLoadAllPhotoDetails() {
             self.invalidateTimer()
+            
+            self.sortPhotosByDate()
             self.photoDetailsLoadResponseHandler?(true)
             self.photoDetailsLoadResponseHandler = nil
         } else {
             if self.timeElapsedSincePhotoDetailsLoadStart >= 12 {
                 self.invalidateTimer()
+                
                 self.photoDetailsLoadResponseHandler?(false)
                 self.photoDetailsLoadResponseHandler = nil
             }
         }
+    }
+    
+    private func sortPhotosByDate() {
+        self.photoDetails.sort(by: {
+            guard let dateOne = $0.dateAndTime, let dateTwo = $1.dateAndTime else { return false }
+            return dateOne < dateTwo
+        })
     }
     
     private func invalidateTimer() {

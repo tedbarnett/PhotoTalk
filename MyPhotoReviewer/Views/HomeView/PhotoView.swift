@@ -30,7 +30,7 @@ struct PhotoView: View {
     @State private var image: Image?
     @State private var isImageLoading = true
     
-    private let horizontalPadding: CGFloat = 12
+    private let horizontalPadding: CGFloat = 4
     
     private var imageWidth: CGFloat {
         return self.width - (self.horizontalPadding * 2)
@@ -45,10 +45,9 @@ struct PhotoView: View {
     var body: some View {
         ZStack {
             if self.shouldShowBackground {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.black600)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.black300)
                     .frame(width: self.width, height: self.height)
-                    .shadow(color: Color.offwhite100.opacity(0.2), radius: 5, x: 0, y: 0)
             }
             
             if let img = self.image {
@@ -78,7 +77,6 @@ struct PhotoView: View {
     // MARK: Private methods
     
     func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
-        print("...loading image of size > width: \(self.width), height: \(self.height)")
         guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width, height: self.height)) else {
             self.image = nil
             return

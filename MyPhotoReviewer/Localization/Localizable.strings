@@ -47,12 +47,18 @@
 //---------- Home view -----------------------
 
 "Welcome back" = "Welcome back";
+"My Photo Memories" = "My Photo Memories";
+"Logout" = "Logout";
 "Where are your photos stored? Please select from the following options:" = "Where are your photos stored? Please select from the following options:";
 "Apple iCloud" = "Apple iCloud";
 "Google Drive" = "Google Drive";
 "Photos" = "Photos";
 "Add Photo Album" = "Add Photo Album";
 "Start Slide Show" = "Start Slide Show";
+
+//---------- Folder selection view -----------------------
+
+"Select Photo Album" = "Select Photo Album";
 
 
 //---------- Photo details view -----------------------

@@ -42,39 +42,37 @@ struct HomeView: View {
                 
                 // Content View
                 VStack {
-                    HStack {
+                    ZStack {
+                        // Title text
+                        Text(NSLocalizedString("My Photo Memories", comment: "Photo reviewer view - title"))
+                            .font(.system(size: 18, weight: .regular))
+                            .foregroundColor(Color.offwhite100)
                         
-                        // Welcome text
-                        HStack(alignment: .center, spacing: 3) {
-                            Text(NSLocalizedString("Welcome back", comment: "Photo reviewer view - welcome title"))
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color.offwhite100)
-                            Text("\(self.userProfile.name)")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color.blue500)
-                        }
-                        Spacer()
-                        
-                        // Logout button
-                        Button(action: {
-                            self.overlayContainerContext.shouldShowProgressIndicator = true
-                            self.authenticationViewModel.logutUser { didLogoutSuccessfully in
-                                self.overlayContainerContext.shouldShowProgressIndicator = false
-                                guard didLogoutSuccessfully else {
-                                    return
-                                }
-                                self.userProfile.isAuthenticated = false
+                        HStack {
+                            Spacer()
+                            // Menu button
+                            Menu {
+                                Button(NSLocalizedString("Logout", comment: "Menu option - Logout"), action: {
+                                    self.overlayContainerContext.shouldShowProgressIndicator = true
+                                    self.authenticationViewModel.logutUser { didLogoutSuccessfully in
+                                        self.overlayContainerContext.shouldShowProgressIndicator = false
+                                        guard didLogoutSuccessfully else {
+                                            return
+                                        }
+                                        self.userProfile.isAuthenticated = false
+                                    }
+                                })
+                            } label: {
+                                Image("hamburgerIcon")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .tint(Color.offwhite100)
+                                    .frame(width: 25, height: 25)
                             }
-                        }) {
-                            Image(systemName: "power.circle.fill")
-                                .renderingMode(.template)
-                                .resizable()
-                                .scaledToFit()
-                                .tint(Color.blue500)
-                                .frame(width: 30, height: 30)
                         }
+                        .padding(.horizontal, UIDevice.isIpad ? 40 : 16)
                     }
-                    .padding(.horizontal, UIDevice.isIpad ? 40 : 16)
                     
                     Spacer()
                     
@@ -146,27 +144,26 @@ struct HomeView: View {
                     Spacer()
                     
                     if !self.viewModel.folders.isEmpty {
-                        // Change album button
-                        Button(
-                            action: {
-                                self.viewModel.setFoldersAsSelectedIfAny()
-                                self.shouldShowFolderSelectionView = true
-                            },
-                            label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.blue)
-                                        .frame(height: 40)
-                                        .padding(.horizontal, 16)
-                                    Text(NSLocalizedString("Add Photo Album", comment: "Home view - Add photo selection"))
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.white)
+                        HStack(spacing: 8) {
+                            // Change album button
+                            Button(
+                                action: {
+                                    self.viewModel.setFoldersAsSelectedIfAny()
+                                    self.shouldShowFolderSelectionView = true
+                                },
+                                label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color.blue)
+                                            .frame(height: 40)
+                                        Text(NSLocalizedString("Add Photo Album", comment: "Home view - Add photo selection"))
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.white)
+                                    }
                                 }
-                            }
-                        )
-                        
-                        // Start photo slide show button
-                        if !self.viewModel.photos.isEmpty {
+                            )
+                            
+                            // Start photo slide show button
                             Button(
                                 action: {
                                     self.shouldShowPhotoSlideShowView = true
@@ -176,7 +173,6 @@ struct HomeView: View {
                                         RoundedRectangle(cornerRadius: 8)
                                             .fill(Color.blue)
                                             .frame(height: 40)
-                                            .padding(.horizontal, 16)
                                         Text(
                                             NSLocalizedString("Start Slide Show",
                                                               comment: "Home view - Start photo slide show button title")
@@ -184,9 +180,12 @@ struct HomeView: View {
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.white)
                                     }
+                                    .opacity(self.viewModel.photos.isEmpty ? 0.4 : 1)
                                 }
                             )
+                            .disabled(self.viewModel.photos.isEmpty)
                         }
+                        .padding(.horizontal, 16)
                     }
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)

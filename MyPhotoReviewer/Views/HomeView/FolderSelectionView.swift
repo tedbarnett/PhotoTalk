@@ -70,6 +70,12 @@ struct FolderSelectionView: View {
                 
                 Spacer()
                 
+                Text(NSLocalizedString("Select Photo Album", comment: "Folder selection view - Title"))
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.white)
+                
+                Spacer()
+                
                 Button(
                     action: {
                         let folders = self.folders.filter { $0.isSelected == true }

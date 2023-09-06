@@ -22,7 +22,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     @Published var photoAlbums = [PhotoAlbum]()
     
     var photoGridColumns: [GridItem] {
-        let itemCount = UIDevice.isIpad ? 4 : 2
+        let itemCount = UIDevice.isIpad ? 6 : 3
         var gridItems = [GridItem]()
         for _ in 0..<itemCount {
             gridItems.append(GridItem(.flexible()))
@@ -31,7 +31,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     }
     
     var photoGridColumnWidth: CGFloat {
-        let itemCount = CGFloat(UIDevice.isIpad ? 4 : 2)
+        let itemCount = CGFloat(UIDevice.isIpad ? 6 : 3)
         let spacing: CGFloat = 16
         let unitWidth =  (UIScreen.main.bounds.width - (((itemCount - 1) + 2) * spacing)) / itemCount
         return unitWidth

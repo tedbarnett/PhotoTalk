@@ -31,7 +31,7 @@ struct FolderSelectionView: View {
     @State private var selectedFolders = [CloudAsset]()
     
     private var columns: [GridItem] {
-        let itemCount = UIDevice.isIpad ? 4 : 2
+        let itemCount = UIDevice.isIpad ? 6 : 3
         var gridItems = [GridItem]()
         for _ in 0..<itemCount {
             gridItems.append(GridItem(.flexible()))
@@ -49,16 +49,6 @@ struct FolderSelectionView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             
-            // Folders list
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: self.columns, spacing: 16) {
-                    ForEach(self.folders, id: \.self) { folder in
-                        FolderView(folder: folder, delegate: self)
-                    }
-                }
-                .padding()
-            }
-            
             // Action buttons
             HStack(alignment: .center, spacing: 16) {
                 Button(
@@ -68,14 +58,17 @@ struct FolderSelectionView: View {
                     label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.gray200)
-                                .frame(height: 40)
-                            Text(NSLocalizedString("Cancel", comment: "Common - Cancel button title"))
-                                .font(.system(size: 16))
-                                .foregroundColor(Color.black)
+                                .fill(Color.clear)
+                                .frame(width: 20, height: 20)
+                            Image("closeButtonIcon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                         }
                     }
                 )
+                
+                Spacer()
                 
                 Button(
                     action: {
@@ -85,16 +78,27 @@ struct FolderSelectionView: View {
                     label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.blue)
-                                .frame(height: 40)
+                                .fill(Color.clear)
+                                .frame(width: 20, height: 20)
                             Text(NSLocalizedString("Done", comment: "Common - Done button title"))
-                                .font(.system(size: 16))
-                                .foregroundColor(Color.white)
+                                .font(.system(size: 18))
+                                .foregroundColor(Color.blue)
                         }
                     }
                 )
             }
             .padding(.horizontal, 16)
+            .padding(.top, 16)
+            
+            // Folders list
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: self.columns, spacing: 4) {
+                    ForEach(self.folders, id: \.self) { folder in
+                        FolderView(folder: folder, delegate: self)
+                    }
+                }
+                .padding()
+            }
         }
     }
 }

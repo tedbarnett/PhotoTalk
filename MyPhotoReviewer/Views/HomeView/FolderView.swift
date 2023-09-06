@@ -65,10 +65,12 @@ struct FolderView: View {
                 }
                 
                 Text(self.folderTitle)
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 14, weight: .regular))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                     .foregroundColor(Color.offwhite100)
             }
-            .padding(.all, 10)
+            .padding(.all, 5)
             
             if self.isSelected {
                 Image("selectedIcon")

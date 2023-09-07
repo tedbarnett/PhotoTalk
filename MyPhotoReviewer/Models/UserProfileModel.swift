@@ -41,6 +41,9 @@ class UserProfileModel: ObservableObject {
     
     /// Boolean flag indicating if the user allowed access to photos
     @Published var didAllowPhotoAccess: Bool = false
+    
+    /// Boolean flag indicating if the user changed details on photos
+    @Published var didUpdatePhotoDetails: Bool = false
 
     // MARK: Initializer
 

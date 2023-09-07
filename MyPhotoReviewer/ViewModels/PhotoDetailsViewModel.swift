@@ -398,6 +398,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
               let service = self.databaseService else {
             return
         }
+        
+        profile.didUpdatePhotoDetails = true
         service.saveDetailsChangeStatusForUserPhoto(userId: profile.id, photoId: photoId) { didUpdate in
             guard didUpdate else { return }
             

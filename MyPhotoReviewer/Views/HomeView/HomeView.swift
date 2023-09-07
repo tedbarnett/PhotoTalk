@@ -151,9 +151,10 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    if !self.viewModel.folders.isEmpty {
-                        HStack(spacing: 8) {
-                            // Change album button
+                    
+                    HStack(spacing: 8) {
+                        // Change album button
+                        if !self.viewModel.folders.isEmpty {
                             Button(
                                 action: {
                                     self.viewModel.setFoldersAsSelectedIfAny()
@@ -170,31 +171,31 @@ struct HomeView: View {
                                     }
                                 }
                             )
-                            
-                            // Start photo slide show button
-                            Button(
-                                action: {
-                                    self.shouldShowPhotoSlideShowView = true
-                                },
-                                label: {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.blue)
-                                            .frame(height: 40)
-                                        Text(
-                                            NSLocalizedString("Start Slide Show",
-                                                              comment: "Home view - Start photo slide show button title")
-                                        )
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.white)
-                                    }
-                                    .opacity(self.viewModel.photos.isEmpty ? 0.4 : 1)
-                                }
-                            )
-                            .disabled(self.viewModel.photos.isEmpty)
                         }
-                        .padding(.horizontal, 16)
+                        
+                        // Start photo slide show button
+                        Button(
+                            action: {
+                                self.shouldShowPhotoSlideShowView = true
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.blue)
+                                        .frame(height: 40)
+                                    Text(
+                                        NSLocalizedString("Start Slide Show",
+                                                          comment: "Home view - Start photo slide show button title")
+                                    )
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.white)
+                                }
+                                .opacity(self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails ? 0.4 : 1)
+                            }
+                        )
+                        .disabled(self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails)
                     }
+                    .padding(.horizontal, 16)
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
                 

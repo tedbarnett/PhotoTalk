@@ -132,7 +132,10 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             print("Saved user audio recording with filename: \(fileName)")
             self.updateDetailsChangeStatus()
-            self.loadPhotoAudio(responseHandler: responseHandler)
+            self.loadPhotoAudio { didLoadAudio in
+                self.initializeAudioPlayer()
+                responseHandler(true)
+            }
         }
     }
     

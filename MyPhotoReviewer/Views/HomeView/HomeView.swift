@@ -45,7 +45,7 @@ struct HomeView: View {
                     ZStack {
                         // Title text
                         Text(NSLocalizedString("My Photo Memories", comment: "Photo reviewer view - title"))
-                            .font(.system(size: 18, weight: .regular))
+                            .font(.system(size: 20, weight: .regular))
                             .foregroundColor(Color.offwhite100)
                         
                         HStack {
@@ -77,7 +77,7 @@ struct HomeView: View {
                     Spacer()
                     
                     // Displaying media source selection options, if there are no user photos/albums
-                    if !self.userProfile.didAllowPhotoAccess {
+                    if !self.userProfile.didAllowPhotoAccess { // || self.viewModel.photos.isEmpty
                         VStack(alignment: .center, spacing: 24) {
                             Text(NSLocalizedString(
                                 "Where are your photos stored? Please select from the following options:",
@@ -119,26 +119,34 @@ struct HomeView: View {
                     
                     // Displaying user photos with details, if user photos/album details are saved in database
                     else if !self.viewModel.photos.isEmpty {
-                        ScrollView(.vertical, showsIndicators: false) {
-                            LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 16) {
-                                ForEach(self.viewModel.photos, id: \.self.id) { photo in
-                                    PhotoView(
-                                        currentSlideIndex: .constant(0),
-                                        index: 0,
-                                        photo: photo,
-                                        width: self.viewModel.photoGridColumnWidth,
-                                        height: self.viewModel.photoGridColumnWidth,
-                                        isPresentedAsThumbnail: true
-                                    )
-                                    .onTapGesture {
-                                        photo.isDownloaded = false
-                                        self.selectedPhoto = photo
-                                        self.shouldShowPhotoDetails = true
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text(NSLocalizedString("Please tap on photos to see details and begin annotation", comment: "Home view - Photo annotation title"))
+                                .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color.gray600)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ScrollView(.vertical, showsIndicators: false) {
+                                LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 16) {
+                                    ForEach(self.viewModel.photos, id: \.self.id) { photo in
+                                        PhotoView(
+                                            currentSlideIndex: .constant(0),
+                                            index: 0,
+                                            photo: photo,
+                                            width: self.viewModel.photoGridColumnWidth,
+                                            height: self.viewModel.photoGridColumnWidth,
+                                            isPresentedAsThumbnail: true
+                                        )
+                                        .onTapGesture {
+                                            photo.isDownloaded = false
+                                            self.selectedPhoto = photo
+                                            self.shouldShowPhotoDetails = true
+                                        }
                                     }
                                 }
                             }
-                            .padding()
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 12)
                     }
                     
                     Spacer()
@@ -256,7 +264,6 @@ struct HomeView: View {
             
             // Empty viewModel.folders means that the app has been installed fresh
             // So instead of loading user assets, we need to present media selection consent.
-            
             if self.viewModel.folders.isEmpty {
                 self.presentMediaSelectionConsent(for: mediaSource)
             }

@@ -64,6 +64,28 @@ class UserPhotoService {
         responseHandler(photoAlbums)
     }
     
+    func fetchPhotosFromUserDevice(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
+        let photosOptions = PHFetchOptions()
+        photosOptions.sortDescriptors = [
+          NSSortDescriptor(
+            key: "creationDate",
+            ascending: false)
+        ]
+        
+        var cloudPhotos = [CloudAsset]()
+        let result = PHAsset.fetchAssets(with: photosOptions)
+        result.enumerateObjects { asset, _, _ in
+            let photo = CloudAsset()
+            photo.source = .iCloud
+            photo.iCloudAssetId = asset.localIdentifier
+            photo.width = asset.pixelWidth
+            photo.height = asset.pixelHeight
+            photo.iCloudAsset = asset
+            cloudPhotos.append(photo)
+        }
+        responseHandler(cloudPhotos)
+    }
+    
     func downloadUserPhotosFromICloud(responseHandler: @escaping ResponseHandler<[CloudAsset]>) {
         self.imageCachingManager.allowsCachingHighQualityImages = false
         

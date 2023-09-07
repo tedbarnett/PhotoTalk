@@ -207,7 +207,7 @@ class LocalStorageService {
                     let folders = try decoder.decode([PhotoAlbum].self, from: data)
                     return folders
                 } catch {
-                    print("Error saving user's Apple device photo albums frome local database - (\(error))")
+                    print("Error loading user's Apple device photo albums from local database - (\(error))")
                     return nil
                 }
             } else {

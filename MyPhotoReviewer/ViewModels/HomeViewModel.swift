@@ -180,10 +180,19 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 } else {
                     self.userPhotoService.fetchPhotoAlbumsFromUserDevice { photoAlbums in
                         DispatchQueue.main.async {
-                            self.folders.removeAll()
-                            self.folders.append(contentsOf: photoAlbums)
-                            self.saveFoldersToLocalDatabase(userFolders: photoAlbums, mediaSource: .iCloud)
-                            self.shouldShowFolderSelectionView = true
+                            if !photoAlbums.isEmpty {
+                                self.folders.removeAll()
+                                self.folders.append(contentsOf: photoAlbums)
+                                self.saveFoldersToLocalDatabase(userFolders: photoAlbums, mediaSource: .iCloud)
+                                self.shouldShowFolderSelectionView = true
+                            } else {
+                                self.shouldShowFolderSelectionView = false
+                                self.userPhotoService.fetchPhotosFromUserDevice { userPhotos in
+                                    self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
+                                    self.photos.removeAll()
+                                    self.photos.append(contentsOf: userPhotos)
+                                }
+                            }
                             responseHandler(true)
                         }
                     }

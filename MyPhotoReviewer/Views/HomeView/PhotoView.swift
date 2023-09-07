@@ -30,7 +30,7 @@ struct PhotoView: View {
     @State private var image: Image?
     @State private var isImageLoading = true
     
-    private let horizontalPadding: CGFloat = 4
+    private let horizontalPadding: CGFloat = 8
     
     private var imageWidth: CGFloat {
         return self.width - (self.horizontalPadding * 2)

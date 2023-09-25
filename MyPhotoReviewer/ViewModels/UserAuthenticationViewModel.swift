@@ -122,10 +122,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
      If the authentication state is invalidated/expired by the authentication service provider,
      it logs user out of the system and prsents the login prompt
      */
-    func validateUserAuthenticationStateIfNeeded(responseHandler: @escaping VoidResponseHandler) {
+    func validateUserAuthenticationStateIfNeeded(responseHandler: @escaping ResponseHandler<Bool>) {
         guard self.localStorageService.isUserAuthenticated,
               let userProfile = self.userProfile else {
-            responseHandler()
+            responseHandler(false)
             return
         }
         
@@ -139,7 +139,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                 switch credentialState {
                 case .authorized:
                     guard error == nil else {
-                        responseHandler()
+                        responseHandler(false)
                         return
                     }
                     
@@ -148,7 +148,7 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                     DispatchQueue.main.async {
                         userProfile.isAuthenticated = true
                     }
-                    responseHandler()
+                    responseHandler(true)
                     
                     // Uncomment below code, if the user needs to be re-authenticated with Firebase
 //                    let idToken = self.localStorageService.appleIdToken
@@ -170,10 +170,10 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
                     DispatchQueue.main.async {
                         userProfile.isAuthenticated = false
                         self.localStorageService.isUserAuthenticated = false
-                        responseHandler()
+                        responseHandler(false)
                     }
                 default:
-                    responseHandler()
+                    responseHandler(false)
                     break
                 }
             }
@@ -182,27 +182,28 @@ class UserAuthenticationViewModel: NSObject, ObservableObject, BaseViewModel {
             if let user = user, let email = user.email {
                 userProfile.email = email
                 userProfile.isAuthenticated = self.localStorageService.isUserAuthenticated
-                responseHandler()
+                responseHandler(self.localStorageService.isUserAuthenticated)
             }
         } else {
             GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
                 guard error == nil, let user = Auth.auth().currentUser else {
-                    responseHandler()
+                    responseHandler(false)
                     return
                 }
                 let idToken = self.localStorageService.googleIdToken
                 let acessToken = self.localStorageService.googleAccessToken
                 let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                                  accessToken: acessToken)
+                
                 user.reauthenticate(with: credential) { authResult, error in
                     guard error == nil else {
-                        responseHandler()
+                        responseHandler(false)
                         return
                     }
                     userProfile.email = self.localStorageService.userEmail
                     userProfile.isAuthenticated = error == nil
                     self.localStorageService.isUserAuthenticated = error == nil
-                    responseHandler()
+                    responseHandler(userProfile.isAuthenticated)
                 }
             }
         }

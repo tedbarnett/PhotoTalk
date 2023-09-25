@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */; };
 		BC3378B96E3D16B36417DA7D /* Pods_MyPhotoReviewer_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */; };
-		C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
-		C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* FolderSelectionView.swift */; };
+		C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
+		C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
 		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
 		C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */; };
 		C101B9DA29FA7D6F000192CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A983B729F3D80E00D83BBF /* Preview Assets.xcassets */; };
@@ -28,6 +28,10 @@
 		C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
 		C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
 		C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B82A60621700867500 /* SlidesScrollView.swift */; };
+		C132B43B2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C132B43A2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift */; };
+		C132B43C2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C132B43A2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift */; };
+		C132B43E2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C132B43D2ABEAE040014AB83 /* GoogleDriveFolderView.swift */; };
+		C132B43F2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C132B43D2ABEAE040014AB83 /* GoogleDriveFolderView.swift */; };
 		C14E2C362A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */; };
 		C14E2C372A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */; };
 		C16DDC482A8B6C9D00009869 /* PhotoSlideShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */; };
@@ -108,8 +112,8 @@
 		C1D1E69F2A59F61A005F508B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E69E2A59F61A005F508B /* FirebaseAuth */; };
 		C1D1E6A12A59F61A005F508B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6A02A59F61A005F508B /* FirebaseDatabase */; };
 		C1D1E6A32A59F61A005F508B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C1D1E6A22A59F61A005F508B /* FirebaseStorage */; };
-		C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
-		C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* FolderView.swift */; };
+		C1DCE0712A33351B00C45549 /* ICloudAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* ICloudAlbumView.swift */; };
+		C1DCE0722A33351B00C45549 /* ICloudAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DCE0702A33351B00C45549 /* ICloudAlbumView.swift */; };
 		C1DFD3032A27A00C0001ABFC /* GoogleDriveService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */; };
 		C1DFD3152A27CE750001ABFC /* GTMSessionFetcher in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */; };
 		C1DFD3172A27CE750001ABFC /* GTMSessionFetcherCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1DFD3162A27CE750001ABFC /* GTMSessionFetcherCore */; };
@@ -159,7 +163,7 @@
 		1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; sourceTree = "<group>"; };
 		82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.release.xcconfig"; sourceTree = "<group>"; };
-		C101B3A52A3356110024E261 /* FolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSelectionView.swift; sourceTree = "<group>"; };
+		C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudAlbumSelectionView.swift; sourceTree = "<group>"; };
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		C101B9F429FA8721000192CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
 		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
+		C132B43A2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveFolderSelectionView.swift; sourceTree = "<group>"; };
+		C132B43D2ABEAE040014AB83 /* GoogleDriveFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveFolderView.swift; sourceTree = "<group>"; };
 		C14E2C352A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset + Preview Image + Raw Image.swift"; sourceTree = "<group>"; };
 		C16DDC472A8B6C9D00009869 /* PhotoSlideShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowView.swift; sourceTree = "<group>"; };
 		C16DDC492A8B6CB500009869 /* PhotoSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideView.swift; sourceTree = "<group>"; };
@@ -215,7 +221,7 @@
 		C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		C1D1E6762A59935F005F508B /* FirebaseDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D1E67A2A599372005F508B /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1DCE0702A33351B00C45549 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
+		C1DCE0702A33351B00C45549 /* ICloudAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudAlbumView.swift; sourceTree = "<group>"; };
 		C1DFD3012A27A0010001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD3022A27A00C0001ABFC /* GoogleDriveService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleDriveService-Info.plist"; sourceTree = "<group>"; };
 		C1DFD32D2A27E8F80001ABFC /* CloudAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAsset.swift; sourceTree = "<group>"; };
@@ -546,10 +552,12 @@
 			isa = PBXGroup;
 			children = (
 				C1A983B229F3D80D00D83BBF /* HomeView.swift */,
-				C1DCE0702A33351B00C45549 /* FolderView.swift */,
-				C1F6B8232A27659A00D3A822 /* PhotoView.swift */,
 				C1F6B81D2A25D74200D3A822 /* MediaSourceSelectionButton.swift */,
-				C101B3A52A3356110024E261 /* FolderSelectionView.swift */,
+				C1F6B8232A27659A00D3A822 /* PhotoView.swift */,
+				C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */,
+				C1DCE0702A33351B00C45549 /* ICloudAlbumView.swift */,
+				C132B43A2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift */,
+				C132B43D2ABEAE040014AB83 /* GoogleDriveFolderView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -1004,9 +1012,10 @@
 				C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
 				C17E94A52A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,
+				C132B43B2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift in Sources */,
 				C19948B42A036C24004CD4A1 /* UIDevice+ScreenSize.swift in Sources */,
 				C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */,
-				C1DCE0712A33351B00C45549 /* FolderView.swift in Sources */,
+				C1DCE0712A33351B00C45549 /* ICloudAlbumView.swift in Sources */,
 				C1F6B80F2A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
@@ -1014,7 +1023,8 @@
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C14E2C362A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
-				C101B3A62A3356110024E261 /* FolderSelectionView.swift in Sources */,
+				C132B43E2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */,
+				C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
 				C17E94AD2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
@@ -1079,9 +1089,10 @@
 				C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
 				C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */,
+				C132B43C2ABEA7140014AB83 /* GoogleDriveFolderSelectionView.swift in Sources */,
 				C1B2CA852A15458600D2AE04 /* UIDevice+ScreenSize.swift in Sources */,
 				C1B2CA862A15458600D2AE04 /* FormTextField.swift in Sources */,
-				C1DCE0722A33351B00C45549 /* FolderView.swift in Sources */,
+				C1DCE0722A33351B00C45549 /* ICloudAlbumView.swift in Sources */,
 				C1F6B8102A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
 				C1B2CA872A15458600D2AE04 /* UserAuthenticationProvider.swift in Sources */,
@@ -1089,7 +1100,8 @@
 				C1B2CA892A15458600D2AE04 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C14E2C372A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
-				C101B3A72A3356110024E261 /* FolderSelectionView.swift in Sources */,
+				C132B43F2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */,
+				C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,
 				C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */,
 				C17E94AE2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
@@ -1109,7 +1121,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
@@ -1151,7 +1163,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Development.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1382,7 +1394,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;
@@ -1424,7 +1436,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MyPhotoReviewer/Application/Entitlements/MyPhotoReviewer-Distribution.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPhotoReviewer/Preview Content\"";
 				DEVELOPMENT_TEAM = E7LF2VLC52;
 				ENABLE_PREVIEWS = YES;

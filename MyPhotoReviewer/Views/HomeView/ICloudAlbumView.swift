@@ -1,5 +1,5 @@
 //
-//  FolderView.swift
+//  ICloudAlbumView.swift
 //  MyPhotoReviewer
 //
 //  Created by Prem Pratap Singh on 09/06/23.
@@ -8,34 +8,32 @@
 import SwiftUI
 
 /**
- FolderViewDelegate delegates back user selection/deselection action to the host view
+ ICloudAlbumViewDelegate delegates back user selection/deselection action to the host view
  */
-protocol FolderViewDelegate {
-    func didChangeSelection(isSelected: Bool, folder: CloudAsset)
+protocol ICloudAlbumViewDelegate {
+    func didChangeSelection(isSelected: Bool, album: CloudAsset)
 }
 
 /**
- FolderView shows folder graphics and name
+ ICloudAlbumView shows iCloud album graphics and name
  */
-struct FolderView: View {
+struct ICloudAlbumView: View {
     
     // MARK: Public properties
     
-    var folder: CloudAsset
-    var delegate: FolderViewDelegate?
+    var album: CloudAsset
+    var delegate: ICloudAlbumViewDelegate?
     
     // MARK: Private properties
     
     @State private var isSelected = false
     
     /*
-     Returns title of the Google drive folder or iCloud photo album
+     Returns title of the photo album
      */
-    private var folderTitle: String {
-        if let gDriveFolderTitle = folder.googleDriveFolderName {
-            return gDriveFolderTitle
-        } else if let iCloudAlbumTitle = folder.iCloudAlbumTitle {
-            return iCloudAlbumTitle
+    private var albumTitle: String {
+        if let title = self.album.iCloudAlbumTitle {
+            return title
         }
         return ""
     }
@@ -46,7 +44,7 @@ struct FolderView: View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 0) {
                 
-                if let image = self.folder.iCloudAlbumPreviewImage {
+                if let image = self.album.iCloudAlbumPreviewImage {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color.black300)
@@ -64,7 +62,7 @@ struct FolderView: View {
                         .frame(width:125, height: 125)
                 }
                 
-                Text(self.folderTitle)
+                Text(self.albumTitle)
                     .font(.system(size: 14, weight: .regular))
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -82,22 +80,10 @@ struct FolderView: View {
         }
         .onTapGesture {
             self.isSelected.toggle()
-            self.delegate?.didChangeSelection(isSelected: self.isSelected, folder: self.folder)
+            self.delegate?.didChangeSelection(isSelected: self.isSelected, album: self.album)
         }
         .onAppear {
-            self.isSelected = self.folder.isSelected
+            self.isSelected = self.album.isSelected
         }
-    }
-}
-
-struct FolderView_Previews: PreviewProvider {
-    static var asset: CloudAsset {
-        let asset = CloudAsset()
-        asset.googleDriveFolderName = "Folder"
-        return asset
-    }
-    
-    static var previews: some View {
-        FolderView(folder: self.asset)
     }
 }

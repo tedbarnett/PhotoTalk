@@ -48,6 +48,11 @@ extension Color {
         return Color("gray800")
     }
     
+    // Returns gray 900 color
+    static var gray900: Color {
+        return Color("gray900")
+    }
+    
     // Returns blue 500 color
     static var blue500: Color {
         return Color("blue500")

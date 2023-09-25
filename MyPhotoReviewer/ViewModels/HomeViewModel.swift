@@ -207,6 +207,11 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             } else {
                 DispatchQueue.global().async {
                     self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
+                        
+                        guard !userFolders.isEmpty else {
+                            self.reauthenticateWithGoogleDriveAndDownloadFolders(responseHandler: responseHandler)
+                            return
+                        }
                         DispatchQueue.main.async {
                             self.folders.removeAll()
                             self.folders.append(contentsOf: userFolders)
@@ -228,6 +233,43 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                 responseHandler(true)
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func reauthenticateWithGoogleDriveAndDownloadFolders(responseHandler: @escaping ResponseHandler<Bool>) {
+        let authenticationViewModel = UserAuthenticationViewModel()
+        authenticationViewModel.authenticateUserWithGoogleDrive { authToken in
+            guard let token = authToken, !token.isEmpty else {
+                responseHandler(false)
+                return
+            }
+            
+            self.localStorageService.didUserAllowPhotoAccess = true
+            self.localStorageService.userSelectedMediaSource = MediaSource.googleDrive.rawValue
+            
+            self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
+                DispatchQueue.main.async {
+                    self.folders.removeAll()
+                    self.folders.append(contentsOf: userFolders)
+                    
+                    self.saveFoldersToLocalDatabase(userFolders: userFolders, mediaSource: .googleDrive)
+                    
+                    // If user doesn't have any folder, download the photos from root level
+                    if userFolders.isEmpty {
+                        self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
+                            self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
+                            DispatchQueue.main.async {
+                                self.photos.removeAll()
+                                self.photos.append(contentsOf: userPhotos)
+                                responseHandler(true)
+                            }
+                        }
+                    } else {
+                        self.shouldShowFolderSelectionView = true
+                        responseHandler(true)
                     }
                 }
             }

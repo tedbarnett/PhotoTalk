@@ -174,26 +174,26 @@ struct HomeView: View {
                         }
                         
                         // Start photo slide show button
-                        Button(
-                            action: {
-                                self.shouldShowPhotoSlideShowView = true
-                            },
-                            label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.blue)
-                                        .frame(height: 40)
-                                    Text(
-                                        NSLocalizedString("Start Slide Show",
-                                                          comment: "Home view - Start photo slide show button title")
-                                    )
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.white)
+                        if self.viewModel.selectedFolders != nil && self.userProfile.didUpdatePhotoDetails {
+                            Button(
+                                action: {
+                                    self.shouldShowPhotoSlideShowView = true
+                                },
+                                label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color.blue)
+                                            .frame(height: 40)
+                                        Text(
+                                            NSLocalizedString("Start Slide Show",
+                                                              comment: "Home view - Start photo slide show button title")
+                                        )
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.white)
+                                    }
                                 }
-                                .opacity(self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails ? 0.4 : 1)
-                            }
-                        )
-                        .disabled(self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails)
+                            )
+                        }
                     }
                     .padding(.horizontal, 16)
                 }
@@ -237,10 +237,17 @@ struct HomeView: View {
             self.shouldShowFolderSelectionView = shouldShow
         }
         .sheet(isPresented: self.$shouldShowFolderSelectionView) {
-            FolderSelectionView(
-                folders: self.viewModel.folders,
-                delegate: self
-            )
+            if self.userProfile.mediaSource == .iCloud {
+                ICloudAlbumSelectionView(
+                    albums: self.viewModel.folders,
+                    delegate: self
+                )
+            } else if self.userProfile.mediaSource == .googleDrive {
+                GoogleDriveFolderSelectionView(
+                    folders: self.viewModel.folders,
+                    delegate: self
+                )
+            }
         }
     }
     
@@ -303,7 +310,29 @@ struct HomeView: View {
 
 // MARK: FolderSelectionViewDelegate delegate methods
 
-extension HomeView: FolderSelectionViewDelegate {
+extension HomeView: ICloudAlbumSelectionViewDelegate {
+    func didCancelAlbumSelection() {
+        self.shouldShowFolderSelectionView = false
+    }
+    
+    func didChangeAlbumSelection(selectedAlbums: [CloudAsset]) {
+        self.shouldShowFolderSelectionView = false
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        self.viewModel.downloadPhotosFromICloudAlbums(selectedAlbums) { didLoadPhotos in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
+        }
+        
+        if self.userProfile.mediaSource == .iCloud {
+            self.viewModel.downloadPhotosFromICloudAlbums(selectedAlbums) { didLoadPhotos in
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+            }
+        }
+    }
+}
+
+// MARK: GoogleDriveFolderSelectionViewDelegate delegate methods
+
+extension HomeView: GoogleDriveFolderSelectionViewDelegate {
     func didCancelFolderSelection() {
         self.shouldShowFolderSelectionView = false
     }
@@ -311,15 +340,8 @@ extension HomeView: FolderSelectionViewDelegate {
     func didChangeFolderSelection(selectedFolders: [CloudAsset]) {
         self.shouldShowFolderSelectionView = false
         self.overlayContainerContext.shouldShowProgressIndicator = true
-        
-        if self.userProfile.mediaSource == .iCloud {
-            self.viewModel.downloadPhotosFromICloudAlbums(selectedFolders) { didLoadPhotos in
-                self.overlayContainerContext.shouldShowProgressIndicator = false
-            }
-        } else if self.userProfile.mediaSource == .googleDrive {
-            self.viewModel.downloadPhotosFromGoogleDriveFolders(selectedFolders) { didLoadPhotos in
-                self.overlayContainerContext.shouldShowProgressIndicator = false
-            }
+        self.viewModel.downloadPhotosFromGoogleDriveFolders(selectedFolders) { didLoadPhotos in
+            self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }
 }

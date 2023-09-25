@@ -68,9 +68,10 @@ struct RootView: View {
         self.overlayContainerContext.shouldShowProgressIndicator = true
         let userAuthenticationViewModel = UserAuthenticationViewModel()
         userAuthenticationViewModel.userProfile = self.userProfile
-        userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded {
+        userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded { isAuthenticted in
             DispatchQueue.main.async {
-                if self.userProfile.mediaSource == nil {
+                self.overlayContainerContext.shouldShowProgressIndicator = false
+                if isAuthenticted == false || self.userProfile.mediaSource == nil {
                     self.overlayContainerContext.shouldShowProgressIndicator = false
                 }
                 self.isValidatingUserAuthentication = false

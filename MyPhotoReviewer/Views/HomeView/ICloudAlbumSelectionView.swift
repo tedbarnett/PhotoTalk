@@ -1,5 +1,5 @@
 //
-//  FolderSelectionView.swift
+//  ICloudAlbumSelectionView.swift
 //  MyPhotoReviewer
 //
 //  Created by Prem Pratap Singh on 09/06/23.
@@ -8,27 +8,26 @@
 import SwiftUI
 
 /**
- FolderSelectionViewDelegate delegates back change event in user selected folder selection
+ ICloudAlbumSelectionViewDelegate delegates back change event in user selected albums
  */
-protocol FolderSelectionViewDelegate {
-    func didChangeFolderSelection(selectedFolders: [CloudAsset])
-    func didCancelFolderSelection()
+protocol ICloudAlbumSelectionViewDelegate {
+    func didChangeAlbumSelection(selectedAlbums: [CloudAsset])
+    func didCancelAlbumSelection()
 }
 
 /**
- FolderSelectionView lets users select folders from a grid of user Google drive folders
- and delegates back user folder selection event to the host view
+ ICloudAlbumSelectionView lets users select photo albums from the photo gallery and icloud
+ and delegates back user album selection event to the host view
  */
-struct FolderSelectionView: View {
+struct ICloudAlbumSelectionView: View {
     
     // MARK: Public properties
     
-    var folders: [CloudAsset] = []
-    var delegate: FolderSelectionViewDelegate? = nil
+    var albums: [CloudAsset] = []
+    var delegate: ICloudAlbumSelectionViewDelegate? = nil
     
     // MARK: Private properties
-    
-    @State private var selectedFolders = [CloudAsset]()
+    @State private var selectedAlbums = [CloudAsset]()
     
     private var columns: [GridItem] {
         let itemCount = UIDevice.isIpad ? 6 : 3
@@ -41,8 +40,8 @@ struct FolderSelectionView: View {
     
     // MARK: User interface
     
-    init(folders: [CloudAsset], delegate: FolderSelectionViewDelegate? = nil) {
-        self.folders = folders
+    init(albums: [CloudAsset], delegate: ICloudAlbumSelectionViewDelegate? = nil) {
+        self.albums = albums
         self.delegate = delegate
     }
     
@@ -53,7 +52,7 @@ struct FolderSelectionView: View {
             HStack(alignment: .center, spacing: 16) {
                 Button(
                     action: {
-                        self.delegate?.didCancelFolderSelection()
+                        self.delegate?.didCancelAlbumSelection()
                     },
                     label: {
                         ZStack {
@@ -70,7 +69,7 @@ struct FolderSelectionView: View {
                 
                 Spacer()
                 
-                Text(NSLocalizedString("Select Photo Album", comment: "Folder selection view - Title"))
+                Text(NSLocalizedString("Select Photo Album", comment: "ICloud album selection view - Title"))
                     .font(.system(size: 16))
                     .foregroundColor(Color.white)
                 
@@ -78,8 +77,8 @@ struct FolderSelectionView: View {
                 
                 Button(
                     action: {
-                        let folders = self.folders.filter { $0.isSelected == true }
-                        self.delegate?.didChangeFolderSelection(selectedFolders: folders)
+                        let albums = self.albums.filter { $0.isSelected == true }
+                        self.delegate?.didChangeAlbumSelection(selectedAlbums: albums)
                     },
                     label: {
                         ZStack {
@@ -96,11 +95,11 @@ struct FolderSelectionView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
             
-            // Folders list
+            // Albums list
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: self.columns, spacing: 4) {
-                    ForEach(self.folders, id: \.self) { folder in
-                        FolderView(folder: folder, delegate: self)
+                    ForEach(self.albums, id: \.self) { album in
+                        ICloudAlbumView(album: album, delegate: self)
                     }
                 }
                 .padding()
@@ -110,24 +109,8 @@ struct FolderSelectionView: View {
 }
 
 // MARK: FolderViewDelegate delegate methods
-extension FolderSelectionView: FolderViewDelegate {
-    func didChangeSelection(isSelected: Bool, folder: CloudAsset) {
-        folder.isSelected = isSelected
-    }
-}
-
-struct FolderSelectionView_Previews: PreviewProvider {
-    static var folders: [CloudAsset] {
-        var assets = [CloudAsset]()
-        for i in 0..<100 {
-            let asset = CloudAsset()
-            asset.googleDriveFolderName = "Folder \(i)"
-            assets.append(asset)
-        }
-        return assets
-    }
-    
-    static var previews: some View {
-        FolderSelectionView(folders: self.folders)
+extension ICloudAlbumSelectionView: ICloudAlbumViewDelegate {
+    func didChangeSelection(isSelected: Bool, album: CloudAsset) {
+        album.isSelected = isSelected
     }
 }

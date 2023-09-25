@@ -22,7 +22,7 @@ class CloudAsset: Hashable {
     }
     
     let id: String = UUID().uuidString
-    let type: CloudAssetType = .photo
+    var type: CloudAssetType = .photo
     var source: MediaSource = .iCloud
     
     // MARK: Properties for iCloud assets
@@ -39,6 +39,9 @@ class CloudAsset: Hashable {
     
     var googleDriveFolderName: String? = nil
     var googleDriveFolderId: String? = nil
+    var googleDriveSubfolders: [CloudAsset]? = nil
+    var isSubfolder: Bool = false
+    
     var googleDriveFileId: String? = nil
     
     var width: Int? = nil
@@ -119,17 +122,13 @@ class CloudAsset: Hashable {
             self.isDownloaded = true
             return downloadedImage
         } else if self.source == .googleDrive {
-            return nil
-//            guard let fileId = self.googleDriveFileId else { return }
-//            photoService.downloadPhtoFromGoogleDrive(fileId: fileId) { image in
-//                guard let downloadedImage = image else {
-//                    self.isDownloaded = false
-//                    responseHandler(nil)
-//                    return
-//                }
-//                self.isDownloaded = true
-//                responseHandler(downloadedImage)
-//            }
+            guard let fileId = self.googleDriveFileId,
+                  let downloadedImage = try? await photoService.downloadPhtoFromGoogleDrive(fileId: fileId) else {
+                self.isDownloaded = false
+                return nil
+            }
+            self.isDownloaded = true
+            return downloadedImage
         }
         
         return nil

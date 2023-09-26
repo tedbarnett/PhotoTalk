@@ -428,6 +428,7 @@ extension FirebaseDatabaseService {
             let photoReference = userDirectory.child(photoId)
             
             let details: [String: Any] = [
+                DatabaseNodeCommonProperties.id: photoId,
                 PhotoNodeProperties.didChangeDetails: "1"
             ]
             

@@ -24,6 +24,7 @@ class CloudAsset: Hashable {
     let id: String = UUID().uuidString
     var type: CloudAssetType = .photo
     var source: MediaSource = .iCloud
+    var date: Date? = nil
     
     // MARK: Properties for iCloud assets
     

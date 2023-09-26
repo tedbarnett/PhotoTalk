@@ -192,7 +192,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                     self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
                                     self.photos.removeAll()
                                     self.photos.append(contentsOf: userPhotos)
-                                    self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
                                 }
                             }
                             responseHandler(true)
@@ -254,7 +253,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             DispatchQueue.main.async {
                                 self.photos.removeAll()
                                 self.photos.append(contentsOf: userPhotos)
-                                self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
                                 responseHandler(true)
                             }
                         }
@@ -389,7 +387,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
-        self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
     }
     
     /**
@@ -444,8 +441,23 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
-        self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         responseHandler(true)
+    }
+    
+    /**
+     Checks if currently loaded/presented photos ids' are part of photos ids' those have been updated
+     by the user
+     */
+    func checkIfAnyOfTheLoadedPhotosUpdatedByUser() {
+        let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
+        var didUpdatePhoto = false
+        for photo in self.photos {
+            if let id = photo.photoId, idsOfUpdatedPhotos.contains(id) {
+                didUpdatePhoto = true
+                break
+            }
+        }
+        self.userProfile?.didUpdatePhotoDetails = didUpdatePhoto
     }
     
     /**
@@ -482,17 +494,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         }
-    }
-    
-    private func checkIfAnyOfTheLoadedPhotosUpdatedByUser() {
-        let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
-        var didUpdatePhoto = false
-        for photo in self.photos {
-            if let id = photo.photoId, idsOfUpdatedPhotos.contains(id) {
-                didUpdatePhoto = true
-            }
-        }
-        self.userProfile?.didUpdatePhotoDetails = didUpdatePhoto
     }
 }
 

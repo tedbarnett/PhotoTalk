@@ -299,6 +299,7 @@ struct HomeView: View {
         self.viewModel.downloadCloudAssets(for: mediaSource) { _ in
             self.didAttemptToDownloadAssets = true
             self.overlayContainerContext.shouldShowProgressIndicator = false
+            self.viewModel.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         }
     }
     

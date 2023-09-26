@@ -65,14 +65,40 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      Loads details of the photo like location, date, time, etc from server
      */
     func loadPhotoDetails() {
+        let unknownLocationText = NSLocalizedString(
+            "Location unknown",
+            comment: "Photo details view - Unknown photo location"
+        )
+        let unknownDateTimeText = NSLocalizedString(
+            "Date and time unknown",
+            comment: "Photo details view - Unknown photo location"
+        )
+        
         guard let profile = self.userProfile,
-              let photoId = self.selectedPhoto?.photoId,
+              let photo = self.selectedPhoto,
+              let photoId = photo.photoId,
               let service = self.databaseService else { return }
         service.loadPhotoDetailsFromDatabase(userId: profile.id, photoId: photoId) { response in
             guard let photoDetails = response.photo else {
-                self.photoLocation = nil
+                self.photoLocation = unknownLocationText
+                self.photoDateString = unknownDateTimeText
                 return
             }
+            
+            if let location = photoDetails.location {
+                self.photoLocation = location
+            } else {
+                self.photoLocation = unknownLocationText
+            }
+            
+            if let date = photo.date {
+                self.photoDateString = date.photoNodeFormattedDateString
+            } else {
+                self.photoDateString = unknownLocationText
+            }
+            
+            self.photoLocation = photoDetails.location ?? unknownLocationText
+            self.photoDateString = photoDetails.dateAndTime?.photoNodeFormattedDateString
             self.isFavourite = photoDetails.isFavourite
         }
     }

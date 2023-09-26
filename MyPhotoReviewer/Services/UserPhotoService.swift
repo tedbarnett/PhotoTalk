@@ -156,6 +156,7 @@ class UserPhotoService {
                     let asset = CloudAsset()
                     asset.source = .googleDrive
                     asset.type = .folder
+                    folder
                     asset.googleDriveFolderId = folder.identifier
                     asset.googleDriveFolderName = folder.name
                     cloudFolders.append(asset)
@@ -211,6 +212,7 @@ class UserPhotoService {
         
         let query = GTLRDriveQuery_FilesList.query()
         query.q = "'\(folderId)' in parents and mimeType contains 'image/'"
+        query.fields = "files(id, name, createdTime)"
         
         service.executeQuery(query) { ticket, files, error in
             guard error == nil,
@@ -224,7 +226,9 @@ class UserPhotoService {
             var cloudPhotos = [CloudAsset]()
             for file in fileList {
                 let asset = CloudAsset()
+                asset.type = .photo
                 asset.source = .googleDrive
+                asset.date = file.createdTime?.date
                 asset.googleDriveFileId = file.identifier
                 cloudPhotos.append(asset)
             }
@@ -250,7 +254,9 @@ class UserPhotoService {
             var cloudPhotos = [CloudAsset]()
             for file in fileList {
                 let asset = CloudAsset()
+                asset.type = .photo
                 asset.source = .googleDrive
+                asset.date = file.createdTime?.date
                 asset.googleDriveFileId = file.identifier
                 cloudPhotos.append(asset)
             }

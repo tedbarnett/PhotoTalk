@@ -232,6 +232,8 @@ struct HomeView: View {
                 ) { EmptyView() }
             }
         }
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             self.initializeViewModels()
             self.viewModel.loadIdsOfUpdatedPhotos()

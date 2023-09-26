@@ -67,6 +67,7 @@
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
 "Add location" = "Add location";
 "Location unknown" = "Location unknown";
+"Date and time unknown" = "Date and time unknown";
 "Add date and time" = "Add date and time";
 "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result" = "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result";
 "Pick a date and time" = "Pick a date and time";

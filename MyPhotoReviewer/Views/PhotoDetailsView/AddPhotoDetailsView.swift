@@ -50,6 +50,7 @@ struct AddPhotoDetailsView: View {
     
     // MARK: Public properties
     
+    var photo: CloudAsset?
     var mode: AddPhotoDetailsViewMode = .addLocation
     var selectedLocation: String? = nil
     var selectedDateString: String? = nil
@@ -193,7 +194,7 @@ struct AddPhotoDetailsView: View {
                     
                     DatePicker(
                         NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
-                        selection: $date,
+                        selection: self.$date,
                         in: ...Date(),
                         displayedComponents: [.date, .hourAndMinute])
                     .datePickerStyle(.automatic)
@@ -225,6 +226,11 @@ struct AddPhotoDetailsView: View {
             .onChange(of: self.locationSearchString, perform: { string in
                 self.placesService.findPlaces(query: string)
             })
+            .onAppear {
+                if let photo = self.photo, let photoDate = photo.date {
+                    self.date = photoDate
+                }
+            }
         }
     }
 }

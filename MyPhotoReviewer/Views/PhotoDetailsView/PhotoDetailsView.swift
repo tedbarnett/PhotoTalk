@@ -323,6 +323,7 @@ struct PhotoDetailsView: View {
         }
         .sheet(isPresented: self.$shouldShowAddPhotoDetailsView) {
             AddPhotoDetailsView(
+                photo: self.selectedPhoto,
                 mode: self.addPhotoDetailsViewMode,
                 selectedLocation: self.viewModel.photoLocation,
                 selectedDateString: self.viewModel.photoDateString,

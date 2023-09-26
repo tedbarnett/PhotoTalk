@@ -123,8 +123,8 @@ struct GoogleDriveFolderView: View {
                 self.delegate?.didTapOn(folder: self.folder) { folders in
                     self.folder.didLoadFolderDetails = true
                     guard let subFolders = folders, !subFolders.isEmpty else {
-                        self.isSelected = true
-                        self.folder.isSelected = true
+                        self.folder.isSelected = !self.folder.isSelected
+                        self.isSelected = self.folder.isSelected
                         self.delegate?.didChangeFolderSelection(folder: self.folder)
                         return
                     }

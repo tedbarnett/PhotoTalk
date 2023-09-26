@@ -325,16 +325,12 @@ extension HomeView: ICloudAlbumSelectionViewDelegate {
     }
     
     func didChangeAlbumSelection(selectedAlbums: [CloudAsset]) {
+        self.didAttemptToDownloadAssets = false
         self.shouldShowFolderSelectionView = false
         self.overlayContainerContext.shouldShowProgressIndicator = true
         self.viewModel.downloadPhotosFromICloudAlbums(selectedAlbums) { didLoadPhotos in
             self.overlayContainerContext.shouldShowProgressIndicator = false
-        }
-        
-        if self.userProfile.mediaSource == .iCloud {
-            self.viewModel.downloadPhotosFromICloudAlbums(selectedAlbums) { didLoadPhotos in
-                self.overlayContainerContext.shouldShowProgressIndicator = false
-            }
+            self.didAttemptToDownloadAssets = true
         }
     }
 }
@@ -347,10 +343,12 @@ extension HomeView: GoogleDriveFolderSelectionViewDelegate {
     }
     
     func didChangeFolderSelection(selectedFolders: [CloudAsset]) {
+        self.didAttemptToDownloadAssets = false
         self.shouldShowFolderSelectionView = false
         self.overlayContainerContext.shouldShowProgressIndicator = true
         self.viewModel.downloadPhotosFromGoogleDriveFolders(selectedFolders) { didLoadPhotos in
             self.overlayContainerContext.shouldShowProgressIndicator = false
+            self.didAttemptToDownloadAssets = true
         }
     }
 }

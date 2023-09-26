@@ -41,7 +41,7 @@ class CloudAsset: Hashable {
     var googleDriveFolderId: String? = nil
     var googleDriveSubfolders: [CloudAsset]? = nil
     var isSubfolder: Bool = false
-    
+    var didLoadFolderDetails: Bool = false
     var googleDriveFileId: String? = nil
     
     var width: Int? = nil
@@ -62,6 +62,15 @@ class CloudAsset: Hashable {
             return assetId
         } else if self.source == .googleDrive, let fileId = self.googleDriveFileId {
             return fileId
+        }
+        return nil
+    }
+    
+    var albumId: String? {
+        if self.source == .iCloud, let albumId = self.iCloudAlbumId {
+            return albumId
+        } else if self.source == .googleDrive, let folderId = self.googleDriveFolderId {
+            return folderId
         }
         return nil
     }

@@ -29,21 +29,8 @@ struct GoogleDriveFolderSelectionView: View {
     // MARK: Private properties
     
     @EnvironmentObject private var overlayContainerContext: OverlayContainerContext
-    @State private var folderColumns: [FoldersColumn] = []
     @State private var selectedFolders = [CloudAsset]()
     @State private var shouldShowProgressIndicator = false
-    @State private var scrollToColumnId: String = ""
-    
-    private var columns: [GridItem] {
-        let itemCount = UIDevice.isIpad ? 6 : 3
-        var gridItems = [GridItem]()
-        for _ in 0..<itemCount {
-            gridItems.append(GridItem(.flexible()))
-        }
-        return gridItems
-    }
-    
-    
     
     // MARK: User interface
     
@@ -80,8 +67,7 @@ struct GoogleDriveFolderSelectionView: View {
                     
                     Button(
                         action: {
-                            let selectedFolders = self.folders.filter { $0.isSelected == true }
-                            self.delegate?.didChangeFolderSelection(selectedFolders: selectedFolders)
+                            self.delegate?.didChangeFolderSelection(selectedFolders: self.selectedFolders)
                         },
                         label: {
                             ZStack {
@@ -99,7 +85,7 @@ struct GoogleDriveFolderSelectionView: View {
                 // Folder list view
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 4) {
-                        ForEach(self.folders, id: \.self.id) { folder in 
+                        ForEach(self.folders, id: \.self.id) { folder in
                             GoogleDriveFolderView(folder: folder, delegate: self)
                         }
                     }
@@ -119,17 +105,16 @@ struct GoogleDriveFolderSelectionView: View {
             }
         }
         .onAppear {
-            self.addNewFolderColumn(for: self.folders)
+            self.getSelectedFolders()
         }
     }
     
     // MARK: - Private methods
     
-    private func addNewFolderColumn(for folders: [CloudAsset]) {
-        let id = UUID().uuidString
-        let column = FoldersColumn(id: id, folders: folders)
-        self.folderColumns.append(column)
-        self.scrollToColumnId = id
+    private func getSelectedFolders() {
+        for folder in self.folders where folder.isSelected {
+            self.selectedFolders.append(folder)
+        }
     }
 }
 
@@ -147,21 +132,19 @@ extension GoogleDriveFolderSelectionView: GoogleDriveFolderViewDelegate {
             }
             
             folder.googleDriveSubfolders = subFolders
-            self.addNewFolderColumn(for: subFolders)
             responseHandler(subFolders)
         }
     }
-}
-
-/**
- FoldersColumn presents data structure for a column of Google drive folders
- */
-class FoldersColumn {
-    let id: String
-    let folders: [CloudAsset]
     
-    init(id: String, folders: [CloudAsset]) {
-        self.id = id
-        self.folders = folders
+    func didChangeFolderSelection(folder: CloudAsset) {
+        if folder.isSelected {
+            if self.selectedFolders.first(where: {$0.id == folder.id}) == nil {
+                self.selectedFolders.append(folder)
+            }
+        } else {
+            if let index = self.selectedFolders.firstIndex(where: {$0.id == folder.id}) {
+                self.selectedFolders.remove(at: index)
+            }
+        }
     }
 }

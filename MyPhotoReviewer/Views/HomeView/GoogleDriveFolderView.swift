@@ -12,6 +12,7 @@ import SwiftUI
  */
 protocol GoogleDriveFolderViewDelegate {
     func didTapOn(folder: CloudAsset, responseHandler: @escaping ResponseHandler<[CloudAsset]?>)
+    func didChangeFolderSelection(folder: CloudAsset)
 }
 
 /**
@@ -118,18 +119,27 @@ struct GoogleDriveFolderView: View {
                 .fill(Color.gray900)
         }
         .onTapGesture {
-            guard let folders = self.folder.googleDriveSubfolders else {
+            guard self.folder.didLoadFolderDetails else {
                 self.delegate?.didTapOn(folder: self.folder) { folders in
+                    self.folder.didLoadFolderDetails = true
                     guard let subFolders = folders, !subFolders.isEmpty else {
                         self.isSelected = true
                         self.folder.isSelected = true
+                        self.delegate?.didChangeFolderSelection(folder: self.folder)
                         return
                     }
                     self.addToSubfolders(folders: subFolders)
                 }
                 return
             }
-            self.addToSubfolders(folders: folders)
+            
+            guard let subFolders = self.folder.googleDriveSubfolders, !subFolders.isEmpty else {
+                self.folder.isSelected = !self.folder.isSelected
+                self.isSelected = self.folder.isSelected
+                self.delegate?.didChangeFolderSelection(folder: self.folder)
+                return
+            }
+            self.addToSubfolders(folders: subFolders)
         }
         .onAppear {
             self.isSelected = self.folder.isSelected
@@ -143,12 +153,15 @@ struct GoogleDriveFolderView: View {
         self.isSelected = false
         self.folder.isSelected = false
         
-        for folder in folders {
-            folder.isSubfolder = true
+        if self.subFolders == nil {
+            for folder in folders {
+                folder.isSubfolder = true
+            }
+            
+            self.subFolders = [CloudAsset]()
+            self.subFolders?.append(contentsOf: folders)
         }
         
-        self.subFolders = [CloudAsset]()
-        self.subFolders?.append(contentsOf: folders)
-        self.isExpanded = true
+        self.isExpanded.toggle()
     }
 }

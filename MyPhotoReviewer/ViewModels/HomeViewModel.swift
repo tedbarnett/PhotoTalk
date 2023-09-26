@@ -325,6 +325,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         for folder in localDatabaseFolders {
             let asset = CloudAsset()
             if mediaSource == .iCloud {
+                asset.source = .iCloud
                 asset.iCloudAlbumId = folder.id
                 asset.iCloudAlbumTitle = folder.name
                 
@@ -337,6 +338,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                     }
                 }
             } else if mediaSource == .googleDrive {
+                asset.source = .googleDrive
                 asset.googleDriveFolderId = folder.id
                 asset.googleDriveFolderName = folder.name
             }
@@ -352,7 +354,9 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         guard let allSelectedFolders = self.selectedFolders else { return }
         for folder in self.folders {
             if allSelectedFolders.first(where: {
-                guard let id1 = $0.photoId, let id2 = folder.photoId else { return false }
+                guard let id1 = $0.albumId, let id2 = folder.albumId else {
+                    return false
+                }
                 return id1 == id2
             }) != nil {
                 folder.isSelected = true

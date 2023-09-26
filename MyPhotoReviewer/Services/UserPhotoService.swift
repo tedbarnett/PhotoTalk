@@ -212,11 +212,6 @@ class UserPhotoService {
         let query = GTLRDriveQuery_FilesList.query()
         query.q = "'\(folderId)' in parents and mimeType contains 'image/'"
         
-//        let query = GTLRDriveQuery_FilesList.query()
-//        query.q = "'\(folderId)' in parents and mimeType contains 'image/'"
-//        query.spaces = "drive"
-//        query.fields = "files(id, name)"
-        
         service.executeQuery(query) { ticket, files, error in
             guard error == nil,
                   let photos = files as? GTLRDrive_FileList,

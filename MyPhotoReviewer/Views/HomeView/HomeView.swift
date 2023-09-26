@@ -29,6 +29,7 @@ struct HomeView: View {
     @State private var shouldShowPhotoDetails = false
     @State private var shouldShowPhotoSlideShowView = false
     @State private var selectedPhoto: CloudAsset?
+    @State private var didAttemptToDownloadAssets: Bool = false
     
     // MARK: User interface
     
@@ -147,6 +148,12 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 12)
+                    } else if self.didAttemptToDownloadAssets, let selectedFolders = self.viewModel.selectedFolders, !selectedFolders.isEmpty, self.viewModel.photos.isEmpty {
+                        Text(NSLocalizedString("No photos found in the selected photo albums, please select different albums", comment: "Home view - no photos found"))
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(Color.gray600)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 16)
                     }
                     
                     Spacer()
@@ -154,7 +161,7 @@ struct HomeView: View {
                     
                     HStack(spacing: 8) {
                         // Change album button
-                        if !self.viewModel.folders.isEmpty {
+                        if self.didAttemptToDownloadAssets && !self.viewModel.folders.isEmpty {
                             Button(
                                 action: {
                                     self.viewModel.setFoldersAsSelectedIfAny()
@@ -174,7 +181,7 @@ struct HomeView: View {
                         }
                         
                         // Start photo slide show button
-                        if self.viewModel.selectedFolders != nil && self.userProfile.didUpdatePhotoDetails {
+                        if self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails {
                             Button(
                                 action: {
                                     self.shouldShowPhotoSlideShowView = true
@@ -290,6 +297,7 @@ struct HomeView: View {
         }
         self.overlayContainerContext.shouldShowProgressIndicator = true
         self.viewModel.downloadCloudAssets(for: mediaSource) { _ in
+            self.didAttemptToDownloadAssets = true
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }

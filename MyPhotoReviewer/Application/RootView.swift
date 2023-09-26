@@ -70,7 +70,6 @@ struct RootView: View {
         userAuthenticationViewModel.userProfile = self.userProfile
         userAuthenticationViewModel.validateUserAuthenticationStateIfNeeded { isAuthenticted in
             DispatchQueue.main.async {
-                self.overlayContainerContext.shouldShowProgressIndicator = false
                 if isAuthenticted == false || self.userProfile.mediaSource == nil {
                     self.overlayContainerContext.shouldShowProgressIndicator = false
                 }

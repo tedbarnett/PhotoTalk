@@ -192,6 +192,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                     self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
                                     self.photos.removeAll()
                                     self.photos.append(contentsOf: userPhotos)
+                                    self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
                                 }
                             }
                             responseHandler(true)
@@ -200,38 +201,27 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         case .googleDrive:
-            let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: .googleDrive)
-            if !selectedFolders.isEmpty {
-                self.selectedFolders = selectedFolders
-                self.downloadPhotosFromGoogleDriveFolders(selectedFolders, responseHandler: responseHandler)
-            } else {
-                DispatchQueue.global().async {
-                    self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
+            DispatchQueue.global().async {
+                self.userPhotoService.downloadUserFoldersFromGoogleDrive { userFolders in
+                    
+                    guard !userFolders.isEmpty else {
+                        self.reauthenticateWithGoogleDriveAndDownloadFolders(responseHandler: responseHandler)
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.folders.removeAll()
+                        self.folders.append(contentsOf: userFolders)
                         
-                        guard !userFolders.isEmpty else {
-                            self.reauthenticateWithGoogleDriveAndDownloadFolders(responseHandler: responseHandler)
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.folders.removeAll()
-                            self.folders.append(contentsOf: userFolders)
-                            
-                            self.saveFoldersToLocalDatabase(userFolders: userFolders, mediaSource: .googleDrive)
-                            
-                            // If user doesn't have any folder, download the photos from root level
-                            if userFolders.isEmpty {
-                                self.userPhotoService.downloadUserPhotosFromGoogleDrive { userPhotos in
-                                    self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
-                                    DispatchQueue.main.async {
-                                        self.photos.removeAll()
-                                        self.photos.append(contentsOf: userPhotos)
-                                        responseHandler(true)
-                                    }
-                                }
-                            } else {
-                                self.shouldShowFolderSelectionView = true
-                                responseHandler(true)
-                            }
+                        self.saveFoldersToLocalDatabase(userFolders: userFolders, mediaSource: .googleDrive)
+                        
+                        let selectedFolders = self.loadFoldersFromLocalDatabase(targetFolders: .userSelectedFolders, mediaSource: .googleDrive)
+                        self.selectedFolders = selectedFolders
+                        
+                        if selectedFolders.isEmpty {
+                            self.shouldShowFolderSelectionView = true
+                            responseHandler(true)
+                        } else {
+                            self.downloadPhotosFromGoogleDriveFolders(selectedFolders, responseHandler: responseHandler)
                         }
                     }
                 }
@@ -264,6 +254,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             DispatchQueue.main.async {
                                 self.photos.removeAll()
                                 self.photos.append(contentsOf: userPhotos)
+                                self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
                                 responseHandler(true)
                             }
                         }
@@ -398,6 +389,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+        self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
     }
     
     /**
@@ -452,6 +444,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+        self.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         responseHandler(true)
     }
     
@@ -489,6 +482,17 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         }
+    }
+    
+    private func checkIfAnyOfTheLoadedPhotosUpdatedByUser() {
+        let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
+        var didUpdatePhoto = false
+        for photo in self.photos {
+            if let id = photo.photoId, idsOfUpdatedPhotos.contains(id) {
+                didUpdatePhoto = true
+            }
+        }
+        self.userProfile?.didUpdatePhotoDetails = didUpdatePhoto
     }
 }
 

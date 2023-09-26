@@ -69,7 +69,7 @@ struct ICloudAlbumSelectionView: View {
                 
                 Spacer()
                 
-                Text(NSLocalizedString("Select Photo Album", comment: "ICloud album selection view - Title"))
+                Text(NSLocalizedString("Select Photo Album", comment: "Album selection view - Title"))
                     .font(.system(size: 16))
                     .foregroundColor(Color.white)
                 

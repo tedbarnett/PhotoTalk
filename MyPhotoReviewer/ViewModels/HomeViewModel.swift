@@ -87,7 +87,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         databaseService.getIdsOfUpdatedPhotosByUser(userId: userProfile.id) { ids in
             self.localStorageService.idsOfUpdatedPhotosByUser = ids
-            self.userProfile?.didUpdatePhotoDetails = !ids.isEmpty
         }
     }
     
@@ -458,6 +457,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         self.userProfile?.didUpdatePhotoDetails = didUpdatePhoto
+        print("-------- Did user update photos: \(didUpdatePhoto)")
     }
     
     /**

@@ -331,6 +331,7 @@ extension HomeView: ICloudAlbumSelectionViewDelegate {
         self.viewModel.downloadPhotosFromICloudAlbums(selectedAlbums) { didLoadPhotos in
             self.overlayContainerContext.shouldShowProgressIndicator = false
             self.didAttemptToDownloadAssets = true
+            self.viewModel.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         }
     }
 }
@@ -349,6 +350,7 @@ extension HomeView: GoogleDriveFolderSelectionViewDelegate {
         self.viewModel.downloadPhotosFromGoogleDriveFolders(selectedFolders) { didLoadPhotos in
             self.overlayContainerContext.shouldShowProgressIndicator = false
             self.didAttemptToDownloadAssets = true
+            self.viewModel.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         }
     }
 }

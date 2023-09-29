@@ -39,9 +39,6 @@ struct PhotoView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: self.width, height: height)
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: 8)
-                    )
             }
             
             if self.shouldShowBackground {

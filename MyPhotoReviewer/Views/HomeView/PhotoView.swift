@@ -30,33 +30,27 @@ struct PhotoView: View {
     @State private var image: Image?
     @State private var isImageLoading = true
     
-    private let horizontalPadding: CGFloat = 8
-    
-    private var imageWidth: CGFloat {
-        return self.width - (self.horizontalPadding * 2)
-    }
-    
-    private var imageHeight: CGFloat {
-        return self.height - (self.horizontalPadding * 2)
-    }
-    
     // MARK: User interface
     
     var body: some View {
-        ZStack {
-            if self.shouldShowBackground {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.black300)
-                    .frame(width: self.width, height: self.height)
-            }
-            
+        ZStack(alignment: .top) {
             if let img = self.image {
                 img
                     .resizable()
-                    .scaledToFit()
-                    .frame(width: self.imageWidth, height: imageHeight)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: self.width, height: height)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 8)
+                    )
+            }
+            
+            if self.shouldShowBackground {
+                Rectangle()
+                    .stroke(Color.gray800.opacity(0.7) , lineWidth: 1)
+                    .frame(width: self.width, height: self.height)
             }
         }
+        .background(Color.offwhite100)
         .onAppear {
             guard self.index == 0 || self.index == self.currentSlideIndex else { return }
             Task {
@@ -77,7 +71,7 @@ struct PhotoView: View {
     // MARK: Private methods
     
     func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
-        guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width, height: self.height)) else {
+        guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width * 2, height: self.height * 2)) else {
             self.image = nil
             return
         }

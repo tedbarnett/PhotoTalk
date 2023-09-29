@@ -127,7 +127,7 @@ struct HomeView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             ScrollView(.vertical, showsIndicators: false) {
-                                LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 16) {
+                                LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
                                     ForEach(self.viewModel.photos, id: \.self.id) { photo in
                                         PhotoView(
                                             currentSlideIndex: .constant(0),
@@ -145,6 +145,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
+                            .padding(.top, 4)
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 12)

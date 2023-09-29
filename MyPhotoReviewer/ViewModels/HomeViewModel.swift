@@ -32,7 +32,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     var photoGridColumnWidth: CGFloat {
         let itemCount = CGFloat(UIDevice.isIpad ? 6 : 3)
-        let spacing: CGFloat = 16
+        let spacing: CGFloat = 8
         let unitWidth =  (UIScreen.main.bounds.width - (((itemCount - 1) + 2) * spacing)) / itemCount
         return unitWidth
     }

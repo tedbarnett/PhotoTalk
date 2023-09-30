@@ -35,10 +35,13 @@ struct PhotoView: View {
     var body: some View {
         ZStack(alignment: .top) {
             if let img = self.image {
-                img
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: self.width, height: height)
+                GeometryReader { proxy in
+                    img
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: self.width, height: height)
+                        .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
+                }
             }
             
             if self.shouldShowBackground {

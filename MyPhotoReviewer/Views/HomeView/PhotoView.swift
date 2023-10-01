@@ -24,6 +24,7 @@ struct PhotoView: View {
     var forcePhotoDownload: Bool = false
     var shouldShowBackground: Bool = true
     var isPresentedAsThumbnail: Bool = false
+    var isZoomAndPanEnabled: Bool = false
     
     // MARK: Private properties
     
@@ -35,12 +36,20 @@ struct PhotoView: View {
     var body: some View {
         ZStack(alignment: .top) {
             if let img = self.image {
-                GeometryReader { proxy in
+                if self.isZoomAndPanEnabled {
+                    GeometryReader { proxy in
+                        img
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: self.width, height: height)
+                            .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
+                    }
+                } else {
                     img
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: self.width, height: height)
-                        .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
+                        .clipped()
                 }
             }
             

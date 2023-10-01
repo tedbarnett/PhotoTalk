@@ -19,15 +19,20 @@ class PinchZoomView: UIView {
     let scaleChange: (CGFloat) -> Void
     
     init(minScale: CGFloat,
-           maxScale: CGFloat,
+         maxScale: CGFloat,
          currentScale: CGFloat,
          scaleChange: @escaping (CGFloat) -> Void) {
+        
         self.minScale = minScale
         self.maxScale = maxScale
         self.scale = currentScale
         self.scaleChange = scaleChange
         super.init(frame: .zero)
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinch(gesture:)))
+        
+        let pinchGesture = UIPinchGestureRecognizer(
+            target: self,
+            action: #selector(pinch(gesture:))
+        )
         pinchGesture.cancelsTouchesInView = false
         addGestureRecognizer(pinchGesture)
     }
@@ -62,11 +67,17 @@ class PinchZoomView: UIView {
 struct PinchZoom: UIViewRepresentable {
     let minScale: CGFloat
     let maxScale: CGFloat
+    
     @Binding var scale: CGFloat
     @Binding var isPinching: Bool
     
     func makeUIView(context: Context) -> PinchZoomView {
-        let pinchZoomView = PinchZoomView(minScale: minScale, maxScale: maxScale, currentScale: scale, scaleChange: { scale = $0 })
+        let pinchZoomView = PinchZoomView(
+            minScale: minScale,
+            maxScale: maxScale,
+            currentScale: scale,
+            scaleChange: { scale = $0 }
+        )
         return pinchZoomView
     }
     
@@ -76,6 +87,7 @@ struct PinchZoom: UIViewRepresentable {
 struct PinchToZoom: ViewModifier {
     let minScale: CGFloat
     let maxScale: CGFloat
+    
     @Binding var scale: CGFloat
     @State var anchor: UnitPoint = .center
     @State var isPinching: Bool = false
@@ -84,16 +96,24 @@ struct PinchToZoom: ViewModifier {
         content
             .scaleEffect(scale, anchor: anchor)
             .animation(.spring(), value: isPinching)
-            .overlay(PinchZoom(minScale: minScale, maxScale: maxScale, scale: $scale, isPinching: $isPinching))
+            .overlay(
+                PinchZoom(
+                    minScale: minScale,
+                    maxScale: maxScale,
+                    scale: $scale,
+                    isPinching: $isPinching
+                )
+            )
     }
 }
 
 struct ImageModifier: ViewModifier {
     private var contentSize: CGSize
     private var min: CGFloat = 1.0
-    private var max: CGFloat = 3.0
+    private var max: CGFloat = 5.0
+    
     @State var currentScale: CGFloat = 1.0
-
+    
     init(contentSize: CGSize) {
         self.contentSize = contentSize
     }

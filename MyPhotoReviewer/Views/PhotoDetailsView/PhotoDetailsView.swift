@@ -61,7 +61,8 @@ struct PhotoDetailsView: View {
                                 height: UIScreen.main.bounds.height,
                                 forcePhotoDownload: true,
                                 shouldShowBackground: false,
-                                isPresentedAsThumbnail: false
+                                isPresentedAsThumbnail: false,
+                                isZoomAndPanEnabled: true
                             )
                         }
                     }
@@ -82,8 +83,8 @@ struct PhotoDetailsView: View {
                         },
                         label: {
                             ZStack {
-                                Rectangle()
-                                    .fill(Color.clear)
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color.black.opacity(0.6))
                                     .frame(width: 40, height: 40)
                                 Image("leftArrowIcon")
                                     .renderingMode(.template)
@@ -108,8 +109,8 @@ struct PhotoDetailsView: View {
                             },
                             label: {
                                 ZStack {
-                                    Rectangle()
-                                        .fill(Color.clear)
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .fill(Color.black.opacity(0.6))
                                         .frame(width: 40, height: 40)
                                     Image(self.viewModel.isFavourite ? "favouriteIcon" : "unfavouriteIcon")
                                         .resizable()
@@ -118,9 +119,10 @@ struct PhotoDetailsView: View {
                                 }
                             }
                         )
-                        .padding(.trailing, 6)
+                        //.padding(.trailing, 6)
                     }
                 }
+                .padding(.horizontal, 12)
                 .padding(.top, 50)
                 
                 Spacer()

@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */; };
-		BC3378B96E3D16B36417DA7D /* Pods_MyPhotoReviewer_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */; };
+		3A7638ACC17B3BDD3633B681 /* Pods_MyPhotoReviewer_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */; };
 		C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
 		C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
 		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
@@ -160,12 +159,15 @@
 		C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
 		C1FC400A2A3B3AC200E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
 		C1FC400B2A3B407A00E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
+		E0AE1903590C772B3713262F /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; sourceTree = "<group>"; };
-		82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.release.xcconfig"; sourceTree = "<group>"; };
+		572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; sourceTree = "<group>"; };
+		66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.release.xcconfig"; sourceTree = "<group>"; };
+		728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.release.xcconfig"; sourceTree = "<group>"; };
+		72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudAlbumSelectionView.swift; sourceTree = "<group>"; };
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationBackgroundArt.swift; sourceTree = "<group>"; };
 		C18E41F92AE2CBC600F72DFA /* Firebase */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Firebase; path = MyPhotoReviewer/Firebase; sourceTree = SOURCE_ROOT; };
+		C18E41FB2AE2E6FE00F72DFA /* GooglePlaces.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GooglePlaces.xcframework; path = Pods/GooglePlaces/Frameworks/GooglePlaces.xcframework; sourceTree = "<group>"; };
 		C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C19948AD2A036A9A004CD4A1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -203,7 +206,6 @@
 		C19949092A068209004CD4A1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C199490C2A06824D004CD4A1 /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
 		C199490F2A0683DA004CD4A1 /* UserAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewModel.swift; sourceTree = "<group>"; };
-		C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.debug.xcconfig"; sourceTree = "<group>"; };
 		C1A983B029F3D80D00D83BBF /* MyPhotoReviewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotoReviewerApp.swift; sourceTree = "<group>"; };
 		C1A983B229F3D80D00D83BBF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C1A983B429F3D80E00D83BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -242,8 +244,7 @@
 		C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoService.swift; sourceTree = "<group>"; };
 		C1F6B8232A27659A00D3A822 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsView.swift; sourceTree = "<group>"; };
-		C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.release.xcconfig"; sourceTree = "<group>"; };
+		D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +266,7 @@
 				C1DFD3192A27CE750001ABFC /* GTMSessionFetcherFull in Frameworks */,
 				C1D1E6952A59AAA8005F508B /* FirebaseCrashlytics in Frameworks */,
 				C1D1E6912A59AAA8005F508B /* FirebaseAnalytics in Frameworks */,
-				BC3378B96E3D16B36417DA7D /* Pods_MyPhotoReviewer_Development.framework in Frameworks */,
+				3A7638ACC17B3BDD3633B681 /* Pods_MyPhotoReviewer_Development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +300,7 @@
 				C1D1E69F2A59F61A005F508B /* FirebaseAuth in Frameworks */,
 				C1DFD3242A27CF3F0001ABFC /* GTMSessionFetcherLogView in Frameworks */,
 				C1D1E69D2A59F619005F508B /* FirebaseAnalytics in Frameworks */,
-				495D75DE0D4DE9239004116A /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */,
+				E0AE1903590C772B3713262F /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,10 +310,10 @@
 		57318A5859ACE9BC3ED496BF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */,
-				82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */,
-				34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */,
-				C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */,
+				D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */,
+				66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */,
+				5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */,
+				728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -331,8 +332,9 @@
 			children = (
 				C1D1E67A2A599372005F508B /* FirebaseStorage.framework */,
 				C1D1E6762A59935F005F508B /* FirebaseDatabase.framework */,
-				1AE370E27B3F2491BA9B590E /* Pods_MyPhotoReviewer_Development.framework */,
-				C62CA4FA4E3F05CB71EC94B5 /* Pods_MyPhotoReviewer_Distribution.framework */,
+				C18E41FB2AE2E6FE00F72DFA /* GooglePlaces.xcframework */,
+				572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */,
+				72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -600,13 +602,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C101B9DC29FA7D6F000192CD /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Development" */;
 			buildPhases = (
-				45C90FF3F00FB6F6AE6AFF7A /* [CP] Check Pods Manifest.lock */,
+				D5BF9F24C5C1241B18320918 /* [CP] Check Pods Manifest.lock */,
 				C101B9D529FA7D6F000192CD /* Sources */,
 				C101B9D829FA7D6F000192CD /* Frameworks */,
 				C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3062A27A3F20001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C101B9D929FA7D6F000192CD /* Resources */,
-				6B15D82B71E15645E2FBEC6B /* [CP] Copy Pods Resources */,
+				A26B37C29999633338508F9B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -671,13 +673,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1B2CA9E2A15458600D2AE04 /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Distribution" */;
 			buildPhases = (
-				0C558A5CB01B14164A9CD174 /* [CP] Check Pods Manifest.lock */,
+				7FE66B174C8C9D810AF26C50 /* [CP] Check Pods Manifest.lock */,
 				C1B2CA772A15458600D2AE04 /* Sources */,
 				C1B2CA8D2A15458600D2AE04 /* Frameworks */,
 				C1B2CA972A15458600D2AE04 /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3042A27A0400001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C1B2CA982A15458600D2AE04 /* Resources */,
-				7269D839025B8705CAD2C1C9 /* [CP] Copy Pods Resources */,
+				65D4E84E067543A31C2294C3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -733,8 +735,8 @@
 			mainGroup = C1A983A429F3D80D00D83BBF;
 			packageReferences = (
 				C1B2CA542A1341ED00D2AE04 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
-				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+				C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */,
+				C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */,
 				C1D1E68F2A59AAA8005F508B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C1A983AE29F3D80D00D83BBF /* Products */;
@@ -795,7 +797,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C558A5CB01B14164A9CD174 /* [CP] Check Pods Manifest.lock */ = {
+		65D4E84E067543A31C2294C3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FE66B174C8C9D810AF26C50 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -817,29 +836,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		45C90FF3F00FB6F6AE6AFF7A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Development-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6B15D82B71E15645E2FBEC6B /* [CP] Copy Pods Resources */ = {
+		A26B37C29999633338508F9B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -854,23 +851,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7269D839025B8705CAD2C1C9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */ = {
@@ -947,6 +927,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Name of the resource we're selectively copying\nGOOGLEDRIVE_SERVICE_INFO_PLIST=GoogleDriveService-Info.plist\nTARGET=\"MyPhotoReviewer\"\n\n# Get references to dev and prod versions of the GoogleDriveService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLEDRIVE_SERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET}/GoogleDrive/Dev/${GOOGLEDRIVE_SERVICE_INFO_PLIST}\nGOOGLEDRIVE_SERVICE_INFO_RELEASE=${PROJECT_DIR}/${TARGET}/GoogleDrive/Prod/${GOOGLEDRIVE_SERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleDriveService-Info.plist exists\necho \"Looking for ${GOOGLEDRIVE_SERVICE_INFO_PLIST} in ${GOOGLEDRIVE_SERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLEDRIVE_SERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleDriveService.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Make sure the prod version of GoogleDriveService-Info.plist exists\necho \"Looking for ${GOOGLEDRIVE_SERVICE_INFO_PLIST} in ${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\"\nif [ ! -f $GOOGLEDRIVE_SERVICE_INFO_RELEASE ]\nthen\necho \"No Production GoogleDriveService.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Get a reference to the destination location for the GoogleDriveService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLEDRIVE_SERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleDriveService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Debug\" ]\nthen\necho \"Using ${GOOGLEDRIVE_SERVICE_INFO_DEV}\"\ncp \"${GOOGLEDRIVE_SERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\necho \"Using ${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\"\ncp \"${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\" \"${PLIST_DESTINATION}\"\nfi  \n";
+			showEnvVarsInLog = 0;
+		};
+		D5BF9F24C5C1241B18320918 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Development-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1096,7 +1098,7 @@
 /* Begin XCBuildConfiguration section */
 		C101B9DD29FA7D6F000192CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1A40D4DE55316EF4E7F289B /* Pods-MyPhotoReviewer-Development.debug.xcconfig */;
+			baseConfigurationReference = D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1139,7 +1141,7 @@
 		};
 		C101B9DE29FA7D6F000192CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82C0F30BF0FCBC6981D84A4E /* Pods-MyPhotoReviewer-Development.release.xcconfig */;
+			baseConfigurationReference = 66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1369,7 +1371,7 @@
 		};
 		C1B2CA9F2A15458600D2AE04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34CA1D93EC75CE72FD76976F /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */;
+			baseConfigurationReference = 5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1412,7 +1414,7 @@
 		};
 		C1B2CAA02A15458600D2AE04 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C8BF24D255D18FF1DF75B703 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */;
+			baseConfigurationReference = 728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1527,7 +1529,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */ = {
+		C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/gtm-session-fetcher.git";
 			requirement = {
@@ -1535,7 +1537,7 @@
 				minimumVersion = 3.1.1;
 			};
 		};
-		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+		C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest.git";
 			requirement = {
@@ -1618,62 +1620,62 @@
 		};
 		C1DFD3142A27CE750001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD3162A27CE750001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3182A27CE750001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD31B2A27CEC50001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD31D2A27CF3F0001ABFC /* GTMSessionFetcher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcher;
 		};
 		C1DFD31F2A27CF3F0001ABFC /* GTMSessionFetcherCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherCore;
 		};
 		C1DFD3212A27CF3F0001ABFC /* GTMSessionFetcherFull */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherFull;
 		};
 		C1DFD3232A27CF3F0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3252A27CF980001ABFC /* GoogleAPIClientForRESTCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForRESTCore;
 		};
 		C1DFD3272A27CFAE0001ABFC /* GTMSessionFetcherLogView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			package = C1DFD3132A27CE750001ABFC /* XCRemoteSwiftPackageReference "gtm-session-fetcher.git" */;
 			productName = GTMSessionFetcherLogView;
 		};
 		C1DFD3292A27D0C20001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 		C1DFD32B2A27D0DA0001ABFC /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			package = C1DFD31A2A27CEC40001ABFC /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest.git" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -40,7 +40,7 @@ struct PhotoView: View {
                     GeometryReader { proxy in
                         img
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: self.width, height: height)
                             .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
                     }
@@ -59,7 +59,7 @@ struct PhotoView: View {
                     .frame(width: self.width, height: self.height)
             }
         }
-        .background(Color.offwhite100)
+        .background(Color.black900)
         .onAppear {
             guard self.index == 0 || self.index == self.currentSlideIndex else { return }
             Task {

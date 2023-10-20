@@ -49,6 +49,7 @@
 		C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */; };
 		C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E629FD0F20007C5FB3 /* FormTextField.swift */; };
 		C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */; };
+		C18E41FA2AE2CBC600F72DFA /* Firebase in Resources */ = {isa = PBXBuildFile; fileRef = C18E41F92AE2CBC600F72DFA /* Firebase */; };
 		C19948A82A024689004CD4A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */; };
 		C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */; };
 		C19948AE2A036A9A004CD4A1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19948AD2A036A9A004CD4A1 /* AlertView.swift */; };
@@ -169,8 +170,6 @@
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		C101B9F429FA8721000192CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C101BA0B29FC3C8B000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C101BA1E29FC4196000192CD /* UserRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationView.swift; sourceTree = "<group>"; };
 		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
@@ -190,6 +189,7 @@
 		C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
 		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		C189C8E929FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationBackgroundArt.swift; sourceTree = "<group>"; };
+		C18E41F92AE2CBC600F72DFA /* Firebase */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Firebase; path = MyPhotoReviewer/Firebase; sourceTree = SOURCE_ROOT; };
 		C19948A72A024689004CD4A1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19948AA2A036A0F004CD4A1 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C19948AD2A036A9A004CD4A1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -326,22 +326,6 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		C101BA0929FC3B4B000192CD /* Dev */ = {
-			isa = PBXGroup;
-			children = (
-				C101BA0C29FC3C99000192CD /* GoogleService-Info.plist */,
-			);
-			path = Dev;
-			sourceTree = "<group>";
-		};
-		C101BA0A29FC3B5A000192CD /* Prod */ = {
-			isa = PBXGroup;
-			children = (
-				C101BA0B29FC3C8B000192CD /* GoogleService-Info.plist */,
-			);
-			path = Prod;
-			sourceTree = "<group>";
-		};
 		C101BA0D29FC3E75000192CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,8 +407,8 @@
 			isa = PBXGroup;
 			children = (
 				C1A983DA29F3D8A600D83BBF /* Application */,
+				C18E41F92AE2CBC600F72DFA /* Firebase */,
 				C1DFD2FE2A279FCD0001ABFC /* GoogleDrive */,
-				C1A983E129F3D8FC00D83BBF /* Firebase */,
 				C1A983DB29F3D8B100D83BBF /* Views */,
 				C1A983DE29F3D8CD00D83BBF /* ViewModels */,
 				C1A983DD29F3D8C200D83BBF /* Models */,
@@ -541,15 +525,6 @@
 				C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		C1A983E129F3D8FC00D83BBF /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				C101BA0929FC3B4B000192CD /* Dev */,
-				C101BA0A29FC3B5A000192CD /* Prod */,
-			);
-			path = Firebase;
 			sourceTree = "<group>";
 		};
 		C1A983E229F3DB1F00D83BBF /* HomeView */ = {
@@ -780,6 +755,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19949072A067AC4004CD4A1 /* Localizable.strings in Resources */,
+				C18E41FA2AE2CBC600F72DFA /* Firebase in Resources */,
 				C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */,
 				C1DFD3032A27A00C0001ABFC /* GoogleDriveService-Info.plist in Resources */,
 				C19948A82A024689004CD4A1 /* LaunchScreen.storyboard in Resources */,

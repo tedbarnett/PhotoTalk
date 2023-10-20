@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,8 +25,8 @@
                                     <constraint firstAttribute="width" constant="300" id="jEl-eh-Ob3"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Reviewer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RO1-SM-ZeJ">
-                                <rect key="frame" x="103.00000000000001" y="430.33333333333331" width="187.33333333333337" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PhotoTalk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RO1-SM-ZeJ">
+                                <rect key="frame" x="139" y="436.33333333333331" width="115" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" name="offwhite100"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                         <constraints>
                             <constraint firstItem="u35-a9-EXO" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="3Gn-79-LNl"/>
                             <constraint firstItem="u35-a9-EXO" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-70" id="9zf-yo-pCO"/>
-                            <constraint firstItem="RO1-SM-ZeJ" firstAttribute="top" secondItem="u35-a9-EXO" secondAttribute="bottom" constant="10" id="Ad7-E3-NyK"/>
+                            <constraint firstItem="RO1-SM-ZeJ" firstAttribute="top" secondItem="u35-a9-EXO" secondAttribute="bottom" constant="16" id="Ad7-E3-NyK"/>
                             <constraint firstItem="RO1-SM-ZeJ" firstAttribute="centerX" secondItem="u35-a9-EXO" secondAttribute="centerX" id="kEs-ik-Klq"/>
                         </constraints>
                     </view>

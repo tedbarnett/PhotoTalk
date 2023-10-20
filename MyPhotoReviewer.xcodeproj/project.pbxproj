@@ -1112,7 +1112,7 @@
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
@@ -1152,7 +1152,7 @@
 				ENVIRONMENT = dev;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
@@ -1384,7 +1384,7 @@
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
@@ -1426,7 +1426,7 @@
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "My Photo Memories";
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";

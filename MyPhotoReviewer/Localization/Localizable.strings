@@ -48,6 +48,7 @@
 
 "Welcome back" = "Welcome back";
 "My Photo Memories" = "My Photo Memories";
+"Instructions" = "Instructions";
 "Logout" = "Logout";
 "Where are your photos stored? Please select from the following options:" = "Where are your photos stored? Please select from the following options:";
 "Apple iCloud" = "Apple iCloud";
@@ -76,3 +77,19 @@
 //---------- Photo slide show view -----------------------
 "Photo slide show" = "Photo slide show";
 "Oops! error loading photo details for the slide show. Please try again." = "Oops! error loading photo details for the slide show. Please try again.";
+
+//---------- Help screen ---------------------------------
+"PhotoTalk lets you easily edit the location and date of any of your photos -- and add voice narration to make a shareable \"slide show\" from your own photos." = "PhotoTalk lets you easily edit the location and date of any of your photos -- and add voice narration to make a shareable \"slide show\" from your own photos.";
+"Instructions:" = "Instructions:";
+"Add photos from your Apple Photos, Google Photos, or Dropbox to get started. Choose photos you want to include in your slide show." = "Add photos from your Apple Photos, Google Photos, or Dropbox to get started. Choose photos you want to include in your slide show.";
+"Once added, you can tap any photo to..." = "Once added, you can tap any photo to...";
+"Add your own voice narration describing the photo (or just telling a story!). After you add voice narration to any photo, you can tap either Save (the floppy disk icon) or Delete the Narration (trash can icon) and try again." = "Add your own voice narration describing the photo (or just telling a story!). After you add voice narration to any photo, you can tap either Save (the floppy disk icon) or Delete the Narration (trash can icon) and try again.";
+"Set (or change) the location where the photo was taken" = "Set (or change) the location where the photo was taken";
+"Set (or change) the date and time of the photo. If you don't know the exact time, leave it blank" = "Set (or change) the date and time of the photo. If you don't know the exact time, leave it blank";
+"Add the photo to your slide show by tapping the slide show icon in the top right" = "Add the photo to your slide show by tapping the slide show icon in the top right";
+"If you do edit the Location or Date/time for a photo in your Apple Photos or Google Photos collection, PhotoTalk will update the original photo in your library too (i.e. we update the \"EXIF\" data for that photo)." = "If you do edit the Location or Date/time for a photo in your Apple Photos or Google Photos collection, PhotoTalk will update the original photo in your library too (i.e. we update the \"EXIF\" data for that photo).";
+"Unfortunately, there is no way to add voice narration to photos in your collection. Your voice narration will only appear in PhotoTalk itself and in any slide shows you create and share." = "Unfortunately, there is no way to add voice narration to photos in your collection. Your voice narration will only appear in PhotoTalk itself and in any slide shows you create and share.";
+"Photos that will be included in the slide show appear with a small \"slide\" icon on the main screen" = "Photos that will be included in the slide show appear with a small \"slide\" icon on the main screen";
+"Press and drag any photo to change its order in the slide show" = "Press and drag any photo to change its order in the slide show";
+"When you are happy with your photo updates, tap the Menu icon and choose \"Show Slide Show\" to see the results" = "When you are happy with your photo updates, tap the Menu icon and choose \"Show Slide Show\" to see the results";
+"You can share your slide show (complete with voice narration) by choosing \"Share Slide Show\" from the menu" = "You can share your slide show (complete with voice narration) by choosing \"Share Slide Show\" from the menu";

@@ -25,6 +25,7 @@ struct HomeView: View {
     @StateObject private var authenticationViewModel = UserAuthenticationViewModel()
     @StateObject private var viewModel = HomeViewModel()
     
+    @State private var shouldShowHelpView = false
     @State private var shouldShowFolderSelectionView = false
     @State private var shouldShowPhotoDetails = false
     @State private var shouldShowPhotoSlideShowView = false
@@ -53,6 +54,10 @@ struct HomeView: View {
                             Spacer()
                             // Menu button
                             Menu {
+                                Button(NSLocalizedString("Instructions", comment: "Menu option - instructions"), action: {
+                                    self.shouldShowHelpView = true
+                                })
+                                
                                 Button(NSLocalizedString("Logout", comment: "Menu option - Logout"), action: {
                                     self.overlayContainerContext.shouldShowProgressIndicator = true
                                     self.authenticationViewModel.logutUser { didLogoutSuccessfully in
@@ -258,6 +263,9 @@ struct HomeView: View {
                     delegate: self
                 )
             }
+        }
+        .sheet(isPresented: self.$shouldShowHelpView) {
+            HelpView()
         }
     }
     

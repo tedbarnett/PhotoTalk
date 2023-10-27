@@ -434,6 +434,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                     photo.iCloudAsset = asset
                     photo.iCloudPhotoLocation = asset.location
                     photo.iCloudPhotoCreationDate = asset.creationDate
+                    photo.date = asset.creationDate
                     self.photos.append(photo)
                 }
             }

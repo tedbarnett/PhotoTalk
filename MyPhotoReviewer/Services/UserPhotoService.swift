@@ -80,6 +80,7 @@ class UserPhotoService {
             photo.iCloudAssetId = asset.localIdentifier
             photo.width = asset.pixelWidth
             photo.height = asset.pixelHeight
+            photo.date = asset.creationDate
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
         }
@@ -102,6 +103,7 @@ class UserPhotoService {
             photo.iCloudAssetId = asset.localIdentifier
             photo.width = asset.pixelWidth
             photo.height = asset.pixelHeight
+            photo.date = asset.creationDate
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
         }
@@ -156,7 +158,6 @@ class UserPhotoService {
                     let asset = CloudAsset()
                     asset.source = .googleDrive
                     asset.type = .folder
-                    folder
                     asset.googleDriveFolderId = folder.identifier
                     asset.googleDriveFolderName = folder.name
                     cloudFolders.append(asset)

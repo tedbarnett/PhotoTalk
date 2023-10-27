@@ -304,8 +304,8 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     func updatePhotoEXIFDate(to date: Date) {
         guard let photo = self.selectedPhoto else { return }
         photo.iCloudPhotoCreationDate = date
+        photo.date = date
         photo.updateEXIFCreationDate(to: date)
-        
         self.updateDetailsChangeStatus()
     }
     

@@ -74,7 +74,7 @@ struct PhotoDetailsView: View {
             // Main Content
             VStack(alignment: .center) {
                 
-                // Toolbar - Back button, Add location button, Add data button, favourite button
+                // Toolbar - Back button, Add location button, Add data button, slide show button
                 HStack {
                     // Back button
                     Button(
@@ -112,14 +112,15 @@ struct PhotoDetailsView: View {
                                     RoundedRectangle(cornerRadius: 6)
                                         .fill(Color.black.opacity(0.6))
                                         .frame(width: 40, height: 40)
-                                    Image(self.viewModel.isFavourite ? "favouriteIcon" : "unfavouriteIcon")
+                                    
+                                    Image("slideShowIcon")
                                         .resizable()
                                         .scaledToFit()
+                                        .opacity(self.viewModel.isFavourite ? 1 : 0.5)
                                         .frame(width: 30, height: 30)
                                 }
                             }
                         )
-                        //.padding(.trailing, 6)
                     }
                 }
                 .padding(.horizontal, 12)

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A7638ACC17B3BDD3633B681 /* Pods_MyPhotoReviewer_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */; };
 		C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
 		C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */; };
 		C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A983B229F3D80D00D83BBF /* HomeView.swift */; };
@@ -48,8 +47,6 @@
 		C17E94A62A58429F005AA499 /* AddPhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */; };
 		C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
 		C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94A72A584D0A005AA499 /* LocationService.swift */; };
-		C17E94AD2A5976A8005AA499 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */; };
-		C17E94AE2A5976A8005AA499 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */; };
 		C189C8DF29FCF7C3007C5FB3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */; };
 		C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */; };
 		C189C8E729FD0F20007C5FB3 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189C8E629FD0F20007C5FB3 /* FormTextField.swift */; };
@@ -165,15 +162,9 @@
 		C1F6B8252A27659A00D3A822 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F6B8232A27659A00D3A822 /* PhotoView.swift */; };
 		C1FC400A2A3B3AC200E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
 		C1FC400B2A3B407A00E09D66 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */; };
-		E0AE1903590C772B3713262F /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.debug.xcconfig"; sourceTree = "<group>"; };
-		66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.release.xcconfig"; sourceTree = "<group>"; };
-		728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Distribution.release.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution.release.xcconfig"; sourceTree = "<group>"; };
-		72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPhotoReviewer_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B3A52A3356110024E261 /* ICloudAlbumSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudAlbumSelectionView.swift; sourceTree = "<group>"; };
 		C101B9DF29FA7D6F000192CD /* MyPhotoReviewer-Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyPhotoReviewer-Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101B9E129FA80B8000192CD /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
@@ -195,7 +186,6 @@
 		C16DDC4B2A8B6CE800009869 /* PhotoSlideShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSlideShowViewModel.swift; sourceTree = "<group>"; };
 		C17E94A42A58429F005AA499 /* AddPhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoDetailsView.swift; sourceTree = "<group>"; };
 		C17E94A72A584D0A005AA499 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
 		C189C8DE29FCF7C3007C5FB3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C189C8E229FCF9BB007C5FB3 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
 		C189C8E629FD0F20007C5FB3 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
@@ -253,7 +243,6 @@
 		C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoService.swift; sourceTree = "<group>"; };
 		C1F6B8232A27659A00D3A822 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		C1FC40092A3B3AC200E09D66 /* PhotoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsView.swift; sourceTree = "<group>"; };
-		D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPhotoReviewer-Development.debug.xcconfig"; path = "Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,7 +264,6 @@
 				C1DFD3192A27CE750001ABFC /* GTMSessionFetcherFull in Frameworks */,
 				C1D1E6952A59AAA8005F508B /* FirebaseCrashlytics in Frameworks */,
 				C1D1E6912A59AAA8005F508B /* FirebaseAnalytics in Frameworks */,
-				3A7638ACC17B3BDD3633B681 /* Pods_MyPhotoReviewer_Development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,24 +297,12 @@
 				C1D1E69F2A59F61A005F508B /* FirebaseAuth in Frameworks */,
 				C1DFD3242A27CF3F0001ABFC /* GTMSessionFetcherLogView in Frameworks */,
 				C1D1E69D2A59F619005F508B /* FirebaseAnalytics in Frameworks */,
-				E0AE1903590C772B3713262F /* Pods_MyPhotoReviewer_Distribution.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57318A5859ACE9BC3ED496BF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */,
-				66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */,
-				5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */,
-				728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		C101B9E029FA808D000192CD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,8 +318,6 @@
 				C1D1E67A2A599372005F508B /* FirebaseStorage.framework */,
 				C1D1E6762A59935F005F508B /* FirebaseDatabase.framework */,
 				C18E41FB2AE2E6FE00F72DFA /* GooglePlaces.xcframework */,
-				572D0043C47A32E0994DA762 /* Pods_MyPhotoReviewer_Development.framework */,
-				72934E97417D185280C5A92D /* Pods_MyPhotoReviewer_Distribution.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -399,7 +373,6 @@
 				C1A983CA29F3D80E00D83BBF /* MyPhotoReviewerUITests */,
 				C1A983AE29F3D80D00D83BBF /* Products */,
 				C101BA0D29FC3E75000192CD /* Frameworks */,
-				57318A5859ACE9BC3ED496BF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -534,7 +507,6 @@
 				C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */,
 				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
 				C17E94A72A584D0A005AA499 /* LocationService.swift */,
-				C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */,
 				C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */,
 			);
 			path = Services;
@@ -614,13 +586,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C101B9DC29FA7D6F000192CD /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Development" */;
 			buildPhases = (
-				D5BF9F24C5C1241B18320918 /* [CP] Check Pods Manifest.lock */,
 				C101B9D529FA7D6F000192CD /* Sources */,
 				C101B9D829FA7D6F000192CD /* Frameworks */,
 				C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3062A27A3F20001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C101B9D929FA7D6F000192CD /* Resources */,
-				A26B37C29999633338508F9B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -685,13 +655,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1B2CA9E2A15458600D2AE04 /* Build configuration list for PBXNativeTarget "MyPhotoReviewer-Distribution" */;
 			buildPhases = (
-				7FE66B174C8C9D810AF26C50 /* [CP] Check Pods Manifest.lock */,
 				C1B2CA772A15458600D2AE04 /* Sources */,
 				C1B2CA8D2A15458600D2AE04 /* Frameworks */,
 				C1B2CA972A15458600D2AE04 /* Setup Firebase Environment GoogleService-Info.plist */,
 				C1DFD3042A27A0400001ABFC /* Setup Google Drive Environment GoogleDriveService-Info.plist  */,
 				C1B2CA982A15458600D2AE04 /* Resources */,
-				65D4E84E067543A31C2294C3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -809,62 +777,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		65D4E84E067543A31C2294C3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Distribution/Pods-MyPhotoReviewer-Distribution-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7FE66B174C8C9D810AF26C50 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Distribution-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A26B37C29999633338508F9B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPhotoReviewer-Development/Pods-MyPhotoReviewer-Development-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C101BA0829FC3AEB000192CD /* Setup Firebase Environment GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -941,28 +853,6 @@
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Name of the resource we're selectively copying\nGOOGLEDRIVE_SERVICE_INFO_PLIST=GoogleDriveService-Info.plist\nTARGET=\"MyPhotoReviewer\"\n\n# Get references to dev and prod versions of the GoogleDriveService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLEDRIVE_SERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET}/GoogleDrive/Dev/${GOOGLEDRIVE_SERVICE_INFO_PLIST}\nGOOGLEDRIVE_SERVICE_INFO_RELEASE=${PROJECT_DIR}/${TARGET}/GoogleDrive/Prod/${GOOGLEDRIVE_SERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleDriveService-Info.plist exists\necho \"Looking for ${GOOGLEDRIVE_SERVICE_INFO_PLIST} in ${GOOGLEDRIVE_SERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLEDRIVE_SERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleDriveService.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Make sure the prod version of GoogleDriveService-Info.plist exists\necho \"Looking for ${GOOGLEDRIVE_SERVICE_INFO_PLIST} in ${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\"\nif [ ! -f $GOOGLEDRIVE_SERVICE_INFO_RELEASE ]\nthen\necho \"No Production GoogleDriveService.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Get a reference to the destination location for the GoogleDriveService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLEDRIVE_SERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleDriveService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Debug\" ]\nthen\necho \"Using ${GOOGLEDRIVE_SERVICE_INFO_DEV}\"\ncp \"${GOOGLEDRIVE_SERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\necho \"Using ${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\"\ncp \"${GOOGLEDRIVE_SERVICE_INFO_RELEASE}\" \"${PLIST_DESTINATION}\"\nfi  \n";
 			showEnvVarsInLog = 0;
 		};
-		D5BF9F24C5C1241B18320918 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyPhotoReviewer-Development-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1025,7 +915,6 @@
 				C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C19948B72A0371CD004CD4A1 /* OverlayContainerView.swift in Sources */,
 				C101B9D729FA7D6F000192CD /* MyPhotoReviewerApp.swift in Sources */,
-				C17E94AD2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
 				C101BA1F29FC4196000192CD /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1106,7 +995,6 @@
 				C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C1B2CA8A2A15458600D2AE04 /* OverlayContainerView.swift in Sources */,
 				C1B2CA8B2A15458600D2AE04 /* MyPhotoReviewerApp.swift in Sources */,
-				C17E94AE2A5976A8005AA499 /* GooglePlacesService.swift in Sources */,
 				C1B2CA8C2A15458600D2AE04 /* UserRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1116,7 +1004,6 @@
 /* Begin XCBuildConfiguration section */
 		C101B9DD29FA7D6F000192CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D68B0A01E8B8E4C4B35A3A72 /* Pods-MyPhotoReviewer-Development.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1160,7 +1047,6 @@
 		};
 		C101B9DE29FA7D6F000192CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66D735789B63430639F1D6F2 /* Pods-MyPhotoReviewer-Development.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1391,7 +1277,6 @@
 		};
 		C1B2CA9F2A15458600D2AE04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E7BC6D5E3C3D3FC3A50B37C /* Pods-MyPhotoReviewer-Distribution.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1435,7 +1320,6 @@
 		};
 		C1B2CAA02A15458600D2AE04 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 728AB3A13965C333A25CE3D0 /* Pods-MyPhotoReviewer-Distribution.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

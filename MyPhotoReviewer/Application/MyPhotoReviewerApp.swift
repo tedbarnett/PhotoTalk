@@ -18,6 +18,7 @@ struct MyPhotoReviewerApp: App {
     
     init() {
         GMSPlacesClient.provideAPIKey("AIzaSyAZzjRcTc9YKCF5tdcSuH8jVaqabNRn3L8")
+        AppleMapsService.sharedInstance.requestAuthorization()
     }
     
     var body: some Scene {

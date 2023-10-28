@@ -128,9 +128,9 @@ struct PhotoDetailsView: View {
                 
                 Spacer()
                 
-                if self.viewModel.arePhotoDetailsDownloaded {
-                    // Photo details - Location, Date, Audio Recording/Playback controls
-                    VStack(alignment: .center, spacing: 16) {
+                // Photo details - Location, Date, Audio Recording/Playback controls
+                VStack(alignment: .center, spacing: 16) {
+                    if self.viewModel.arePhotoDetailsDownloaded {
                         // Photo location
                         if let location = self.viewModel.photoLocation {
                             Text(location)
@@ -304,15 +304,18 @@ struct PhotoDetailsView: View {
                         }
                         .padding(.top, 8)
                         .padding(.bottom, 16)
+                    } else {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                        Text("Loading...")
                     }
-                    .padding(.all, 24)
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color.black300)
-                            .frame(maxWidth: .infinity)
-                            .shadow(color: Color.offwhite100.opacity(0.4), radius: 8, x: 0, y: 0)
-                    )
                 }
+                .padding(.all, 24)
+                .background(
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(Color.black300)
+                        .frame(maxWidth: .infinity)
+                        .shadow(color: Color.offwhite100.opacity(0.4), radius: 8, x: 0, y: 0)
+                )
             }
             .frame(height: UIScreen.main.bounds.height)
         }
@@ -374,12 +377,12 @@ extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
         }
     }
     
-    func didSelectLocation(location: GooglePlace) {
-        guard !location.name.isEmpty else { return }
+    func didSelectLocation(location: AppleMapLocation) {
         self.viewModel.updatePhotoEXIFLocation(to: location)
         
         self.overlayContainerContext.shouldShowProgressIndicator = true
-        self.viewModel.savePhotoLocation(location.name) { didSave in
+        let location = "\(location.name), \(location.locality), \(location.country)"
+        self.viewModel.savePhotoLocation(location) { didSave in
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }

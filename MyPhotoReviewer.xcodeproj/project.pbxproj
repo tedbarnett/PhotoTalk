@@ -25,6 +25,8 @@
 		C128D8DD2AEBF12900E27E86 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8DB2AEBF12900E27E86 /* HelpView.swift */; };
 		C128D8DF2AEBF20200E27E86 /* HelpInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8DE2AEBF20200E27E86 /* HelpInstruction.swift */; };
 		C128D8E02AEBF20200E27E86 /* HelpInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8DE2AEBF20200E27E86 /* HelpInstruction.swift */; };
+		C128D8E22AED70BE00E27E86 /* AppleMapsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */; };
+		C128D8E32AED70BE00E27E86 /* AppleMapsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */; };
 		C12FA6B32A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B42A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
@@ -180,6 +182,7 @@
 		C101BA2129FC4294000192CD /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
 		C128D8DB2AEBF12900E27E86 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		C128D8DE2AEBF20200E27E86 /* HelpInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInstruction.swift; sourceTree = "<group>"; };
+		C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsService.swift; sourceTree = "<group>"; };
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
 		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
@@ -532,6 +535,7 @@
 				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
 				C17E94A72A584D0A005AA499 /* LocationService.swift */,
 				C17E94AC2A5976A8005AA499 /* GooglePlacesService.swift */,
+				C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1000,6 +1004,7 @@
 				C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
 				C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */,
+				C128D8E22AED70BE00E27E86 /* AppleMapsService.swift in Sources */,
 				C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */,
 				C1EDF04B2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C101BA2229FC4294000192CD /* UserLoginView.swift in Sources */,
@@ -1080,6 +1085,7 @@
 				C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
 				C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */,
+				C128D8E32AED70BE00E27E86 /* AppleMapsService.swift in Sources */,
 				C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */,
 				C1EDF04C2A46F255005D3FAD /* PhotoDetailsViewModel.swift in Sources */,
 				C1B2CA842A15458600D2AE04 /* UserLoginView.swift in Sources */,
@@ -1128,6 +1134,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Access to your phone location services is needed to help you add location details to your photos";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1168,6 +1175,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Development-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Access to your phone location services is needed to help you add location details to your photos";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1400,6 +1408,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Access to your phone location services is needed to help you add location details to your photos";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1442,6 +1451,7 @@
 				INFOPLIST_FILE = "MyPhotoReviewer/Application/MyPhotoReviewer-Distribution-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Access to your phone location services is needed to help you add location details to your photos";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MyPhotoReviewer needs access to device microphone for recording audio";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to your photo library is needed to show your photos in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

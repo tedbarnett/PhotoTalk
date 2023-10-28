@@ -89,7 +89,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             if let date = photo.date {
                 self.photoDateString = date.photoNodeFormattedDateString
             } else {
-                self.photoDateString = PhotoDetailsViewModel.unknownLocationText
+                self.photoDateString = PhotoDetailsViewModel.unknownDateTimeText
             }
             
             self.isFavourite = photoDetails.isFavourite
@@ -257,17 +257,11 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     /**
      Updates photo's EXIF location with the given location
      */
-    func updatePhotoEXIFLocation(to location: GooglePlace) {
+    func updatePhotoEXIFLocation(to location: AppleMapLocation) {
         guard let photo = self.selectedPhoto else { return }
-        location.getCordinates { cords in
-            guard let locationCordinates = cords else {
-                return
-            }
-            photo.iCloudPhotoLocation = locationCordinates
-            photo.updateEXIFLocation(to: locationCordinates)
-            
-            self.updateDetailsChangeStatus()
-        }
+        photo.iCloudPhotoLocation = location.location
+        photo.updateEXIFLocation(to: location.location)
+        self.updateDetailsChangeStatus()
     }
     
     /**

@@ -37,7 +37,7 @@ enum AddPhotoDetailsViewMode {
  details are added to the photo
  */
 protocol AddPhotoDetailsViewDelegate {
-    func didSelectLocation(location: GooglePlace)
+    func didSelectLocation(location: AppleMapLocation)
     func didSelectDate(date: Date)
 }
 
@@ -59,7 +59,7 @@ struct AddPhotoDetailsView: View {
     // MARK: Private properties
     
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
-    @StateObject private var placesService = GooglePlacesService()
+    @StateObject private var appleMapsService = AppleMapsService.sharedInstance
     @State private var locationSearchString = ""
     @State private var date = Date()
     
@@ -180,10 +180,9 @@ struct AddPhotoDetailsView: View {
                             // Search result
                             ScrollView(.vertical, showsIndicators: false) {
                                 VStack(alignment: .leading, spacing: 5) {
-                                    ForEach(self.placesService.places, id: \.id) { place in
+                                    ForEach(self.appleMapsService.places, id: \.id) { place in
                                         ZStack(alignment: .leading) {
-                                            
-                                            Text(place.name)
+                                            Text("\(place.name), \(place.locality), \(place.country)")
                                                 .font(.system(size: 16))
                                                 .foregroundColor(Color.black300)
                                                 .padding(.all, 8)
@@ -246,7 +245,7 @@ struct AddPhotoDetailsView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
             .onChange(of: self.locationSearchString, perform: { string in
-                self.placesService.findPlaces(query: string)
+                self.appleMapsService.getLocations(for: string)
             })
             .onAppear {
                 if let photo = self.photo, let photoDate = photo.date {

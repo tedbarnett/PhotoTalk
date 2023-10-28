@@ -306,7 +306,8 @@ struct PhotoDetailsView: View {
                         .padding(.bottom, 16)
                     } else {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
-                        Text("Loading...")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 150)
                     }
                 }
                 .padding(.all, 24)

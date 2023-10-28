@@ -64,15 +64,33 @@ struct AddPhotoDetailsView: View {
     @State private var date = Date()
     
     private var changeLocationDescriptionText: String? {
-        guard let location = self.selectedLocation else { return nil }
-        let string = NSLocalizedString("You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result", comment: "Add photo details view - change location description")
+        guard let location = self.selectedLocation, location != PhotoDetailsViewModel.unknownLocationText else {
+            return NSLocalizedString(
+                "This photo location is unknown. To add a location, please search for the desired location and select one from the search result",
+                comment: "Add photo details view - add location description"
+            )
+        }
+        
+        let string = NSLocalizedString(
+            "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result",
+            comment: "Add photo details view - change location description"
+        )
         let formattedString = String.StringLiteralType(format: string, location)
         return formattedString
     }
     
     private var changeDateAndTimeDescriptionText: String? {
-        guard let dateString = self.selectedDateString else { return nil }
-        let string = NSLocalizedString("You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button", comment: "Add photo details view - change date and time description")
+        guard let dateString = self.selectedDateString, dateString != PhotoDetailsViewModel.unknownDateTimeText else {
+            return NSLocalizedString(
+                "This photo date is unknown. Please select desired date/time to add these details",
+                comment: "Add photo details view - add date and time description"
+            )
+        }
+        
+        let string = NSLocalizedString(
+            "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button",
+            comment: "Add photo details view - change date and time description"
+        )
         let formattedString = String.StringLiteralType(format: string, dateString)
         return formattedString
     }

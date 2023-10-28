@@ -66,13 +66,13 @@ struct AddPhotoDetailsView: View {
     private var changeLocationDescriptionText: String? {
         guard let location = self.selectedLocation, location != PhotoDetailsViewModel.unknownLocationText else {
             return NSLocalizedString(
-                "This photo location is unknown. To add a location, please search for the desired location and select one from the search result",
+                "This photo's location is unknown. To add a location, please search for the desired location and select one from the search result",
                 comment: "Add photo details view - add location description"
             )
         }
         
         let string = NSLocalizedString(
-            "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result",
+            "This photo's current location is '%@'. To change, please search for a new location and select one from the search result",
             comment: "Add photo details view - change location description"
         )
         let formattedString = String.StringLiteralType(format: string, location)
@@ -82,13 +82,13 @@ struct AddPhotoDetailsView: View {
     private var changeDateAndTimeDescriptionText: String? {
         guard let dateString = self.selectedDateString, dateString != PhotoDetailsViewModel.unknownDateTimeText else {
             return NSLocalizedString(
-                "This photo date is unknown. Please select desired date/time to add these details",
+                "This photo's date and time is unknown. Please select desired date and time to add these details",
                 comment: "Add photo details view - add date and time description"
             )
         }
         
         let string = NSLocalizedString(
-            "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button",
+            "This photo's current date and time is '%@'. To change, please select a new data and time and tap on save button",
             comment: "Add photo details view - change date and time description"
         )
         let formattedString = String.StringLiteralType(format: string, dateString)
@@ -105,34 +105,36 @@ struct AddPhotoDetailsView: View {
             // Main content
             VStack(alignment: .center, spacing: 16) {
                 
-                HStack(alignment: .center) {
-                    Spacer()
-                    
-                    // Dismiss button
-                    Button(
-                        action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        },
-                        label: {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 40, height: 40)
-                                Image("closeButtonIcon")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 25, height: 25)
+                ZStack(alignment: .center) {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        
+                        // Dismiss button
+                        Button(
+                            action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            },
+                            label: {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.clear)
+                                        .frame(width: 40, height: 40)
+                                    Image("closeButtonIcon")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
                             }
-                        }
-                    )
-                }
-                
-                // Title text
-                if let editMode = self.mode {
-                    Text(editMode.title)
+                        )
+                    }
+                    
+                    // Title text
+                    Text(self.mode?.title ?? "")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color.blue500)
-                    
+                }
+                
+                if let editMode = self.mode {
                     if editMode == .addLocation {
                         VStack(alignment: .leading, spacing: 16) {
                             
@@ -216,7 +218,7 @@ struct AddPhotoDetailsView: View {
                             selection: self.$date,
                             in: ...Date(),
                             displayedComponents: [.date, .hourAndMinute])
-                        .datePickerStyle(.automatic)
+                        .datePickerStyle(.graphical)
                         .padding(.top, 24)
                         
                         Button(

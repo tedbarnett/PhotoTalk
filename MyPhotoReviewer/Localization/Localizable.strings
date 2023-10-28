@@ -64,17 +64,18 @@
 
 
 //---------- Photo details view -----------------------
+
 "Delete audio?" = "Delete audio?";
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
 "Add location" = "Add location";
 "Location unknown" = "Location unknown";
 "Date and time unknown" = "Date and time unknown";
 "Add date and time" = "Add date and time";
-"You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result" = "You saved '%@' as this photo location. To change location, please search for a new location and select one from the search result";
-"This photo location is unknown. To add a location, please search for the desired location and select one from the search result" = "This photo location is unknown. To add a location, please search for the desired location and select one from the search result";
+"This photo's current location is '%@'. To change, please search for a new location and select one from the search result" = "This photo's current location is '%@'. To change, please search for a new location and select one from the search result";
+"This photo's location is unknown. To add a location, please search for the desired location and select one from the search result" = "This photo's location is unknown. To add a location, please search for the desired location and select one from the search result";
 "Pick a date and time" = "Pick a date and time";
-"You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button" = "You saved '%@' as this photo date and time. To change, please select a new data and time and tap on save button";
-"This photo date is unknown. Please select desired date/time to add these details" = "This photo date is unknown. Please select desired date/time to add these details";
+"This photo's current date and time is '%@'. To change, please select a new data and time and tap on save button" = "This photo's current date and time is '%@'. To change, please select a new data and time and tap on save button";
+"This photo' date and time is unknown. Please select desired date and time to add these details" = "This photo' date and time is unknown. Please select desired date and time to add these details";
 
 //---------- Photo slide show view -----------------------
 "Photo slide show" = "Photo slide show";

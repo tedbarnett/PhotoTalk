@@ -51,7 +51,7 @@ struct AddPhotoDetailsView: View {
     // MARK: Public properties
     
     var photo: CloudAsset?
-    var mode: AddPhotoDetailsViewMode = .addLocation
+    @Binding var mode: AddPhotoDetailsViewMode?
     var selectedLocation: String? = nil
     var selectedDateString: String? = nil
     var delegate: AddPhotoDetailsViewDelegate?
@@ -128,113 +128,115 @@ struct AddPhotoDetailsView: View {
                 }
                 
                 // Title text
-                Text(self.mode.title)
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundColor(Color.blue500)
-                
-                if self.mode == .addLocation {
-                    VStack(alignment: .leading, spacing: 16) {
+                if let editMode = self.mode {
+                    Text(editMode.title)
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color.blue500)
+                    
+                    if editMode == .addLocation {
+                        VStack(alignment: .leading, spacing: 16) {
+                            
+                            // Currently selected location, if available
+                            if let descriptionText = self.changeLocationDescriptionText {
+                                Text(descriptionText)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(Color.offwhite100)
+                                    .padding(.top, 8)
+                            }
+                            
+                            // Search field
+                            ZStack(alignment: .leading) {
+                                // Background
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color.gray600, lineWidth: 1)
+                                    .frame(height: 44)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color.offwhite100)
+                                    }
+                                // Text field
+                                HStack(alignment: .center, spacing: 12) {
+                                    Image("searchIcon")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 15, height: 15)
+                                    
+                                    TextField(
+                                        NSLocalizedString("Search", comment: "Add photo details view - search"),
+                                        text: self.$locationSearchString
+                                    )
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(Color.black300)
+                                    .autocapitalization(.none)
+                                    .disableAutocorrection(true)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 8)
+                            }
+                            
+                            // Search result
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    ForEach(self.placesService.places, id: \.id) { place in
+                                        ZStack(alignment: .leading) {
+                                            
+                                            Text(place.name)
+                                                .font(.system(size: 16))
+                                                .foregroundColor(Color.black300)
+                                                .padding(.all, 8)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 4)
+                                                        .fill(Color.gray200)
+                                                        .frame(maxWidth: .infinity)
+                                                )
+                                        }
+                                        .onTapGesture {
+                                            self.delegate?.didSelectLocation(location: place)
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+
+                    } else if editMode == .addDate {
                         
                         // Currently selected location, if available
-                        if let descriptionText = self.changeLocationDescriptionText {
+                        if let descriptionText = self.changeDateAndTimeDescriptionText {
                             Text(descriptionText)
                                 .font(.system(size: 16, weight: .regular))
                                 .foregroundColor(Color.offwhite100)
                                 .padding(.top, 8)
                         }
                         
-                        // Search field
-                        ZStack(alignment: .leading) {
-                            // Background
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.gray600, lineWidth: 1)
-                                .frame(height: 44)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color.offwhite100)
-                                }
-                            // Text field
-                            HStack(alignment: .center, spacing: 12) {
-                                Image("searchIcon")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 15, height: 15)
-                                
-                                TextField(
-                                    NSLocalizedString("Search", comment: "Add photo details view - search"),
-                                    text: self.$locationSearchString
-                                )
-                                .font(.system(size: 14, weight: .regular))
-                                .foregroundColor(Color.black300)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
-                                
-                                Spacer()
-                            }
-                            .padding(.horizontal, 8)
-                        }
+                        DatePicker(
+                            NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
+                            selection: self.$date,
+                            in: ...Date(),
+                            displayedComponents: [.date, .hourAndMinute])
+                        .datePickerStyle(.automatic)
+                        .padding(.top, 24)
                         
-                        // Search result
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack(alignment: .leading, spacing: 5) {
-                                ForEach(self.placesService.places, id: \.id) { place in
-                                    ZStack(alignment: .leading) {
-                                        
-                                        Text(place.name)
-                                            .font(.system(size: 16))
-                                            .foregroundColor(Color.black300)
-                                            .padding(.all, 8)
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .fill(Color.gray200)
-                                                    .frame(maxWidth: .infinity)
-                                            )
-                                    }
-                                    .onTapGesture {
-                                        self.delegate?.didSelectLocation(location: place)
-                                        self.presentationMode.wrappedValue.dismiss()
-                                    }
+                        Button(
+                            action: {
+                                self.delegate?.didSelectDate(date: self.date)
+                                self.presentationMode.wrappedValue.dismiss()
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.blue)
+                                        .frame(height: 40)
+                                    Text(NSLocalizedString("Save", comment: "Common - Save button title"))
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.white)
                                 }
                             }
-                        }
+                        )
+                        .padding(.top, 8)
                     }
-                    .padding(.horizontal, 16)
-
-                } else if self.mode == .addDate {
-                    
-                    // Currently selected location, if available
-                    if let descriptionText = self.changeDateAndTimeDescriptionText {
-                        Text(descriptionText)
-                            .font(.system(size: 16, weight: .regular))
-                            .foregroundColor(Color.offwhite100)
-                            .padding(.top, 8)
-                    }
-                    
-                    DatePicker(
-                        NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
-                        selection: self.$date,
-                        in: ...Date(),
-                        displayedComponents: [.date, .hourAndMinute])
-                    .datePickerStyle(.automatic)
-                    .padding(.top, 24)
-                    
-                    Button(
-                        action: {
-                            self.delegate?.didSelectDate(date: self.date)
-                            self.presentationMode.wrappedValue.dismiss()
-                        },
-                        label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.blue)
-                                    .frame(height: 40)
-                                Text(NSLocalizedString("Save", comment: "Common - Save button title"))
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.white)
-                            }
-                        }
-                    )
-                    .padding(.top, 8)
                 }
                 
                 Spacer()

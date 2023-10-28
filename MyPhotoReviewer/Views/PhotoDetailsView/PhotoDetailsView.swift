@@ -28,7 +28,7 @@ struct PhotoDetailsView: View {
     
     @StateObject private var viewModel = PhotoDetailsViewModel()
     @State private var shouldShowAddPhotoDetailsView = false
-    @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode = .addLocation
+    @State private var addPhotoDetailsViewMode: AddPhotoDetailsViewMode?
     @State private var currentSlideIndex: Int = 0
     @State private var canSlideToLeft: Bool = false
     @State private var canSlideToRight: Bool = true
@@ -327,7 +327,7 @@ struct PhotoDetailsView: View {
         .sheet(isPresented: self.$shouldShowAddPhotoDetailsView) {
             AddPhotoDetailsView(
                 photo: self.selectedPhoto,
-                mode: self.addPhotoDetailsViewMode,
+                mode: self.$addPhotoDetailsViewMode,
                 selectedLocation: self.viewModel.photoLocation,
                 selectedDateString: self.viewModel.photoDateString,
                 delegate: self

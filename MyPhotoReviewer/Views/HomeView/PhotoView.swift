@@ -30,6 +30,17 @@ struct PhotoView: View {
     
     @State private var image: Image?
     @State private var isImageLoading = true
+    @State private var zoomScale: CGFloat = 1
+    @State private var previousZoomScale: CGFloat = 1
+    
+    private let minZoomScale: CGFloat = 1
+    private let maxZoomScale: CGFloat = 5
+    
+    private var zoomGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged(self.onZoomGestureStarted)
+            .onEnded(self.onZoomGestureEnded)
+    }
     
     // MARK: User interface
     
@@ -38,11 +49,15 @@ struct PhotoView: View {
             if let img = self.image {
                 if self.isZoomAndPanEnabled {
                     GeometryReader { proxy in
-                        img
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: self.width, height: height)
-                            .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
+                        ScrollView([.vertical, .horizontal], showsIndicators: false) {
+                            img
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .onTapGesture(count: 2, perform: self.onImageDoubleTapped)
+                                .gesture(self.zoomGesture)
+                                .frame(width: proxy.size.width * max(self.minZoomScale, self.zoomScale))
+                                .frame(maxHeight: .infinity)
+                        }
                     }
                 } else {
                     img
@@ -79,11 +94,41 @@ struct PhotoView: View {
     
     // MARK: Private methods
     
-    func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
+    private func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
         guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width * 2, height: self.height * 2)) else {
             self.image = nil
             return
         }
         self.image = Image(uiImage: uiImage)
+    }
+    
+    private func onImageDoubleTapped() {
+        self.resetImageState()
+    }
+    
+    private func onZoomGestureStarted(value: MagnificationGesture.Value) {
+        withAnimation(.easeIn(duration: 0.1)) {
+            let delta = value / self.previousZoomScale
+            self.previousZoomScale = value
+            let zoomDelta = self.zoomScale * delta
+            var minMaxScale = max(self.minZoomScale, zoomDelta)
+            minMaxScale = min(self.maxZoomScale, minMaxScale)
+            self.zoomScale = minMaxScale
+        }
+    }
+    
+    private func onZoomGestureEnded(value: CGFloat) {
+        self.previousZoomScale = 1
+        if self.zoomScale <= 1 {
+            self.resetImageState()
+        } else if zoomScale > 5 {
+            self.zoomScale = 5
+        }
+    }
+    
+    private func resetImageState() {
+        withAnimation(.interactiveSpring()) {
+            self.zoomScale = 1
+        }
     }
 }

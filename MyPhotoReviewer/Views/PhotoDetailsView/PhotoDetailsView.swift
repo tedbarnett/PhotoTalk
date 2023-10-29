@@ -131,28 +131,94 @@ struct PhotoDetailsView: View {
                 // Photo details - Location, Date, Audio Recording/Playback controls
                 VStack(alignment: .center, spacing: 16) {
                     if self.viewModel.arePhotoDetailsDownloaded {
-                        // Photo location
-                        if let location = self.viewModel.photoLocation {
-                            Text(location)
-                                .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(Color.offwhite100)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .onTapGesture {
-                                    self.addPhotoDetailsViewMode = .addLocation
-                                    self.shouldShowAddPhotoDetailsView = true
+                        HStack(alignment: .center, spacing: 12) {
+                            // Previous photo button
+                            Button(
+                                action: {
+                                    if let photos = self.photos {
+                                        let newIndex = self.currentSlideIndex - 1
+                                        guard newIndex >= 0 else { return }
+                                        self.currentSlideIndex = newIndex
+                                        self.canSlideToLeft = newIndex > 0
+                                        self.canSlideToRight = newIndex < photos.count - 1
+                                        
+                                        let photo = photos[newIndex]
+                                        self.viewModel.selectedPhoto = photo
+                                        self.downloadPhotoDetails()
+                                    }
+                                },
+                                label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 6)
+                                            .fill(Color.clear)
+                                            .frame(width: 40, height: 40)
+                                        Image("leftArrowIcon")
+                                            .renderingMode(.template)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
+                                            .tint(Color.offwhite100)
+                                    }
                                 }
-                        }
-                        
-                        // Photo date and time
-                        if let photoDateString = self.viewModel.photoDateString {
-                            Text(photoDateString)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color.offwhite100)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .onTapGesture {
-                                    self.addPhotoDetailsViewMode = .addDate
-                                    self.shouldShowAddPhotoDetailsView = true
+                            )
+                            .opacity(self.canSlideToLeft ? 1 : 0)
+                            .disabled(!self.canSlideToLeft)
+                            
+                            // Photo location, date and time
+                            VStack(alignment: .center, spacing: 16) {
+                                if let location = self.viewModel.photoLocation {
+                                    Text(location)
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(Color.offwhite100)
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                        .onTapGesture {
+                                            self.addPhotoDetailsViewMode = .addLocation
+                                            self.shouldShowAddPhotoDetailsView = true
+                                        }
                                 }
+                                if let photoDateString = self.viewModel.photoDateString {
+                                    Text(photoDateString)
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(Color.offwhite100)
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                        .onTapGesture {
+                                            self.addPhotoDetailsViewMode = .addDate
+                                            self.shouldShowAddPhotoDetailsView = true
+                                        }
+                                }
+                            }
+                            
+                            // Next photo button
+                            Button(
+                                action: {
+                                    if let photos = self.photos {
+                                        let newIndex = self.currentSlideIndex + 1
+                                        guard newIndex < photos.count else { return }
+                                        self.currentSlideIndex = newIndex
+                                        self.canSlideToLeft = newIndex > 0
+                                        self.canSlideToRight = newIndex < photos.count - 1
+                                        
+                                        let photo = photos[newIndex]
+                                        self.viewModel.selectedPhoto = photo
+                                        self.downloadPhotoDetails()
+                                    }
+                                },
+                                label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .fill(Color.clear)
+                                            .frame(width: 40, height: 40)
+                                        Image("arrowRightIcon")
+                                            .renderingMode(.template)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
+                                            .tint(Color.offwhite100)
+                                    }
+                                }
+                            )
+                            .opacity(self.canSlideToRight ? 1 : 0)
+                            .disabled(!self.canSlideToRight)
                         }
                         
                         // Audio recording/playback controls
@@ -304,13 +370,15 @@ struct PhotoDetailsView: View {
                         }
                         .padding(.top, 8)
                         .padding(.bottom, 16)
+                        .padding(.horizontal, 12)
                     } else {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
                             .frame(maxWidth: .infinity)
                             .frame(height: 150)
                     }
                 }
-                .padding(.all, 24)
+                .padding(.vertical, 24)
+                .padding(.horizontal, 8)
                 .background(
                     RoundedRectangle(cornerRadius: 24)
                         .fill(Color.black300)

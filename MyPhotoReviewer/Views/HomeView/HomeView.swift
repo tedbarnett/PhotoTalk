@@ -164,7 +164,7 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 24) {
                             ScrollView(.vertical, showsIndicators: false) {
                                 LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
-                                    ForEach(self.viewModel.photos, id: \.self.id) { photo in
+                                    ForEach(self.viewModel.filteredPhotos, id: \.self.id) { photo in
                                         PhotoView(
                                             currentSlideIndex: .constant(0),
                                             index: 0,
@@ -359,6 +359,6 @@ extension HomeView: GoogleDriveFolderSelectionViewDelegate {
 
 extension HomeView: CheckboxViewDelegate {
     func didChangeSelection(isSelected: Bool) {
-        print("Check box selected: \(isSelected)")
+        self.viewModel.filterPhotosBasedOnCheckBoxSelectionChange(isSelected: isSelected)
     }
 }

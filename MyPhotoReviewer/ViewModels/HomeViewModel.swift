@@ -44,6 +44,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     @Published var folders = [CloudAsset]()
     @Published var selectedFolders: [CloudAsset]? = nil
     @Published var photos = [CloudAsset]()
+    @Published var filteredPhotos = [CloudAsset]()
     @Published var shouldShowProgressIndicator = false
     
     // Application run environment - prod or dev
@@ -191,6 +192,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                     self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: userPhotos)
                                     self.photos.removeAll()
                                     self.photos.append(contentsOf: userPhotos)
+                                    self.filteredPhotos.removeAll()
+                                    self.filteredPhotos.append(contentsOf: userPhotos)
                                 }
                             }
                             responseHandler(true)
@@ -252,6 +255,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                             DispatchQueue.main.async {
                                 self.photos.removeAll()
                                 self.photos.append(contentsOf: userPhotos)
+                                self.filteredPhotos.removeAll()
+                                self.filteredPhotos.append(contentsOf: userPhotos)
                                 responseHandler(true)
                             }
                         }
@@ -373,12 +378,14 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         self.localStorageService.userSelectedGoogleDriveFolders = photoAlbums
         
         self.photos.removeAll()
+        self.filteredPhotos.removeAll()
         for folder in folders {
             if let folderId = folder.googleDriveFolderId {
                 DispatchQueue.global(qos: .background).async {
                     self.userPhotoService.downloadPhotosFromGoogleDriveFolder(folderId: folderId) { userPhotos in
                         DispatchQueue.main.async {
                             self.photos.append(contentsOf: userPhotos)
+                            self.filteredPhotos.append(contentsOf: userPhotos)
                             responseHandler(true)
                         }
                     }
@@ -417,6 +424,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         
         self.photos.removeAll()
+        self.filteredPhotos.removeAll()
         let assetCollections = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: iCloudAlbumIds, options: PHFetchOptions())
         for i in 0..<assetCollections.count {
             let collection =  assetCollections[i]
@@ -436,6 +444,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                     photo.iCloudPhotoCreationDate = asset.creationDate
                     photo.date = asset.creationDate
                     self.photos.append(photo)
+                    self.filteredPhotos.append(photo)
                 }
             }
         }
@@ -458,7 +467,18 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             }
         }
         self.userProfile?.didUpdatePhotoDetails = didUpdatePhoto
-        print("-------- Did user update photos: \(didUpdatePhoto)")
+    }
+    
+    /**
+     It filters list of photos based on the selection state of "Show only slide show photos" checkbox
+     */
+    func filterPhotosBasedOnCheckBoxSelectionChange(isSelected: Bool) {
+        self.filteredPhotos.removeAll()
+        if isSelected {
+            self.filteredPhotos.append(contentsOf: self.photosUpdatedByUser)
+        } else {
+            self.filteredPhotos.append(contentsOf: self.photos)
+        }
     }
     
     /**

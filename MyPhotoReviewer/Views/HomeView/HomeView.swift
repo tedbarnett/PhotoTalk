@@ -161,32 +161,24 @@ struct HomeView: View {
                     
                     // Displaying user photos with details, if user photos/album details are saved in database
                     else if !self.viewModel.photos.isEmpty {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text(NSLocalizedString("Please tap on photos to see details and begin annotation", comment: "Home view - Photo annotation title"))
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color.gray600)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            ScrollView(.vertical, showsIndicators: false) {
-                                LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
-                                    ForEach(self.viewModel.photos, id: \.self.id) { photo in
-                                        PhotoView(
-                                            currentSlideIndex: .constant(0),
-                                            index: 0,
-                                            photo: photo,
-                                            width: self.viewModel.photoGridColumnWidth,
-                                            height: self.viewModel.photoGridColumnWidth,
-                                            isPresentedAsThumbnail: true
-                                        )
-                                        .onTapGesture {
-                                            photo.isDownloaded = false
-                                            self.selectedPhoto = photo
-                                            self.shouldShowPhotoDetails = true
-                                        }
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
+                                ForEach(self.viewModel.photos, id: \.self.id) { photo in
+                                    PhotoView(
+                                        currentSlideIndex: .constant(0),
+                                        index: 0,
+                                        photo: photo,
+                                        width: self.viewModel.photoGridColumnWidth,
+                                        height: self.viewModel.photoGridColumnWidth,
+                                        isPresentedAsThumbnail: true
+                                    )
+                                    .onTapGesture {
+                                        photo.isDownloaded = false
+                                        self.selectedPhoto = photo
+                                        self.shouldShowPhotoDetails = true
                                     }
                                 }
                             }
-                            .padding(.top, 4)
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 12)

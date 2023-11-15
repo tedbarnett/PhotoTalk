@@ -57,7 +57,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     
     var photosUpdatedByUser: [CloudAsset] {
         let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
-        let photos = self.photos.filter({
+        let photos = self.filteredPhotos.filter({
             guard let photoId = $0.photoId else { return false }
             return idsOfUpdatedPhotos.contains(photoId)
         })
@@ -475,7 +475,12 @@ class HomeViewModel: BaseViewModel, ObservableObject {
     func filterPhotosBasedOnCheckBoxSelectionChange(isSelected: Bool) {
         self.filteredPhotos.removeAll()
         if isSelected {
-            self.filteredPhotos.append(contentsOf: self.photosUpdatedByUser)
+            let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
+            let photos = self.photos.filter({
+                guard let photoId = $0.photoId else { return false }
+                return idsOfUpdatedPhotos.contains(photoId)
+            })
+            self.filteredPhotos.append(contentsOf: photos)
         } else {
             self.filteredPhotos.append(contentsOf: self.photos)
         }
@@ -520,4 +525,37 @@ class HomeViewModel: BaseViewModel, ObservableObject {
 
 enum UserFoldersTarget {
     case allFolders, userSelectedFolders
+}
+
+/**
+ DropViewDelegate provides drag and drop implementation for home view photos
+ */
+struct DropViewDelegate: DropDelegate {
+    
+    let destinationPhoto: CloudAsset
+    @Binding var photos: [CloudAsset]
+    @Binding var draggedPhoto: CloudAsset?
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        draggedPhoto = nil
+        return true
+    }
+    
+    func dropEntered(info: DropInfo) {
+        if let draggedPhoto {
+            let fromIndex = photos.firstIndex(of: draggedPhoto)
+            if let fromIndex {
+                let toIndex = photos.firstIndex(of: destinationPhoto)
+                if let toIndex, fromIndex != toIndex {
+                    withAnimation {
+                        self.photos.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex))
+                    }
+                }
+            }
+        }
+    }
 }

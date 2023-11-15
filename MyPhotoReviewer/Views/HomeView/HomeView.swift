@@ -31,6 +31,7 @@ struct HomeView: View {
     @State private var shouldShowPhotoSlideShowView = false
     @State private var selectedPhoto: CloudAsset?
     @State private var didAttemptToDownloadAssets: Bool = false
+    @State private var draggedPhoto: CloudAsset?
     
     // MARK: User interface
     
@@ -178,6 +179,18 @@ struct HomeView: View {
                                             self.selectedPhoto = photo
                                             self.shouldShowPhotoDetails = true
                                         }
+                                        .onDrag({
+                                            self.draggedPhoto = photo
+                                            return NSItemProvider()
+                                        })
+                                        .onDrop(
+                                            of: [.image],
+                                            delegate: DropViewDelegate(
+                                                destinationPhoto: photo,
+                                                photos: self.$viewModel.filteredPhotos,
+                                                draggedPhoto: self.$draggedPhoto
+                                            )
+                                        )
                                     }
                                 }
                             }

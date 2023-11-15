@@ -48,7 +48,7 @@
 
 "Welcome back" = "Welcome back";
 "My Photo Memories" = "My Photo Memories";
-"Instructions" = "Instructions";
+"Help and FAQ" = "Help and FAQ";
 "Logout" = "Logout";
 "Where are your photos stored? Please select from the following options:" = "Where are your photos stored? Please select from the following options:";
 "Apple iCloud" = "Apple iCloud";
@@ -67,10 +67,11 @@
 
 "Delete audio?" = "Delete audio?";
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
-"Add location" = "Add location";
+"Adjust Location" = "Adjust Location";
 "Location unknown" = "Location unknown";
 "Date and time unknown" = "Date and time unknown";
-"Add date and time" = "Add date and time";
+"Adjust Date & Time" = "Adjust Date & Time";
+"Adjust" = "Adjust";
 "This photo's current location is '%@'. To change, please search for a new location and select one from the search result" = "This photo's current location is '%@'. To change, please search for a new location and select one from the search result";
 "This photo's location is unknown. To add a location, please search for the desired location and select one from the search result" = "This photo's location is unknown. To add a location, please search for the desired location and select one from the search result";
 "Pick a date and time" = "Pick a date and time";

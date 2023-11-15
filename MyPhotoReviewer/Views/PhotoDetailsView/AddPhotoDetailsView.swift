@@ -20,13 +20,13 @@ enum AddPhotoDetailsViewMode {
         switch self {
         case .addLocation:
             return NSLocalizedString(
-                "Add location",
+                "Adjust Location",
                 comment: "Add photo details view - Add location title"
             )
         case .addDate:
             return NSLocalizedString(
-                "Add date and time",
-                comment: "Add photo details view - Add date title"
+                "Adjust Date & Time",
+                comment: "Add photo details view - Add date and time title"
             )
         }
     }
@@ -107,45 +107,43 @@ struct AddPhotoDetailsView: View {
                 
                 ZStack(alignment: .center) {
                     HStack(alignment: .center) {
-                        Spacer()
-                        
                         // Dismiss button
                         Button(
                             action: {
                                 self.presentationMode.wrappedValue.dismiss()
                             },
                             label: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.clear)
-                                        .frame(width: 40, height: 40)
-                                    Image("closeButtonIcon")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                }
+                                Text(NSLocalizedString("Cancel", comment: "Adjust photo details view - Cancel button title"))
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(.blue)
+                            }
+                        )
+                        
+                        Spacer()
+                        
+                        // Done button
+                        Button(
+                            action: {
+                                self.delegate?.didSelectDate(date: self.date)
+                                self.presentationMode.wrappedValue.dismiss()
+                            },
+                            label: {
+                                Text(NSLocalizedString("Adjust", comment: "Adjust photo details view - Adjust button title"))
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(.blue)
                             }
                         )
                     }
                     
                     // Title text
                     Text(self.mode?.title ?? "")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color.blue500)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(Color.offwhite100)
                 }
                 
                 if let editMode = self.mode {
                     if editMode == .addLocation {
                         VStack(alignment: .leading, spacing: 16) {
-                            
-                            // Currently selected location, if available
-                            if let descriptionText = self.changeLocationDescriptionText {
-                                Text(descriptionText)
-                                    .font(.system(size: 16, weight: .regular))
-                                    .foregroundColor(Color.offwhite100)
-                                    .padding(.top, 8)
-                            }
-                            
                             // Search field
                             ZStack(alignment: .leading) {
                                 // Background
@@ -203,15 +201,6 @@ struct AddPhotoDetailsView: View {
                         .padding(.horizontal, 16)
 
                     } else if editMode == .addDate {
-                        
-                        // Currently selected location, if available
-                        if let descriptionText = self.changeDateAndTimeDescriptionText {
-                            Text(descriptionText)
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color.offwhite100)
-                                .padding(.top, 8)
-                        }
-                        
                         DatePicker(
                             NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
                             selection: self.$date,
@@ -220,23 +209,23 @@ struct AddPhotoDetailsView: View {
                         .datePickerStyle(.graphical)
                         .padding(.top, 24)
                         
-                        Button(
-                            action: {
-                                self.delegate?.didSelectDate(date: self.date)
-                                self.presentationMode.wrappedValue.dismiss()
-                            },
-                            label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.blue)
-                                        .frame(height: 40)
-                                    Text(NSLocalizedString("Save", comment: "Common - Save button title"))
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.white)
-                                }
-                            }
-                        )
-                        .padding(.top, 8)
+//                        Button(
+//                            action: {
+//                                self.delegate?.didSelectDate(date: self.date)
+//                                self.presentationMode.wrappedValue.dismiss()
+//                            },
+//                            label: {
+//                                ZStack {
+//                                    RoundedRectangle(cornerRadius: 8)
+//                                        .fill(Color.blue)
+//                                        .frame(height: 40)
+//                                    Text(NSLocalizedString("Save", comment: "Common - Save button title"))
+//                                        .font(.system(size: 16))
+//                                        .foregroundColor(Color.white)
+//                                }
+//                            }
+//                        )
+//                        .padding(.top, 8)
                     }
                 }
                 

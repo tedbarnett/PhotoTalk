@@ -52,9 +52,41 @@ struct HomeView: View {
                         
                         HStack {
                             Spacer()
-                            // Menu button
                             Menu {
-                                Button(NSLocalizedString("Instructions", comment: "Menu option - instructions"), action: {
+                                // Add photo album button
+                                Button(
+                                    action: {
+                                        self.viewModel.setFoldersAsSelectedIfAny()
+                                        self.shouldShowFolderSelectionView = true
+                                    },
+                                    label: {
+                                        Text(
+                                            NSLocalizedString("Add Photo Album",
+                                                              comment: "Home view - Add photo selection")
+                                        )
+                                        .font(.system(size: 16))
+                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails ? Color.white : .gray900)
+                                    }
+                                )
+                                .disabled(!self.didAttemptToDownloadAssets && self.viewModel.folders.isEmpty)
+                                
+                                // Start slide show button
+                                Button(
+                                    action: {
+                                        self.shouldShowPhotoSlideShowView = true
+                                    },
+                                    label: {
+                                        Text(
+                                            NSLocalizedString("Start Slide Show",
+                                                              comment: "Home view - Start photo slide show button title")
+                                        )
+                                        .font(.system(size: 16))
+                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails ? Color.white : .gray900)
+                                    }
+                                )
+                                .disabled(!self.didAttemptToDownloadAssets && self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails)
+                                
+                                Button(NSLocalizedString("Help and FAQ", comment: "Menu option - Help and FAQ"), action: {
                                     self.shouldShowHelpView = true
                                 })
                                 
@@ -68,6 +100,7 @@ struct HomeView: View {
                                         self.userProfile.isAuthenticated = false
                                     }
                                 })
+                                
                             } label: {
                                 Image("hamburgerIcon")
                                     .renderingMode(.template)
@@ -91,6 +124,7 @@ struct HomeView: View {
                             )
                             .font(.system(size: 16, weight: .regular))
                             .foregroundColor(Color.offwhite100)
+                            .padding(.bottom, 24)
                             
                             if UIDevice.isIpad {
                                 HStack(alignment: .center, spacing: 40) {
@@ -121,6 +155,8 @@ struct HomeView: View {
                             }
                         }
                         .padding(.horizontal, 16)
+                        
+                        Spacer()
                     }
                     
                     // Displaying user photos with details, if user photos/album details are saved in database
@@ -161,54 +197,6 @@ struct HomeView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 16)
                     }
-                    
-                    Spacer()
-                    
-                    
-                    HStack(spacing: 8) {
-                        // Change album button
-                        if self.didAttemptToDownloadAssets && !self.viewModel.folders.isEmpty {
-                            Button(
-                                action: {
-                                    self.viewModel.setFoldersAsSelectedIfAny()
-                                    self.shouldShowFolderSelectionView = true
-                                },
-                                label: {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.blue)
-                                            .frame(height: 40)
-                                        Text(NSLocalizedString("Add Photo Album", comment: "Home view - Add photo selection"))
-                                            .font(.system(size: 16))
-                                            .foregroundColor(Color.white)
-                                    }
-                                }
-                            )
-                        }
-                        
-                        // Start photo slide show button
-                        if self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails {
-                            Button(
-                                action: {
-                                    self.shouldShowPhotoSlideShowView = true
-                                },
-                                label: {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.blue)
-                                            .frame(height: 40)
-                                        Text(
-                                            NSLocalizedString("Start Slide Show",
-                                                              comment: "Home view - Start photo slide show button title")
-                                        )
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.white)
-                                    }
-                                }
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 16)
                 }
                 .padding(.top, UIDevice.isIpad ? 40 : 20)
                 

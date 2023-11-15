@@ -22,7 +22,15 @@ struct HelpView: View {
             
             // Content
             VStack(alignment: .leading) {
-                // Title text
+                
+                // Heading title
+                Text(NSLocalizedString("Help and FAQ", comment: "Menu option - Help and FAQ"))
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(Color.offwhite100)
+                    .frame(width: UIScreen.main.bounds.width * 0.8, alignment: .center)
+                    .padding(.bottom, 24)
+                
+                // Heading description
                 Text(NSLocalizedString("PhotoTalk lets you easily edit the location and date of any of your photos -- and add voice narration to make a shareable \"slide show\" from your own photos.", comment: "Help view - title"))
                     .font(.system(size: 18, weight: .regular))
                     .foregroundColor(Color.offwhite100)

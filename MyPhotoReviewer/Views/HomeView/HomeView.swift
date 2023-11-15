@@ -161,24 +161,33 @@ struct HomeView: View {
                     
                     // Displaying user photos with details, if user photos/album details are saved in database
                     else if !self.viewModel.photos.isEmpty {
-                        ScrollView(.vertical, showsIndicators: false) {
-                            LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
-                                ForEach(self.viewModel.photos, id: \.self.id) { photo in
-                                    PhotoView(
-                                        currentSlideIndex: .constant(0),
-                                        index: 0,
-                                        photo: photo,
-                                        width: self.viewModel.photoGridColumnWidth,
-                                        height: self.viewModel.photoGridColumnWidth,
-                                        isPresentedAsThumbnail: true
-                                    )
-                                    .onTapGesture {
-                                        photo.isDownloaded = false
-                                        self.selectedPhoto = photo
-                                        self.shouldShowPhotoDetails = true
+                        VStack(alignment: .leading, spacing: 24) {
+                            ScrollView(.vertical, showsIndicators: false) {
+                                LazyVGrid(columns: self.viewModel.photoGridColumns, spacing: 3) {
+                                    ForEach(self.viewModel.photos, id: \.self.id) { photo in
+                                        PhotoView(
+                                            currentSlideIndex: .constant(0),
+                                            index: 0,
+                                            photo: photo,
+                                            width: self.viewModel.photoGridColumnWidth,
+                                            height: self.viewModel.photoGridColumnWidth,
+                                            isPresentedAsThumbnail: true
+                                        )
+                                        .onTapGesture {
+                                            photo.isDownloaded = false
+                                            self.selectedPhoto = photo
+                                            self.shouldShowPhotoDetails = true
+                                        }
                                     }
                                 }
                             }
+                            
+                            Spacer()
+                            
+                            CheckboxView(
+                                title: NSLocalizedString("Show only slide show photos", comment: "Home view - show only slide show photo"),
+                                delegate: self
+                            )
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 12)
@@ -343,5 +352,13 @@ extension HomeView: GoogleDriveFolderSelectionViewDelegate {
             self.didAttemptToDownloadAssets = true
             self.viewModel.checkIfAnyOfTheLoadedPhotosUpdatedByUser()
         }
+    }
+}
+
+// MARK: - CheckboxViewDelegate methods
+
+extension HomeView: CheckboxViewDelegate {
+    func didChangeSelection(isSelected: Bool) {
+        print("Check box selected: \(isSelected)")
     }
 }

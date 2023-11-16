@@ -72,7 +72,6 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         
         // Resetting photo details load status
         self.photoDetailsLoadResponseHandler = responseHandler
-        self.photoDetailsLoadStatus.removeAll()
         
         if self.photoDetailsLoadTimer == nil {
             self.invalidateTimer()
@@ -179,11 +178,11 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         if self.didLoadAllPhotoDetails() {
             self.invalidateTimer()
             
-            self.sortPhotosByDate()
+            self.sortPhotos()
             self.photoDetailsLoadResponseHandler?(true)
             self.photoDetailsLoadResponseHandler = nil
         } else {
-            if self.timeElapsedSincePhotoDetailsLoadStart >= 12 {
+            if self.timeElapsedSincePhotoDetailsLoadStart >= 25 {
                 self.invalidateTimer()
                 
                 self.photoDetailsLoadResponseHandler?(false)
@@ -192,11 +191,16 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         }
     }
     
-    private func sortPhotosByDate() {
-        self.photoDetails.sort(by: {
-            guard let dateOne = $0.dateAndTime, let dateTwo = $1.dateAndTime else { return false }
-            return dateOne < dateTwo
-        })
+    private func sortPhotos() {
+        let sortedPhotoIds = self.photoDetailsLoadStatus.map { $0.id }
+        var sortedPhotos = [Photo]()
+        for id in sortedPhotoIds {
+            if let photo = self.photoDetails.first(where: {$0.id == id}) {
+                sortedPhotos.append(photo)
+            }
+        }
+        
+        self.photoDetails = sortedPhotos
     }
     
     private func invalidateTimer() {

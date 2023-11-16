@@ -37,8 +37,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         return unitWidth
     }
     
-    // List of photos (not part of any album) as loaded from user selected media source
-    //@Published var photos = [Photo]()
+    var isCheckboxSelectedToShowOnlySlideShowPhotos = false
     
     @Published var shouldShowFolderSelectionView = false
     @Published var folders = [CloudAsset]()
@@ -473,6 +472,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
      It filters list of photos based on the selection state of "Show only slide show photos" checkbox
      */
     func filterPhotosBasedOnCheckBoxSelectionChange(isSelected: Bool) {
+        self.isCheckboxSelectedToShowOnlySlideShowPhotos = isSelected
+        
         self.filteredPhotos.removeAll()
         if isSelected {
             let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser

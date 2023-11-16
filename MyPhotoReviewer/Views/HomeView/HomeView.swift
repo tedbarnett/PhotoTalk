@@ -192,7 +192,16 @@ struct HomeView: View {
                                             )
                                         )
                                         .onChange(of: viewModel.photos) { photos in
-                                            self.viewModel.filteredPhotos = photos
+                                            if self.viewModel.isCheckboxSelectedToShowOnlySlideShowPhotos {
+                                                let idsOfUpdatedPhotos = self.viewModel.localStorageService.idsOfUpdatedPhotosByUser
+                                                let slideShowPhotos = photos.filter({
+                                                    guard let photoId = $0.photoId else { return false }
+                                                    return idsOfUpdatedPhotos.contains(photoId)
+                                                })
+                                                self.viewModel.filteredPhotos = slideShowPhotos
+                                            } else {
+                                                self.viewModel.filteredPhotos = photos
+                                            }
                                         }
                                     }
                                 }

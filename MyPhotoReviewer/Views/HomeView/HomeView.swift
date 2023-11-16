@@ -184,13 +184,16 @@ struct HomeView: View {
                                             return NSItemProvider()
                                         })
                                         .onDrop(
-                                            of: [.image],
+                                            of: [.item],
                                             delegate: DropViewDelegate(
                                                 destinationPhoto: photo,
-                                                photos: self.$viewModel.filteredPhotos,
+                                                photos: self.$viewModel.photos,
                                                 draggedPhoto: self.$draggedPhoto
                                             )
                                         )
+                                        .onChange(of: viewModel.photos) { photos in
+                                            self.viewModel.filteredPhotos = photos
+                                        }
                                     }
                                 }
                             }

@@ -30,9 +30,6 @@ class UserProfileModel: ObservableObject {
     /// User selected media source
     var mediaSource: MediaSource?
     
-    /// List of photo albums loaded from user selected media source
-    var photoAlbums: [PhotoAlbum]?
-    
     /// List of photos (which doesn't belong to any photo album) loaded from user selected media source
     var photos: Photo?
     

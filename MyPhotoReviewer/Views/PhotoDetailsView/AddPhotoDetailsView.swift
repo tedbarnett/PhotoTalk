@@ -37,7 +37,7 @@ enum AddPhotoDetailsViewMode {
  details are added to the photo
  */
 protocol AddPhotoDetailsViewDelegate {
-    func didSelectLocation(location: AppleMapLocation)
+    func didSelectLocation(location: AppleMapLocation?) async
     func didSelectDate(date: Date)
 }
 
@@ -121,18 +121,20 @@ struct AddPhotoDetailsView: View {
                         
                         Spacer()
                         
-                        // Done button
-                        Button(
-                            action: {
-                                self.delegate?.didSelectDate(date: self.date)
-                                self.presentationMode.wrappedValue.dismiss()
-                            },
-                            label: {
-                                Text(NSLocalizedString("Adjust", comment: "Adjust photo details view - Adjust button title"))
-                                    .font(.system(size: 16, weight: .regular))
-                                    .foregroundColor(.blue)
-                            }
-                        )
+                        if let editMode = self.mode, editMode == .addDate {
+                            // Done button
+                            Button(
+                                action: {
+                                    self.delegate?.didSelectDate(date: self.date)
+                                    self.presentationMode.wrappedValue.dismiss()
+                                },
+                                label: {
+                                    Text(NSLocalizedString("Adjust", comment: "Adjust photo details view - Adjust button title"))
+                                        .font(.system(size: 16, weight: .regular))
+                                        .foregroundColor(.blue)
+                                }
+                            )
+                        }
                     }
                     
                     // Title text
@@ -146,60 +148,117 @@ struct AddPhotoDetailsView: View {
                         VStack(alignment: .leading, spacing: 16) {
                             // Search field
                             ZStack(alignment: .leading) {
-                                // Background
-                                RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color.gray600, lineWidth: 1)
-                                    .frame(height: 44)
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray900, lineWidth: 1)
+                                    .frame(height: 35)
                                     .background {
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .fill(Color.offwhite100)
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(Color.gray900)
                                     }
-                                // Text field
+                                
                                 HStack(alignment: .center, spacing: 12) {
                                     Image("searchIcon")
                                         .resizable()
+                                        .renderingMode(.template)
                                         .scaledToFit()
-                                        .frame(width: 15, height: 15)
+                                        .tint(.gray800)
+                                        .frame(width: 20, height: 20)
                                     
-                                    TextField(
-                                        NSLocalizedString("Search", comment: "Add photo details view - search"),
-                                        text: self.$locationSearchString
-                                    )
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color.black300)
-                                    .autocapitalization(.none)
-                                    .disableAutocorrection(true)
-                                    
-                                    Spacer()
+                                    HStack(alignment: .center, spacing: 0) {
+                                        TextField(
+                                            NSLocalizedString("Enter New Location", comment: "Add photo details view - Enter new location"),
+                                            text: self.$locationSearchString
+                                        )
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(Color.offwhite100)
+                                        .autocapitalization(.none)
+                                        .disableAutocorrection(true)
+                                        
+                                        // Clear search text button
+                                        Button {
+                                            self.locationSearchString = ""
+                                        } label: {
+                                            Image(systemName: "multiply.circle.fill")
+                                        }
+                                        .foregroundColor(.secondary)
+                                        .opacity(self.locationSearchString.isEmpty ? 0 : 1)
+                                    }
                                 }
                                 .padding(.horizontal, 8)
                             }
                             
-                            // Search result
-                            ScrollView(.vertical, showsIndicators: false) {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    ForEach(self.appleMapsService.places, id: \.id) { place in
-                                        ZStack(alignment: .leading) {
-                                            Text("\(place.name), \(place.locality), \(place.country)")
-                                                .font(.system(size: 16))
-                                                .foregroundColor(Color.black300)
-                                                .padding(.all, 8)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 4)
-                                                        .fill(Color.gray200)
-                                                        .frame(maxWidth: .infinity)
-                                                )
-                                        }
-                                        .onTapGesture {
-                                            self.delegate?.didSelectLocation(location: place)
-                                            self.presentationMode.wrappedValue.dismiss()
+                            // Set location to none (nil) button
+                            if let location = self.selectedLocation, location != PhotoDetailsViewModel.unknownLocationText {
+                                HStack(alignment: .top, spacing: 12) {
+                                    Image("icon-no-location")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(NSLocalizedString("No Location", comment: "Add photo details view - No location"))
+                                            .font(.system(size: 18, weight: .semibold))
+                                            .foregroundColor(Color.offwhite100)
+                                        Rectangle()
+                                            .fill(Color.gray900)
+                                            .frame(height: 1)
+                                            .padding(.top, 6)
+                                    }
+                                    
+                                }
+                                .padding(.top, 16)
+                                .onTapGesture {
+                                    Task {
+                                        await self.delegate?.didSelectLocation(location: nil)
+                                    }
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                            
+                            // Location search result
+                            if !self.appleMapsService.places.isEmpty {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(NSLocalizedString("Map Locations", comment: "Add photo details view - Map location"))
+                                        .font(.system(size: 16, weight: .regular))
+                                        .foregroundColor(Color.gray600)
+                                    Rectangle()
+                                        .fill(Color.gray900)
+                                        .frame(height: 1)
+                                }
+                                .padding(.top, 16)
+                                
+                                ScrollView(.vertical, showsIndicators: false) {
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        ForEach(self.appleMapsService.places, id: \.id) { place in
+                                            ZStack(alignment: .leading) {
+                                                HStack(alignment: .top, spacing: 12) {
+                                                    Image("icon-location")
+                                                        .resizable()
+                                                        .frame(width: 40, height: 40)
+                                                    VStack(alignment: .leading, spacing: 4) {
+                                                        Text(place.title)
+                                                            .font(.system(size: 18, weight: .semibold))
+                                                            .foregroundColor(Color.offwhite100)
+                                                        Text(place.subTitle)
+                                                            .font(.system(size: 14, weight: .regular))
+                                                            .foregroundColor(Color.gray600)
+                                                        Rectangle()
+                                                            .fill(Color.gray900)
+                                                            .frame(height: 1)
+                                                            .padding(.top, 6)
+                                                    }
+                                                }
+                                            }
+                                            .onTapGesture {
+                                                Task {
+                                                    await self.delegate?.didSelectLocation(location: place)
+                                                }
+                                                self.presentationMode.wrappedValue.dismiss()
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                        .padding(.horizontal, 16)
-
+                        .padding(.top, 24)
                     } else if editMode == .addDate {
                         DatePicker(
                             NSLocalizedString("Pick a date and time", comment: "Add photo details view - pick date and time"),
@@ -208,24 +267,6 @@ struct AddPhotoDetailsView: View {
                             displayedComponents: [.date, .hourAndMinute])
                         .datePickerStyle(.graphical)
                         .padding(.top, 24)
-                        
-//                        Button(
-//                            action: {
-//                                self.delegate?.didSelectDate(date: self.date)
-//                                self.presentationMode.wrappedValue.dismiss()
-//                            },
-//                            label: {
-//                                ZStack {
-//                                    RoundedRectangle(cornerRadius: 8)
-//                                        .fill(Color.blue)
-//                                        .frame(height: 40)
-//                                    Text(NSLocalizedString("Save", comment: "Common - Save button title"))
-//                                        .font(.system(size: 16))
-//                                        .foregroundColor(Color.white)
-//                                }
-//                            }
-//                        )
-//                        .padding(.top, 8)
                     }
                 }
                 
@@ -234,12 +275,23 @@ struct AddPhotoDetailsView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
             .onChange(of: self.locationSearchString, perform: { string in
+                guard !string.isEmpty else {
+                    self.appleMapsService.clearSearchResults()
+                    return
+                }
                 self.appleMapsService.getLocations(for: string)
             })
             .onAppear {
                 if let photo = self.photo, let photoDate = photo.date {
                     self.date = photoDate
                 }
+                
+                if let photoLocation = self.selectedLocation, photoLocation != PhotoDetailsViewModel.unknownLocationText {
+                    self.locationSearchString = photoLocation
+                }
+            }
+            .onDisappear {
+                self.appleMapsService.clearSearchResults()
             }
         }
     }

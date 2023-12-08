@@ -33,11 +33,11 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     @Published var photoLocation: String? = ""
     @Published var photoDateString: String? = ""
     @Published var isFavourite: Bool = false
+    @Published var isIncludedInSlideShow: Bool = false
     
     var photos: [CloudAsset]?
     var selectedPhoto: CloudAsset? {
         didSet {
-            self.getPhotoLocationFromEXIFData()
             self.getPhotoCreationDateFromEXIFData()
         }
     }
@@ -93,6 +93,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             
             self.isFavourite = photoDetails.isFavourite
+            self.isIncludedInSlideShow = photoDetails.isIncludedInSlideShow
         }
     }
     
@@ -257,10 +258,19 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     /**
      Updates photo's EXIF location with the given location
      */
-    func updatePhotoEXIFLocation(to location: AppleMapLocation) {
-        guard let photo = self.selectedPhoto else { return }
-        photo.iCloudPhotoLocation = location.location
-        photo.updateEXIFLocation(to: location.location)
+    func updatePhotoEXIFLocation(to location: AppleMapLocation?) async {
+        guard let photo = self.selectedPhoto,
+              let selectedLocation = location,
+              let photoLocation = try? await selectedLocation.getLocation() else {
+            self.selectedPhoto?.iCloudPhotoLocation = nil
+            self.selectedPhoto?.updateEXIFLocation(to: nil)
+            self.updateDetailsChangeStatus()
+            return
+        }
+        
+        
+        photo.iCloudPhotoLocation = photoLocation
+        photo.updateEXIFLocation(to: photoLocation)
         self.updateDetailsChangeStatus()
     }
     
@@ -322,7 +332,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     }
     
     /**
-     Saves photo date and time on the server
+     Saves photo's `isFavourite` state on the server
      */
     func updateFavouriteState(responseHandler: @escaping ResponseHandler<Bool>) {
         guard let profile = self.userProfile,
@@ -341,6 +351,39 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                     return
                 }
                 self.isFavourite = !self.isFavourite
+                responseHandler(true)
+            }
+    }
+    
+    /**
+     Saves photo's `isIncludedInSlideShow` state on the server
+     */
+    func updateIsIncludedInSlideShowState(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let profile = self.userProfile,
+              let photoId = self.selectedPhoto?.photoId,
+              let service = self.databaseService else {
+            responseHandler(false)
+            return
+        }
+        service.saveIsIncludedInSlideShowStateForUserPhoto(
+            userId: profile.id,
+            photoId: photoId,
+            isIncludedInSlideShow: !self.isIncludedInSlideShow) { didSave in
+                guard didSave else {
+                    responseHandler(false)
+                    return
+                }
+                self.isIncludedInSlideShow = !self.isIncludedInSlideShow
+                
+                var idsOfPhotosToIncludeInSlideShow = self.localStorageService.idsOfPhotosToIncludeInSlideShow
+                if self.isIncludedInSlideShow, !idsOfPhotosToIncludeInSlideShow.contains(photoId) {
+                    idsOfPhotosToIncludeInSlideShow.append(photoId)
+                    self.localStorageService.idsOfPhotosToIncludeInSlideShow = idsOfPhotosToIncludeInSlideShow
+                } else if let index = idsOfPhotosToIncludeInSlideShow.firstIndex(of: photoId) {
+                    idsOfPhotosToIncludeInSlideShow.remove(at: index)
+                    self.localStorageService.idsOfPhotosToIncludeInSlideShow = idsOfPhotosToIncludeInSlideShow
+                }
+                
                 responseHandler(true)
             }
     }

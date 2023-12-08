@@ -29,36 +29,26 @@ struct PhotoView: View {
     // MARK: Private properties
     
     @State private var image: Image?
+    @State private var uiImage: UIImage?
     @State private var isImageLoading = true
-    @State private var zoomScale: CGFloat = 1
-    @State private var previousZoomScale: CGFloat = 1
-    
-    private let minZoomScale: CGFloat = 1
-    private let maxZoomScale: CGFloat = 5
-    
-    private var zoomGesture: some Gesture {
-        MagnificationGesture()
-            .onChanged(self.onZoomGestureStarted)
-            .onEnded(self.onZoomGestureEnded)
-    }
+    @State private var currentScale: CGFloat = 1
+    @State private var actualImageWidth: CGFloat = 0
+    @State private var actualImageHeight: CGFloat = 0
     
     // MARK: User interface
     
     var body: some View {
         ZStack(alignment: .top) {
             if let img = self.image {
-                if self.isZoomAndPanEnabled {
-                    GeometryReader { proxy in
-                        ScrollView([.vertical, .horizontal], showsIndicators: false) {
-                            img
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .onTapGesture(count: 2, perform: self.onImageDoubleTapped)
-                                .gesture(self.zoomGesture)
-                                .frame(width: proxy.size.width * max(self.minZoomScale, self.zoomScale))
-                                .frame(maxHeight: .infinity)
-                        }
-                    }
+                if self.isZoomAndPanEnabled, let uiImage = self.uiImage {
+                    let scaleToFitImageOnScreen = UIScreen.main.bounds.width / self.actualImageWidth
+                    ZoomableImage(
+                        image: uiImage,
+                        backgroundColor: .yellow,
+                        minScaleFactor: scaleToFitImageOnScreen,
+                        idealScaleFactor: scaleToFitImageOnScreen,
+                        maxScaleFactor: 5
+                    )
                 } else {
                     img
                         .resizable()
@@ -99,6 +89,10 @@ struct PhotoView: View {
             self.image = nil
             return
         }
+        
+        self.actualImageWidth = uiImage.size.width
+        self.actualImageHeight = uiImage.size.height
+        self.uiImage = uiImage
         self.image = Image(uiImage: uiImage)
     }
     
@@ -106,29 +100,9 @@ struct PhotoView: View {
         self.resetImageState()
     }
     
-    private func onZoomGestureStarted(value: MagnificationGesture.Value) {
-        withAnimation(.easeIn(duration: 0.1)) {
-            let delta = value / self.previousZoomScale
-            self.previousZoomScale = value
-            let zoomDelta = self.zoomScale * delta
-            var minMaxScale = max(self.minZoomScale, zoomDelta)
-            minMaxScale = min(self.maxZoomScale, minMaxScale)
-            self.zoomScale = minMaxScale
-        }
-    }
-    
-    private func onZoomGestureEnded(value: CGFloat) {
-        self.previousZoomScale = 1
-        if self.zoomScale <= 1 {
-            self.resetImageState()
-        } else if zoomScale > 5 {
-            self.zoomScale = 5
-        }
-    }
-    
     private func resetImageState() {
         withAnimation(.interactiveSpring()) {
-            self.zoomScale = 1
+            self.currentScale = 1
         }
     }
 }

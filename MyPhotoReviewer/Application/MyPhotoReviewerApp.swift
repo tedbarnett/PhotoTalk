@@ -15,10 +15,6 @@ struct MyPhotoReviewerApp: App {
     @StateObject private var userProfile = UserProfileModel.defaultUserProfile
     @StateObject private var overlayContainerContext = OverlayContainerContext()
     
-    init() {
-        AppleMapsService.sharedInstance.requestAuthorization()
-    }
-    
     var body: some Scene {
         WindowGroup {
             RootView()

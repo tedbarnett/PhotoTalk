@@ -68,7 +68,10 @@
 "Delete audio?" = "Delete audio?";
 "Do you really want to delete the audio? Once the audio is deleted, it can't be restored." = "Do you really want to delete the audio? Once the audio is deleted, it can't be restored.";
 "Adjust Location" = "Adjust Location";
+"No Location" = "No Location";
 "Location unknown" = "Location unknown";
+"Enter New Location" = "Enter New Location";
+"Map Locations" = "Map Locations";
 "Date and time unknown" = "Date and time unknown";
 "Adjust Date & Time" = "Adjust Date & Time";
 "Adjust" = "Adjust";

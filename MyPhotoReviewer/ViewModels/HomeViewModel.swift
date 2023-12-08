@@ -63,6 +63,15 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         return photos
     }
     
+    var photosIncludedInSlideShowByUser: [CloudAsset] {
+        let idsOfPhotosToIncludeInSlideShow = self.localStorageService.idsOfPhotosToIncludeInSlideShow
+        let photos = self.filteredPhotos.filter({
+            guard let photoId = $0.photoId else { return false }
+            return idsOfPhotosToIncludeInSlideShow.contains(photoId)
+        })
+        return photos
+    }
+    
     // User details like id, name, email, photo albums, photos, audio, etc
     var userProfile: UserProfileModel?
     
@@ -87,6 +96,19 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         databaseService.getIdsOfUpdatedPhotosByUser(userId: userProfile.id) { ids in
             self.localStorageService.idsOfUpdatedPhotosByUser = ids
+        }
+    }
+    
+    /**
+     Calls Firebase database service to get ids of those photos which user marks to include in the slide show
+     */
+    func loadIdsOfPhotosThoseAreIncludedInSlideShow() {
+        guard let databaseService = self.databaseService, let userProfile = self.userProfile else {
+            return
+        }
+        databaseService.getIdsOfPhotosThoseAreIncludedInSlideShow(userId: userProfile.id) { ids in
+            print(">>> these photos are included in slide show: \(ids)")
+            self.localStorageService.idsOfPhotosToIncludeInSlideShow = ids
         }
     }
     
@@ -476,10 +498,12 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         
         self.filteredPhotos.removeAll()
         if isSelected {
-            let idsOfUpdatedPhotos = self.localStorageService.idsOfUpdatedPhotosByUser
+            let idsOfPhotosToIncludeInSlideShow = self.localStorageService.idsOfPhotosToIncludeInSlideShow
+            print(">>> these photos are included in slide show:")
             let photos = self.photos.filter({
                 guard let photoId = $0.photoId else { return false }
-                return idsOfUpdatedPhotos.contains(photoId)
+                print("---- \(photoId)")
+                return idsOfPhotosToIncludeInSlideShow.contains(photoId)
             })
             self.filteredPhotos.append(contentsOf: photos)
         } else {

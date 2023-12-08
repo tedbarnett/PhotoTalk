@@ -240,6 +240,38 @@ extension FirebaseDatabaseService {
             }
         }
     
+    /**
+     Fetches ids of photos from Firebase database which user marks to include in the slide show
+     */
+    func getIdsOfPhotosThoseAreIncludedInSlideShow(
+        userId: String,
+        responseHandler: @escaping ResponseHandler<[String]>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userPhotoDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            userPhotoDirectory.getData {error, snapshot in
+                guard error == nil,
+                      let dataSnapshot = snapshot,
+                      dataSnapshot.childrenCount > 0 else {
+                    responseHandler([])
+                    return
+                }
+                
+                var ids = [String]()
+                for childSnapshot in dataSnapshot.children {
+                    if let node = childSnapshot as? DataSnapshot,
+                       let details = node.value as? [String: Any],
+                       let id = details[DatabaseNodeCommonProperties.id] as? String,
+                       let didChangeDetails = details[PhotoNodeProperties.isIncludedInSlideShow] as? String
+                    {
+                        if didChangeDetails == "1" {
+                            ids.append(id)
+                        }
+                    }
+                }
+                responseHandler(ids)
+            }
+    }
+    
     /// Saves user details to the database for the authenticated user
     func loadPhotoDetailsFromDatabase(
         userId: String,
@@ -278,6 +310,10 @@ extension FirebaseDatabaseService {
                 
                 if let isFavourite = userDetails[PhotoNodeProperties.isFavourite] as? String {
                     photo.isFavourite = isFavourite == "1"
+                }
+                
+                if let isIncludedInSlideShow = userDetails[PhotoNodeProperties.isIncludedInSlideShow] as? String {
+                    photo.isIncludedInSlideShow = isIncludedInSlideShow == "1"
                 }
                 
                 if let didChangeDetails = userDetails[PhotoNodeProperties.didChangeDetails] as? String {
@@ -493,6 +529,33 @@ extension FirebaseDatabaseService {
                     return
                 }
                 print("[Firebase Database] Successfully saved favourite state for photo \(photoId)")
+                responseHandler(true)
+            }
+    }
+    
+    /**
+     Saves favourite state for the user photo with given user id and photo id
+     */
+    func saveIsIncludedInSlideShowStateForUserPhoto(
+        userId: String,
+        photoId: String,
+        isIncludedInSlideShow: Bool,
+        responseHandler: @escaping ResponseHandler<Bool>) {
+            let databaseReference: DatabaseReference = Database.database().reference(fromURL: self.environment.databaseUrl)
+            let userDirectory = databaseReference.child(PhotoNodeProperties.nodeName).child(userId)
+            let photoReference = userDirectory.child(photoId)
+            
+            let favouriteStateDetails: [String: Any] = [
+                PhotoNodeProperties.isIncludedInSlideShow: isIncludedInSlideShow ? "1" : "0"
+            ]
+            
+            photoReference.updateChildValues(favouriteStateDetails) { error, reference in
+                guard error == nil else {
+                    print("[Firebase Database] Failed to save isIncludedInSlideShow state for photo \(photoId)")
+                    responseHandler(false)
+                    return
+                }
+                print("[Firebase Database] Successfully saved isIncludedInSlideShow state for photo \(photoId)")
                 responseHandler(true)
             }
     }

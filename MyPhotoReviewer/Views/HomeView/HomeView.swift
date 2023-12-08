@@ -243,7 +243,7 @@ struct HomeView: View {
                 NavigationLink(
                     destination:
                         PhotoSlideShowView(
-                            photoAssets: self.viewModel.photosUpdatedByUser,
+                            photoAssets: self.viewModel.photosIncludedInSlideShowByUser,
                             selectedPhotoAsset: nil
                         )
                         .navigationBarHidden(true)
@@ -257,6 +257,7 @@ struct HomeView: View {
         .onAppear {
             self.initializeViewModels()
             self.viewModel.loadIdsOfUpdatedPhotos()
+            self.viewModel.loadIdsOfPhotosThoseAreIncludedInSlideShow()
             self.loadUserDetails()
         }
         .onChange(of: self.viewModel.shouldShowProgressIndicator) { shouldShowProgressIndicator in

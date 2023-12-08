@@ -32,6 +32,7 @@ struct PhotoDetailsView: View {
     @State private var currentSlideIndex: Int = 0
     @State private var canSlideToLeft: Bool = false
     @State private var canSlideToRight: Bool = true
+    @State private var shouldShowPhoto: Bool = true
     
     // MARK: User interface
     
@@ -64,6 +65,7 @@ struct PhotoDetailsView: View {
                                 isPresentedAsThumbnail: false,
                                 isZoomAndPanEnabled: true
                             )
+                            .opacity(self.shouldShowPhoto ? 1 : 0)
                         }
                     }
                 }
@@ -79,6 +81,7 @@ struct PhotoDetailsView: View {
                     // Back button
                     Button(
                         action: {
+                            self.shouldShowPhoto = false
                             self.presentationMode.wrappedValue.dismiss()
                         },
                         label: {
@@ -103,7 +106,7 @@ struct PhotoDetailsView: View {
                         Button(
                             action: {
                                 self.overlayContainerContext.shouldShowProgressIndicator = true
-                                self.viewModel.updateFavouriteState { _ in
+                                self.viewModel.updateIsIncludedInSlideShowState { _ in
                                     self.overlayContainerContext.shouldShowProgressIndicator = false
                                 }
                             },
@@ -116,7 +119,7 @@ struct PhotoDetailsView: View {
                                     Image("slideShowIcon")
                                         .resizable()
                                         .scaledToFit()
-                                        .opacity(self.viewModel.isFavourite ? 1 : 0.5)
+                                        .opacity(self.viewModel.isIncludedInSlideShow ? 1 : 0.5)
                                         .frame(width: 30, height: 30)
                                 }
                             }
@@ -385,6 +388,7 @@ struct PhotoDetailsView: View {
                         .frame(maxWidth: .infinity)
                         .shadow(color: Color.offwhite100.opacity(0.4), radius: 8, x: 0, y: 0)
                 )
+                .opacity(self.shouldShowPhoto ? 1 : 0)
             }
             .frame(height: UIScreen.main.bounds.height)
         }
@@ -446,12 +450,16 @@ extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
         }
     }
     
-    func didSelectLocation(location: AppleMapLocation) {
-        self.viewModel.updatePhotoEXIFLocation(to: location)
+    func didSelectLocation(location: AppleMapLocation?) async {
+        await self.viewModel.updatePhotoEXIFLocation(to: location)
+        
+        var locationString = PhotoDetailsViewModel.unknownLocationText
+        if let selectedLocation = location {
+            locationString = "\(selectedLocation.title), \(selectedLocation.subTitle)"
+        }
         
         self.overlayContainerContext.shouldShowProgressIndicator = true
-        let location = "\(location.name), \(location.locality), \(location.country)"
-        self.viewModel.savePhotoLocation(location) { didSave in
+        self.viewModel.savePhotoLocation(locationString) { didSave in
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }

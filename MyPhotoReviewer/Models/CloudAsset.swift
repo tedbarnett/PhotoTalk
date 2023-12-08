@@ -85,13 +85,13 @@ class CloudAsset: Hashable {
     
     // MARK: Public methods
     
-    func updateEXIFLocation(to location: CLLocation) {
+    func updateEXIFLocation(to location: CLLocation?) {
         guard let photoAsset = self.iCloudAsset else {
             return
         }
         PHPhotoLibrary.shared().performChanges({
             let assetChangeRequest = PHAssetChangeRequest(for: photoAsset)
-            assetChangeRequest.location = location
+            assetChangeRequest.location =  location
         }, completionHandler: { success, error in
             guard success, error == nil else {
                 print("Error updating EXIF location: \(error)")

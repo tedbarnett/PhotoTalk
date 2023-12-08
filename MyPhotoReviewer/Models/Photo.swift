@@ -15,6 +15,7 @@ class Photo {
     let url: String = ""
     var dateAndTime: Date? = nil
     var isFavourite: Bool = false
+    var isIncludedInSlideShow: Bool = false
     var location: String? = nil
     var audioUrl: URL? = nil
     var image: UIImage? = nil

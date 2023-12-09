@@ -50,7 +50,7 @@ struct PhotoDetailsView: View {
                         isLeftSlideEnabled: self.canSlideToLeft,
                         isRightSlideEnabled: self.canSlideToRight,
                         currentIndex: self.$currentSlideIndex,
-                        delegate: self
+                        delegate: nil
                     ) {
                         ForEach (0..<photos.count, id: \.self) { index in
                             let photo = photos[index]
@@ -463,20 +463,4 @@ extension PhotoDetailsView: AddPhotoDetailsViewDelegate {
             self.overlayContainerContext.shouldShowProgressIndicator = false
         }
     }
-}
-
-// MARK: SlidesScrollViewDelegate delegate methods
-
-extension PhotoDetailsView: SlidesScrollViewDelegate {
-    func didSlidePage(index: Int, position: CGFloat) {
-        guard let photos = self.viewModel.photos else { return }
-        self.canSlideToLeft = index > 0
-        self.canSlideToRight = index < photos.count - 1
-        
-        let photo = photos[index]
-        self.viewModel.selectedPhoto = photo
-        self.downloadPhotoDetails()
-    }
-
-    func didChangeSlidePosition(index: Int, position: CGFloat) {}
 }

@@ -267,9 +267,6 @@ struct HomeView: View {
         .onChange(of: self.viewModel.shouldShowFolderSelectionView) { shouldShow in
             self.shouldShowFolderSelectionView = shouldShow
         }
-        .onChange(of: self.userProfile.didAddPhotosToSlideShow) { didAdd in
-            print(">>>> didAddPhotosToSlideShow = \(didAdd)")
-        }
         .sheet(isPresented: self.$shouldShowFolderSelectionView) {
             if self.userProfile.mediaSource == .iCloud {
                 ICloudAlbumSelectionView(

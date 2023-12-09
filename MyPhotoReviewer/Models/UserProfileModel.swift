@@ -41,6 +41,9 @@ class UserProfileModel: ObservableObject {
     
     /// Boolean flag indicating if the user changed details on photos
     @Published var didUpdatePhotoDetails: Bool = false
+    
+    /// Boolean flag indicating if the user added photos for the slide show
+    @Published var didAddPhotosToSlideShow: Bool = false
 
     // MARK: Initializer
 

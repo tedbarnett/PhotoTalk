@@ -66,7 +66,7 @@ struct HomeView: View {
                                                               comment: "Home view - Add photo selection")
                                         )
                                         .font(.system(size: 16))
-                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails ? Color.white : .gray900)
+                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty ? Color.white : .gray900)
                                     }
                                 )
                                 .disabled(!self.didAttemptToDownloadAssets && self.viewModel.folders.isEmpty)
@@ -74,6 +74,7 @@ struct HomeView: View {
                                 // Start slide show button
                                 Button(
                                     action: {
+                                        guard !self.viewModel.photosIncludedInSlideShowByUser.isEmpty else { return }
                                         self.shouldShowPhotoSlideShowView = true
                                     },
                                     label: {
@@ -82,7 +83,7 @@ struct HomeView: View {
                                                               comment: "Home view - Start photo slide show button title")
                                         )
                                         .font(.system(size: 16))
-                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didUpdatePhotoDetails ? Color.white : .gray900)
+                                        .foregroundColor(self.didAttemptToDownloadAssets && !self.viewModel.photos.isEmpty && self.userProfile.didAddPhotosToSlideShow ? Color.white : .gray900)
                                     }
                                 )
                                 .disabled(!self.didAttemptToDownloadAssets && self.viewModel.photos.isEmpty && !self.userProfile.didUpdatePhotoDetails)
@@ -265,6 +266,9 @@ struct HomeView: View {
         }
         .onChange(of: self.viewModel.shouldShowFolderSelectionView) { shouldShow in
             self.shouldShowFolderSelectionView = shouldShow
+        }
+        .onChange(of: self.userProfile.didAddPhotosToSlideShow) { didAdd in
+            print(">>>> didAddPhotosToSlideShow = \(didAdd)")
         }
         .sheet(isPresented: self.$shouldShowFolderSelectionView) {
             if self.userProfile.mediaSource == .iCloud {

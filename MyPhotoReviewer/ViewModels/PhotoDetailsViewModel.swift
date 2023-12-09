@@ -383,6 +383,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                     idsOfPhotosToIncludeInSlideShow.remove(at: index)
                     self.localStorageService.idsOfPhotosToIncludeInSlideShow = idsOfPhotosToIncludeInSlideShow
                 }
+                self.userProfile?.didAddPhotosToSlideShow = !idsOfPhotosToIncludeInSlideShow.isEmpty
                 
                 responseHandler(true)
             }

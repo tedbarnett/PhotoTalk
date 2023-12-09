@@ -107,7 +107,6 @@ class HomeViewModel: BaseViewModel, ObservableObject {
             return
         }
         databaseService.getIdsOfPhotosThoseAreIncludedInSlideShow(userId: userProfile.id) { ids in
-            print(">>> these photos are included in slide show: \(ids)")
             self.localStorageService.idsOfPhotosToIncludeInSlideShow = ids
         }
     }
@@ -215,6 +214,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                     self.photos.append(contentsOf: userPhotos)
                                     self.filteredPhotos.removeAll()
                                     self.filteredPhotos.append(contentsOf: userPhotos)
+                                    self.updateSlideShowIncludedPhotoIds()
                                 }
                             }
                             responseHandler(true)
@@ -278,6 +278,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                                 self.photos.append(contentsOf: userPhotos)
                                 self.filteredPhotos.removeAll()
                                 self.filteredPhotos.append(contentsOf: userPhotos)
+                                self.updateSlideShowIncludedPhotoIds()
                                 responseHandler(true)
                             }
                         }
@@ -407,6 +408,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                         DispatchQueue.main.async {
                             self.photos.append(contentsOf: userPhotos)
                             self.filteredPhotos.append(contentsOf: userPhotos)
+                            self.updateSlideShowIncludedPhotoIds()
                             responseHandler(true)
                         }
                     }
@@ -471,6 +473,7 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
         
         self.syncUserSelectedPhotosWithServerPhotos(newlySelectedPhotos: self.photos)
+        self.updateSlideShowIncludedPhotoIds()
         responseHandler(true)
     }
     
@@ -499,10 +502,8 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         self.filteredPhotos.removeAll()
         if isSelected {
             let idsOfPhotosToIncludeInSlideShow = self.localStorageService.idsOfPhotosToIncludeInSlideShow
-            print(">>> these photos are included in slide show:")
             let photos = self.photos.filter({
                 guard let photoId = $0.photoId else { return false }
-                print("---- \(photoId)")
                 return idsOfPhotosToIncludeInSlideShow.contains(photoId)
             })
             self.filteredPhotos.append(contentsOf: photos)
@@ -545,6 +546,22 @@ class HomeViewModel: BaseViewModel, ObservableObject {
                 }
             }
         }
+    }
+    
+    /**
+     It synchronizes locally saved photo ids of slide show included photos with the actual photos
+     loaded and showing. This is required because there is a chance of some of the server returning ids
+     of slide show included photos (as included in previous app run cycle) may not be included in the
+     current list of photos being shown
+     */
+    private func updateSlideShowIncludedPhotoIds() {
+        guard !self.photos.isEmpty else { return }
+        let idsOfPhotosToIncludeInSlideShow = self.localStorageService.idsOfPhotosToIncludeInSlideShow
+        let idsOfCurrentlyShowingPhotos = self.photos.map { $0.photoId }
+        let idsOfCurrentPhotoIncludedInSlideShow = idsOfPhotosToIncludeInSlideShow.filter({ idsOfCurrentlyShowingPhotos.contains($0) })
+        
+        self.localStorageService.idsOfPhotosToIncludeInSlideShow = idsOfCurrentPhotoIncludedInSlideShow
+        self.userProfile?.didAddPhotosToSlideShow = !idsOfCurrentPhotoIncludedInSlideShow.isEmpty
     }
 }
 

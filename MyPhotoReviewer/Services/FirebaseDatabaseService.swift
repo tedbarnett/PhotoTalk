@@ -261,9 +261,9 @@ extension FirebaseDatabaseService {
                     if let node = childSnapshot as? DataSnapshot,
                        let details = node.value as? [String: Any],
                        let id = details[DatabaseNodeCommonProperties.id] as? String,
-                       let didChangeDetails = details[PhotoNodeProperties.isIncludedInSlideShow] as? String
+                       let isIncludedInSlideShow = details[PhotoNodeProperties.isIncludedInSlideShow] as? String
                     {
-                        if didChangeDetails == "1" {
+                        if isIncludedInSlideShow == "1" {
                             ids.append(id)
                         }
                     }

@@ -33,6 +33,14 @@ struct PhotoDetailsView: View {
     @State private var canSlideToLeft: Bool = false
     @State private var canSlideToRight: Bool = true
     @State private var shouldShowPhoto: Bool = true
+    @State private var shouldScaleUpRecordingButton: Bool = false
+    @State private var scaleUpDownTimer: Timer? = nil
+    
+    private var animation: Animation {
+        Animation.easeOut
+            .speed(1)
+            .repeatForever(autoreverses: true)
+    }
     
     // MARK: User interface
     
@@ -332,16 +340,35 @@ struct PhotoDetailsView: View {
                                     Button(
                                         action: {
                                             if self.viewModel.isRecoringInProgress {
+                                                self.scaleUpDownTimer?.invalidate()
+                                                self.scaleUpDownTimer = nil
+                                                
                                                 self.viewModel.stopAudioRecording()
                                             } else {
+                                                self.scaleUpDownTimer = Timer.scheduledTimer(
+                                                    withTimeInterval: 0.5,
+                                                    repeats: true) { _ in
+                                                        self.shouldScaleUpRecordingButton.toggle()
+                                                }
+                                                
                                                 self.viewModel.startAudioRecording()
                                             }
                                         },
                                         label: {
-                                            Image(self.viewModel.isRecoringInProgress ? "recordingAudioIcon" : "recordAudioIcon")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 40, height: 40)
+                                            if self.viewModel.isRecoringInProgress {
+                                                Image("recordingAudioIcon")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 40, height: 40)
+                                                        .shadow(color: Color.red.opacity(0.7), radius: 5, x: 0, y: 0)
+                                                        .scaleEffect(self.shouldScaleUpRecordingButton ? 1.2 : 1)
+                                                        .animation(.easeOut(duration: 0.5), value: self.shouldScaleUpRecordingButton)
+                                            } else {
+                                                Image("recordAudioIcon")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 40, height: 40)
+                                            }
                                         }
                                     )
                                     

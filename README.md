@@ -1,4 +1,4 @@
-# My-Photo-Reviewer
+# PhotoTalk
 An iOS and MacOS Swift app for reviewing large quantities of photos - correct location and date
 
 For each photo, users can...

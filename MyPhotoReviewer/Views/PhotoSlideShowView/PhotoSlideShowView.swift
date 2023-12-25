@@ -67,7 +67,27 @@ struct PhotoSlideShowView: View {
             
             // Dismiss button
             HStack(alignment: .center) {
+                Button(
+                    action: {
+                        print("prepare mp4 video for sharing...")
+                    },
+                    label: {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(width: 40, height: 40)
+                            Image("shareButtonIcon")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .tint(Color.offwhite100)
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                )
+                
                 Spacer()
+                
                 Button(
                     action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -84,8 +104,8 @@ struct PhotoSlideShowView: View {
                         }
                     }
                 )
-                .padding(.trailing, 10)
             }
+            .padding(.horizontal, 10)
         }
         .onAppear {
             self.initializeViewModel()

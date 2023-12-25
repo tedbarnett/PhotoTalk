@@ -57,7 +57,6 @@ struct UserRegistrationView: View {
                                     .frame(width: 40, height: 40)
                                 Image("leftArrowIcon")
                                     .renderingMode(.template)
-                                    
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 9, height: 16)

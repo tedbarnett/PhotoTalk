@@ -154,8 +154,10 @@ struct PhotoSlideView: View {
                     self.invalidateTimerIfAny()
                 }
             } else {
-                self.playAudio()
-                self.setSlideToNextPhotoTimer()
+                self.resumeAudio()
+                if self.audioUrl == nil {
+                    self.setSlideToNextPhotoTimer()
+                }
             }
         }
         .onAppear {
@@ -233,8 +235,13 @@ struct PhotoSlideView: View {
      Attempts to pause available photo audio playback
      */
     private func pauseAudio() {
-        AudioService.instance.pauseAudio()
         self.isPlayingAudio = false
+        AudioService.instance.pauseAudio()
+    }
+    
+    private func resumeAudio() {
+        self.isPlayingAudio = true
+        AudioService.instance.resumeAudio()
     }
     
     /**

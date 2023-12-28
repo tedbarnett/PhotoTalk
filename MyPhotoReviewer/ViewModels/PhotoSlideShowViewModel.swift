@@ -493,7 +493,11 @@ class AssetForVideoExport {
                 .foregroundColor: UIColor.white
             ]
             
-            let textSize = (text as NSString).size(withAttributes: attributes)
+            var textSize = (text as NSString).size(withAttributes: attributes)
+            if textSize.width >= image.size.width * 0.9 {
+                let newText = text.split(separator: ",")[0]
+                textSize = (newText as NSString).size(withAttributes: attributes)
+            }
             let textRect = CGRect(
                 x: image.size.width - textSize.width - 16,
                 y: image.size.height - textSize.height - bottomOffset,

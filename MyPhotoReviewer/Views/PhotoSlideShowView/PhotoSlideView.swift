@@ -25,6 +25,7 @@ struct PhotoSlideView: View {
     // MARK: Public properties
     
     @Binding var currentSlideIndex: Int
+    @Binding var isPlaybackPaused: Bool
     var index: Int = 0
     var photoDetails: Photo?
     var width: CGFloat = 0
@@ -144,6 +145,19 @@ struct PhotoSlideView: View {
             }
         }
         .clipped()
+        .onChange(of: self.isPlaybackPaused) { isPaused in
+            if isPaused {
+                if self.isPlayingAudio {
+                    self.pauseAudio()
+                }
+                if self.slideToNextPhotoTimer != nil {
+                    self.invalidateTimerIfAny()
+                }
+            } else {
+                self.playAudio()
+                self.setSlideToNextPhotoTimer()
+            }
+        }
         .onAppear {
             guard self.index == 0 else { return }
             self.initializeSlidePresentation()
@@ -187,12 +201,16 @@ struct PhotoSlideView: View {
             AudioService.instance.initializeAudioPlayer(forAudioUrl: url)
             self.playAudio()
         } else {
-            if self.slideToNextPhotoTimer == nil {
-                self.slideToNextPhotoTimer = Timer.scheduledTimer(
-                    withTimeInterval: 5.0,
-                    repeats: false) { _ in
-                    self.delegate?.slideToNextPhoto()
-                }
+            self.setSlideToNextPhotoTimer()
+        }
+    }
+    
+    private func setSlideToNextPhotoTimer() {
+        if self.slideToNextPhotoTimer == nil {
+            self.slideToNextPhotoTimer = Timer.scheduledTimer(
+                withTimeInterval: 5.0,
+                repeats: false) { _ in
+                self.delegate?.slideToNextPhoto()
             }
         }
     }
@@ -206,7 +224,7 @@ struct PhotoSlideView: View {
      Attempts to play available photo audio
      */
     private func playAudio() {
-        guard let url = self.audioUrl else { return }
+        guard self.audioUrl != nil else { return }
         self.isPlayingAudio = true
         AudioService.instance.playAudio()
     }

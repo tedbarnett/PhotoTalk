@@ -28,6 +28,7 @@ struct PhotoSlideShowView: View {
     @SwiftUI.Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel = PhotoSlideShowViewModel()
     @State private var currentSlideIndex = 0
+    @State private var isPlaybackPaused: Bool = false
     
     private let numOfSecondsToShowPhotoDetails = 3
     
@@ -52,6 +53,7 @@ struct PhotoSlideShowView: View {
                         ForEach(self.viewModel.photoDetails, id: \.self.id) { details in
                             PhotoSlideView(
                                 currentSlideIndex: self.$currentSlideIndex,
+                                isPlaybackPaused: self.$isPlaybackPaused,
                                 index: self.viewModel.photoDetails.firstIndex(where: {$0.id == details.id}) ?? 0,
                                 photoDetails: details,
                                 width: UIScreen.main.bounds.width,
@@ -63,21 +65,21 @@ struct PhotoSlideShowView: View {
                     }
                     
                     // Large play button to resume slide show playback
-//                    Button(
-//                        action: {
-//                            // TODO: resume slide show playback
-//                        },
-//                        label: {
-//                            Image("playButtonIcon")
-//                                .resizable()
-//                                .renderingMode(.template)
-//                                .tint(Color.offwhite100)
-//                                .scaledToFit()
-//                                .frame(width: 50, height: 50)
-//                        }
-//                    )
-//                    .opacity(self.viewModel.isPlaybackPaused ? 1 : 0)
-//                    .disabled(!self.viewModel.isPlaybackPaused)
+                    Button(
+                        action: {
+                            self.isPlaybackPaused = false
+                        },
+                        label: {
+                            Image("playButtonIcon")
+                                .resizable()
+                                .renderingMode(.template)
+                                .tint(Color.offwhite100)
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                        }
+                    )
+                    .opacity(self.isPlaybackPaused ? 1 : 0)
+                    .disabled(!self.isPlaybackPaused)
                 }
             }
             .ignoresSafeArea()
@@ -86,6 +88,7 @@ struct PhotoSlideShowView: View {
             HStack(alignment: .center) {
                 Button(
                     action: {
+                        self.isPlaybackPaused = true
                         self.loadVideoAssetsAndExportVideo()
                     },
                     label: {

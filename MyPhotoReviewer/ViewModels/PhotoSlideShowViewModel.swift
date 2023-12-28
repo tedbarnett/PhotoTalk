@@ -18,7 +18,6 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
     @Published var photoDetails: [Photo] = []
     @Published var canSlideToLeft: Bool = false
     @Published var canSlideToRight: Bool = true
-    @Published var isPlaybackPaused: Bool = false
     
     var userProfile: UserProfileModel?
     var photoAssets: [CloudAsset]?
@@ -228,10 +227,6 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
             return
         }
         
-        // Pausing slide show playback till the process of video export/share is completed
-        //self.isPlaybackPaused = true
-        //self.invalidateTimer()
-        
         if self.areAllAssetDetailsLoaded() {
             responseHandler(true)
             return
@@ -350,7 +345,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
             self.photoDetailsLoadResponseHandler?(true)
             self.photoDetailsLoadResponseHandler = nil
         } else {
-            if self.timeElapsedSincePhotoDetailsLoadStart >= 25 {
+            if self.timeElapsedSincePhotoDetailsLoadStart >= 60 {
                 self.invalidateTimer()
                 
                 self.photoDetailsLoadResponseHandler?(false)

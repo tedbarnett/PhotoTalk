@@ -85,7 +85,7 @@ struct PhotoSlideView: View {
                         
                         // Photo date and time
                         if let dateAndTime = details.dateAndTime {
-                            Text(dateAndTime.photoNodeFormattedDateString)
+                            Text(dateAndTime.photoNodeFormattedDateAndTimeString)
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color.offwhite100)
                                 .frame(maxWidth: .infinity, alignment: .center)

@@ -26,6 +26,14 @@
 		C128D8E02AEBF20200E27E86 /* HelpInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8DE2AEBF20200E27E86 /* HelpInstruction.swift */; };
 		C128D8E22AED70BE00E27E86 /* AppleMapsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */; };
 		C128D8E32AED70BE00E27E86 /* AppleMapsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */; };
+		C12AF09E2B3D85570005E444 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF09D2B3D85570005E444 /* VideoGenerator.swift */; };
+		C12AF09F2B3D85570005E444 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF09D2B3D85570005E444 /* VideoGenerator.swift */; };
+		C12AF0A22B3D85930005E444 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A02B3D85930005E444 /* AVAssetExtension.swift */; };
+		C12AF0A32B3D85930005E444 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A02B3D85930005E444 /* AVAssetExtension.swift */; };
+		C12AF0A42B3D85930005E444 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A12B3D85930005E444 /* ImageExtension.swift */; };
+		C12AF0A52B3D85930005E444 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A12B3D85930005E444 /* ImageExtension.swift */; };
+		C12AF0A82B3D89E10005E444 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A72B3D89E10005E444 /* VideoGeneratorError.swift */; };
+		C12AF0A92B3D89E10005E444 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12AF0A72B3D89E10005E444 /* VideoGeneratorError.swift */; };
 		C12FA6B32A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B42A60434500867500 /* Date + Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B22A60434500867500 /* Date + Formatting.swift */; };
 		C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12FA6B52A6043BC00867500 /* String + Date.swift */; };
@@ -178,6 +186,10 @@
 		C128D8DB2AEBF12900E27E86 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		C128D8DE2AEBF20200E27E86 /* HelpInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInstruction.swift; sourceTree = "<group>"; };
 		C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsService.swift; sourceTree = "<group>"; };
+		C12AF09D2B3D85570005E444 /* VideoGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
+		C12AF0A02B3D85930005E444 /* AVAssetExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAssetExtension.swift; sourceTree = "<group>"; };
+		C12AF0A12B3D85930005E444 /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		C12AF0A72B3D89E10005E444 /* VideoGeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGeneratorError.swift; sourceTree = "<group>"; };
 		C12FA6B22A60434500867500 /* Date + Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Formatting.swift"; sourceTree = "<group>"; };
 		C12FA6B52A6043BC00867500 /* String + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Date.swift"; sourceTree = "<group>"; };
 		C12FA6B82A60621700867500 /* SlidesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesScrollView.swift; sourceTree = "<group>"; };
@@ -338,6 +350,17 @@
 			path = UserAuthenticationViews;
 			sourceTree = "<group>";
 		};
+		C12AF0A62B3D89B10005E444 /* VideoGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				C12AF0A72B3D89E10005E444 /* VideoGeneratorError.swift */,
+				C12AF09D2B3D85570005E444 /* VideoGenerator.swift */,
+				C12AF0A02B3D85930005E444 /* AVAssetExtension.swift */,
+				C12AF0A12B3D85930005E444 /* ImageExtension.swift */,
+			);
+			path = VideoGenerator;
+			sourceTree = "<group>";
+		};
 		C189C8E129FCF9A3007C5FB3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +427,7 @@
 				C1A983DE29F3D8CD00D83BBF /* ViewModels */,
 				C1A983DD29F3D8C200D83BBF /* Models */,
 				C1A983DF29F3D8D400D83BBF /* Services */,
+				C12AF0A62B3D89B10005E444 /* VideoGenerator */,
 				C101B9E029FA808D000192CD /* Managers */,
 				C19949052A067AA7004CD4A1 /* Localization */,
 				C1A983B629F3D80E00D83BBF /* Preview Content */,
@@ -512,9 +536,9 @@
 				C1F6B8142A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift */,
 				C1CCBB652A1D23200040C3BD /* FirebaseStorageService.swift */,
 				C1F6B8202A25FB9E00D3A822 /* UserPhotoService.swift */,
-				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
 				C17E94A72A584D0A005AA499 /* LocationService.swift */,
 				C128D8E12AED70BE00E27E86 /* AppleMapsService.swift */,
+				C1EDF04D2A475E33005D3FAD /* AudioService.swift */,
 				C1F1B8B42B23650C000CEC7A /* VideoService.swift */,
 			);
 			path = Services;
@@ -892,6 +916,7 @@
 				C199490A2A068209004CD4A1 /* BaseViewModel.swift in Sources */,
 				C101B9D629FA7D6F000192CD /* HomeView.swift in Sources */,
 				C1F6B8152A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
+				C12AF0A82B3D89E10005E444 /* VideoGeneratorError.swift in Sources */,
 				C1DFD32E2A27E8F80001ABFC /* CloudAsset.swift in Sources */,
 				C101B9E229FA80B8000192CD /* EnvironmentManager.swift in Sources */,
 				C19949102A0683DA004CD4A1 /* UserAuthenticationViewModel.swift in Sources */,
@@ -900,6 +925,7 @@
 				C1F6B8212A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
 				C17E94A82A584D0A005AA499 /* LocationService.swift in Sources */,
 				C189C8E329FCF9BB007C5FB3 /* Color+CustomColors.swift in Sources */,
+				C12AF09E2B3D85570005E444 /* VideoGenerator.swift in Sources */,
 				C12FA6B62A6043BC00867500 /* String + Date.swift in Sources */,
 				C128D8E22AED70BE00E27E86 /* AppleMapsService.swift in Sources */,
 				C12FA6B92A60621700867500 /* SlidesScrollView.swift in Sources */,
@@ -914,12 +940,14 @@
 				C1DCE0712A33351B00C45549 /* ICloudAlbumView.swift in Sources */,
 				C1F6B80F2A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB632A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
+				C12AF0A42B3D85930005E444 /* ImageExtension.swift in Sources */,
 				C1B2CA532A122F2800D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C19948AB2A036A0F004CD4A1 /* ActivityIndicator.swift in Sources */,
 				C189C8EA29FD31FB007C5FB3 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C14E2C362A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81E2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C1F1B8B52B23650C000CEC7A /* VideoService.swift in Sources */,
+				C12AF0A22B3D85930005E444 /* AVAssetExtension.swift in Sources */,
 				C132B43E2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */,
 				C101B3A62A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C1F1B8B22B23511B000CEC7A /* ZoomableImage.swift in Sources */,
@@ -974,6 +1002,7 @@
 				C1B2CA7E2A15458600D2AE04 /* BaseViewModel.swift in Sources */,
 				C1B2CA7F2A15458600D2AE04 /* HomeView.swift in Sources */,
 				C1F6B8162A24FCCA00D3A822 /* FirebaseDatabaseServiceError.swift in Sources */,
+				C12AF0A92B3D89E10005E444 /* VideoGeneratorError.swift in Sources */,
 				C1DFD32F2A27E8F90001ABFC /* CloudAsset.swift in Sources */,
 				C1B2CA802A15458600D2AE04 /* EnvironmentManager.swift in Sources */,
 				C1B2CA812A15458600D2AE04 /* UserAuthenticationViewModel.swift in Sources */,
@@ -982,6 +1011,7 @@
 				C1F6B8222A25FB9E00D3A822 /* UserPhotoService.swift in Sources */,
 				C17E94A92A584D0A005AA499 /* LocationService.swift in Sources */,
 				C1B2CA832A15458600D2AE04 /* Color+CustomColors.swift in Sources */,
+				C12AF09F2B3D85570005E444 /* VideoGenerator.swift in Sources */,
 				C12FA6B72A6043BC00867500 /* String + Date.swift in Sources */,
 				C128D8E32AED70BE00E27E86 /* AppleMapsService.swift in Sources */,
 				C12FA6BA2A60621700867500 /* SlidesScrollView.swift in Sources */,
@@ -996,12 +1026,14 @@
 				C1DCE0722A33351B00C45549 /* ICloudAlbumView.swift in Sources */,
 				C1F6B8102A24DE7700D3A822 /* PhotoLocation.swift in Sources */,
 				C1CCBB642A1D230E0040C3BD /* FirebaseDatabaseService.swift in Sources */,
+				C12AF0A52B3D85930005E444 /* ImageExtension.swift in Sources */,
 				C1B2CA872A15458600D2AE04 /* UserAuthenticationProvider.swift in Sources */,
 				C1B2CA882A15458600D2AE04 /* ActivityIndicator.swift in Sources */,
 				C1B2CA892A15458600D2AE04 /* UserAuthenticationBackgroundArt.swift in Sources */,
 				C14E2C372A98FFD600CFBBA2 /* PHAsset + Preview Image + Raw Image.swift in Sources */,
 				C1F6B81F2A25D74200D3A822 /* MediaSourceSelectionButton.swift in Sources */,
 				C1F1B8B62B23650C000CEC7A /* VideoService.swift in Sources */,
+				C12AF0A32B3D85930005E444 /* AVAssetExtension.swift in Sources */,
 				C132B43F2ABEAE040014AB83 /* GoogleDriveFolderView.swift in Sources */,
 				C101B3A72A3356110024E261 /* ICloudAlbumSelectionView.swift in Sources */,
 				C1F1B8B32B23511B000CEC7A /* ZoomableImage.swift in Sources */,

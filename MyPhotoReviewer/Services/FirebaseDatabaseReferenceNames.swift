@@ -48,6 +48,7 @@ struct PhotoNodeProperties {
     static let extnsion = "extnsion"
     static let dateAndTime = "dateAndTime"
     static let dateAndTimeFormat = "d MMM y, E hh:mm a"
+    static let dateFormat = "d MMM y"
     static let location = "location"
     static let audio = "audio"
     static let isFavourite = "isFavourite"

@@ -9,31 +9,8 @@ import UIKit
 import AVFoundation
 
 /**
- // Example usage
- let images = [UIImage(named: "image1")!, UIImage(named: "image2")!, UIImage(named: "image3")!]
- let audioURL = Bundle.main.url(forResource: "your_audio_file_name", withExtension: "mp3")!
-
- exportVideo(fromImages: images, withAudio: audioURL) { outputURL in
-     if let outputURL = outputURL {
-         print("Exported video URL: \(outputURL)")
-     } else {
-         print("Export failed")
-     }
- }
- */
-
-/**
- SlideShowVideoAsset contains details about the image, audio and other assets
- to include in the slide show video
- */
-struct SlideShowVideoAsset {
-    let image: UIImage
-    let audioUrl: URL?
-}
-
-/**
- VideoService helps in stiching user photos and audio annotation together and export/share them as a
- slide show kind of video
+ VideoService provides API for generating MP4 video with the given collection of `AssetForVideoExport`
+ where each AssetForVideoExport instance contains details like image, audio url, location and date.
  */
 class VideoService {
     
@@ -44,10 +21,51 @@ class VideoService {
 
      Make sure to replace the placeholder values in the video and audio settings with your desired configurations.
      */
-    func exportVideo(photoAudioPairs: [(UIImage, URL)], outputURL: URL, completion: @escaping (Error?) -> Void) {
+    
+    func exportVideo(with images: [UIImage], audioURL: [URL], responseHandler: @escaping ResponseHandler<URL?>) {
+        let now = Date()
+        let videoFileName = "video_\(now.dateTimeStampForFileName).mp4"
+        VideoGenerator.fileName = videoFileName
+        VideoGenerator.videoBackgroundColor = .black
+        VideoGenerator.videoImageWidthForMultipleVideoGeneration = 2000
+        VideoGenerator.current.generate(
+            withImages: images,
+            andAudios: audioURL,
+            andType: .multiple,
+            { progress in
+                print("[VideoGenerator] progress: \(progress)")
+            },
+            outcome: { result in
+                switch result {
+                case .success(let url):
+                    print("[VideoGenerator] successfully exported video at URL: \(url.absoluteString)")
+                    responseHandler(url)
+                case .failure(let error): 
+                    print("[VideoGenerator] error exporting video: \(error)")
+                    responseHandler(nil)
+                }
+            }
+        )
+    }
+    
+    /**
+     This method expects photo and audio pairs provided as an array of tuples, where each tuple contains
+     a UIImage and a corresponding URL to an audio file. The exportVideo function takes care of creating an
+     AVAssetWriter for video and audio, adding tracks, and writing the frames and audio samples.
+
+     Make sure to replace the placeholder values in the video and audio settings with your desired configurations.
+     */
+    func exportVideo(fromAssets assets: [AssetForVideoExport], responseHandler: @escaping ResponseHandler<URL?>) {
+        
         // Create video writer
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let now = Date()
+        let videoFileName = "video_\(now.dateTimeStampForFileName).mp4"
+        let outputURL = documentsDirectory.appendingPathComponent(videoFileName)
+        
         guard let videoWriter = try? AVAssetWriter(outputURL: outputURL, fileType: .mp4) else {
-            completion(NSError(domain: "Error creating video writer", code: 0, userInfo: nil))
+            print("Error creating video writer")
+            responseHandler(nil)
             return
         }
         
@@ -63,7 +81,8 @@ class VideoService {
         if videoWriter.canAdd(videoWriterInput) {
             videoWriter.add(videoWriterInput)
         } else {
-            completion(NSError(domain: "Error adding video writer input", code: 0, userInfo: nil))
+            print("Error adding video writer input")
+            responseHandler(nil)
             return
         }
         
@@ -80,7 +99,8 @@ class VideoService {
         if videoWriter.canAdd(audioWriterInput) {
             videoWriter.add(audioWriterInput)
         } else {
-            completion(NSError(domain: "Error adding audio writer input", code: 0, userInfo: nil))
+            print("Error adding audio writer input")
+            responseHandler(nil)
             return
         }
         
@@ -95,31 +115,40 @@ class VideoService {
             var frameCount = 0
             
             while videoWriterInput.isReadyForMoreMediaData {
-                if frameCount >= photoAudioPairs.count {
+                if frameCount >= assets.count {
                     break
                 }
                 
+                let videoAsset = assets[frameCount]
                 let frameTime = CMTimeMultiply(frameDuration, multiplier: Int32(frameCount))
                 let presentationTime = CMTimeAdd(frameTime, frameDuration)
                 
                 // Append video frame
-                if let pixelBuffer = self.pixelBuffer(from: photoAudioPairs[frameCount].0) {
+                if let image = videoAsset.image, let pixelBuffer = self.pixelBuffer(from: image) {
                     if !adaptor.append(pixelBuffer, withPresentationTime: presentationTime) {
-                        completion(NSError(domain: "Error appending video frame", code: 0, userInfo: nil))
+                        print("Error appending video frame")
+                        responseHandler(nil)
                         return
                     }
                 }
                 
                 // Append audio sample
-                let audioAsset = AVURLAsset(url: photoAudioPairs[frameCount].1)
-                let audioDuration = audioAsset.duration
-                let audioTimeRange = CMTimeRangeMake(start: CMTime.zero, duration: audioDuration)
-                
-                do {
-                    //try audioWriterInput.append(audioAsset.tracks(withMediaType: .audio)[0], timeRange: audioTimeRange)
-                } catch {
-                    completion(error)
-                    return
+                if let audioURL = videoAsset.audioUrl {
+                    let audioAsset = AVURLAsset(url: audioURL)
+                    let audioDuration = audioAsset.duration
+                    let audioTimeRange = CMTimeRangeMake(start: CMTime.zero, duration: audioDuration)
+                    
+                    do {
+                        if audioWriterInput.isReadyForMoreMediaData, let audioSampleBuffer = self.createSampleBuffer(from: audioURL) {
+                            audioWriterInput.append(audioSampleBuffer)
+                        }
+                        
+                        //try audioWriterInput.append(audioAsset.tracks(withMediaType: .audio)[0], timeRange: audioTimeRange)
+                    } catch {
+                        print("Error appending audio \(error.localizedDescription)")
+                        responseHandler(nil)
+                        return
+                    }
                 }
                 
                 frameCount += 1
@@ -130,7 +159,7 @@ class VideoService {
             audioWriterInput.markAsFinished()
             
             videoWriter.finishWriting {
-                completion(videoWriter.error)
+                responseHandler(outputURL)
             }
         }
     }
@@ -158,6 +187,43 @@ class VideoService {
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         
         return pixelBuffer
+    }
+    
+    private func createSampleBuffer(from audioURL: URL) -> CMSampleBuffer? {
+        // Create AVAsset from the audio URL
+        let asset = AVAsset(url: audioURL)
+
+        // Create an AVAssetReader
+        guard let assetReader = try? AVAssetReader(asset: asset) else {
+            return nil
+        }
+
+        // Get the audio track from the asset
+        guard let audioTrack = asset.tracks(withMediaType: AVMediaType.audio).first else {
+            return nil
+        }
+
+        // Set up the track output
+        let outputSettings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatLinearPCM
+        ]
+
+        let trackOutput = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: outputSettings)
+        assetReader.add(trackOutput)
+
+        // Start reading from the asset
+        assetReader.startReading()
+
+        // Create a CMSampleBuffer
+        var sampleBuffer: CMSampleBuffer?
+        while let nextBuffer = trackOutput.copyNextSampleBuffer() {
+            sampleBuffer = nextBuffer
+        }
+
+        // Finish reading
+        assetReader.cancelReading()
+
+        return sampleBuffer
     }
     
     /**

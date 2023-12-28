@@ -87,7 +87,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             }
             
             if let date = photo.date {
-                self.photoDateString = date.photoNodeFormattedDateString
+                self.photoDateString = date.photoNodeFormattedDateAndTimeString
             } else {
                 self.photoDateString = PhotoDetailsViewModel.unknownDateTimeText
             }
@@ -317,7 +317,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             return
         }
         
-        let dateAndTimeString = date.photoNodeFormattedDateString
+        let dateAndTimeString = date.photoNodeFormattedDateAndTimeString
         service.saveDateAndTimeForUserPhoto(
             userId: profile.id,
             photoId: photoId,
@@ -444,7 +444,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         guard let photo = self.selectedPhoto, let date = photo.iCloudPhotoCreationDate else {
             return
         }
-        self.photoDateString = date.photoNodeFormattedDateString
+        self.photoDateString = date.photoNodeFormattedDateAndTimeString
         self.savePhotoDateAndTime(date, responseHandler: { _ in })
     }
     

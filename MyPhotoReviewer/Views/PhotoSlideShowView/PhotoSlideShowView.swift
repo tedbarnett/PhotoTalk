@@ -39,7 +39,7 @@ struct PhotoSlideShowView: View {
             Color.black900
                 .ignoresSafeArea()
             
-            VStack(alignment: .leading) {
+            ZStack(alignment: .center) {
                 // Horizontally scrollable photo slide view
                 if self.viewModel.arePhotoDetailsDownloaded {
                     SlidesScrollView(
@@ -61,15 +61,32 @@ struct PhotoSlideShowView: View {
                             )
                         }
                     }
+                    
+                    // Large play button to resume slide show playback
+//                    Button(
+//                        action: {
+//                            // TODO: resume slide show playback
+//                        },
+//                        label: {
+//                            Image("playButtonIcon")
+//                                .resizable()
+//                                .renderingMode(.template)
+//                                .tint(Color.offwhite100)
+//                                .scaledToFit()
+//                                .frame(width: 50, height: 50)
+//                        }
+//                    )
+//                    .opacity(self.viewModel.isPlaybackPaused ? 1 : 0)
+//                    .disabled(!self.viewModel.isPlaybackPaused)
                 }
             }
             .ignoresSafeArea()
             
-            // Dismiss button
+            // Share slideshow video button
             HStack(alignment: .center) {
                 Button(
                     action: {
-                        print("prepare mp4 video for sharing...")
+                        self.loadVideoAssetsAndExportVideo()
                     },
                     label: {
                         ZStack {
@@ -109,7 +126,13 @@ struct PhotoSlideShowView: View {
         }
         .onAppear {
             self.initializeViewModel()
-            self.downloadPhotoDetails()
+            
+            // Preparing the assets list for video export before start downloading the photo details
+            // becuase during the photo details download, image and audio could be set for the video export assets
+            self.viewModel.getPhotoIdsWithUserUploadedAudio { _ in
+                // Starting to download photo details
+                self.downloadPhotoDetails()
+            }
         }
         .onDisappear {
             self.viewModel.resetToDefault()
@@ -145,6 +168,25 @@ struct PhotoSlideShowView: View {
         self.viewModel.resetToDefault()
         self.presentationMode.wrappedValue.dismiss()
     }
+    
+    private func loadVideoAssetsAndExportVideo() {
+        self.overlayContainerContext.shouldShowProgressIndicator = true
+        // Loading asset details for the video to export
+        self.viewModel.loadAssetDetailsForVideoExport { didLoadDetails in
+            // Generating video from the loaded assets
+            self.viewModel.generateVideoFromAssets { videoURL in
+                DispatchQueue.main.async {
+                    self.overlayContainerContext.shouldShowProgressIndicator = false
+                    guard let url = videoURL,
+                          let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
+                    
+                    // Presenting native iOS share prompt to allow user share generated video to the targetted platform
+                    let activityViewController = UIActivityViewController(activityItems: [url] , applicationActivities: nil)
+                    presentingViewController.present(activityViewController, animated: true)
+                }
+            }
+        }
+    }
 }
 
 // MARK: SlidesScrollViewDelegate delegate methods
@@ -164,7 +206,7 @@ extension PhotoSlideShowView: PhotoSlideViewDelegate {
         let nextSlideIndex = self.viewModel.currentPhotoIndex + 1
         guard let assets = self.viewModel.photoAssets, nextSlideIndex < assets.count else {
             // Ending slide show as all of the photo details have been presented
-            self.endSlideShowPresentation()
+            //self.endSlideShowPresentation()
             return
         }
         

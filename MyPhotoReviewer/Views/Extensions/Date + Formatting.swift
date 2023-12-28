@@ -30,6 +30,16 @@ extension Date {
     }
     
     /**
+     Returns formatted date string for user photo date/time value
+     */
+    var dateStampForVideoImages: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, y"
+        let photoDateString = formatter.string(from: self)
+        return photoDateString
+    }
+    
+    /**
      Returns date and time stamp to be used for file name
      */
     var dateTimeStampForFileName: String {

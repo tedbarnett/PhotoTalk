@@ -134,12 +134,20 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
             loadStatus.id = asset.id
             self.photoDetailsLoadStatus.append(loadStatus)
             
+            // Picking up video asset to add details (image, audio url, location and date) to it
+            let videoAsset = self.assetsForVideoExport.first(where: { $0.id == asset.photoId })
+            
             // Loading photo details like location, date time, is favourite, etc
             self.loadDetails(for: asset) { photoDetails in
                 guard let details = photoDetails else {
                     loadStatus.didLoadDetails = false
                     print("Error loading details for photo: \(asset.id)")
                     return
+                }
+                
+                if let asset = videoAsset {
+                    asset.location = details.location
+                    asset.dateString = details.dateAndTime?.dateStampForVideoImages
                 }
                 loadStatus.didLoadDetails = true
                 print("Loaded details for photo: \(details.id)")
@@ -157,8 +165,8 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                     details.image = photo
                     
                     // Setting image for the video export asset
-                    if let videoAsset = self.assetsForVideoExport.first(where: { $0.id == asset.photoId }) {
-                        videoAsset.image = photo
+                    if let asset = videoAsset {
+                        asset.image = photo
                     }
                     
                     DispatchQueue.main.async {
@@ -196,8 +204,8 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                     details.audioUrl = audioURL
                     
                     // Setting audio for the video export asset
-                    if let videoAsset = self.assetsForVideoExport.first(where: { $0.id == asset.photoId }) {
-                        videoAsset.audioUrl = audioURL
+                    if let asset = videoAsset {
+                        asset.audioUrl = audioURL
                     }
                     
                     if self.photoDetails.first(where: { $0.id == asset.photoId }) == nil {
@@ -240,7 +248,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                     
                     print("Loaded details for photo: \(details.id)")
                     asset.location = details.location
-                    asset.dateString = details.dateAndTime?.photoNodeFormattedDateString
+                    asset.dateString = details.dateAndTime?.dateStampForVideoImages
                     
                     // Loading actual image
                     Task {
@@ -267,9 +275,6 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                         
                         print("Loaded audio for photo: \(details.id)")
                         asset.audioUrl = audioURL
-                        if let videoAsset = self.assetsForVideoExport.first(where: { $0.id == photoAsset.photoId }) {
-                            videoAsset.audioUrl = audioURL
-                        }
                         
                         if self.areAllAssetDetailsLoaded() {
                             responseHandler(true)
@@ -290,7 +295,8 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         }
         
         let videoService = VideoService()
-        let images = self.assetsForVideoExport.compactMap({ $0.image })
+        
+        let images = self.assetsForVideoExport.compactMap({ $0.getImageWithLocationAndDateText() })
         let audioUrls = self.assetsForVideoExport.compactMap({ $0.audioUrl })
         videoService.exportVideo(with: images, audioURL: audioUrls) { videoUrl in
             guard let url = videoUrl else { return }
@@ -389,7 +395,7 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
         self.photoDetailsLoadStatus.removeAll()
         self.photoDetails.removeAll()
     }
-
+    
     
     // MARK: Private methods
     
@@ -460,5 +466,56 @@ class AssetForVideoExport {
         self.id = id
         self.image = image
         self.audioUrl = audioUrl
+    }
+    
+    /**
+     Adds location and date details (if available) text to the photo and returns the updated photo.
+     If location and/or date details aren't available, it returns the original image wihtout editing
+     */
+    func getImageWithLocationAndDateText() -> UIImage? {
+        guard let image = self.image else { return self.image }
+        
+        UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        
+        var textDetails = [String]()
+        if let dateString = self.dateString {
+            textDetails.append(dateString)
+        }
+        if let location = self.location {
+            textDetails.append(location)
+        }
+        
+        // If location and/or date details aren't available, returnr the original image wihtout editing
+        guard !textDetails.isEmpty else {
+            return self.image
+        }
+        
+        var bottomOffset: CGFloat = 16
+        for text in textDetails {
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+                .foregroundColor: UIColor.white
+            ]
+            
+            let textSize = (text as NSString).size(withAttributes: attributes)
+            let textRect = CGRect(
+                x: image.size.width - textSize.width - 16,
+                y: image.size.height - textSize.height - bottomOffset,
+                width: textSize.width,
+                height: textSize.height
+            )
+            
+            (text as NSString).draw(in: textRect, withAttributes: attributes)
+            bottomOffset += 20
+        }
+        
+        
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            return newImage
+        }
+        
+        return nil
     }
 }

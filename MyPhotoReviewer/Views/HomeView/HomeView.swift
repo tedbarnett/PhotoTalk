@@ -231,7 +231,7 @@ struct HomeView: View {
                 NavigationLink(
                     destination:
                         PhotoDetailsView(
-                            photos: self.viewModel.photos,
+                            photos: self.viewModel.filteredPhotos,
                             selectedPhoto: self.selectedPhoto
                         )
                         .navigationBarHidden(true)

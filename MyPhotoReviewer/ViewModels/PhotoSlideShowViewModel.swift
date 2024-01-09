@@ -496,16 +496,24 @@ class AssetForVideoExport {
             var textSize = (text as NSString).size(withAttributes: attributes)
             if textSize.width >= image.size.width * 0.9 {
                 let newText = text.split(separator: ",")[0]
-                textSize = (newText as NSString).size(withAttributes: attributes)
+                let newTextSize = (newText as NSString).size(withAttributes: attributes)
+                let newTextRect = CGRect(
+                    x: image.size.width - newTextSize.width - 16,
+                    y: image.size.height - newTextSize.height - bottomOffset,
+                    width: newTextSize.width,
+                    height: newTextSize.height
+                )
+                (newText as NSString).draw(in: newTextRect, withAttributes: attributes)
+            } else {
+                let textRect = CGRect(
+                    x: image.size.width - textSize.width - 16,
+                    y: image.size.height - textSize.height - bottomOffset,
+                    width: textSize.width,
+                    height: textSize.height
+                )
+                (text as NSString).draw(in: textRect, withAttributes: attributes)
             }
-            let textRect = CGRect(
-                x: image.size.width - textSize.width - 16,
-                y: image.size.height - textSize.height - bottomOffset,
-                width: textSize.width,
-                height: textSize.height
-            )
             
-            (text as NSString).draw(in: textRect, withAttributes: attributes)
             bottomOffset += 20
         }
         

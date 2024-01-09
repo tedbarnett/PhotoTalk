@@ -38,6 +38,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
     var photos: [CloudAsset]?
     var selectedPhoto: CloudAsset? {
         didSet {
+            self.getPhotoLocationFromEXIFData()
             self.getPhotoCreationDateFromEXIFData()
         }
     }
@@ -407,14 +408,9 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      Reads photo location from photo EXIF data and saves the same in Firebase database
      */
     private func getPhotoLocationFromEXIFData() {
-        let unknownLocationText = NSLocalizedString(
-            "Location unknown",
-            comment: "Photo details view - Unknown photo location"
-        )
-        
         guard let photo = self.selectedPhoto,
               let photoLocation = photo.iCloudPhotoLocation else {
-            self.photoLocation = unknownLocationText
+            self.photoLocation = PhotoDetailsViewModel.unknownLocationText
             return
         }
         
@@ -427,7 +423,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                   let name = locationMark.name,
                   let locality = locationMark.locality,
                   let country = locationMark.country else {
-                self.photoLocation = unknownLocationText
+                self.photoLocation = PhotoDetailsViewModel.unknownLocationText
                 return
             }
             
@@ -442,6 +438,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
      */
     private func getPhotoCreationDateFromEXIFData() {
         guard let photo = self.selectedPhoto, let date = photo.iCloudPhotoCreationDate else {
+            self.photoDateString = PhotoDetailsViewModel.unknownDateTimeText
             return
         }
         self.photoDateString = date.photoNodeFormattedDateAndTimeString

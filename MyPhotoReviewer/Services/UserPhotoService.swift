@@ -80,6 +80,8 @@ class UserPhotoService {
             photo.iCloudAssetId = asset.localIdentifier
             photo.width = asset.pixelWidth
             photo.height = asset.pixelHeight
+            photo.iCloudPhotoLocation = asset.location
+            photo.iCloudPhotoCreationDate = asset.creationDate
             photo.date = asset.creationDate
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)
@@ -103,6 +105,8 @@ class UserPhotoService {
             photo.iCloudAssetId = asset.localIdentifier
             photo.width = asset.pixelWidth
             photo.height = asset.pixelHeight
+            photo.iCloudPhotoLocation = asset.location
+            photo.iCloudPhotoCreationDate = asset.creationDate
             photo.date = asset.creationDate
             photo.iCloudAsset = asset
             cloudPhotos.append(photo)

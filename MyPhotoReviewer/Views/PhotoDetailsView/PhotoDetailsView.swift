@@ -442,6 +442,7 @@ struct PhotoDetailsView: View {
     
     private func initializeViewModel() {
         self.viewModel.currentEnvironment = self.appContext.currentEnvironment
+        self.viewModel.userProfile = self.userProfile
         self.viewModel.photos = self.photos
         self.viewModel.selectedPhoto = self.selectedPhoto
         if let selectedPhoto = self.selectedPhoto,
@@ -451,7 +452,6 @@ struct PhotoDetailsView: View {
             self.canSlideToLeft = index > 0
             self.canSlideToRight = index < photos.count - 1
         }
-        self.viewModel.userProfile = self.userProfile
     }
     
     private func downloadPhotoDetails() {

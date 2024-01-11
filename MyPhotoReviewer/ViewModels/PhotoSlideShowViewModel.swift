@@ -153,7 +153,10 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                 
                 // Loading actual image
                 Task {
-                    guard let photo = await asset.downloadPhoto(ofSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) else {
+                    guard let photo = await asset.downloadPhoto(ofSize: CGSize(
+                        width: asset.width == nil ?  UIScreen.main.bounds.width : CGFloat(asset.width!),
+                        height: asset.height == nil ? UIScreen.main.bounds.height : CGFloat(asset.height!)
+                    )) else {
                         loadStatus.didLoadImage = false
                         print("Error loading image for photo: \(details.id)")
                         return
@@ -247,7 +250,11 @@ class PhotoSlideShowViewModel: BaseViewModel, ObservableObject {
                     
                     // Loading actual image
                     Task {
-                        guard let photo = await photoAsset.downloadPhoto(ofSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) else {
+                        
+                        guard let photo = await photoAsset.downloadPhoto(ofSize: CGSize(
+                            width: photoAsset.width == nil ?  UIScreen.main.bounds.width : CGFloat(photoAsset.width!),
+                            height: photoAsset.height == nil ? UIScreen.main.bounds.height : CGFloat(photoAsset.height!))
+                        ) else {
                             print("Error loading image for photo: \(details.id)")
                             return
                         }

@@ -85,7 +85,7 @@ struct PhotoView: View {
     // MARK: Private methods
     
     private func loadImageAsset(targetSize: CGSize = PHImageManagerMaximumSize) async {
-        guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width * 2, height: self.height * 2)) else {
+        guard let uiImage = await self.photo.downloadPhoto(ofSize: CGSize(width: self.width, height: self.height)) else {
             self.image = nil
             return
         }

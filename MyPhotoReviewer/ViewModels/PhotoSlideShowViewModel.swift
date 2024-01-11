@@ -493,19 +493,18 @@ class AssetForVideoExport {
             return self.image
         }
         
-        var bottomOffset: CGFloat = 16
+        var bottomOffset: CGFloat = UIDevice.isIpad ? 50 : 16
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: UIDevice.isIpad ? 54 : 18, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ]
         for text in textDetails {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
-                .foregroundColor: UIColor.white
-            ]
-            
-            var textSize = (text as NSString).size(withAttributes: attributes)
+            let textSize = (text as NSString).size(withAttributes: attributes)
             if textSize.width >= image.size.width * 0.9 {
                 let newText = text.split(separator: ",")[0]
                 let newTextSize = (newText as NSString).size(withAttributes: attributes)
                 let newTextRect = CGRect(
-                    x: image.size.width - newTextSize.width - 16,
+                    x: image.size.width - newTextSize.width - (UIDevice.isIpad ? 50 : 16),
                     y: image.size.height - newTextSize.height - bottomOffset,
                     width: newTextSize.width,
                     height: newTextSize.height
@@ -513,7 +512,7 @@ class AssetForVideoExport {
                 (newText as NSString).draw(in: newTextRect, withAttributes: attributes)
             } else {
                 let textRect = CGRect(
-                    x: image.size.width - textSize.width - 16,
+                    x: image.size.width - textSize.width - (UIDevice.isIpad ? 50 : 16),
                     y: image.size.height - textSize.height - bottomOffset,
                     width: textSize.width,
                     height: textSize.height
@@ -521,7 +520,7 @@ class AssetForVideoExport {
                 (text as NSString).draw(in: textRect, withAttributes: attributes)
             }
             
-            bottomOffset += 20
+            bottomOffset += UIDevice.isIpad ? 50 : 20
         }
         
         

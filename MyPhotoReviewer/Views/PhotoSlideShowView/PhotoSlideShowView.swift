@@ -184,8 +184,14 @@ struct PhotoSlideShowView: View {
                           let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
                     
                     // Presenting native iOS share prompt to allow user share generated video to the targetted platform
-                    let activityViewController = UIActivityViewController(activityItems: [url] , applicationActivities: nil)
+                    let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                     presentingViewController.present(activityViewController, animated: true)
+                    if UIDevice.isIpad {
+                        if let popOver = activityViewController.popoverPresentationController {
+                            popOver.sourceView = presentingViewController.view
+                            popOver.sourceRect = CGRectMake(0, 0, 50, 50)
+                        }
+                    }
                 }
             }
         }

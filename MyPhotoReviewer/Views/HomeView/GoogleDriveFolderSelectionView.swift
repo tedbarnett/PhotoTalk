@@ -65,32 +65,43 @@ struct GoogleDriveFolderSelectionView: View {
                     
                     Spacer()
                     
-                    Button(
-                        action: {
-                            self.delegate?.didChangeFolderSelection(selectedFolders: self.selectedFolders)
-                        },
-                        label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.clear)
-                                    .frame(width: 20, height: 20)
-                                Text(NSLocalizedString("Done", comment: "Common - Done button title"))
-                                    .font(.system(size: 18))
-                                    .foregroundColor(Color.blue)
+                    if !self.folders.isEmpty {
+                        Button(
+                            action: {
+                                self.delegate?.didChangeFolderSelection(selectedFolders: self.selectedFolders)
+                            },
+                            label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.clear)
+                                        .frame(width: 20, height: 20)
+                                    Text(NSLocalizedString("Done", comment: "Common - Done button title"))
+                                        .font(.system(size: 18))
+                                        .foregroundColor(Color.blue)
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
                 
                 // Folder list view
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        ForEach(self.folders, id: \.self.id) { folder in
-                            GoogleDriveFolderView(folder: folder, delegate: self)
+                if !self.folders.isEmpty {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(self.folders, id: \.self.id) { folder in
+                                GoogleDriveFolderView(folder: folder, delegate: self)
+                            }
                         }
                     }
+                    .padding(.top, 16)
+                } else {
+                    Text(NSLocalizedString("You don't have photo folder/s to select.", comment: "Album selection view - No photo folders"))
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color.gray600)
+                        .frame(maxHeight: .infinity, alignment: .center)
+                        .padding(.horizontal, 16)
+                    Spacer()
                 }
-                .padding(.top, 16)
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)

@@ -61,6 +61,8 @@
 //---------- Folder selection view -----------------------
 
 "Select Photo Album" = "Select Photo Album";
+"You don't have photo album/s to select." = "You don't have photo album/s to select.";
+"You don't have photo folder/s to select." = "You don't have photo folder/s to select.";
 
 
 //---------- Photo details view -----------------------

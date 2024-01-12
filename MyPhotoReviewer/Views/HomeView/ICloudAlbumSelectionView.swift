@@ -75,34 +75,45 @@ struct ICloudAlbumSelectionView: View {
                 
                 Spacer()
                 
-                Button(
-                    action: {
-                        let albums = self.albums.filter { $0.isSelected == true }
-                        self.delegate?.didChangeAlbumSelection(selectedAlbums: albums)
-                    },
-                    label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.clear)
-                                .frame(width: 20, height: 20)
-                            Text(NSLocalizedString("Done", comment: "Common - Done button title"))
-                                .font(.system(size: 18))
-                                .foregroundColor(Color.blue)
+                if !self.albums.isEmpty {
+                    Button(
+                        action: {
+                            let albums = self.albums.filter { $0.isSelected == true }
+                            self.delegate?.didChangeAlbumSelection(selectedAlbums: albums)
+                        },
+                        label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.clear)
+                                    .frame(width: 20, height: 20)
+                                Text(NSLocalizedString("Done", comment: "Common - Done button title"))
+                                    .font(.system(size: 18))
+                                    .foregroundColor(Color.blue)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
             
             // Albums list
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: self.columns, spacing: 4) {
-                    ForEach(self.albums, id: \.self) { album in
-                        ICloudAlbumView(album: album, delegate: self)
+            if !self.albums.isEmpty {
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVGrid(columns: self.columns, spacing: 4) {
+                        ForEach(self.albums, id: \.self) { album in
+                            ICloudAlbumView(album: album, delegate: self)
+                        }
                     }
+                    .padding()
                 }
-                .padding()
+            } else {
+                Text(NSLocalizedString("You don't have photo album/s to select.", comment: "Album selection view - No photo albums"))
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(Color.gray600)
+                    .frame(maxHeight: .infinity, alignment: .center)
+                    .padding(.horizontal, 16)
+                Spacer()
             }
         }
     }

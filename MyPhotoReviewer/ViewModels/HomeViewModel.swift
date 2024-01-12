@@ -136,6 +136,21 @@ class HomeViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    /**
+     Calls database service to fetch user details (name, email, photo albums, audio, etc) from Firebase database.
+     If user details aren't found in database, it adds save user details in the database
+     */
+    func saveUserDetailsToDatabase(responseHandler: @escaping ResponseHandler<Bool>) {
+        guard let databaseService = self.databaseService, let userProfile = self.userProfile else {
+            responseHandler(false)
+            return
+        }
+        
+        databaseService.saveUserDetailsToDatabase(userProfile) { _ in
+            responseHandler(true)
+        }
+    }
+    
     func loadUserFoldersFromDatabaseIfAny() {
         guard let mediaSource = self.userProfile?.mediaSource else {
             return

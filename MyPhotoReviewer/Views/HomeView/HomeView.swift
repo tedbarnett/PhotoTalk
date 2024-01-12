@@ -136,7 +136,10 @@ struct HomeView: View {
                                             width: UIScreen.main.bounds.width * 0.2,
                                             tapActionHandler: { mediaSource in
                                                 self.userProfile.mediaSource = mediaSource
-                                                self.presentMediaSelectionConsent(for: mediaSource)
+                                                self.viewModel.userProfile = self.userProfile
+                                                self.viewModel.saveUserDetailsToDatabase { _ in
+                                                    self.presentMediaSelectionConsent(for: mediaSource)
+                                                }
                                             }
                                         )
                                     }
@@ -149,7 +152,10 @@ struct HomeView: View {
                                             width: UIScreen.main.bounds.width * 0.4,
                                             tapActionHandler: { mediaSource in
                                                 self.userProfile.mediaSource = mediaSource
-                                                self.presentMediaSelectionConsent(for: mediaSource)
+                                                self.viewModel.userProfile = self.userProfile
+                                                self.viewModel.saveUserDetailsToDatabase { _ in
+                                                    self.presentMediaSelectionConsent(for: mediaSource)
+                                                }
                                             }
                                         )
                                     }

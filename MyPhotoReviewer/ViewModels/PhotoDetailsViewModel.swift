@@ -152,6 +152,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 return
             }
             print("Saved user audio recording with filename: \(fileName)")
+            self.didRecordAudio = false
             self.updateDetailsChangeStatus()
             self.loadPhotoAudio { didLoadAudio in
                 self.initializeAudioPlayer()
@@ -178,6 +179,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
                 return
             }
             print("Deleted user audio recording with filename")
+            self.didRecordAudio = false
             self.deleteAudioRecordingFromLocal()
             responseHandler(false)
         }
@@ -397,6 +399,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
         AudioService.instance.invalidate()
         self.audioPlaybackTime = 0
         self.audioPlaybackPercent = 0
+        self.didRecordAudio = false
         self.isPlayingAudio = false
         self.isAudioPaused = false
         self.photoAudioLocalFileUrl = nil

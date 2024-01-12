@@ -149,6 +149,7 @@ struct PhotoDetailsView: View {
                                     if let photos = self.photos {
                                         let newIndex = self.currentSlideIndex - 1
                                         guard newIndex >= 0 else { return }
+                                        self.viewModel.didRecordAudio = false
                                         self.currentSlideIndex = newIndex
                                         self.canSlideToLeft = newIndex > 0
                                         self.canSlideToRight = newIndex < photos.count - 1
@@ -205,6 +206,7 @@ struct PhotoDetailsView: View {
                                     if let photos = self.photos {
                                         let newIndex = self.currentSlideIndex + 1
                                         guard newIndex < photos.count else { return }
+                                        self.viewModel.didRecordAudio = false
                                         self.currentSlideIndex = newIndex
                                         self.canSlideToLeft = newIndex > 0
                                         self.canSlideToRight = newIndex < photos.count - 1

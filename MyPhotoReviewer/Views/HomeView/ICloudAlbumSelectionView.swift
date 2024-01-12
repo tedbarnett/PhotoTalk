@@ -58,11 +58,11 @@ struct ICloudAlbumSelectionView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.clear)
-                                .frame(width: 20, height: 20)
+                                .frame(width: 30, height: 30)
                             Image("closeButtonIcon")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 20, height: 20)
+                                .frame(width: 25, height: 25)
                         }
                     }
                 )
@@ -70,8 +70,9 @@ struct ICloudAlbumSelectionView: View {
                 Spacer()
                 
                 Text(NSLocalizedString("Select Photo Album", comment: "Album selection view - Title"))
-                    .font(.system(size: 16))
-                    .foregroundColor(Color.white)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(Color.offwhite100)
+                    .offset(x: -15)
                 
                 Spacer()
                 

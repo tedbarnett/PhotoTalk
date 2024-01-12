@@ -26,6 +26,7 @@ struct HelpView: View {
                 Text(NSLocalizedString("Help and FAQ", comment: "Menu option - Help and FAQ"))
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(Color.offwhite100)
+                    .offset(x: 15)
                 
                 Spacer()
                 

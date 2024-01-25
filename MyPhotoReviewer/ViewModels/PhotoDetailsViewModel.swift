@@ -417,6 +417,7 @@ class PhotoDetailsViewModel: BaseViewModel, ObservableObject {
             return
         }
         
+        guard self.photoLocation == PhotoDetailsViewModel.unknownLocationText else { return }
         let geoLocation = CLLocation(latitude: photoLocation.coordinate.latitude, longitude: photoLocation.coordinate.longitude)
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(geoLocation) { placemarks, error in
